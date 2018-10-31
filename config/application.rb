@@ -30,13 +30,20 @@ module Databases
     # Don't generate system test files.
     config.generators.system_tests = nil
     config.generators do |g|
-      g.test_framework :rspec
-      g.helper_specs false
-      g.controller_specs false
-      g.view_specs false
-      g.routing_specs true
-      g.request_specs true
-      g.factory_bot dir: 'spec/factories'
+      g.assets            false
+      g.helper            false
+      g.jbuilder          false
+      g.stylesheets     false
+      g.javascripts     false
+      g.test_framework  :rspec,
+                        fixtures: true,
+                        view_specs: false,
+                        helper_specs: false,
+                        routing_specs: true,
+                        controller_specs: false,
+                        feature_specs: true,
+                        request_specs: true
+      g.fixture_replacement :factory_bot, dir: "spec/factories"
     end
   end
 end
