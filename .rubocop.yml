@@ -1,0 +1,21 @@
+Rails:
+  Enabled: true
+  
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'Gemfile'
+    - 'Rakefile'
+
+Style/DoubleNegation:
+  Enabled: false
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']
+
+Metrics/LineLength: 
+  Exclude: 
+    - 'spec/**/*.rb'

@@ -1,0 +1,6 @@
+.git
+Dockerfile
+/mysql
+/search_data
+.DS_Store
+reset-docker.sh

@@ -1,0 +1,46 @@
+dist: trusty
+language: ruby
+rvm:
+  - 2.5.1
+env:
+  global:
+    - RAILS_ENV=test
+    - DB=mysql
+    - CC_TEST_REPORTER_ID=de4e83be2764daa72e88022fb8e2ff596aa8fc1074c93e533fedafb00bb62805
+notifications:
+  - false
+branches:
+  only:
+    - master
+addons:
+  firefox: "49.0"
+  apt:
+    sources:
+      - google-chrome
+      - ubuntu-sdk-team
+    packages:
+      - google-chrome-stable
+      - google-chrome-beta
+      - libqt5webkit5-dev
+      - qtdeclarative5-dev
+      - awesome
+services:
+  - mysql
+  - elasticsearch
+before_script:
+  - cat "$TRAVIS_BUILD_DIR/.my.cnf" | sudo tee -a /etc/mysql/my.cnf
+  - sudo service mysql restart
+  - sleep 20 # makes sure services are ready
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+  - cp ./.travis.database.yml ./config/database.yml
+  - mysql -e 'create database library_directory_test;'
+  - mysql -e 'alter database library_directory_test default character set utf8mb4;'
+  - mysql -e 'alter database library_directory_test default collate utf8mb4_unicode_ci;'
+  - bundle install
+  - bundle exec bin/rails db:schema:load 
+script:
+  - xvfb-run bundle exec rspec
+after_success:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
