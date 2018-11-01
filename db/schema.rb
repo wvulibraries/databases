@@ -10,95 +10,123 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2018_11_01_161808) do
 
-  create_table "accessPlainText", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.text "name"
+  create_table "access_plain_text", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.text "name", limit: 16777215
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "accessTypes", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "access_types", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "databases_curated", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.integer "dbID", null: false, unsigned: true
-    t.integer "subjectID", null: false, unsigned: true
-    t.integer "sort", default: 0, unsigned: true
-  end
-
-  create_table "databases_resourceTypes", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.integer "dbID", unsigned: true
-    t.integer "resourceID", unsigned: true
-  end
-
-  create_table "databases_subjects", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.integer "dbID", null: false, unsigned: true
-    t.integer "subjectID", null: false, unsigned: true
-  end
-
-  create_table "dbList", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "database_list", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.integer "status", unsigned: true
-    t.string "yearsOfCoverage", limit: 50
+    t.string "years_of_coverage", limit: 50
     t.integer "vendor", limit: 2, unsigned: true
     t.string "url"
-    t.string "offCampusURL"
+    t.string "off_campus_url"
     t.string "updated", limit: 100
-    t.integer "accessType", limit: 1, unsigned: true
-    t.integer "fullTextDB", limit: 1, default: 0, null: false, unsigned: true
-    t.integer "newDatabase", limit: 1, default: 0, null: false, unsigned: true
-    t.integer "trialDatabase", limit: 1, default: 0, null: false, unsigned: true
+    t.integer "access_type", limit: 1, unsigned: true
+    t.integer "full_text_db", limit: 1, default: 0, null: false, unsigned: true
+    t.integer "new_database", limit: 1, default: 0, null: false, unsigned: true
+    t.integer "trial_database", limit: 1, default: 0, null: false, unsigned: true
     t.integer "access", unsigned: true
-    t.text "help"
-    t.text "helpURL"
-    t.text "description"
-    t.integer "createDate", unsigned: true
-    t.integer "updateDate", unsigned: true
-    t.string "URLID", limit: 50
+    t.text "help", limit: 16777215
+    t.text "help_url", limit: 16777215
+    t.text "description", limit: 16777215
+    t.integer "created_date", unsigned: true
+    t.integer "updated_date", unsigned: true
+    t.string "url_id", limit: 50
     t.integer "popular", limit: 1, default: 0, null: false, unsigned: true
-    t.integer "trialExpireDate"
+    t.integer "trial_expire_date"
     t.integer "alumni", limit: 1, default: 0, null: false, unsigned: true
     t.boolean "mobile", default: false, unsigned: true
-    t.string "titleSearch"
+    t.string "title_search"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "dbStats", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "database_status", id: :integer, limit: 1, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "databases_curated", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "database_id", null: false, unsigned: true
+    t.integer "subject_id", null: false, unsigned: true
+    t.integer "sort", default: 0, unsigned: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "databases_resource_types", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "database_id", unsigned: true
+    t.integer "resource_id", unsigned: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "databases_subjects", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "database_id", null: false, unsigned: true
+    t.integer "subject_id", null: false, unsigned: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ip_locations", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "ip_range", limit: 75
+    t.string "name", limit: 50
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "news", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "resource_types", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "statistics", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "dbID", unsigned: true
     t.integer "location", limit: 1, unsigned: true
-    t.integer "accessDate", unsigned: true
+    t.integer "access_date", unsigned: true
     t.string "referrer"
-    t.string "ipaddress", limit: 15
+    t.string "ip_address", limit: 15
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "dbStatus", primary_key: "ID", id: :integer, limit: 1, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "name"
-  end
-
-  create_table "ipLocations", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "ipRange", limit: 75
-    t.string "name", limit: 50
-  end
-
-  create_table "news", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "name"
-  end
-
-  create_table "resourceTypes", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "name"
-  end
-
-  create_table "subjects", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "subjects", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", limit: 50
     t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "updateText", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "update_text", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "vendors", primary_key: "ID", id: :integer, unsigned: true, options: "ENGINE=MyISAM DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "vendors", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", limit: 50
     t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
