@@ -21,14 +21,14 @@ FactoryBot.define do
 
     # dates 
     trial_expire_date { Faker::Date.between(2.years.ago, 1.year.from_now) }
-    years_of_coverage { "#{Faker::Date.between(2.years.ago, Date.today)} - #{Faker::Date.between(2.days.ago, Date.today)} " }
+    years_of_coverage { "#{Faker::Date.between(2.years.ago, Date.today)} - #{Faker::Date.between(2.days.ago, Date.today)}" }
     created_date { Date.today }
     updated_date { Date.today }
 
     # associations
     # vendor { 1 }
     # access { 1 }
-    # access_plain_text { 1 } 
+    # access_plain_text { 1 }
 
   end
 end
