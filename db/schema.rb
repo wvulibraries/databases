@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_01_161808) do
+ActiveRecord::Schema.define(version: 2018_11_05_132025) do
 
   create_table "access_plain_text", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "name", limit: 16777215
@@ -33,9 +33,9 @@ ActiveRecord::Schema.define(version: 2018_11_01_161808) do
     t.string "off_campus_url"
     t.string "updated", limit: 100
     t.integer "access_type", limit: 1, unsigned: true
-    t.integer "full_text_db", limit: 1, default: 0, null: false, unsigned: true
-    t.integer "new_database", limit: 1, default: 0, null: false, unsigned: true
-    t.integer "trial_database", limit: 1, default: 0, null: false, unsigned: true
+    t.boolean "full_text_db", default: false, null: false
+    t.boolean "new_database", default: false, null: false
+    t.boolean "trial_database", default: false, null: false
     t.integer "access", unsigned: true
     t.text "help", limit: 16777215
     t.text "help_url", limit: 16777215
@@ -43,9 +43,9 @@ ActiveRecord::Schema.define(version: 2018_11_01_161808) do
     t.integer "created_date", unsigned: true
     t.integer "updated_date", unsigned: true
     t.string "url_id", limit: 50
-    t.integer "popular", limit: 1, default: 0, null: false, unsigned: true
+    t.boolean "popular", default: false, null: false
     t.integer "trial_expire_date"
-    t.integer "alumni", limit: 1, default: 0, null: false, unsigned: true
+    t.boolean "alumni", default: false, null: false
     t.boolean "mobile", default: false, unsigned: true
     t.string "title_search"
     t.datetime "created_at", null: false
