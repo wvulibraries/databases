@@ -33,12 +33,13 @@ RSpec.describe DatabaseList, type: :model do
   
   context 'belongs to' do
     it { should belong_to(:vendor) }
+    it { should belong_to(:access_type) }
+    it { should belong_to(:access_plain_text) }
   end 
 
 
   context 'has one associations' do
     # it { should have_one(:access) }
-    # it { should have_one(:acess_type) }
   end
 
   # context 'has_many associations' do
@@ -87,7 +88,7 @@ RSpec.describe DatabaseList, type: :model do
     it 'expects valid url' do
       database_list.off_campus_url = Faker::Internet.url
       expect(database_list).to be_valid
-    end 
+    end
   end
 
 end

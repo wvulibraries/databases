@@ -67,7 +67,8 @@
         null,
         null,
         1,
-        null,
+        1,
+        1,
         null
       ],
       "/home/databases/app/models/vendor.rb": [
@@ -84,9 +85,10 @@
         1,
         null,
         null,
+        null,
         null
       ]
     },
-    "timestamp": 1541607453
+    "timestamp": 1541621729
   }
 }

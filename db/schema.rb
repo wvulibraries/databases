@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_07_161352) do
+ActiveRecord::Schema.define(version: 2018_11_07_201444) do
 
   create_table "access_plain_text", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "name", limit: 16777215
@@ -32,11 +32,11 @@ ActiveRecord::Schema.define(version: 2018_11_07_161352) do
     t.string "url"
     t.string "off_campus_url"
     t.string "updated", limit: 100
-    t.integer "access_type", limit: 1, unsigned: true
+    t.integer "access_type_id", limit: 1, unsigned: true
     t.boolean "full_text_db", default: false, null: false
     t.boolean "new_database", default: false, null: false
     t.boolean "trial_database", default: false, null: false
-    t.integer "access", unsigned: true
+    t.integer "access_plain_text_id", unsigned: true
     t.text "help", limit: 16777215
     t.text "help_url", limit: 16777215
     t.text "description", limit: 16777215

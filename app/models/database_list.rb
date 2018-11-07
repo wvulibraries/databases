@@ -10,7 +10,7 @@ class DatabaseList < ApplicationRecord
   validates :url_id,
             presence: true,
             length: { maximum: 50 }
-  
+
   validates :years_of_coverage,
             length: { maximum: 50 }
 
@@ -32,11 +32,12 @@ class DatabaseList < ApplicationRecord
   validates :trial_database, inclusion: { in: [true, false] }
   validates :alumni, inclusion: { in: [true, false] }
 
-  # enums 
+  # enums
   enum status: { undefined: 0, production: 1, development: 2, hidden: 3 }
   validates :status, presence: true
 
   # associations
-  belongs_to :vendor, optional: true, inverse_of: :vendor
-  
+  belongs_to :vendor, optional: true, required: false
+  belongs_to :access_type, optional: true, required: false
+  belongs_to :access_plain_text, optional: true, required: false
 end
