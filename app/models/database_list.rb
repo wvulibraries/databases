@@ -21,7 +21,7 @@ class DatabaseList < ApplicationRecord
   validates :description,
             presence: true
 
-  # Validate URL's *optional presence 
+  # Validate URL's *optional presence
   validates :help_url, url: { allow_nil: true }
   validates :off_campus_url, url: { allow_nil: true }
 
@@ -35,4 +35,8 @@ class DatabaseList < ApplicationRecord
   # enums 
   enum status: { undefined: 0, production: 1, development: 2, hidden: 3 }
   validates :status, presence: true
+
+  # associations
+  belongs_to :vendor, optional: true, inverse_of: :vendor
+  
 end

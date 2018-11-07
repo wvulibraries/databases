@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe Vendor, type: :model do
   let(:vendor) { FactoryBot.create :vendor }
 
+  context 'associations' do
+    it { should have_one(:database_list) }
+  end 
+
   context 'validates .name' do
     it { should validate_presence_of(:name) }
     it { should validate_uniqueness_of(:name) }

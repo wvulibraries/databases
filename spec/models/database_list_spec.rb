@@ -31,11 +31,15 @@ RSpec.describe DatabaseList, type: :model do
     it { should validate_inclusion_of(:alumni).in_array([true, false]) }
   end
   
-  # context 'has one associations' do
-  #   it { should have_one(:access) }
-  #   it { should have_one(:acess_type) }
-  #   it { should have_one(:vendor) }
-  # end 
+  context 'belongs to' do
+    it { should belong_to(:vendor) }
+  end 
+
+
+  context 'has one associations' do
+    # it { should have_one(:access) }
+    # it { should have_one(:acess_type) }
+  end
 
   # context 'has_many associations' do
   #   it { should have_many(:resource_types) }

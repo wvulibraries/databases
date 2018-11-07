@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_05_132025) do
+ActiveRecord::Schema.define(version: 2018_11_07_161352) do
 
   create_table "access_plain_text", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "name", limit: 16777215
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_132025) do
     t.string "name"
     t.integer "status", unsigned: true
     t.string "years_of_coverage", limit: 50
-    t.integer "vendor", limit: 2, unsigned: true
+    t.integer "vendor_id", unsigned: true
     t.string "url"
     t.string "off_campus_url"
     t.string "updated", limit: 100
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_132025) do
     t.string "title_search"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["vendor_id"], name: "fk_vendor_id"
   end
 
   create_table "database_status", id: :integer, limit: 1, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -129,4 +130,5 @@ ActiveRecord::Schema.define(version: 2018_11_05_132025) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "database_list", "vendors", name: "fk_vendor_id"
 end
