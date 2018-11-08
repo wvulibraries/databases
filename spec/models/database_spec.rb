@@ -1,13 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe DatabaseList, type: :model do
-  let(:database_list) { FactoryBot.create :database_list }
+RSpec.describe Database, type: :model do
+  let(:database) { FactoryBot.create :database }
 
   context 'validate required data' do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:status) }
     it { should validate_presence_of(:url) }
     it { should validate_presence_of(:description) }
+    it { should validate_presence_of(:url_id) }
   end
 
   context 'enums' do
@@ -19,7 +20,12 @@ RSpec.describe DatabaseList, type: :model do
     it { should validate_length_of(:name).is_at_least(2) }
     it { should validate_length_of(:years_of_coverage).is_at_most(50) }
     it { should validate_length_of(:url_id).is_at_most(50) }
+    it { should validate_length_of(:url_id).is_at_least(2) }
   end
+
+  context 'validates uniqueness' do
+    it { should validate_uniqueness_of(:url_id) }
+  end 
 
   # You will get a shoulda warning that this is not fully validatable
   # https://github.com/thoughtbot/shoulda-matchers/issues/512#issuecomment-50213690
@@ -30,64 +36,61 @@ RSpec.describe DatabaseList, type: :model do
     it { should validate_inclusion_of(:popular).in_array([true, false]) }
     it { should validate_inclusion_of(:alumni).in_array([true, false]) }
   end
-  
+
+  # For the Many-to-one relationship we are just using a belongs to.
+  # Rails Quirk
   context 'belongs to' do
     it { should belong_to(:vendor) }
     it { should belong_to(:access_type) }
     it { should belong_to(:access_plain_text) }
-  end 
-
-
-  context 'has one associations' do
-    # it { should have_one(:access) }
   end
 
-  # context 'has_many associations' do
-  #   it { should have_many(:resource_types) }
-  #   it { should have_many(:subjects) }
-  #   it { should have_many(:curated) }
-  # end
+  context 'has_many associations' do
+    it { should have_many(:resources) }
+    it { should have_many(:subjects) }
+    # it { should have_many(:curated) }
+  end
 
   it 'factory bot is valid' do
-    expect(database_list).to be_valid
+    expect(database).to be_valid
   end
 
   context 'database url' do
     it 'expects invalid url' do
-      database_list.url = 'soemthing'
-      expect(database_list).to_not be_valid
-      expect(database_list.errors.messages[:url]).to eq ['is not a valid URL']
+      database.url = 'soemthing'
+      expect(database).to_not be_valid
+      expect(database.errors.messages[:url]).to eq ['is not a valid URL']
     end
 
     it 'expects valid url' do
-      database_list.url = Faker::Internet.url
-      expect(database_list).to be_valid
+      database.url = Faker::Internet.url
+      expect(database).to be_valid
     end 
   end
 
   context 'help url' do
     it 'expects invalid url' do
-      database_list.help_url = 'soemthing'
-      expect(database_list).to_not be_valid
-      expect(database_list.errors.messages[:help_url]).to eq ['is not a valid URL']
+      database.help_url = 'soemthing'
+      expect(database).to_not be_valid
+      expect(database.errors.messages[:help_url]).to eq ['is not a valid URL']
     end
 
     it 'expects valid url ' do
-      database_list.help_url = Faker::Internet.url
-      expect(database_list).to be_valid
+      database.help_url = Faker::Internet.url
+      expect(database).to be_valid
     end 
   end
 
   context 'off campus url' do
     it 'expects invalid url' do
-      database_list.off_campus_url = 'soemthing'
-      expect(database_list).to_not be_valid
-      expect(database_list.errors.messages[:off_campus_url]).to eq ['is not a valid URL']
+      database.off_campus_url = 'soemthing'
+      expect(database).to_not be_valid
+      expect(database.errors.messages[:off_campus_url]).to eq ['is not a valid URL']
     end
 
     it 'expects valid url' do
-      database_list.off_campus_url = Faker::Internet.url
-      expect(database_list).to be_valid
+      database.off_campus_url = Faker::Internet.url
+      expect(database).to be_valid
     end
   end
 

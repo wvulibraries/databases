@@ -3,13 +3,6 @@ require 'simplecov-console'
 ENV['RAILS_ENV'] ||= 'test'
 
 RSpec.configure do |config|
-  # clear uploads after tests are complete
-  config.after(:each) do
-    if Rails.env.test?
-      FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads/test"])
-    end
-  end
-
   # config expectations
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true

@@ -1,14 +1,15 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/databases/app/models/access_plain_text.rb": [
+      "/home/databases/app/models/subject.rb": [
         1,
-        1,
-        null,
         null,
         1,
         null,
         null,
+        null,
+        null,
+        1,
         null,
         null
       ],
@@ -16,79 +17,8 @@
         1,
         1,
         null
-      ],
-      "/home/databases/app/models/access_type.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/home/databases/app/models/database_list.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        1,
-        1,
-        null,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null
-      ],
-      "/home/databases/app/models/vendor.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null
       ]
     },
-    "timestamp": 1541621729
+    "timestamp": 1541703995
   }
 }

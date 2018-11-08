@@ -4,7 +4,7 @@ RSpec.describe Vendor, type: :model do
   let(:vendor) { FactoryBot.create :vendor }
 
   context 'associations' do
-    it { should have_one(:database_list) }
+    it { should have_one(:database) }
   end 
 
   context 'validates .name' do

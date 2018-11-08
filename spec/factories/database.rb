@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :database_list do
+  factory :database do
     name { Faker::HitchhikersGuideToTheGalaxy.planet << Faker::Educator.course_name }
     # database urls
     url { Faker::Internet.url }

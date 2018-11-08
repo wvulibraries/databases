@@ -1,4 +1,4 @@
-class DatabaseList < ApplicationRecord
+class Database < ApplicationRecord
   # set table name
   self.table_name = :database_list
 
@@ -9,7 +9,8 @@ class DatabaseList < ApplicationRecord
 
   validates :url_id,
             presence: true,
-            length: { maximum: 50 }
+            uniqueness: { case_sensitive: true },
+            length: { within: 2..50 }
 
   validates :years_of_coverage,
             length: { maximum: 50 }
@@ -40,4 +41,10 @@ class DatabaseList < ApplicationRecord
   belongs_to :vendor, optional: true, required: false
   belongs_to :access_type, optional: true, required: false
   belongs_to :access_plain_text, optional: true, required: false
+
+  has_many :database_resources, dependent: :nullify
+  has_many :resources, through: :database_resources
+
+  has_many :database_subjects, dependent: :nullify
+  has_many :subjects, through: :database_subjects
 end
