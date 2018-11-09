@@ -47,4 +47,9 @@ class Database < ApplicationRecord
 
   has_many :database_subjects, dependent: :nullify
   has_many :subjects, through: :database_subjects
+
+  # scopes
+  scope :production, -> { where(status: 'production') }
+  scope :development, -> { where(status: 'development') }
+  scope :hidden, -> { where(status: 'hidden') }
 end
