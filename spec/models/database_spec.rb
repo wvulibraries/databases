@@ -94,4 +94,26 @@ RSpec.describe Database, type: :model do
     end
   end
 
+  context 'status scopes' do
+    it 'expects production status to eq 1' do
+      database.status = 'production'
+      database.save! 
+      expect(Database.production.count).to eq 1
+    end
+
+    it 'expects production status to be 0 and hidden to be 1' do
+      database.status = 'hidden'
+      database.save!
+      expect(Database.production.count).to eq 0
+      expect(Database.hidden.count).to eq 1
+    end
+
+    it 'expects production status to be 0 and development to be 1' do
+      database.status = 'development'
+      database.save!
+      expect(Database.production.count).to eq 0
+      expect(Database.development.count).to eq 1
+    end
+  end
+
 end

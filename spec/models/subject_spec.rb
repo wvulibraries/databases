@@ -9,6 +9,10 @@ RSpec.describe Subject, type: :model do
     it { should validate_length_of(:name).is_at_least(2).is_at_most(50) }
   end
 
+  context 'associations' do
+    it { should have_many(:databases) }
+  end
+
   context 'subject website or url' do
     it 'expects invalid url' do
       subject.url = 'soemthing'

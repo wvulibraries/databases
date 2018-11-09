@@ -10,5 +10,4 @@ class Subject < ApplicationRecord
   # associations
   has_many :database_subjects, dependent: :nullify
   has_many :databases, through: :database_subjects
-
 end
