@@ -1,0 +1,107 @@
+<%= form_with(model: database, local: true) do |form| %>
+  <% if database.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(database.errors.count, "error") %> prohibited this database from being saved:</h2>
+
+      <ul>
+      <% database.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.number_field :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :years_of_coverage %>
+    <%= form.text_field :years_of_coverage %>
+  </div>
+
+  <div class="field">
+    <%= form.label :url %>
+    <%= form.text_field :url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :off_campus_url %>
+    <%= form.text_field :off_campus_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :updated %>
+    <%= form.text_field :updated %>
+  </div>
+
+  <div class="field">
+    <%= form.label :full_text_db %>
+    <%= form.number_field :full_text_db %>
+  </div>
+
+  <div class="field">
+    <%= form.label :new_database %>
+    <%= form.number_field :new_database %>
+  </div>
+
+  <div class="field">
+    <%= form.label :trial_database %>
+    <%= form.number_field :trial_database %>
+  </div>
+
+  <div class="field">
+    <%= form.label :help %>
+    <%= form.text_area :help %>
+  </div>
+
+  <div class="field">
+    <%= form.label :help_url %>
+    <%= form.text_area :help_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :created_date %>
+    <%= form.number_field :created_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :updated_date %>
+    <%= form.number_field :updated_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :popular %>
+    <%= form.number_field :popular %>
+  </div>
+
+  <div class="field">
+    <%= form.label :trial_expire_date %>
+    <%= form.number_field :trial_expire_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :alumni %>
+    <%= form.number_field :alumni %>
+  </div>
+
+  <div class="field">
+    <%= form.label :title_search %>
+    <%= form.text_field :title_search %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

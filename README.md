@@ -1,6 +1,5 @@
 # Databases 
 
-
 # Scaffold and Generate Commands 
 
 ## Base Generated Scaffolds from the Schema
@@ -12,7 +11,7 @@
 
 - bin/rails generate scaffold DatabaseStatus name:string --no-migration
 
-- bin/rails generate scaffold DatabasesCurated database:references subject:references sort:integer --no-migration
+- bin/rails generate model DatabaseCurations database:references subject:references sort:integer --no-migration
 
 - bin/rails generate scaffold DatabasesResourceType database:references resource:references --no-migration
 

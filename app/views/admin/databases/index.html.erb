@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Databases</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Years of coverage</th>
+      <th>Url</th>
+      <th>Off campus url</th>
+      <th>Updated</th>
+      <th>Full text db</th>
+      <th>New database</th>
+      <th>Trial database</th>
+      <th>Help</th>
+      <th>Help url</th>
+      <th>Description</th>
+      <th>Created date</th>
+      <th>Updated date</th>
+      <th>Popular</th>
+      <th>Trial expire date</th>
+      <th>Alumni</th>
+      <th>Title search</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @databases.each do |database| %>
+      <tr>
+        <td><%= database.name %></td>
+        <td><%= database.status %></td>
+        <td><%= database.years_of_coverage %></td>
+        <td><%= database.url %></td>
+        <td><%= database.off_campus_url %></td>
+        <td><%= database.updated %></td>
+        <td><%= database.full_text_db %></td>
+        <td><%= database.new_database %></td>
+        <td><%= database.trial_database %></td>
+        <td><%= database.help %></td>
+        <td><%= database.help_url %></td>
+        <td><%= database.description %></td>
+        <td><%= database.created_date %></td>
+        <td><%= database.updated_date %></td>
+        <td><%= database.popular %></td>
+        <td><%= database.trial_expire_date %></td>
+        <td><%= database.alumni %></td>
+        <td><%= database.title_search %></td>
+        <td><%# link_to 'Show', database %></td>
+        <td><%# link_to 'Edit', edit_database_path(database) %></td>
+        <td><%# link_to 'Destroy', database, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%# link_to 'New Admin Database', new_database_path %>
