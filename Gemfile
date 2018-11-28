@@ -28,6 +28,8 @@ gem 'validate_url'
 gem 'sanitize'
 
 # frontend
+gem "bourbon"
+gem "neat"
 gem 'normalize-scss'
 gem 'font-awesome-sass'
 gem "non-stupid-digest-assets" # generates assets without fingerprint for 404 and 500 errors. 

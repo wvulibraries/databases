@@ -5,11 +5,32 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'interface/main', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <!-- Skip to Navigation --> 
+    <a class="skip-nav" href="#main"> Skip to Main Content </a>
+
+    <!-- Templated Content Region -->
+    <main id="main" class="wrapper">
+      <div class="container"> 
+        <!-- Flash -->
+        <%= render "utilities/alerts" %>
+        
+        <!-- Yield -->
+        <div class="main-content">
+          <%= yield %>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footers -->
+    <%= render 'shared/built_by_footer'%>
+  
+    <!-- JavaScripts -->
+    <%= yield :js %>
+
   </body>
 </html>

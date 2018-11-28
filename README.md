@@ -7,7 +7,7 @@
 
 - bin/rails generate model AccessType name:string --no-migration
 
-- bin/rails generate scaffold DatabaseList name:string status:integer years_of_coverage:string vendor:integer url:string off_campus_url:string updated:string access_type:integer full_text_db:integer new_database:integer trial_database:integer access:integer help:text help_url:text description:text created_date:integer updated_date:integer url:references popular:integer trial_expire_date:integer alumni:integer mobile:boolean title_search:string --no-migration
+- bin/rails generate scaffold Admin::Database name:string status:integer years_of_coverage:string url:string off_campus_url:string updated:string full_text_db:integer new_database:integer trial_database:integer help:text help_url:text description:text created_date:integer updated_date:integer popular:integer trial_expire_date:integer alumni:integer title_search:string --no-migration
 
 - bin/rails generate scaffold DatabaseStatus name:string --no-migration
 

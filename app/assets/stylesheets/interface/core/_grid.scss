@@ -1,0 +1,25 @@
+$neat-grid: (
+  columns: 12,
+  gutter: 1em 
+);
+
+.wrapper {
+  width:100%;
+  margin-left: auto;
+  margin-right: auto;
+  clear:left;
+  @include clearfix;
+}
+
+.container {
+  @include grid-container;
+  max-width:65em;
+  margin:0 auto;
+  @include clearfix;
+  @include grid-visual(rgba(cyan, .5), $neat-grid);
+}
+
+main, header, footer, div {
+  @include grid-container;
+  @include clearfix;
+}

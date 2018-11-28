@@ -1,6 +1,41 @@
 {
   "RSpec": {
     "coverage": {
+      "/home/databases/app/models/access_plain_text.rb": [
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/databases/app/models/application_record.rb": [
+        1,
+        1,
+        null
+      ],
+      "/home/databases/app/models/access_type.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/home/databases/app/models/database_resource.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null
+      ],
       "/home/databases/app/models/database.rb": [
         1,
         null,
@@ -58,12 +93,7 @@
         2,
         null
       ],
-      "/home/databases/app/models/application_record.rb": [
-        1,
-        1,
-        null
-      ],
-      "/home/databases/app/models/database_resource.rb": [
+      "/home/databases/app/models/database_subject.rb": [
         1,
         null,
         1,
@@ -81,16 +111,6 @@
         1,
         null,
         null,
-        null,
-        null,
-        1,
-        1,
-        null
-      ],
-      "/home/databases/app/models/database_subject.rb": [
-        1,
-        null,
-        1,
         null,
         null,
         1,
@@ -129,27 +149,87 @@
         null,
         null
       ],
-      "/home/databases/app/models/access_type.rb": [
+      "/home/databases/app/controllers/admin/databases_controller.rb": [
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
         1,
         null,
         1,
+        0,
         null,
         null,
+        null,
+        1,
+        0,
         null,
         null
       ],
-      "/home/databases/app/models/access_plain_text.rb": [
+      "/home/databases/app/controllers/application_controller.rb": [
         1,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
         null
       ]
     },
-    "timestamp": 1541776960
+    "timestamp": 1543417182
   }
 }

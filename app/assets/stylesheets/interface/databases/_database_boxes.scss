@@ -1,0 +1,28 @@
+$database_colors:
+  tomato,
+  #72BFBF,
+  #92B1E3,
+  #E3D743,
+  #CCC,
+  #F6C05C;
+
+.database{ 
+  background:rgba(#ccc,.3); 
+  position:relative;
+  margin-bottom:1em;
+  padding:1em; 
+
+
+  // Decorative Styling 
+  @for $i from 1 through length($database_colors) { 
+    &:nth-child(#{length($database_colors)}n+#{$i}) {
+      $color-from-list: nth($database_colors, $i);
+      border-top: 6px solid $color-from-list;
+
+      &:focus,
+      &:hover {
+        background-color: transparentize($color-from-list, 0.9);
+      }
+    }
+  }
+}
