@@ -18,9 +18,9 @@ Please use this guide when trying to contribute to the WVU Libraries Directory A
 ### Github Contributors
 
 * If the bug is a security vulnerability, please report them confidentially to any members of the [WVULibraries Organization](https://github.com/orgs/wvulibraries/people).  
-* **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/wvulibraries/library_directory/issues).
+* **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/wvulibraries/databases/issues).
 
-* If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/wvulibraries/library_directory/issues/new?template=bug_report.md).
+* If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/wvulibraries/databases/issues/new?template=bug_report.md).
 
 ## Did you fix an issue, or add an enhancment? 
 
