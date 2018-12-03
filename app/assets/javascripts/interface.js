@@ -10,3 +10,8 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery/dist/jquery
+
+// Interface Dependencies 
+// ----------------------------------------------------------------
+//= require plugins/alerts 
+//= require plugins/search_filter
