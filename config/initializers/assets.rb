@@ -16,3 +16,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 # precompile css 
 Rails.application.config.assets.precompile += %w( interface/main.css )
+
+# precompile js
+Rails.application.config.assets.precompile += %w( interface.js )

@@ -116,4 +116,13 @@ RSpec.describe Database, type: :model do
     end
   end
 
+  context 'keywords and indexing' do
+    it 'expects keywords to exist' do 
+      expect(database.keywords.length).to be < 0
+    end 
+
+    it 'expects keywords has the title in it' do
+      expect(database.keywords.scan(database.title).size).to be < 0
+    end
+  end
 end

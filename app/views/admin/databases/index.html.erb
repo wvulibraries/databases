@@ -1,8 +1,21 @@
 <h1>Database List</h1>
 
+<div class="search-filter">
+  <label for="search_filter"> Filter Employees </label>
+  <input id="search_filter" type="text" class="reset search-dom" placeholder="Search Databases..."/>
+
+  <div class="micro-text"> 
+    Note: Filter is not a typical search, this simple searches the items already present in the interface.  The search here should be kept simple and not use any boolean operators.  It is also recommended that you keep the search to only 1 or 2 words.  
+  </div>
+</div>
+
 <section class="database-cards">
   <% @databases.each do |database| %>
-    <div class="database">
+    <div class="database filter-list">
+        <div class="hidden keywords"> 
+      
+        </div>
+
         <h2> <%= database.name %> </h2>
         <dl>
           <dt> Status </dt> 

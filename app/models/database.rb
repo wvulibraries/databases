@@ -52,4 +52,17 @@ class Database < ApplicationRecord
   scope :production, -> { where(status: 'production') }
   scope :development, -> { where(status: 'development') }
   scope :hidden, -> { where(status: 'hidden') }
+
+
+  # keywords
+  # -----------------------------------------------------
+  # @author David J. Davis
+  # @description creates keywords for indexing, filtering, search etc.
+  # @return string
+  def keywords
+    attr = [status, name, title_search]
+    subjects.each { |subject| attr << subject.name }
+    attr.join(' ')
+  end
+
 end
