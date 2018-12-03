@@ -4,7 +4,7 @@ class Admin::DatabasesController < ApplicationController
   # GET /admin/databases
   # GET /admin/databases.json
   def index
-    @databases = Database.all
+    @databases = Database.all.order('name ASC')
   end
 
   # GET /admin/databases/1
