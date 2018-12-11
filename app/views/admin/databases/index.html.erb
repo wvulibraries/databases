@@ -1,12 +1,14 @@
-<h1>Database List</h1>
+<h1><%= I18n.t('admin.databases.index.heading') %></h1>
 
 <div class="container">
   <div class="search-filter">
-    <label for="search_filter"> Filter Databases </label>
+    <label for="search_filter"> 
+      <%= I18n.t('admin.databases.filter_label') %>
+    </label>
     <input id="search_filter" type="text" class="reset search-dom" placeholder="Search Databases..."/>
 
     <div class="micro-text"> 
-      Note: Filter is not a typical search, this simple searches the items already present in the interface.  The search here should be kept simple and not use any boolean operators.  It is also recommended that you keep the search to only 1 word.  
+      <%= I18n.t('admin.databases.filter_warning') %>
     </div>
   </div>
 </div>
@@ -36,7 +38,7 @@
           <dt> Trial </dt>
           <dd> <%= database.trial_database ? "Yes" : "No" %> </dd>
           <% if database.trial_database %>  
-            <dd> <%= database.trial_expire_date %> </dd>
+            <dd> <%= database.trial_expiration_date %> </dd>
           <% end %>
 
           <dt> Subjects </dt>

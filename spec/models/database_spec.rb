@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Database, type: :model do
   let(:database) { FactoryBot.create :database }
+  let(:vendor) { FactoryBot.create :vendor }
 
   context 'validate required data' do
     it { should validate_presence_of(:name) }
@@ -37,8 +38,6 @@ RSpec.describe Database, type: :model do
     it { should validate_inclusion_of(:alumni).in_array([true, false]) }
   end
 
-  # For the Many-to-one relationship we are just using a belongs to.
-  # Rails Quirk
   context 'belongs to' do
     it { should belong_to(:vendor) }
     it { should belong_to(:access_type) }
@@ -118,11 +117,44 @@ RSpec.describe Database, type: :model do
 
   context 'keywords and indexing' do
     it 'expects keywords to exist' do 
-      expect(database.keywords.length).to be < 0
+      expect(database.keywords.length).to be > 0
     end 
 
     it 'expects keywords has the title in it' do
-      expect(database.keywords.scan(database.title).size).to be < 0
+      expect(database.keywords.scan(database.name).size).to be > 0
+    end
+
+    it 'expects keywords to use the status' do
+      expect(database.keywords.scan(database.status).size).to be > 0
+    end
+
+    it 'expects keywords to use title_search' do
+      expect(database.keywords.scan(database.title_search).size).to be > 0
+    end
+
+    # it 'expects keywords to use subjects' do
+    # end
+  end
+
+
+  context 'subjects' do
+  
+  end
+  
+  context 'vendors' do
+    it 'allows vendor to be added to database' do
+      database.vendor = vendor
+      expect(database).to be_valid
+      database.save
+      expect(database.vendor).to be_truthy
+      expect(database.vendor.name).to eq(vendor.name)
+    end
+
+    it 'allows vendor to be nil' do
+      database.vendor = nil
+      expect(database).to be_valid
+      database.save
+      expect(database.vendor).to be_nil
     end
   end
 end

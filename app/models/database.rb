@@ -52,7 +52,7 @@ class Database < ApplicationRecord
   scope :production, -> { where(status: 'production') }
   scope :development, -> { where(status: 'development') }
   scope :hidden, -> { where(status: 'hidden') }
-
+  scope :trials, -> { where(trial_database: true) }
 
   # keywords
   # -----------------------------------------------------
@@ -64,5 +64,17 @@ class Database < ApplicationRecord
     subjects.each { |subject| attr << subject.name }
     attr.join(' ')
   end
+
+  # subject_list
+  # -----------------------------------------------------
+  # @author David J. Davis
+  # @description creates comma seperated list of subjects.
+  # @return string
+  def subject_list
+    list = []
+    subjects.each { |subject| list << subject.name }
+    list.to_sentence
+  end
+
 
 end

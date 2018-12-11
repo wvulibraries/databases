@@ -1,7 +1,10 @@
 <%= form_for [:admin, database], html: { multipart: true } do |form| %>
   <% if database.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(database.errors.count, "error") %> prohibited this database from being saved:</h2>
+      <h2>
+        <%= pluralize(database.errors.count, "error") %> 
+        <%= I18n.t("admin.basic.error_prompt") %>
+      </h2>
 
       <ul>
       <% database.errors.full_messages.each do |message| %>
@@ -12,7 +15,7 @@
   <% end %>
 
   <fieldset> 
-    <legend> Basic Database Information </legend>
+    <legend> <%= I18n.t("admin.databases.forms.basic_title") %> </legend>
     
     <div class="row"> 
       <div class="field three-fourth">
@@ -23,7 +26,7 @@
       <div class="field one-fourth">
         <%= form.label :status, class: 'required' %>
         <div class="select-style">
-          <%= form.select :status, options_for_select(Database.statuses.keys.to_a, selected: form.object.status), include_blank: "Select a Status" %>
+          <%= form.select :status, options_for_select(Database.statuses.keys.to_a, selected: form.object.status), include_blank: I18n.t("admin.basic.forms.select_status") %>
         </div>
       </div>
     </div>
@@ -33,101 +36,110 @@
         <%= form.label :url, class: 'required' %>
         <%= form.text_field :url %>
       </div>
+
+      <div class="field full">
+        <%= form.label :years_of_coverage %>
+        <%= form.text_field :years_of_coverage %>
+      </div>
     </div>
 
-    <div class="field full">
-      <%= form.label :years_of_coverage %>
-      <%= form.text_field :years_of_coverage %>
+    <div class="row">
+      <div class="field full">
+        <%= form.label :description, class: 'required' %>
+        <%= form.text_area :description %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field full">
+        <%= form.label :title_search,  "Keywords" %>
+        <div class="micro-text text-left"> 
+          <%= I18n.t("admin.databases.forms.keyword_description") %>  
+          <strong> 
+            <%= I18n.t("admin.databases.forms.keyword_description_example") %>
+          </strong> 
+        </div>
+        <%= form.text_field :title_search %>
+      </div>
     </div>
 
   </fieldset>
 
   <fieldset>
-    <legend> Database Classifications </legend>
-
-    <div class="field one-third">
-      <%= form.label :alumni, 'Alumni Database' %>
-      <div class="select-style">
-        <%= form.select :alumni, options_for_select([['Yes', true], ['No', false]], selected: form.object.alumni) %>
-      </div>
+    <legend> <%= I18n.t("admin.databases.forms.access_title") %> </legend>
+    
+    <div class="micro-text">
+      <%= I18n.t("admin.databases.forms.access_description") %> 
     </div>
 
-    <div class="field one-third">
-      <%= form.label :new_database %>
-      <div class="select-style">
-        <%= form.select :new_database, options_for_select([['Yes', true], ['No', false]], selected: form.object.new_database) %>
+    <div class="row">
+      <div class="field one-fourth">
+        <%= form.label :alumni, 'Alumni Database' %>
+        <div class="select-style">
+          <%= form.select :alumni, options_for_select([['Yes', true], ['No', false]], selected: form.object.alumni) %>
+        </div>
       </div>
-    </div>
 
-    <div class="field one-third">
-      <%= form.label :popular, 'Popular Database' %>
-      <div class="select-style">
-        <%= form.select :popular, options_for_select([['Yes', true], ['No', false]], selected: form.object.popular) %>
+      <div class="field one-fourth">
+        <%= form.label :popular, 'Popular Database' %>
+        <div class="select-style">
+          <%= form.select :popular, options_for_select([['Yes', true], ['No', false]], selected: form.object.popular) %>
+        </div>
+      </div>
+
+      <div class="field one-fourth">
+        <%= form.label :full_text_db, 'Full Text Database' %>
+        <div class="select-style">
+          <%= form.select :full_text_db, options_for_select([['Yes', true], ['No', false]], selected: form.object.full_text_db) %>
+        </div>
+      </div>
+      
+      <div class="field one-fourth">
+        <%= form.label :new_database %>
+        <div class="select-style">
+          <%= form.select :new_database, options_for_select([['Yes', true], ['No', false]], selected: form.object.new_database) %>
+        </div>
       </div>
     </div>
   </fieldset>
 
-  <div class="field">
-    <%= form.label :updated %>
-    <%= form.text_field :updated %>
-  </div>
+  <fieldset>
+    <legend> <%= I18n.t("admin.databases.forms.trial_title") %> </legend>
+    <div class="micro-text">
+       <%= I18n.t("admin.databases.forms.trial_description") %>
+    </div>
+    <div class="row">
+      <div class="field one-fourth">
+        <%= form.label :trial_database %>
+        <div class="select-style">
+          <%= form.select :trial_database, options_for_select([['Yes', true], ['No', false]], selected: form.object.trial_database) %>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= form.label :full_text_db %>
-    <%= form.number_field :full_text_db %>
-  </div>
+      <div class="field three-fourth"> 
+        <%= form.label :trial_expiration_date %>
+        <%= form.text_field :trial_expiration_date %>
+      </div>
+    </div>
+  </fieldset>
 
-  <div class="field">
-    <%= form.label :new_database %>
-    <%= form.number_field :new_database %>
-  </div>
+  <fieldset>
+    <legend> <%= I18n.t("admin.databases.forms.help_title") %> </legend>
+    <div class="micro-text">
+      <%= I18n.t("admin.databases.forms.help_description") %>
+    </div>
+    
+    <div class="field full">
+      <%= form.label :help_url, "Help Link", class:"required" %>
+      <%= form.text_field :help_url %>
+    </div>
 
-  <div class="field">
-    <%= form.label :trial_database %>
-    <%= form.number_field :trial_database %>
-  </div>
+     <div class="field full">
+      <%= form.label :help, "Help Description" %>
+      <%= form.text_area :help %>
+    </div>
 
-  <div class="field">
-    <%= form.label :help %>
-    <%= form.text_area :help %>
-  </div>
-
-  <div class="field">
-    <%= form.label :help_url %>
-    <%= form.text_area :help_url %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :created_date %>
-    <%= form.number_field :created_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :updated_date %>
-    <%= form.number_field :updated_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :popular %>
-    <%= form.number_field :popular %>
-  </div>
-
-  <div class="field">
-    <%= form.label :trial_expire_date %>
-    <%= form.number_field :trial_expire_date %>
-  </div>
-
-
-
-  <div class="field">
-    <%= form.label :title_search %>
-    <%= form.text_field :title_search %>
-  </div>
+  </fieldset>  
 
   <div class="actions">
     <%= form.submit %>

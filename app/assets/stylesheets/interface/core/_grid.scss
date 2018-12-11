@@ -16,7 +16,7 @@ $neat-grid: (
   max-width:65em;
   margin:0 auto;
   @include clearfix;
-  @include grid-visual(rgba(cyan, .5), $neat-grid);
+  // @include grid-visual(rgba(cyan, .5), $neat-grid);
 }
 
 main, header, footer, div {

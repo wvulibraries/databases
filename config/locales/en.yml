@@ -30,4 +30,26 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  admin: 
+    basic: 
+      error_prompt: "prohibited this database from being saved:"
+      forms: 
+          select_default: "Select ..."
+          select_status: "Select a Status"
+    databases:
+      index: 
+        heading: "Database List"
+      filter_label: "Filter Databases"
+      filter_warning: "Note: Filter is not a typical search, this simple searches the items already present in the interface. The search here should be kept simple and not use any boolean operators. It is also recommended that you keep the search to only 1 word."
+      forms:  
+        basic_title: "Basic Database Information"
+        access_title: "Database Types and Access"
+        trial_title: "Trial Information"
+        help_title: "Help Information"
+        help_description: "This section is used for providing help text to the user (student, faculty, researcher, etc) and including a link to where they can find more help."
+        trial_description: "Denote here if the database is a trail database, you should always have an expiration date for any Trial databases."
+        access_description: "This section is used for providing help text to the user (student, faculty, researcher, etc) and including a link to where they can find more help."
+        keyword_description: "This field is used for adding descriptive keywords for finding the database.  Please use space sperated words and no punctuation when entering information in these fields."
+        keyword_description_example: "Example: test database energy tacos analysis full text peer reviewed."
+        keyword_field_label: "Keywords"
+        
