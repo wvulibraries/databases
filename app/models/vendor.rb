@@ -8,8 +8,5 @@ class Vendor < ApplicationRecord
   validates :url, url: { allow_nil: true }
 
   # associations
-  has_one :database,
-          dependent: :nullify,
-          required: false
-
+  has_many :databases
 end

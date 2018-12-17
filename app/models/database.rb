@@ -42,9 +42,11 @@ class Database < ApplicationRecord
   belongs_to :access_type, optional: true, required: false
   belongs_to :access_plain_text, optional: true, required: false
 
+  # resources 
   has_many :database_resources, dependent: :nullify
   has_many :resources, through: :database_resources
 
+  # subjects
   has_many :database_subjects, dependent: :nullify
   has_many :subjects, through: :database_subjects
 
@@ -60,8 +62,7 @@ class Database < ApplicationRecord
   # @description creates keywords for indexing, filtering, search etc.
   # @return string
   def keywords
-    attr = [status, name, title_search]
-    subjects.each { |subject| attr << subject.name }
+    attr = [status, name, title_search, subject_list]
     attr.join(' ')
   end
 
@@ -73,6 +74,17 @@ class Database < ApplicationRecord
   def subject_list
     list = []
     subjects.each { |subject| list << subject.name }
+    list.to_sentence
+  end
+
+   # resource_list
+  # -----------------------------------------------------
+  # @author David J. Davis
+  # @description creates comma seperated list of resources.
+  # @return string
+  def resource_list
+    list = []
+    resources.each { |rss| list << rss.name }
     list.to_sentence
   end
 

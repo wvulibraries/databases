@@ -4,7 +4,13 @@ class Admin::DatabasesController < ApplicationController
   # GET /admin/databases
   # GET /admin/databases.json
   def index
-    @databases = Database.all.order('name ASC')
+    @databases = Database.all
+                         .includes(
+                            :database_subjects, 
+                            :subjects, :vendor, 
+                            :access_plain_text, 
+                            :access_type)
+                          .order('name ASC')
   end
 
   # GET /admin/databases/1

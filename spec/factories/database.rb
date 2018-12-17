@@ -1,10 +1,13 @@
 FactoryBot.define do
+  sequence(:url) { |n| Faker::Internet.url("somethingcool#{n}.com", '/index.html') }
+  sequence(:url_id) { |n| Time.now.to_i + n }
+
   factory :database do
     name { Faker::HitchhikersGuideToTheGalaxy.planet << Faker::Educator.course_name }
     # database urls
-    url { Faker::Internet.url }
+    url
     off_campus_url { Faker::Internet.url }
-    url_id { Time.now.to_i }
+    url_id
 
     # database info
     status { rand(0..3) } # enumerations are 0-3
@@ -24,11 +27,5 @@ FactoryBot.define do
     years_of_coverage { "#{Faker::Date.between(2.years.ago, Date.today)} - #{Faker::Date.between(2.days.ago, Date.today)}" }
     created_date { Date.today }
     updated_date { Date.today }
-
-    # associations
-    # vendor { 1 }
-    # access { 1 }
-    # access_plain_text { 1 }
-
   end
 end

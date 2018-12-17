@@ -40,8 +40,6 @@ RSpec.describe Database, type: :model do
 
   context 'belongs to' do
     it { should belong_to(:vendor) }
-    it { should belong_to(:access_type) }
-    it { should belong_to(:access_plain_text) }
   end
 
   context 'has_many associations' do
@@ -121,26 +119,26 @@ RSpec.describe Database, type: :model do
     end 
 
     it 'expects keywords has the title in it' do
-      expect(database.keywords.scan(database.name).size).to be > 0
+      expect(database.keywords).to include database.name
     end
 
     it 'expects keywords to use the status' do
-      expect(database.keywords.scan(database.status).size).to be > 0
+      expect(database.keywords).to include database.status
     end
 
     it 'expects keywords to use title_search' do
-      expect(database.keywords.scan(database.title_search).size).to be > 0
+      expect(database.keywords).to include database.title_search
     end
 
-    # it 'expects keywords to use subjects' do
-    # end
+    it 'expects keywords to use subject_list' do
+      sub1 = FactoryBot.create :subject
+      sub2 = FactoryBot.create :subject 
+      database.subjects = [sub1, sub2]
+      database.save
+      expect(database.keywords).to include database.subject_list
+    end 
   end
 
-
-  context 'subjects' do
-  
-  end
-  
   context 'vendors' do
     it 'allows vendor to be added to database' do
       database.vendor = vendor
@@ -156,5 +154,47 @@ RSpec.describe Database, type: :model do
       database.save
       expect(database.vendor).to be_nil
     end
+  end
+
+  context 'subjects' do
+    before(:each) do
+      @sub1 = FactoryBot.create :subject
+      @sub2 = FactoryBot.create :subject 
+      @sub3 = FactoryBot.create :subject 
+      database.subjects = [@sub1, @sub2, @sub3]
+    end
+   
+    it 'expects database to be valid and have 3 subjects' do
+      expect(database).to be_valid
+      database.save
+      expect(database.subjects.count).to eq 3 
+    end 
+
+    it 'expects database to send back a comma seperated sentance' do
+      expect(database.subject_list).to include @sub1.name
+      expect(database.subject_list).to include @sub2.name
+      expect(database.subject_list).to include @sub3.name
+    end 
+  end
+
+  context 'resources' do
+    before(:each) do
+      @rss1 = FactoryBot.create :resource
+      @rss2 = FactoryBot.create :resource
+      @rss3 = FactoryBot.create :resource
+      database.resources = [@rss1, @rss2, @rss3]
+    end
+   
+    it 'expects database to be valid and have 3 resources' do
+      expect(database).to be_valid
+      database.save
+      expect(database.resources.count).to eq 3 
+    end
+
+    it 'expects database to send back a comma seperated sentance of resources' do
+      expect(database.resource_list).to include @rss1.name
+      expect(database.resource_list).to include @rss2.name
+      expect(database.resource_list).to include @rss3.name
+    end 
   end
 end

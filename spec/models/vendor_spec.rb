@@ -4,7 +4,7 @@ RSpec.describe Vendor, type: :model do
   let(:vendor) { FactoryBot.create :vendor }
 
   context 'associations' do
-    it { should have_one(:database) }
+    it { should have_many(:databases) }
   end 
 
   context 'validates .name' do
@@ -34,4 +34,15 @@ RSpec.describe Vendor, type: :model do
   context 'testing the factory valid' do
     it { expect(vendor).to be_valid }
   end
+
+  context 'databases' do
+    it 'expects the vendor to have many databases and be able to save them' do
+      db1 = FactoryBot.create :database
+      db2 = FactoryBot.create :database
+      vendor.databases = [db1, db2]
+      expect(vendor).to be_valid 
+      vendor.save
+      expect(vendor.databases.count).to eq 2 
+    end 
+  end 
 end

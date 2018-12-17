@@ -6,7 +6,7 @@ env:
   global:
     - RAILS_ENV=test
     - DB=mysql
-    - CC_TEST_REPORTER_ID=de4e83be2764daa72e88022fb8e2ff596aa8fc1074c93e533fedafb00bb62805
+    - CC_TEST_REPORTER_ID=28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
 notifications:
   - false
 branches:
