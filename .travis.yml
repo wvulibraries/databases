@@ -12,18 +12,18 @@ notifications:
 branches:
   only:
     - master
-# addons:
-#   firefox: "49.0"
-#   apt:
-#     sources:
-#       - google-chrome
-#       - ubuntu-sdk-team
-#     packages:
-#       - google-chrome-stable
-#       - google-chrome-beta
-#       - libqt5webkit5-dev
-#       - qtdeclarative5-dev
-#       - awesome
+addons:
+  firefox: "49.0"
+  apt:
+    sources:
+      - google-chrome
+      - ubuntu-sdk-team
+    packages:
+      - google-chrome-stable
+      - google-chrome-beta
+      - libqt5webkit5-dev
+      - qtdeclarative5-dev
+      - awesome
 services:
   - mysql
   - elasticsearch
@@ -35,7 +35,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
   - cp ./.travis.database.yml ./config/database.yml
-  - gem update bundler
+  - gem install bundler --version '~> 1.17.1'
   - mysql -e 'create database databases_test;'
   - mysql -e 'alter database databases_test default character set utf8mb4;'
   - mysql -e 'alter database databases_test default collate utf8mb4_unicode_ci;'
