@@ -7,8 +7,7 @@ class Database < ApplicationRecord
             presence: true,
             length: { within: 2..190 }
 
-  validates :url_id,
-            presence: true,
+  validates :url_uuid,
             uniqueness: { case_sensitive: true },
             length: { within: 2..50 }
 
@@ -56,6 +55,9 @@ class Database < ApplicationRecord
   scope :hidden, -> { where(status: 'hidden') }
   scope :trials, -> { where(trial_database: true) }
 
+  # callbacks
+  before_validation :mint_uuid, on: [:create]
+
   # keywords
   # -----------------------------------------------------
   # @author David J. Davis
@@ -77,7 +79,7 @@ class Database < ApplicationRecord
     list.to_sentence
   end
 
-   # resource_list
+  # resource_list
   # -----------------------------------------------------
   # @author David J. Davis
   # @description creates comma seperated list of resources.
@@ -88,5 +90,14 @@ class Database < ApplicationRecord
     list.to_sentence
   end
 
+  private 
 
+  # mint_uuid
+  # -----------------------------------------------------
+  # @author David J. Davis
+  # @description creates a uuid for the record to use for the url.
+  # @return truthy 
+  def mint_uuid
+    self.url_uuid ||= Time.now.to_i
+  end
 end

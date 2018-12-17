@@ -1,19 +1,49 @@
 require 'rails_helper'
 
-RSpec.feature "Admin::Subjects", type: :feature do
-  let(:database) { FactoryBot.attributes_for(:databases) }
+RSpec.feature "Admin::Databases", type: :feature do
 
-  # scenario 'subjects index page and it works properly' do
-  #   visit '/admin/subjects'
-  #   expect(page).to have_content('Manage Subjects')
-  # end
+  let(:database) { FactoryBot.create(:database) }
+  let(:attrs) { FactoryBot.attributes_for(:database) }
 
-  # scenario 'creates a new subject' do
-  #   visit '/admin/subjects/new'
-  #   fill_in 'Name', with: subject[:name]
-  #   click_button 'Create Subject'
-  #   expect(page).to have_content('Success! We built a brand new subject!')
-  # end
+  context "#index" do
+    scenario 'index page works and shows the data from the first record' do
+      database # create a database 
+      visit 'admin/databases'
+      expect(page).to have_content(database.name)
+    end 
+  end
+
+  context "CREATE" do
+    scenario 'successful create' do
+      visit '/admin/databases/new'
+      fill_in 'Title', with: attrs[:name]
+      find('#database_status').find(:xpath, 'option[3]').select_option
+      fill_in 'Url', with: attrs[:url]
+      fill_in 'Description', with: attrs[:description]
+      expect(page).to have_content('Success! We built a brand new subject!')
+    end
+
+    scenario 'does not allow creation without title' do
+      pending 
+    end 
+
+    scenario 'does not allow creation without a valid unique url_id' do
+      pending 
+    end 
+
+    scenario 'does not allow years of coverage to be more than 50 characters' do
+      pending
+    end 
+
+    scenario 'does not allow valid database without url' do
+      pending
+    end
+    
+    scenario 'does not allow an empty description' do
+      pending
+    end 
+  end  
+
 
   # scenario 'errors creating new subject' do
   #   visit '/admin/subjects/new'

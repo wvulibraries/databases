@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_04_194600) do
+ActiveRecord::Schema.define(version: 2018_12_17_164318) do
 
   create_table "access_plain_text", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "name", limit: 16777215
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2018_12_04_194600) do
     t.text "description", limit: 16777215
     t.integer "created_date", unsigned: true
     t.integer "updated_date", unsigned: true
-    t.string "url_id", limit: 50
+    t.string "url_uuid", limit: 50
     t.boolean "popular", default: false, null: false
     t.integer "trial_expire_date"
     t.boolean "alumni", default: false, null: false
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2018_12_04_194600) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "trial_expiration_date"
+    t.index ["url_uuid"], name: "index_database_list_on_url_uuid", unique: true
     t.index ["vendor_id"], name: "fk_vendor_id"
   end
 

@@ -92,7 +92,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.0)
+    concurrent-ruby (1.1.4)
     crass (1.0.4)
     database_cleaner (1.7.0)
     diff-lcs (1.3)
@@ -288,6 +288,7 @@ DEPENDENCIES
   capybara (>= 2.15, < 4.0)
   capybara-webkit!
   coffee-rails (~> 4.2)
+  concurrent-ruby (~> 1.1, >= 1.1.4)
   database_cleaner
   executables
   factory_bot_rails

@@ -9,7 +9,7 @@ RSpec.describe Database, type: :model do
     it { should validate_presence_of(:status) }
     it { should validate_presence_of(:url) }
     it { should validate_presence_of(:description) }
-    it { should validate_presence_of(:url_id) }
+    # it { should validate_presence_of(:url_uuid) }
   end
 
   context 'enums' do
@@ -20,23 +20,23 @@ RSpec.describe Database, type: :model do
     it { should validate_length_of(:name).is_at_most(190) }
     it { should validate_length_of(:name).is_at_least(2) }
     it { should validate_length_of(:years_of_coverage).is_at_most(50) }
-    it { should validate_length_of(:url_id).is_at_most(50) }
-    it { should validate_length_of(:url_id).is_at_least(2) }
+    it { should validate_length_of(:url_uuid).is_at_most(50) }
+    it { should validate_length_of(:url_uuid).is_at_least(2) }
   end
 
   context 'validates uniqueness' do
-    it { should validate_uniqueness_of(:url_id) }
+    it { should validate_uniqueness_of(:url_uuid) }
   end 
 
   # You will get a shoulda warning that this is not fully validatable
   # https://github.com/thoughtbot/shoulda-matchers/issues/512#issuecomment-50213690
-  context 'boolean validations' do
-    it { should validate_inclusion_of(:full_text_db).in_array([true, false]) }
-    it { should validate_inclusion_of(:new_database).in_array([true, false]) }
-    it { should validate_inclusion_of(:trial_database).in_array([true, false]) }
-    it { should validate_inclusion_of(:popular).in_array([true, false]) }
-    it { should validate_inclusion_of(:alumni).in_array([true, false]) }
-  end
+  # context 'boolean validations' do
+  #   it { should validate_inclusion_of(:full_text_db).in_array([true, false]) }
+  #   it { should validate_inclusion_of(:new_database).in_array([true, false]) }
+  #   it { should validate_inclusion_of(:trial_database).in_array([true, false]) }
+  #   it { should validate_inclusion_of(:popular).in_array([true, false]) }
+  #   it { should validate_inclusion_of(:alumni).in_array([true, false]) }
+  # end
 
   context 'belongs to' do
     it { should belong_to(:vendor) }
@@ -197,4 +197,23 @@ RSpec.describe Database, type: :model do
       expect(database.resource_list).to include @rss3.name
     end 
   end
+
+  context 'create a url_uuid' do
+    it 'expects a similar url_uuid to fail' do
+      db2 = FactoryBot.create(:database)
+      expect(FactoryBot.build(:database)).to_not be_valid
+    end 
+
+    it 'expects the uuid to be created using callbacks' do
+      puts database.url_uuid.inspect
+      expect(database.url_uuid).to be_truthy
+    end 
+
+    it 'expects the uuid will never be nil' do
+      attrs = FactoryBot.attributes_for(:database)
+      attrs[:url_uuid] = nil
+      db = Database.create(attrs)
+      expect(db.url_uuid).to_not be_nil
+    end 
+  end 
 end
