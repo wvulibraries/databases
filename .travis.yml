@@ -12,18 +12,18 @@ notifications:
 branches:
   only:
     - master
-addons:
-  firefox: "49.0"
-  apt:
-    sources:
-      - google-chrome
-      - ubuntu-sdk-team
-    packages:
-      - google-chrome-stable
-      - google-chrome-beta
-      - libqt5webkit5-dev
-      - qtdeclarative5-dev
-      - awesome
+# addons:
+#   firefox: "49.0"
+#   apt:
+#     sources:
+#       - google-chrome
+#       - ubuntu-sdk-team
+#     packages:
+#       - google-chrome-stable
+#       - google-chrome-beta
+#       - libqt5webkit5-dev
+#       - qtdeclarative5-dev
+#       - awesome
 services:
   - mysql
   - elasticsearch
