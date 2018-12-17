@@ -1,7 +1,7 @@
 dist: trusty
 language: ruby
 rvm:
-  - 2.5.1
+  - 2.5
 env:
   global:
     - RAILS_ENV=test
@@ -28,8 +28,6 @@ services:
   - mysql
   - elasticsearch
 before_script:
-  - cat "$TRAVIS_BUILD_DIR/.my.cnf" | sudo tee -a /etc/mysql/my.cnf
-  - sudo service mysql restart
   - sleep 20 # makes sure services are ready
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
