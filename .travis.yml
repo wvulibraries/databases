@@ -42,6 +42,7 @@ before_script:
   - bundle install
   - bundle exec bin/rails db:schema:load 
 script:
-  - xvfb-run bundle exec rspec
+  # - xvfb-run bundle exec rspec
+  - bundle exec rspec
 after_success:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
