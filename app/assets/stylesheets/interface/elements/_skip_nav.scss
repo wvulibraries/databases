@@ -3,6 +3,7 @@
   z-index: 10;
   padding: 0.5em;
   left: -99999em;
+  color: contrast(#fff, $link-color, darken($link-color, 50%));
   background: #fff;
 
   &:focus {
