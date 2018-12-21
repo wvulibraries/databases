@@ -1,6 +1,6 @@
 <%= form_for [:admin, database], html: { multipart: true } do |form| %>
   <% if database.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" role="alert" aria-atomic="true">  
       <h2>
         <%= pluralize(database.errors.count, "error") %> 
         <%= I18n.t("admin.basic.error_prompt") %>
@@ -28,6 +28,13 @@
         <div class="select-style">
           <%= form.select :status, options_for_select(Database.statuses.keys.to_a, selected: form.object.status), include_blank: I18n.t("admin.basic.forms.select_status") %>
         </div>
+      </div>
+
+      <div class="field full">
+        <select class="multiple-select" multiple="multiple">
+          <option value="1">January</option>
+          <option value="12">December</option>
+        </select>
       </div>
     </div>
 

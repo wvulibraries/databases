@@ -36,6 +36,9 @@ class Database < ApplicationRecord
   enum status: { undefined: 0, production: 1, development: 2, hidden: 3 }
   validates :status, presence: true
 
+  enum access: { 'Campus Only Access (No Proxy)' => 1, 
+                 'Campus and Off Campus (Proxy)' => 2  }
+
   # associations
   belongs_to :vendor, optional: true, required: false
   belongs_to :access_type, optional: true, required: false
@@ -49,6 +52,10 @@ class Database < ApplicationRecord
   has_many :database_subjects, dependent: :nullify
   has_many :subjects, through: :database_subjects
 
+  # curated subjects
+  has_many :database_curated, dependent: :nullify
+  has_many :curated, through: :database_curated, source: :subject
+
   # scopes
   scope :production, -> { where(status: 'production') }
   scope :development, -> { where(status: 'development') }
@@ -57,6 +64,9 @@ class Database < ApplicationRecord
 
   # callbacks
   before_validation :mint_uuid, on: [:create]
+  
+  # default values 
+  after_initialize :set_defaults
 
   # keywords
   # -----------------------------------------------------
@@ -100,4 +110,15 @@ class Database < ApplicationRecord
   def mint_uuid
     self.url_uuid ||= Time.now.to_i
   end
+
+  # set_defaults
+  # -----------------------------------------------------
+  # @author David J. Davis
+  # @description sets default values for the help and help_url attributes
+  # @return truthy 
+  def set_defaults
+    self.help ||= 'Ask a Librarian'
+    self.help_url ||= 'http://westvirginia.libanswers.com/'
+  end
+  
 end

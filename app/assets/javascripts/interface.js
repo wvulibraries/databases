@@ -15,10 +15,5 @@
 // ----------------------------------------------------------------
 //= require plugins/alerts 
 //= require plugins/search_filter
-
-// Pikaday Datepicker from Yarn 
-// ----------------------------------------------------------------
-//= require moment/moment
-//= require pikaday/pikaday
-//= require pikaday/plugins/pikaday.jquery
-//= require plugins/datepicker_init
+//= require plugins/multiple-select
+//= require plugins/multiple-select-init

@@ -41,6 +41,10 @@ en:
         heading: "Database List"
       filter_label: "Filter Databases"
       filter_warning: "Note: Filter is not a typical search, this simple searches the items already present in the interface. The search here should be kept simple and not use any boolean operators. It is also recommended that you keep the search to only 1 word."
+      controllers: 
+        new: 'Success! We built a new Database.'
+        update: 'Success! Database edited.'
+        delete: 'Database was successfully destroyed.'
       forms:  
         basic_title: "Basic Database Information"
         access_title: "Database Types and Access"

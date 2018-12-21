@@ -19,8 +19,10 @@ RSpec.feature "Admin::Databases", type: :feature do
       fill_in 'Title', with: attrs[:name]
       find('#database_status').find(:xpath, 'option[3]').select_option
       fill_in 'Url', with: attrs[:url]
+      fill_in 'Url', with: attrs[:help_url]
       fill_in 'Description', with: attrs[:description]
-      expect(page).to have_content('Success! We built a brand new subject!')
+      click_button ''
+      expect(page).to have_content(I18n.t('admin.databases.controllers.new'))
     end
 
     scenario 'does not allow creation without title' do

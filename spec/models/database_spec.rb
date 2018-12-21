@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Database, type: :model do
-  let(:database) { FactoryBot.create :database }
+  let(:database) { FactoryBot.create :database_basic }
   let(:vendor) { FactoryBot.create :vendor }
 
   context 'validate required data' do
@@ -14,6 +14,7 @@ RSpec.describe Database, type: :model do
 
   context 'enums' do
     it { should define_enum_for(:status).with(%i[undefined production development hidden]) }
+    it { should define_enum_for(:access).with ({'Campus Only Access (No Proxy)' => 1, 'Campus and Off Campus (Proxy)' => 2 }) }
   end
 
   context 'validates the length of the item' do
@@ -45,7 +46,7 @@ RSpec.describe Database, type: :model do
   context 'has_many associations' do
     it { should have_many(:resources) }
     it { should have_many(:subjects) }
-    # it { should have_many(:curated) }
+    it { should have_many(:curated) }
   end
 
   it 'factory bot is valid' do
@@ -200,20 +201,31 @@ RSpec.describe Database, type: :model do
 
   context 'create a url_uuid' do
     it 'expects a similar url_uuid to fail' do
-      db2 = FactoryBot.create(:database)
+      db2 = FactoryBot.create(:database_basic)
       expect(FactoryBot.build(:database)).to_not be_valid
     end 
 
     it 'expects the uuid to be created using callbacks' do
-      puts database.url_uuid.inspect
       expect(database.url_uuid).to be_truthy
     end 
 
     it 'expects the uuid will never be nil' do
-      attrs = FactoryBot.attributes_for(:database)
+      attrs = FactoryBot.attributes_for(:database_basic)
       attrs[:url_uuid] = nil
       db = Database.create(attrs)
       expect(db.url_uuid).to_not be_nil
     end 
   end 
+
+  context 'creates default values for help' do
+    it 'has a default help text' do
+      db = FactoryBot.create(:database_default_values)
+      expect(db.help).to eq 'Ask a Librarian'
+    end 
+
+    it 'has a default help url' do
+      db = FactoryBot.create(:database_default_values)
+      expect(db.help_url).to eq 'http://westvirginia.libanswers.com/'
+    end 
+  end  
 end

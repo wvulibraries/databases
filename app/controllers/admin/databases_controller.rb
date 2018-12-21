@@ -34,8 +34,8 @@ class Admin::DatabasesController < ApplicationController
 
     respond_to do |format|
       if @database.save
-        format.html { redirect_to @database, notice: 'Database was successfully created.' }
-        format.json { render :show, status: :created, location: @database }
+        format.html { redirect_to admin_database_path(@database), success: I18n.t('admin.databases.controllers.new') }
+        format.json { render :show, status: :created, location: admin_database_path(@database) }
       else
         format.html { render :new }
         format.json { render json: @database.errors, status: :unprocessable_entity }
@@ -48,8 +48,8 @@ class Admin::DatabasesController < ApplicationController
   def update
     respond_to do |format|
       if @database.update(database_params)
-        format.html { redirect_to @database, notice: 'Database was successfully updated.' }
-        format.json { render :show, status: :ok, location: @database }
+        format.html { redirect_to admin_database_path(@database), I18n.t('admin.databases.controllers.update') }
+        format.json { render :show, status: :ok, location: admin_database_path(@database) }
       else
         format.html { render :edit }
         format.json { render json: @database.errors, status: :unprocessable_entity }
@@ -62,7 +62,7 @@ class Admin::DatabasesController < ApplicationController
   def destroy
     @database.destroy
     respond_to do |format|
-      format.html { redirect_to databases_url, notice: 'Database was successfully destroyed.' }
+      format.html { redirect_to admin_databases_url, success: I18n.t('admin.databases.controllers.delete') }
       format.json { head :no_content }
     end
   end

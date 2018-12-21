@@ -40,8 +40,15 @@
         1,
         1,
         null,
+        1,
+        null,
+        null,
         null,
         1,
+        1,
+        1,
+        null,
+        null,
         1,
         1,
         null,
@@ -57,6 +64,9 @@
         4,
         2,
         2,
+        1,
+        null,
+        null,
         1,
         null,
         null,
@@ -102,11 +112,46 @@
         null,
         null,
         1,
-        41,
+        43,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        44,
+        44,
+        null,
         null,
         null
       ],
       "/home/databases/app/models/application_record.rb": [
+        1,
+        1,
+        null
+      ],
+      "/home/databases/app/models/vendor.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null
+      ],
+      "/home/databases/app/models/database_subject.rb": [
+        1,
+        null,
+        1,
+        null,
+        null,
         1,
         1,
         null
@@ -126,27 +171,13 @@
         1,
         null
       ],
-      "/home/databases/app/models/database_subject.rb": [
+      "/home/databases/app/models/database_resource.rb": [
         1,
         null,
         1,
         null,
         null,
         1,
-        1,
-        null
-      ],
-      "/home/databases/app/models/vendor.rb": [
-        1,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
         1,
         null
       ],
@@ -164,7 +195,7 @@
         1,
         null
       ],
-      "/home/databases/app/models/database_resource.rb": [
+      "/home/databases/app/models/database_curated.rb": [
         1,
         null,
         1,
@@ -175,6 +206,6 @@
         null
       ]
     },
-    "timestamp": 1545072220
+    "timestamp": 1545426213
   }
 }
