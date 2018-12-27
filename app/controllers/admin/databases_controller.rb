@@ -3,6 +3,7 @@ class Admin::DatabasesController < ApplicationController
 
   # GET /admin/databases
   # GET /admin/databases.json
+  # GET /admin/databases.csv 
   def index
     @databases = Database.all
                          .includes(
@@ -11,7 +12,24 @@ class Admin::DatabasesController < ApplicationController
                             :access_plain_text, 
                             :access_type)
                           .order('name ASC')
+    respond_to do |format|
+      format.html
+      format.csv { send_data @databases.to_csv, filename: "databases-#{Date.today}.csv" }
+    end         
   end
+
+  # GET /admin/databases/list/:status
+  def list 
+    @databases =  Database.with_status(params[:status])
+                          .includes(
+                            :database_subjects, 
+                            :subjects, :vendor, 
+                            :access_plain_text, 
+                            :access_type)
+                          .order('name ASC')
+    render :index
+  end 
+  
 
   # GET /admin/databases/1
   # GET /admin/databases/1.json

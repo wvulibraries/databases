@@ -6,6 +6,10 @@ RSpec.describe Admin::DatabasesController, type: :routing do
       expect(:get => "/admin/databases").to route_to("admin/databases#index")
     end
 
+    it "routes to #list" do
+      expect(:get => "/admin/databases/list").to route_to("admin/databases#list")
+    end
+
     it "routes to #new" do
       expect(:get => "/admin/databases/new").to route_to("admin/databases#new")
     end

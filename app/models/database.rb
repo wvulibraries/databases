@@ -1,7 +1,4 @@
 class Database < ApplicationRecord
-  # require from standard library
-  require 'csv'
-
   # set table name
   self.table_name = :database_list
 
