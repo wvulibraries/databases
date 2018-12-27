@@ -97,6 +97,7 @@ RSpec.describe Database, type: :model do
       database.status = 'production'
       database.save! 
       expect(Database.production.count).to eq 1
+      expect(Database.with_status('production').count).to eq 1
     end
 
     it 'expects production status to be 0 and hidden to be 1' do
@@ -104,13 +105,16 @@ RSpec.describe Database, type: :model do
       database.save!
       expect(Database.production.count).to eq 0
       expect(Database.hidden.count).to eq 1
+      expect(Database.with_status('hidden').count).to eq 1
     end
 
     it 'expects production status to be 0 and development to be 1' do
       database.status = 'development'
       database.save!
       expect(Database.production.count).to eq 0
+      expect(Database.with_status('production').count).to eq 0
       expect(Database.development.count).to eq 1
+      expect(Database.with_status('development').count).to eq 1
     end
   end
 
@@ -155,6 +159,16 @@ RSpec.describe Database, type: :model do
       database.save
       expect(database.vendor).to be_nil
     end
+
+    it 'expects vendor name to be empty' do
+      database.vendor = nil
+      expect(database.vendor_name).to be_nil
+    end 
+
+    it 'successful vendor name' do
+      database.vendor = vendor
+      expect(database.vendor_name).to eq(vendor.name)
+    end 
   end
 
   context 'subjects' do
@@ -235,7 +249,7 @@ RSpec.describe Database, type: :model do
       databases = Database.all
       csv_string = databases.to_csv.to_s
       # attr to check
-      attributes = %w{id name status years_of_coverage vendor url access full_text_db new_database trial_database access_plain_text help help_url description url_uuid popular trial_database trial_expiration_date title_search created_at updated_at}
+      attributes = %w{id name status years_of_coverage vendor_name url access full_text_db new_database trial_database access_plain_text help help_url description url_uuid popular trial_database trial_expiration_date title_search resource_list subject_list created_at updated_at}
       # run an expecatation for each attribute
       attributes.each do |attr| 
         expect(csv_string).to include database[attr].to_s

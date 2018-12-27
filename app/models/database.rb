@@ -63,6 +63,7 @@ class Database < ApplicationRecord
   scope :production, -> { where(status: 'production') }
   scope :development, -> { where(status: 'development') }
   scope :hidden, -> { where(status: 'hidden') }
+  scope :with_status, ->(status) { where(status: status) }
   scope :trials, -> { where(trial_database: true) }
 
   # callbacks
@@ -103,6 +104,15 @@ class Database < ApplicationRecord
     list.to_sentence
   end
 
+  # vendor_name
+  # -----------------------------------------------------
+  # @author David J. Davis
+  # @description returns the vendor name or an empty string
+  # @return string
+  def vendor_name
+    vendor.name unless vendor.nil?
+  end
+
   # to_csv
   # -----------------------------------------------------
   # @author David J. Davis
@@ -111,7 +121,7 @@ class Database < ApplicationRecord
   # @return csv object
   def self.to_csv
     CSV.generate(headers: true) do |csv|
-      attributes = %w{id name status years_of_coverage vendor url access full_text_db new_database trial_database access_plain_text help help_url description url_uuid popular trial_database trial_expiration_date title_search created_at updated_at}
+      attributes = %w{id name status years_of_coverage vendor_name url access full_text_db new_database trial_database access_plain_text help help_url description url_uuid popular trial_database trial_expiration_date title_search resource_list subject_list created_at updated_at}
 
       csv << attributes
       all.each do |database|
