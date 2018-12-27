@@ -228,4 +228,18 @@ RSpec.describe Database, type: :model do
       expect(db.help_url).to eq 'http://westvirginia.libanswers.com/'
     end 
   end  
+
+  context 'creates a csv report' do
+    it 'csv stuff' do
+      database # init database
+      databases = Database.all
+      csv_string = databases.to_csv.to_s
+      # attr to check
+      attributes = %w{id name status years_of_coverage vendor url access full_text_db new_database trial_database access_plain_text help help_url description url_uuid popular trial_database trial_expiration_date title_search created_at updated_at}
+      # run an expecatation for each attribute
+      attributes.each do |attr| 
+        expect(csv_string).to include database[attr].to_s
+      end 
+    end 
+  end 
 end

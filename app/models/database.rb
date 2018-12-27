@@ -1,4 +1,7 @@
 class Database < ApplicationRecord
+  # require from standard library
+  require 'csv'
+
   # set table name
   self.table_name = :database_list
 
@@ -99,6 +102,23 @@ class Database < ApplicationRecord
     resources.each { |rss| list << rss.name }
     list.to_sentence
   end
+
+  # to_csv
+  # -----------------------------------------------------
+  # @author David J. Davis
+  # @description creates a csv of the current record
+  # to be used in reporting and exporting data
+  # @return csv object
+  def self.to_csv
+    CSV.generate(headers: true) do |csv|
+      attributes = %w{id name status years_of_coverage vendor url access full_text_db new_database trial_database access_plain_text help help_url description url_uuid popular trial_database trial_expiration_date title_search created_at updated_at}
+
+      csv << attributes
+      all.each do |database|
+        csv << attributes.map{ |attr| database.send(attr) }
+      end
+    end
+  end 
 
   private 
 

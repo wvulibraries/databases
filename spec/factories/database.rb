@@ -1,12 +1,13 @@
 FactoryBot.define do
   sequence(:url) { |n| Faker::Internet.url("somethingcool#{n}.com", '/index.html') }
-  sequence(:url_uuid) { |n| "#{Time.now.to_i}#{n}" } 
+  sequence(:url_uuid) { |n| "#{Time.now.to_i}_#{n}" } 
   factory :database do
     factory :database_basic do
       name { Faker::HitchhikersGuideToTheGalaxy.planet << Faker::Educator.course_name }
       # database urls
       url
       off_campus_url { Faker::Internet.url }
+      url_uuid
 
       # database info
       status { rand(0..3) } # enumerations are 0-3
