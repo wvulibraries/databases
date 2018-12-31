@@ -29,13 +29,6 @@
           <%= form.select :status, options_for_select(Database.statuses.keys.to_a, selected: form.object.status), include_blank: I18n.t("admin.basic.forms.select_status") %>
         </div>
       </div>
-
-      <div class="field full">
-        <select class="multiple-select" multiple="multiple">
-          <option value="1">January</option>
-          <option value="12">December</option>
-        </select>
-      </div>
     </div>
 
     <div class="row">

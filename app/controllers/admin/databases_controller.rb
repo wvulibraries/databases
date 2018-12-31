@@ -19,7 +19,7 @@ class Admin::DatabasesController < ApplicationController
   end
 
   # GET /admin/databases/list/:status
-  def list 
+  def list
     @databases =  Database.with_status(params[:status])
                           .includes(
                             :database_subjects, 

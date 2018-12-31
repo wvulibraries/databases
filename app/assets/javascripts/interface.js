@@ -15,5 +15,3 @@
 // ----------------------------------------------------------------
 //= require plugins/alerts 
 //= require plugins/search_filter
-//= require plugins/multiple-select
-//= require plugins/multiple-select-init

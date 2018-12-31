@@ -37,8 +37,8 @@ RSpec.describe Vendor, type: :model do
 
   context 'databases' do
     it 'expects the vendor to have many databases and be able to save them' do
-      db1 = FactoryBot.create :database
-      db2 = FactoryBot.create :database
+      db1 = FactoryBot.create :database_basic
+      db2 = FactoryBot.create :database_basic
       vendor.databases = [db1, db2]
       expect(vendor).to be_valid 
       vendor.save

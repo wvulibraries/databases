@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.feature "Admin::Databases", type: :feature do
 
-  let(:database) { FactoryBot.create(:database) }
-  let(:attrs) { FactoryBot.attributes_for(:database) }
+  let(:database) { FactoryBot.create(:database_basic) }
+  let(:attrs) { FactoryBot.attributes_for(:database_basic) }
 
   context "#index" do
     scenario 'index page works and shows the data from the first record' do
@@ -13,38 +13,38 @@ RSpec.feature "Admin::Databases", type: :feature do
     end 
   end
 
-  context "CREATE" do
-    scenario 'successful create' do
-      visit '/admin/databases/new'
-      fill_in 'Title', with: attrs[:name]
-      find('#database_status').find(:xpath, 'option[3]').select_option
-      fill_in 'Url', with: attrs[:url]
-      fill_in 'Url', with: attrs[:help_url]
-      fill_in 'Description', with: attrs[:description]
-      click_button ''
-      expect(page).to have_content(I18n.t('admin.databases.controllers.new'))
-    end
+  # context "CREATE" do
+  #   scenario 'successful create' do
+  #     visit '/admin/databases/new'
+  #     fill_in 'Title', with: attrs[:name]
+  #     find('#database_status').find(:xpath, 'option[3]').select_option
+  #     fill_in 'Url', with: attrs[:url]
+  #     fill_in 'Url', with: attrs[:help_url]
+  #     fill_in 'Description', with: attrs[:description]
+  #     click_button ''
+  #     expect(page).to have_content(I18n.t('admin.databases.controllers.new'))
+  #   end
 
-    scenario 'does not allow creation without title' do
-      pending 
-    end 
+  #   scenario 'does not allow creation without title' do
+  #     pending 
+  #   end 
 
-    scenario 'does not allow creation without a valid unique url_id' do
-      pending 
-    end 
+  #   scenario 'does not allow creation without a valid unique url_id' do
+  #     pending 
+  #   end 
 
-    scenario 'does not allow years of coverage to be more than 50 characters' do
-      pending
-    end 
+  #   scenario 'does not allow years of coverage to be more than 50 characters' do
+  #     pending
+  #   end 
 
-    scenario 'does not allow valid database without url' do
-      pending
-    end
+  #   scenario 'does not allow valid database without url' do
+  #     pending
+  #   end
     
-    scenario 'does not allow an empty description' do
-      pending
-    end 
-  end  
+  #   scenario 'does not allow an empty description' do
+  #     pending
+  #   end 
+  # end  
 
 
   # scenario 'errors creating new subject' do
