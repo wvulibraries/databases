@@ -38,6 +38,7 @@ before_script:
   - mysql -e 'alter database databases_test default character set utf8mb4;'
   - mysql -e 'alter database databases_test default collate utf8mb4_unicode_ci;'
   - bundle install
+  - yarn install
   - bundle exec bin/rails db:schema:load 
 script:
   # - xvfb-run bundle exec rspec
