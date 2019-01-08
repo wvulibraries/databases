@@ -1,16 +1,16 @@
 .show-button {
   @include button_maker($success, 'solid');
-  @include determine-text-color($success);
+  color:#fff;
 }
 
 .edit-button {
   @include button_maker($warning, 'solid');
-  @include determine-text-color($warning);
+  color:#fff;
 }
 
 .delete-button {
   @include button_maker($error, 'solid');
-  @include determine-text-color($error);
+  color:#fff;
 }
 
 .submit-button{

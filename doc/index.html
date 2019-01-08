@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.16
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-Databases">Databases</h1>
+
+<p><a href="https://travis-ci.org/wvulibraries/databases"><img
+src="https://travis-ci.org/wvulibraries/databases.svg?branch=master"></a>
+<a
+href="https://codeclimate.com/github/wvulibraries/databases/maintainability"><img
+src="https://api.codeclimate.com/v1/badges/dc9fb3109c8a8ff1301c/maintainability"></a>
+<a
+href="https://codeclimate.com/github/wvulibraries/databases/test_coverage"><img
+src="https://api.codeclimate.com/v1/badges/dc9fb3109c8a8ff1301c/test_coverage"></a></p>
+
+<h1 id="label-Documentation">Documentation</h1>
+<ul><li>
+<p>This project uses YARD for its documentation. It will allow you a quick
+glimpse at documentation on all logic associated with the project.</p>
+</li><li>
+<p>To regenerate documentation in the command line type <code>yard doc</code>.</p>
+</li></ul>
+
+<h1 id="label-Configuration">Configuration</h1>
+<ul><li>
+<p>Proxy URL</p>
+</li><li>
+<p>CAS Authentication</p>
+</li><li>
+<p>Time Zone</p>
+</li><li>
+<p>Campus IP Range</p>
+</li><li>
+<p>Deault HelpText / HelpURL</p>
+</li></ul>
+
+<h2 id="label-IDEA-27s+on+Implementation">IDEA&#39;s on Implementation</h2>
+<ul><li>
+<p>YAML File of Configs</p>
+</li><li>
+<p>Interface and Database Storage of Configs</p>
+</li><li>
+<p>Rails Global Variable Scopes</p>
+</li><li>
+<p>Forcing An Interface to Write to a File of Configs then setting a rails
+global that is checked before each server startup. The server startup will
+determine if the setup is needed and should be checked on before_filter. If
+the before_filter doesn&#39;t pass then it should show the interface and
+have the interface show the needed variables.</p>
+</li></ul>
+
+<p>—</p>
+
+<h1 id="label-Temporary+Development+Documentation">Temporary Development Documentation</h1>
+
+<h2 id="label-Scaffold+and+Generate+Commands">Scaffold and Generate Commands</h2>
+
+<h3 id="label-Base+Generated+Scaffolds+from+the+Schema">Base Generated Scaffolds from the Schema</h3>
+<ul><li>
+<p>bin/rails generate model AccessPlainText name:text --no-migration</p>
+</li><li>
+<p>bin/rails generate model AccessType name:string --no-migration</p>
+</li><li>
+<p>bin/rails generate scaffold Admin::Database name:string status:integer
+years_of_coverage:string url:string off_campus_url:string updated:string
+full_text_db:integer new_database:integer trial_database:integer help:text
+help_url:text description:text created_date:integer updated_date:integer
+popular:integer trial_expire_date:integer alumni:integer
+title_search:string --no-migration</p>
+</li><li>
+<p>bin/rails generate scaffold DatabaseStatus name:string --no-migration</p>
+</li><li>
+<p>bin/rails generate model DatabaseCurations database:references
+subject:references sort:integer --no-migration</p>
+</li><li>
+<p>bin/rails generate scaffold DatabasesResourceType database:references
+resource:references --no-migration</p>
+</li><li>
+<p>bin/rails generate scaffold DatabasesSubject database:references
+subject:references --no-migration</p>
+</li><li>
+<p>bin/rails generate scaffold IpLocation ip_range:string name:string
+--no-migration</p>
+</li><li>
+<p>bin/rails generate scaffold News name:string --no-migration</p>
+</li><li>
+<p>bin/rails generate scaffold ResourceType name:string --no-migration</p>
+</li><li>
+<p>bin/rails generate scaffold Statistic dbID:integer location:integer
+access_date:integer referrer:string ip_address:string --no-migration</p>
+</li><li>
+<p>bin/rails generate scaffold Subject name:string url:string --no-migration</p>
+</li><li>
+<p>bin/rails generate scaffold UpdateText name:string --no-migration</p>
+</li><li>
+<p>bin/rails generate model Vendor name:string url:string --no-migration</p>
+</li></ul>
+
+<h1 id="label-Development+Notes">Development Notes</h1>
+
+<h1 id="label-OLD+APP+FUNCTIONALITY">OLD APP FUNCTIONALITY</h1>
+
+<h2 id="label-CONNECT.PHP">CONNECT.PHP</h2>
+
+<p>This is the heart of the “stable url” in the databases application. The
+URL_ID is the unique identifier for all of the databases. If you click on a
+URL it will look at where you are and what access conditions need to be
+met, then create the URL for your use case and forward you to the
+appropriate URL. The easiest use case as I can tell so far is if your on
+campus it sends you to the URL, if your off campus and off campus use is
+allowed it sends you to a proxyURL that allows you to sign in
+appropriately.</p>
+
+<h3 id="label-Access+-2F+access_types">Access / access_types</h3>
+
+<p>This is oddly written in the old application. The connect.php file handles
+this along with the URLByID that grabs a string of intergers from the
+database that is custom to each database, then forwards the user to the
+appropriate database.</p>
+
+<p>The access types are the interesting bit here, it really only checks 2
+things. The first is the location, <code>$location =
+(ipAddr::onsite())?1:0;</code> to determine if the browser is on campus or
+not, then if the <code>access_type</code> id is less than 2 and the user is
+not on campus then it sends a message that the database is only avaliable
+on campus.</p>
+
+<p>Assuming the location is off campus or doesn&#39;t match the ip
+configurations, a proxy url is added onto the URL. This also includes the
+access_type id being number 2. <code>$url =
+sprintf(&quot;%s%s&quot;,$localvars-&gt;get(&quot;proxyURL&quot;),$url);</code></p>
+
+<p>If neither of those conditions are met, it simply goes to the database URL
+which seems odd to me, but maybe that is expected functionality.</p>
+
+<h4 id="label-Access+Types">Access Types</h4>
+
+<pre class="code ruby"><code class="ruby">[1, \&quot;Campus Only for some titles\&quot;], 
+[2, \&quot;Campus and Remote (Requires WVU Login)\&quot;], 
+[3, \&quot;Unrestricted Access (No Login Required)\&quot;], 
+[28, \&quot;Password Access for Alumni\&quot;], 
+[30, \&quot;Downtown Library Only\&quot;], 
+[32, \&quot;Off-Campus Requires Account\&quot;], 
+[33, \&quot;Create password with a WVU email address\&quot;], 
+[34, \&quot;WVU MyID to read or listen\&quot;], 
+[35, \&quot;Create Account with WVU Email\&quot;]
+</code></pre>
+
+<h4 id="label-Access+Plain+Text">Access Plain Text</h4>
+
+<p>This seems to only be used in the forms and may hold no real use case
+value. It is going to need to be investigated as to what that was meant to
+be used for and what the actual use of it currently is.</p>
+
+<p>Current Use: There are references of accessPlainText only in the menus and
+in the administration form. This appears to be <em>deprecated</em>.</p>
+
+<h2 id="label-Database+Stats">Database Stats</h2>
+
+<p>Statistics are being kept on each database by which database the user is
+trying to access. These statistics simply contains the dbID, location,
+access date, referrer, nad ip address.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Wed Jan  2 08:29:28 2019 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.16 (ruby-2.5.1).
+</div>
+
+    </div>
+  </body>
+</html>

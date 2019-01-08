@@ -1,3 +1,5 @@
+# The main model for storing academic databases. NOT DATABASE CONNECTIONS!
+# @author David J. Davis
 class Database < ApplicationRecord
   # set table name
   self.table_name = :database_list
@@ -23,7 +25,7 @@ class Database < ApplicationRecord
 
   # Validate URL's *optional presence
   validates :help_url, url: { allow_nil: true }
-  validates :off_campus_url, url: { allow_nil: true }
+  # validates :off_campus_url, url: { allow_nil: true }
 
   # Boolean Validations
   # https://github.com/thoughtbot/shoulda-matchers/issues/512#issuecomment-50213690
@@ -69,20 +71,17 @@ class Database < ApplicationRecord
   # default values 
   after_initialize :set_defaults
 
-  # keywords
-  # -----------------------------------------------------
+  # Creates keywords for indexing, filtering, search etc.
   # @author David J. Davis
-  # @description creates keywords for indexing, filtering, search etc.
   # @return string
   def keywords
     attr = [status, name, title_search, subject_list]
     attr.join(' ')
   end
 
-  # subject_list
-  # -----------------------------------------------------
+  # Creates comma seperated list of subjects.
   # @author David J. Davis
-  # @description creates comma seperated list of subjects.
+  # @abstract 
   # @return string
   def subject_list
     list = []
@@ -90,10 +89,8 @@ class Database < ApplicationRecord
     list.to_sentence
   end
 
-  # resource_list
-  # -----------------------------------------------------
+  # Creates comma seperated list of resources.
   # @author David J. Davis
-  # @description creates comma seperated list of resources.
   # @return string
   def resource_list
     list = []
@@ -101,20 +98,22 @@ class Database < ApplicationRecord
     list.to_sentence
   end
 
-  # vendor_name
-  # -----------------------------------------------------
+  # Calls the association for vendor unless nil, and returns the vendors name. 
   # @author David J. Davis
-  # @description returns the vendor name or an empty string
-  # @return string
+  # @return string or nil
   def vendor_name
     vendor.name unless vendor.nil?
   end
 
-  # to_csv
-  # -----------------------------------------------------
+  # Adjusts the presentation of the trail_expiration_date  
   # @author David J. Davis
-  # @description creates a csv of the current record
-  # to be used in reporting and exporting data
+  # @return string or nil
+  # def trial_expiration_date
+  #   self[:trial_expiration_date].strftime("%m/%d/%Y") unless self[:trial_expiration_date].nil?
+  # end 
+
+  # Creates a csv object of all database records.
+  # @author David J. Davis
   # @return csv object
   def self.to_csv
     CSV.generate(headers: true) do |csv|
@@ -129,23 +128,22 @@ class Database < ApplicationRecord
 
   private 
 
-  # mint_uuid
-  # -----------------------------------------------------
+  # Minting a UUID creates a uuid for the record to use as a stable URL.
   # @author David J. Davis
-  # @description creates a uuid for the record to use for the url.
   # @return truthy 
   def mint_uuid
     self.url_uuid ||= Time.now.to_i
   end
 
-  # set_defaults
-  # -----------------------------------------------------
+  # Some attributes are mostly going to be the same or provided as default values.
+  # These attributes will be set automatically unless the items is set by the user.
   # @author David J. Davis
-  # @description sets default values for the help and help_url attributes
+  # @abstract
   # @return truthy 
+  # @TODO: This needs to be added to the configuration option.
   def set_defaults
-    self.help ||= 'Ask a Librarian'
-    self.help_url ||= 'http://westvirginia.libanswers.com/'
+    self.help ||= ENV['help_text']
+    self.help_url ||= ENV['help_url']
   end
   
 end

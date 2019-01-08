@@ -1,4 +1,8 @@
 class Admin::DatabasesController < ApplicationController
+  # use admin layout
+  layout 'admin'
+  
+  # filters
   before_action :set_database, only: [:show, :edit, :update, :destroy]
 
   # GET /admin/databases
@@ -29,8 +33,21 @@ class Admin::DatabasesController < ApplicationController
                           .order('name ASC')
     render :index
   end 
-  
 
+  # GET /admin/databases/tables/:status
+  def tables 
+    if params[:status].present?
+      @databases =  Database.with_status(params[:status])
+                            .includes(:vendor)
+                            .order('name ASC')
+    else
+      @databases = Database.all
+                            .includes(:vendor)
+                            .order('name ASC')
+    end  
+    render :table
+  end 
+  
   # GET /admin/databases/1
   # GET /admin/databases/1.json
   def show
@@ -66,7 +83,7 @@ class Admin::DatabasesController < ApplicationController
   def update
     respond_to do |format|
       if @database.update(database_params)
-        format.html { redirect_to admin_database_path(@database), I18n.t('admin.databases.controllers.update') }
+        format.html { redirect_to admin_database_path(@database.id), success: I18n.t('admin.databases.controllers.update') }
         format.json { render :show, status: :ok, location: admin_database_path(@database) }
       else
         format.html { render :edit }

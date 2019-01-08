@@ -24,8 +24,11 @@ module Databases
     config.load_defaults 5.2
 
     # Timezone
-    config.time_zone = 'Eastern Time (US & Canada)'
+    config.time_zone = ENV['time_zone']
     config.active_record.default_timezone = :local
+
+    # CAS
+    # config.rack_cas.server_url = ENV['cas_url']
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

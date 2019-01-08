@@ -3,37 +3,25 @@
 <table class="table">
   <thead>
     <tr> 
-      <th> Name </th>
+      <th> Title </th>
       <th> Status </th>
-      <th> URL </th>
       <th> Vendor </th>
-      <th> Access Plain Text </th>
-      <th> Access Type</th>
       <th> Trial </th>
       <th> Trail Expiration </th>
-      <th> Subjects </th>
-      <th colspan="3"> </th>
+      <th colspan="3"> Actions </th>
     </tr>
   </thead>
   
   <% @databases.each do |database| %>
     <tr> 
-      <td> <%= database.name %> </td>
-      <td> <%= database.status %> </td>
-      <td> <%= database.url %> </td>
-      <td> <%= database.vendor.name %> </td>
-      <td> 
-        <%= database.access_plain_text.name  unless database.access_plain_text.nil? %>
-      </td>
-      <td>  
-        <%= database.access_type.name unless database.access_type.nil? %>
-      </td>
-      <td> <%= database.trial_database ? "Yes" : "No" %> </td>
-      <td> <%= database.trial_expiration_date if database.trial_database %> </td>
-      <td> <%= database.subject_list %> </td>
-      <td> <%= link_to 'Show', admin_database_path(database), { class: 'show-button' } %> </td>
-      <td> <%= link_to 'Edit', edit_admin_database_path(database), { class: 'edit-button' } %> </td>
-      <td> <%= link_to 'Destroy', admin_database_path(database), method: :delete, class: 'delete-button', data: { confirm: 'Are you sure?' }, title:'delete' %> </td>
+      <td data-label="Title"> <%= database.name %> </td>
+      <td data-label="Status"> <%= database.status %> </td>
+      <td data-label="Vendor"> <%= database.vendor_name %> </td>
+      <td data-label="Trial"> <%= database.trial_database ? "Yes" : "No" %> </td>
+      <td data-label="Trial Date"> <%= l(database.trial_expiration_date, format: :human_readable) %> </td>
+      <td data-label="Show"> <%= link_to raw('<span class="fas fa-eye" title="Show"></span>'), admin_database_path(database), { class: 'show-button' } %> </td>
+      <td data-label="Edit"> <%= link_to raw('<span class="fas fa-edit" title="Edit"></span>'), edit_admin_database_path(database), { class: 'edit-button' } %> </td>
+      <td data-label="Destroy"> <%= link_to raw('<span class="fas fa-trash" title="Delete"></span>'), admin_database_path(database), method: :delete, class: 'delete-button', data: { confirm: 'Are you sure?' }, title:'delete' %> </td>
     </tr>
   <% end %>
 </table>

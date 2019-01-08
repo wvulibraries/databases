@@ -79,18 +79,19 @@ RSpec.describe Database, type: :model do
     end 
   end
 
-  context 'off campus url' do
-    it 'expects invalid url' do
-      database.off_campus_url = 'soemthing'
-      expect(database).to_not be_valid
-      expect(database.errors.messages[:off_campus_url]).to eq ['is not a valid URL']
-    end
+  # May not be used
+  # context 'off campus url' do
+  #   it 'expects invalid url' do
+  #     database.off_campus_url = 'soemthing'
+  #     expect(database).to_not be_valid
+  #     expect(database.errors.messages[:off_campus_url]).to eq ['is not a valid URL']
+  #   end
 
-    it 'expects valid url' do
-      database.off_campus_url = Faker::Internet.url
-      expect(database).to be_valid
-    end
-  end
+  #   it 'expects valid url' do
+  #     database.off_campus_url = Faker::Internet.url
+  #     expect(database).to be_valid
+  #   end
+  # end
 
   context 'status scopes' do
     it 'expects production status to eq 1' do
@@ -234,12 +235,12 @@ RSpec.describe Database, type: :model do
   context 'creates default values for help' do
     it 'has a default help text' do
       db = FactoryBot.create(:database_default_values)
-      expect(db.help).to eq 'Ask a Librarian'
+      expect(db.help).to eq ENV['help_text']
     end 
 
     it 'has a default help url' do
       db = FactoryBot.create(:database_default_values)
-      expect(db.help_url).to eq 'http://westvirginia.libanswers.com/'
+      expect(db.help_url).to eq ENV['help_url']
     end 
   end  
 

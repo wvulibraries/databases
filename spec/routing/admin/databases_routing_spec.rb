@@ -32,6 +32,39 @@ RSpec.describe Admin::DatabasesController, type: :routing do
       end
     end 
 
+    context "#tables" do
+      it "#tables all" do
+        expect(:get => "/admin/databases/tables").to route_to(
+          :controller => "admin/databases",
+          :action => "tables"
+        )
+      end
+
+      it "#tables production" do
+        expect(:get => "/admin/databases/tables/production").to route_to(
+          :controller => "admin/databases",
+          :action => "tables",
+          :status => 'production'
+        )
+      end
+
+      it "#tables development" do
+        expect(:get => "/admin/databases/tables/development").to route_to(
+          :controller => "admin/databases",
+          :action => "tables",
+          :status => 'development'
+        )
+      end
+
+      it "#tables hidden" do
+        expect(:get => "/admin/databases/tables/hidden").to route_to(
+          :controller => "admin/databases",
+          :action => "tables",
+          :status => 'hidden'
+        )
+      end
+    end 
+
     it "routes to #new" do
       expect(:get => "/admin/databases/new").to route_to("admin/databases#new")
     end

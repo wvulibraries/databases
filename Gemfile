@@ -25,6 +25,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # Application Specific 
 # =====================================================================================
+# configurations 
+gem "figaro"
+
 # security / validation
 gem 'validate_url'
 gem 'sanitize'

@@ -3,11 +3,16 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/dc9fb3109c8a8ff1301c/maintainability)](https://codeclimate.com/github/wvulibraries/databases/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/dc9fb3109c8a8ff1301c/test_coverage)](https://codeclimate.com/github/wvulibraries/databases/test_coverage)
 
+# Documentation 
+- This project uses YARD for its documentation.  It will allow you a quick glimpse at documentation on all logic associated with the project.
+- To regenerate documentation in the command line type `yard doc`.  
+
 # Configuration 
 - Proxy URL
 - CAS Authentication 
 - Time Zone
 - Campus IP Range  
+- Deault HelpText / HelpURL
 
 ## IDEA's on Implementation 
 - YAML File of Configs 
@@ -15,9 +20,11 @@
 - Rails Global Variable Scopes
 - Forcing An Interface to Write to a File of Configs then setting a rails global that is checked before each server startup.  The server startup will determine if the setup is needed and should be checked on before_filter.  If the before_filter doesn't pass then it should show the interface and have the interface show the needed variables. 
 
-# Scaffold and Generate Commands 
+# Temporary Development Documentation 
 
-## Base Generated Scaffolds from the Schema
+## Scaffold and Generate Commands 
+
+### Base Generated Scaffolds from the Schema
 - bin/rails generate model AccessPlainText name:text --no-migration
 
 - bin/rails generate model AccessType name:string --no-migration

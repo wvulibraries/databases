@@ -1,0 +1,36 @@
+# -----------------------------------------------------------------
+# -----------------------------------------------------------------
+# DATABASE CONFIGURATIONS 
+# -----------------------------------------------------------------
+# -----------------------------------------------------------------
+# This file is intended for your use case variables.  Do not put 
+# application secrets, passwords, or other sensitive information 
+# in this file.  If you intend on using this file for sensitive 
+# data then alter the gitignore to be sure it stays out of your 
+# source control.  
+# -----------------------------------------------------------------
+# -----------------------------------------------------------------
+
+# GLOBAL CONFIGURATIONS
+# -----------------------------------------------------------------
+# Timezone
+time_zone: 'Eastern Time (US & Canada)'
+
+# Default values for databases
+help_text:  'Ask a Librarian'
+help_url: 'http://westvirginia.libanswers.com/'
+
+# Google Analytics 
+google_analytics_key: "UA-35722661-5"
+
+# DEVELOPMENT ENVIRONMENT SPECIFIC 
+# -----------------------------------------------------------------
+production:
+  cas_url: 'https://sso.wvu.edu/cas/' 
+  ssl: 'true' 
+development:
+  cas_url: https://ssodev.wvu.edu/cas/
+  ssl: 'false'
+  google_analytics_key: ~ #nullifies for dev
+test:
+  google_analytics_key: ~ #nullifies for test
