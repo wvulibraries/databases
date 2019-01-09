@@ -10,3 +10,4 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery/dist/jquery
+

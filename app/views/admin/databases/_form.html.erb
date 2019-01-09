@@ -138,6 +138,74 @@
       <%= form.label :help, "Help Description" %>
       <%= form.text_area :help %>
     </div>
+  </fieldset>
+
+  <fieldset>
+    <legend> Informative Tags </legend>
+
+    <div class="micro"> 
+      <p> <%= raw I18n.t('admin.databases.forms.informative_tags_description.html') %> </p>
+    </div><br/>
+
+    <!-- Subject Field -->
+    <div class="field">
+      <%= form.label :subject_ids, 'Subjects' %>
+      <%= form.collection_select :subject_ids, 
+                                 Subject.all.order(:name), 
+                                 :id, 
+                                 :name, 
+                                 { include_hidden: false }, 
+                                 { multiple: true } 
+      %>
+      
+      <div class="half select">
+        <a href='#' id='subject_select_all'> Select All </a>
+      </div>
+      
+      <div class="half deselect">
+        <a href='#' id='subject_deselect_all'> Deselect All </a>
+      </div>
+    </div>
+
+    <!-- Curated Fields -->
+    <div class="field">
+      <%= form.label :curated_ids, 'Curated Subjects' %>
+      <%= form.collection_select :curated_ids, 
+                                 Subject.all.order(:name), 
+                                 :id, 
+                                 :name, 
+                                 { include_hidden: false }, 
+                                 { multiple: true } 
+      %>
+      
+      <div class="half select">
+        <a href='#' id='curated_select_all'> Select All </a>
+      </div>
+      
+      <div class="half deselect">
+        <a href='#' id='curated_deselect_all'> Deselect All </a>
+      </div>
+    </div>
+
+     <!-- Resource Fields -->
+    <div class="field">
+      <%= form.label :resource_ids, 'Resource Types' %>
+      <%= form.collection_select :resource_ids, 
+                                 Resource.all.order(:name), 
+                                 :id, 
+                                 :name, 
+                                 { include_hidden: false }, 
+                                 { multiple: true } 
+      %>
+      
+      <div class="half select">
+        <a href='#' id='resource_select_all'> Select All </a>
+      </div>
+      
+      <div class="half deselect">
+        <a href='#' id='resource_deselect_all'> Deselect All </a>
+      </div>
+    </div>
 
   </fieldset>  
 

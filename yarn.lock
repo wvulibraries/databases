@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-jquery@^3.3.1:
+"jquery@>= 1.7.1", jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
   integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
@@ -11,6 +11,13 @@ moment@^2.22.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
   integrity sha1-PCV/mDn8DpP/UxSWMiOeuQeD/2Y=
+
+multiselect@^0.9.12:
+  version "0.9.12"
+  resolved "https://registry.yarnpkg.com/multiselect/-/multiselect-0.9.12.tgz#d15536e986dd6a0029b160d6613bcedf81e4c7ed"
+  integrity sha1-0VU26YbdagApsWDWYTvO34Hkx+0=
+  dependencies:
+    jquery ">= 1.7.1"
 
 pikaday@^1.8.0:
   version "1.8.0"

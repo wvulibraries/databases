@@ -9,9 +9,14 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+
+// Yarn Dependencies
+// ----------------------------------------------------------------
 //= require jquery/dist/jquery
+//= require multiselect/js/jquery.multi-select
 
 // Interface Dependencies 
 // ----------------------------------------------------------------
 //= require plugins/alerts 
 //= require plugins/search_filter
+//= require plugins/multi-selects
