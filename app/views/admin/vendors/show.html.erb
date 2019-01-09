@@ -1,0 +1,24 @@
+<h2> <%= @vendor.name %> </h2>
+
+<div class="url"> 
+  <% if @vendor.url.present? %>
+    <a href="<%= @vendor.url %>"> <%= @vendor.url %> </a> 
+  <% else %>
+    --
+  <% end %>
+</div>
+
+<div class="databases">
+  <h3> Databases: (<%= @vendor.databases.count %>) </h3> 
+  <ul> 
+    <% @vendor.databases.each do |database| %>
+      <li> 
+        <%= link_to database.name, admin_database_path(database) %> 
+        <p> <%= database.description %> </p>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<%= link_to 'Edit', edit_admin_vendor_path(@vendor) %> |
+<%= link_to 'Back', admin_vendors_path %>

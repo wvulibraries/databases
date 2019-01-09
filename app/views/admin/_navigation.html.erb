@@ -1,6 +1,9 @@
 <nav>
   <ul>
     <li> <a href="/admin">Admin Home</a></li>
+    <li class="title"> Create </li>
+    <li> <%= link_to 'New Database', new_admin_database_path %> </li>
+    <li> <%= link_to 'New Vendor', new_admin_vendor_path %> </li>
     <!-- Card View Lists -->
     <li class="title"> Filterable Database Lists </li> 
     <li> <a href="/admin/databases/"> All </a></li>

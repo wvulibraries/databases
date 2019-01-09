@@ -64,6 +64,7 @@ class Database < ApplicationRecord
   scope :hidden, -> { where(status: 'hidden') }
   scope :with_status, ->(status) { where(status: status) }
   scope :trials, -> { where(trial_database: true) }
+  scope :no_vendor, -> { where(vendor: nil) }
 
   # callbacks
   before_validation :mint_uuid, on: [:create]

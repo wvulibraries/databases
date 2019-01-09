@@ -148,6 +148,11 @@ tbody {
 }
 /* Stack rows vertically on small screens */
 @media (max-width: 768px) {
+  table, tbody, thead, tr, td { 
+    max-width: unset; 
+    width:100%; 
+    display:block;
+  }
   /* Hide column labels */
 	thead tr {
 		position: absolute;
@@ -166,32 +171,28 @@ tbody {
     tr{
       display:block;
       margin-bottom:1em;
+
       td {
         display:block;
         border: $highlight-border;
-        padding-left: 50%; 
+        padding-left: 30%; 
         position: relative;
+        max-width:unset;
+        
+        a { 
+          width:100%; 
+          text-align: center;
+        }
 
         &:before {
           content: attr(data-label);
-          margin-left:-100%; 
-          display: inline-block;
+          position:absolute; 
+          left:1em;
           font-weight: bold;
           line-height: 1.5;
-          width: 50%;
+          width: 100%;
         }
       }
     }
-  }
-}
-/* Stack labels vertically on smaller screens */
-@media (max-width: 20em) {
-  td {
-    padding-left: 0.75em;
-  }
-  td:before {
-    display: block;
-    margin-bottom: 0.75em;
-    margin-left: 0;
   }
 }

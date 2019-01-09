@@ -1,0 +1,29 @@
+<h2>Vendors</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th> Vendor Name </th>
+      <th> Url </th>
+      <th colspan="3"> Actions </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vendors.each do |vendor| %>
+      <tr>
+        <td data-label="Name"> <%= vendor.name %> </td>
+        <td data-label="Url"> 
+          <% if vendor.url.present? %>
+            <a href="<%= vendor.url %>"> <%= vendor.url %> </a> 
+          <% else %>
+           --
+          <% end %>
+        </td>
+        <td data-label="Show"> <%= link_to raw('<span class="fas fa-eye"></span>'), admin_vendor_path(vendor), { class: 'show-button', title: 'Show' } %> </td>
+        <td data-label="Edit"> <%= link_to raw('<span class="fas fa-edit"></span>'), edit_admin_vendor_path(vendor), { class: 'edit-button', title: 'Edit' } %> </td>
+        <td data-label="Delete"> <%= link_to raw('<span class="fas fa-trash"></span>'), admin_vendor_path(vendor), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-button', data: { confirm: 'Are you sure?' }, title:'Delete' %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

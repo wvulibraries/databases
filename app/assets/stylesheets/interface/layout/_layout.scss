@@ -1,0 +1,13 @@
+nav { 
+  @include grid-column(12);
+  @include breakpoint(tablet){ 
+    @include grid-column(2);
+  }
+}
+
+.admin-main-content { 
+  @include grid-column(12);
+  @include breakpoint(laptop){ 
+    @include grid-column(10);
+  }
+}

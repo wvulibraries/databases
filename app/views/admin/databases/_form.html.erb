@@ -36,17 +36,26 @@
         <%= form.label :url, class: 'required' %>
         <%= form.text_field :url %>
       </div>
-
-      <div class="field full">
-        <%= form.label :years_of_coverage %>
-        <%= form.text_field :years_of_coverage %>
-      </div>
     </div>
 
     <div class="row">
       <div class="field full">
         <%= form.label :description, class: 'required' %>
         <%= form.text_area :description %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field half"> 
+        <%= form.label :vendor %>
+        <div class="select-style">
+          <% vendor_id = form.object.vendor.id unless form.object.vendor.blank? %>
+          <%= form.select :vendor, Vendor.all.order(:name).collect {|v| [v.name, v.id]}, selected: vendor_id, :prompt => 'Select a Vendor ...' %>
+        </div>
+      </div>
+      <div class="field half">
+        <%= form.label :years_of_coverage %>
+        <%= form.text_field :years_of_coverage %>
       </div>
     </div>
 

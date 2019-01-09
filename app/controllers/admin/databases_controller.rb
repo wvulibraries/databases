@@ -1,7 +1,4 @@
-class Admin::DatabasesController < ApplicationController
-  # use admin layout
-  layout 'admin'
-  
+class Admin::DatabasesController < AdminController
   # filters
   before_action :set_database, only: [:show, :edit, :update, :destroy]
 
@@ -29,7 +26,7 @@ class Admin::DatabasesController < ApplicationController
                             :database_subjects, 
                             :subjects, :vendor, 
                             :access_plain_text, 
-                            :access_type)
+                            :access_type )
                           .order('name ASC')
     render :index
   end 
