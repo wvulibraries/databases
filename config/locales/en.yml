@@ -37,8 +37,13 @@ en:
     basic: 
       error_prompt: "prohibited this database from being saved:"
       forms: 
-          select_default: "Select ..."
-          select_status: "Select a Status"
+        select_default: "Select ..."
+        select_status: "Select a Status"
+      messages: 
+        created: "Success! We built a new %{model}."
+        deleted: "Deleted the %{model}."
+        updated: "Success! We updated the %{model}."
+        failed: "Failed to %{action} a %{model}." 
     databases:
       index: 
         heading: "Database List"

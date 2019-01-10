@@ -30,10 +30,10 @@ class Admin::VendorsController < AdminController
 
     respond_to do |format|
       if @vendor.save
-        format.html { redirect_to admin_vendor_path(@vendor), success: 'Vendor was successfully created.' }
+        format.html { redirect_to admin_vendor_path(@vendor), success: I18n.t('admin.basic.messages.created', model: 'vendor') }
         format.json { render :show, status: :created, location: @vendor }
       else
-        format.html { render :new, error: 'Failed to create the record.' }
+        format.html { render :new }
         format.json { render json: @vendor.errors, status: :unprocessable_entity }
       end
     end
@@ -44,10 +44,10 @@ class Admin::VendorsController < AdminController
   def update
     respond_to do |format|
       if @vendor.update(admin_vendor_params)
-        format.html { redirect_to admin_vendor_path(@vendor), notice: 'Vendor was successfully updated.' }
+        format.html { redirect_to admin_vendor_path(@vendor), success: I18n.t('admin.basic.messages.updated', model: 'vendor') }
         format.json { render :show, status: :ok, location: @vendor }
       else
-        format.html { render :edit, error: 'Failed to edit the record.' }
+        format.html { render :edit }
         format.json { render json: @vendor.errors, status: :unprocessable_entity }
       end
     end
@@ -58,7 +58,7 @@ class Admin::VendorsController < AdminController
   def destroy
     @vendor.destroy
     respond_to do |format|
-      format.html { redirect_to admin_vendors_url, notice: 'Vendor was successfully destroyed.' }
+      format.html { redirect_to admin_vendors_url, success: I18n.t('admin.basic.messages.deleted', model: 'vendor') }
       format.json { head :no_content }
     end
   end
