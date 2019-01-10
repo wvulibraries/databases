@@ -8,5 +8,7 @@ Rails.application.routes.draw do
 
     # vendors
     resources :vendors
+    # resources
+    resources :resources 
   end
 end

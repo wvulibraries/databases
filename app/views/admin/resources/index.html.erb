@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Resources</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th colspan="2"> Actions </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @resources.each do |resource| %>
+      <tr>
+        <td data-label="Name"> <%= resource.name %> </td>
+        <td data-label="Edit"> <%= link_to raw('<span class="fas fa-edit"></span>'), edit_admin_resource_path(resource), { class: 'edit-button', title: 'Edit' } %> </td>
+        <td data-label="Delete"> <%= link_to raw('<span class="fas fa-trash"></span>'), admin_resource_path(resource), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-button', data: { confirm: 'Are you sure?' }, title:'Delete' %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Resource', new_admin_resource_path %>
