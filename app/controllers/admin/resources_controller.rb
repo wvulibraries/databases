@@ -42,7 +42,7 @@ class Admin::ResourcesController < AdminController
   def update
     respond_to do |format|
       if @resource.update(admin_resource_params)
-        format.html { redirect_to admin_resource_path(@resource), notice: I18n.t('admin.basic.messages.updated', model: 'Resource') }
+        format.html { redirect_to admin_resource_path(@resource), success: I18n.t('admin.basic.messages.updated', model: 'Resource') }
         format.json { render :show, status: :ok, location: @resource }
       else
         format.html { render :edit }
