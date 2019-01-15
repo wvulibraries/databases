@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Subjects</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> URL </th>
+      <th> Sort List </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subjects.each do |subject| %>
+      <tr>
+        <td data-label="Name"> <%= subject.name %> </td>
+        <td data-label="Url"> <%= subject.url %> </td>
+        <td data-label="Sort Curated List"> <%= link_to raw('<span class="fas fa-list"></span>'), "/admin/curated/#{subject.id}/sort", { class: 'new-button', title: 'Sort Curated List' } %> </td>
+        <td data-label="Edit"> <%= link_to raw('<span class="fas fa-edit"></span>'), edit_admin_subject_path(subject), { class: 'edit-button', title: 'Edit' } %> </td>
+        <td data-label="Delete"> <%= link_to raw('<span class="fas fa-trash"></span>'), admin_subject_path(subject), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-button', data: { confirm: 'Are you sure?' }, title:'Delete' %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

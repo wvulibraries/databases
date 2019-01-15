@@ -1,0 +1,47 @@
+<% if @curated.count == 0 %> 
+
+  <div class="alert warning" role="alert" aria-atomic="true">
+    <div class="content">
+      <h2> Empty Set </h2>
+  
+      <p> Currently this subject field is not being used to curate any databases.  If you think this is an error try adding this subject to a database as a curated field.  
+      </p>
+    </div>
+    <div class="exit-alert"> 
+      <span class="fas fa-times-circle" aria-hidden="true"></span> 
+    </div>
+  </div>
+
+<% else %>
+  <h2> Order Databases for <%= @curated.first.subject_name %> </h2>
+
+  <%= form_with url: admin_update_curated_path do |form| %>
+    <% @curated.each_with_index do |c, i| %>
+    
+    <%= form.hidden_field 'curated[id][]', :value => c.id %>
+    
+    <div class="row">
+      <div class="field one-fourth"> 
+        <%= label_tag :id, 'ID', :for => "id_#{i}" %>
+        <%= form.text_field 'curated[id][]', :class => 'disabled', :disabled => true, :value => c.id, :id => "id_#{i}" %>
+      </div>
+
+      <div class="field half">
+        <%= label_tag :database_name, 'Database Name', :for => "database_name_#{i}" %>
+        <%= form.text_field 'curated[database_name][]', :id => "database_name_#{i}", :class => 'disabled', :disabled => true, :value => c.database_name %>
+      </div>
+      
+      <div class="field one-fourth">
+        <%= label_tag :sort, "Sort", :for => "sort_#{i}" %> 
+        <div class="select-style">
+          <%= select_tag 'curated[sort][]', options_for_select(DatabaseCurated.sorts.keys.to_a.reverse, selected: c.sort), :id => "sort_#{i}" %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    
+    <div class="actions">
+      <%= form.submit 'Update Sorting Order'%>
+    </div>
+  <% end %>
+<% end %>

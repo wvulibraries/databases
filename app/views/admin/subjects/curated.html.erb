@@ -1,0 +1,25 @@
+<h2>Curated Subjects</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th class="fix-width"> Subject Name </th>
+      <th class="fix-width"> Database Name </th>
+      <th> Sort Order</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @curated.each do |obj| %>
+      <tr>
+        <td class="fix-width" data-label="Subject"> <%= obj.subject_name %> </td>
+        <td class="fix-width" data-label="Database"> <%= obj.database_name %> </td>
+        <td data-label="Sort Order"> <%= obj.sort %> (<%= obj.sort_before_type_cast %>) </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3> Notes </h3>
+
+<div class="micro-text"> <p> This list is to show the primary sorting order of a curated subject.  If either a subject name or database name is missing, it is probably best to delete the association. The sort order is driven by numerical value.  Default is a smaller value that low, so low will be higher in the list of curated subjects. </p></div>
