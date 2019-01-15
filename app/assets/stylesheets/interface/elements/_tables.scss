@@ -196,3 +196,9 @@ tbody {
     }
   }
 }
+
+.fix-width { 
+  @include breakpoint(laptop){ 
+    width:30% !important;
+  }
+}
