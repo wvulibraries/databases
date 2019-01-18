@@ -101,7 +101,6 @@ class Admin::SubjectsController < AdminController
       curated['id'].each_with_index do |val, i| 
         param_hash[val.to_i] = { "sort" => curated['sort'][i] }
       end
-      puts param_hash.inspect
       return param_hash  
     end
 end
