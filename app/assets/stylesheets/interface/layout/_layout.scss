@@ -1,17 +1,23 @@
-nav { 
-  @include grid-column(12);
-  @include breakpoint(tablet){ 
-    @include grid-column(2);
-  }
-}
-
-.admin-main-content { 
-  @include grid-column(12);
-  @include breakpoint(laptop){ 
-    @include grid-column(10);
-  }
-}
-
 main { 
+  @include grid-column(12);
   margin-bottom:1em; 
+
+  .content-zone { 
+    @include grid-column(12); 
+
+    @include breakpoint(desktop){ 
+      @include grid-column(10); 
+      @include grid-push(1);
+    }
+
+    @include breakpoint(1800px){ 
+      @include grid-column(9); 
+      @include grid-push(1.5);
+    }
+
+    @include breakpoint(2000px){ 
+      @include grid-column(8); 
+      @include grid-push(2);
+    }
+  }
 }

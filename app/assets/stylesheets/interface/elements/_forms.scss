@@ -14,9 +14,7 @@ form{
   @include grid-column(12);
   position:relative;
   z-index:55;
-  * { margin: 0; padding: 0px; }
 
-  
   fieldset { 
     padding:1em; 
     border: $borders; 

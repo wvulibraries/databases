@@ -21,24 +21,29 @@
 
   <body>
     <!-- Skip to Navigation --> 
-    <header>
+    <header class="admin-header">
       <a class="skip-nav" href="#main"> Skip to Main Content </a>
+      
       <%= render 'header/basic' %>
+      
+      <!-- Menu Trigger -->
+      <a href="javascript:void(0)" class="button menu-button" id="offcanvas-btn-left" data-toggle-offcanvas="#off-canvas">
+          Menu
+      </a>
+      
     </header>
 
-    <!-- Templated Content Region -->
-    <main id="main" class="wrapper">
-      <div class="container"> 
-        <!-- Flash -->
-        <%= render "utilities/alerts" %>
-        
-        <!-- Navigation -->
-        <%= render "admin/navigation" %>
+    <!-- Off Canvas Navigation -->
+    <%= render "admin/navigation" %>
 
-        <!-- Yield -->
-        <div class="admin-main-content">
-          <%= yield %>
-        </div>
+    <!-- Templated Content Region -->
+    <main id="main" class="content c-offcanvas-content-wrap">
+      <!-- Flash -->
+      <%= render "utilities/alerts" %>
+
+      <!-- Yield -->
+      <div class="content-zone">
+        <%= yield %>
       </div>
     </main>
 

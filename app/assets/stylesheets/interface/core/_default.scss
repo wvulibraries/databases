@@ -3,6 +3,11 @@ html {
   box-sizing: border-box;
 }
 *, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  vertical-align: baseline;
   box-sizing: inherit;
 }
 

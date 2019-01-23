@@ -1,3 +1,8 @@
+.menu-button { 
+  @include button_maker($action-color, 'ghost');
+  color: $action-color;
+}
+
 .show-button {
   @include button_maker($success, 'solid');
   color:#fff;

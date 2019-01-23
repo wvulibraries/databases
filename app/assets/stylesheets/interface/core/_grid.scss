@@ -13,7 +13,6 @@ $neat-grid: (
 
 .container {
   @include grid-container;
-  max-width:85em;
   margin:0 auto;
   @include clearfix;
   // @include grid-visual(rgba(cyan, .5), $neat-grid);

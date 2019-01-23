@@ -14,14 +14,15 @@
 // Mixins 
 @import "mixins/*"; 
 
+// Yarn 
+@import "hiraku/css/hiraku";
+
 // Style Sheets Start Here 
 @import "core/default"; // this is the topper and starter for every scss page
 @import "core/grid";
+@import "core/font"; 
 @import "layout/layout";
 @import "elements/*"; // reuseable inteface items
-
-// Yarn 
-
 
 // Database Stuff
 @import "databases/*";

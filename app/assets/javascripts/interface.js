@@ -14,9 +14,11 @@
 // ----------------------------------------------------------------
 //= require jquery/dist/jquery
 //= require multiselect/js/jquery.multi-select
+//= require hiraku/js/hiraku
 
 // Interface Dependencies 
 // ----------------------------------------------------------------
 //= require plugins/alerts 
 //= require plugins/search_filter
-//= require plugins/multi-selects
+//= require plugins/multi_selects
+//= require plugins/off_canvas
