@@ -7,17 +7,36 @@ class Admin::DatabasesController < AdminController
   # GET /admin/databases.csv 
   def index
     @databases = Database.all
-                         .includes(
+    respond_to do |format|
+      format.html do 
+        @databases = @databases.includes(:vendor).order('name ASC')
+        render :table 
+      end 
+      format.csv do
+        @databases = @databases.includes(
+          :database_subjects,
+          :resources, 
+          :subjects, :vendor, 
+          :access_plain_text, 
+          :access_type)
+        .order('name ASC')
+        send_data @databases.to_csv, filename: "databases-#{Date.today}.csv" 
+      end 
+    end         
+  end
+
+  # GET /admin/databases/list/:status
+  def listall
+    @databases =  Database.all
+                          .includes(
                             :database_subjects, 
                             :subjects, :vendor, 
                             :access_plain_text, 
-                            :access_type)
+                            :access_type )
                           .order('name ASC')
-    respond_to do |format|
-      format.html
-      format.csv { send_data @databases.to_csv, filename: "databases-#{Date.today}.csv" }
-    end         
-  end
+    render :list
+  end 
+
 
   # GET /admin/databases/list/:status
   def list
@@ -28,7 +47,7 @@ class Admin::DatabasesController < AdminController
                             :access_plain_text, 
                             :access_type )
                           .order('name ASC')
-    render :index
+    render :list
   end 
 
   # GET /admin/databases/tables/:status

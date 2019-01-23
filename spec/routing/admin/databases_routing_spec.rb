@@ -7,6 +7,13 @@ RSpec.describe Admin::DatabasesController, type: :routing do
     end
 
     context "#list" do
+      it "#list all" do
+        expect(:get => "/admin/databases/list").to route_to(
+          :controller => "admin/databases",
+          :action => "listall"
+        )
+      end
+
       it "#list production" do
         expect(:get => "/admin/databases/list/production").to route_to(
           :controller => "admin/databases",

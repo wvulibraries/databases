@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_21_144827) do
+ActiveRecord::Schema.define(version: 2019_01_23_192119) do
 
   create_table "access_plain_text", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "name", limit: 16777215
@@ -89,6 +89,20 @@ ActiveRecord::Schema.define(version: 2018_12_21_144827) do
     t.string "name", limit: 50
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "landing_pages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.text "instructions"
+    t.text "restrictions"
+    t.text "html_links"
+    t.string "contact_name"
+    t.string "contact_title"
+    t.string "contact_email"
+    t.string "contact_phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "database_id"
+    t.index ["database_id"], name: "index_landing_pages_on_database_id"
   end
 
   create_table "news", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

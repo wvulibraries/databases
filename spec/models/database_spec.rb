@@ -49,6 +49,10 @@ RSpec.describe Database, type: :model do
     it { should have_many(:curated) }
   end
 
+  context 'has_one associations' do
+    it { should have_one(:landing_page) }
+  end
+
   it 'factory bot is valid' do
     expect(database).to be_valid
   end

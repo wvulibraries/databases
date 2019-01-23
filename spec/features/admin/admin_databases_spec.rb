@@ -10,13 +10,20 @@ RSpec.feature "Admin::Databases", type: :feature do
       database # create a database 
       visit 'admin/databases'
       expect(page).to have_content(database.name)
-      expect(page).to have_content(database.url)
       expect(page).to have_content(database.vendor_name)
-      expect(page).to have_content(database.subject_list) 
+      expect(page).to have_content(database.status) 
     end 
   end
 
   context "#list" do
+    scenario 'all' do
+      database # create a database 
+      visit 'admin/databases/list'
+      expect(page).to have_content(database.name)
+      expect(page).to have_content(database.vendor_name)
+      expect(page).to have_content(database.status) 
+    end 
+    
     scenario 'hidden' do
       # set database to hidden 
       database.status = 'hidden'
@@ -228,7 +235,7 @@ RSpec.feature "Admin::Databases", type: :feature do
 
     scenario 'deletes databases' do
       visit '/admin/databases'
-      click_link 'Destroy'
+      click_link 'delete'
       expect(page).to have_content('Database List')
       expect(page).to have_content(I18n.t('admin.databases.controllers.delete'))
       expect(page).to_not have_content(database.name)

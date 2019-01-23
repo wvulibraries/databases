@@ -58,6 +58,9 @@ class Database < ApplicationRecord
   has_many :database_curated, dependent: :nullify
   has_many :curated, through: :database_curated, source: :subject
 
+  # landing page
+  has_one :landing_page, required: false
+
   # scopes
   scope :production, -> { where(status: 'production') }
   scope :development, -> { where(status: 'development') }
@@ -118,9 +121,9 @@ class Database < ApplicationRecord
   # @return csv object
   def self.to_csv
     CSV.generate(headers: true) do |csv|
-      attributes = %w{id name status years_of_coverage vendor_name url access full_text_db new_database trial_database access_plain_text help help_url description url_uuid popular trial_database trial_expiration_date title_search resource_list subject_list created_at updated_at}
+      attributes = %w{id name status years_of_coverage vendor_name url access full_text_db new_database trial_database help help_url description url_uuid popular trial_database trial_expiration_date title_search resource_list subject_list created_at updated_at}
 
-      csv << attributes
+      csv << attributes.map(&:titleize)
       all.each do |database|
         csv << attributes.map{ |attr| database.send(attr) }
       end
