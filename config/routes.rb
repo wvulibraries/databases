@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get '/', to: 'public/base#index'
+  get '/AtoZ', to: 'public/base#all'
+  get '/AtoZ/:character', to: 'public/base#a_to_z'
+  get '/subject', to: 'public/base#subject'
+  get '/subject/:id', to: 'public/base#subject_databases'
+
+
   namespace :admin do
     # databases
     get '/databases/list', to: 'databases#listall'

@@ -1,0 +1,19 @@
+<section class="subject-list">
+  <h2> Databases By Subject </h2>
+
+  <% @subjects.each do |letter, subject| %>
+    <div class="subject-group">
+      <h3> <%= letter %> </h3>
+      <ul>
+        <% subject.each do |subj| %>
+          <li>
+            <a href="<%="subject/#{subj.id}"%>">
+              <%= subj.name %> 
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+</section>

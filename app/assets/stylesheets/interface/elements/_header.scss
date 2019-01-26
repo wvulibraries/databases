@@ -1,3 +1,35 @@
 header.admin-header {
-  background: lighten($link-color, 50%); 
+  background: darken($link-color, 40%);
+  padding:2em 1em;
+  margin-bottom:1.5em; 
+
+  .titles { 
+    @include grid-column(8); 
+    color:#fff; 
+    span {
+      display:inline-block; 
+      float:left;
+      &:nth-child(1){ 
+        font-weight: 900;
+        opacity:.3;
+      }
+      &:nth-child(2){
+        font-weight:100;
+        opacity: .5; 
+      }
+      &:nth-child(3){
+        font-weight:100; 
+        opacity: .7;
+      }
+    }
+  }
+
+  h1 { 
+    margin:0; 
+  }
+
+  .menu_buttons { 
+    @include grid-column(4);
+    text-align: right;  
+  }
 }

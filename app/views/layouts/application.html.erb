@@ -7,9 +7,10 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'interface/main', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%# stylesheet_link_tag 'interface/main', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'public/main', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-    <%= javascript_include_tag 'interface', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <!-- HTML5 Shiv 3.7.2 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed, inlined because: http://goo.gl/Qhqlkb -->
     <!--[if lt IE 9]>
@@ -23,8 +24,11 @@
     <!-- Skip to Navigation --> 
     <header>
       <a class="skip-nav" href="#main"> Skip to Main Content </a>
-      <%= render 'header/basic' %>
+      <%= render 'header/public' %>
     </header>
+
+    <!-- Navigation -->
+    <%= render 'public/partials/navigation' %>
 
     <!-- Templated Content Region -->
     <main id="main" class="wrapper">
@@ -39,8 +43,15 @@
       </div>
     </main>
 
+    <aside>
+      <!-- Help -->
+      <%= render 'public/partials/help' %>
+    </aside>
+
+
+
     <!-- Footers -->
-    <%= render 'shared/built_by_footer'%>
+    <%# render 'shared/built_by_footer'%>
   
     <!-- JavaScripts -->
     <%= yield :js %>

@@ -39,6 +39,9 @@ gem 'normalize-scss'
 gem 'font-awesome-sass'
 gem "non-stupid-digest-assets" # generates assets without fingerprint for 404 and 500 errors. 
 
+# breadcrumbs
+gem "breadcrumbs_on_rails"
+
 # schema to scaffold, only needed really to get us started
 gem 'schema_to_scaffold'
 

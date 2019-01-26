@@ -1,0 +1,8 @@
+
+// base link colors
+@include link_maker($link-color, $link-color, darken($link-color, 20%), lighten($link-color, 20%));
+
+a:focus { 
+  border:2px dotted $link-color; 
+  padding:10px;
+}

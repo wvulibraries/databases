@@ -7,9 +7,16 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- Style Sheets -->
     <%= stylesheet_link_tag    'interface/main', media: 'all', 'data-turbolinks-track': 'reload' %>
-
+    
+    <!-- JavaScripts -->
     <%= javascript_include_tag 'interface', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Custom Fonts -->
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Amatic+SC:400,700');
+    </style>
 
     <!-- HTML5 Shiv 3.7.2 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed, inlined because: http://goo.gl/Qhqlkb -->
     <!--[if lt IE 9]>
@@ -23,13 +30,17 @@
     <!-- Skip to Navigation --> 
     <header class="admin-header">
       <a class="skip-nav" href="#main"> Skip to Main Content </a>
-      
-      <%= render 'header/basic' %>
+
+      <div class="titles"> 
+        <%= render 'header/admin' %>
+      </div>
       
       <!-- Menu Trigger -->
-      <a href="javascript:void(0)" class="button menu-button" id="offcanvas-btn-left" data-toggle-offcanvas="#off-canvas">
+      <div class="menu_buttons">
+        <a href="javascript:void(0)" class="button menu-button" id="offcanvas-btn-left" data-toggle-offcanvas="#off-canvas">
           Menu
-      </a>
+        </a>
+      </div>
       
     </header>
 

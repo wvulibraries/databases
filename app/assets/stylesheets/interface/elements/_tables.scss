@@ -98,7 +98,7 @@
 //   }
 // }
 
-$heading-bg: slategrey; 
+$heading-bg: darken(slategrey, 10%); 
 $heading-border: 2px solid darken($heading-bg, 30%);
 $heading-color: #fff; 
 

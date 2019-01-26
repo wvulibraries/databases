@@ -14,23 +14,23 @@
     <li class="title"> <h3> Database(s) </h3></li> 
     <li> <%= link_to 'New Database', new_admin_database_path %> </li>
     <li> All (
-      <a href="/admin/databases/list"> List </a> | 
-      <a href="/admin/databases/tables"> Table </a>
+      <a href="/admin/databases/list" aria-label="List All"> List </a> | 
+      <a href="/admin/databases/tables" aria-label="List all as Tables"> Table </a>
     )
     </li>
     <li> Public (
-      <a href="/admin/databases/list/production"> List </a> |
-      <a href="/admin/databases/tables/production"> Table </a>
+      <a href="/admin/databases/list/production" aria-label="List for Public"> List </a> |
+      <a href="/admin/databases/tables/production" aria-label="Table list for Public"> Table </a>
     )
     </li>
     <li> Development (
-      <a href="/admin/databases/list/development"> List </a> |
-      <a href="/admin/databases/tables/development"> Table </a>
+      <a href="/admin/databases/list/development" aria-label="List for Development"> List </a> |
+      <a href="/admin/databases/tables/development" aria-label="Table list for Development"> Table </a>
     )
     </li>
     <li> Hidden (
-      <a href="/admin/databases/list/hidden"> List </a> |
-      <a href="/admin/databases/tables/hidden"> Table </a>
+      <a href="/admin/databases/list/hidden" aria-label="List for Hidden"> List </a> |
+      <a href="/admin/databases/tables/hidden" aria-label="Table list for Hidden"> Table </a>
     )
     </li>
     <!-- Management -->

@@ -20,7 +20,7 @@
           <%= database.keywords.strip %>
         </div>
 
-        <h2> <%= database.name %> </h2>
+        <h2 id="<%= database.id %>"> <%= database.name %> </h2>
         <dl>
           <dt> Status </dt> 
           <dd> <%= database.status %> </dd>
@@ -46,9 +46,9 @@
         </dl> 
 
       <div class="actions"> 
-        <%= link_to raw('<span class="fas fa-eye"></span>'), admin_database_path(database), { class: 'show-button', title: 'Show' } %>
-        <%= link_to raw('<span class="fas fa-edit"></span>'), edit_admin_database_path(database), { class: 'edit-button', title:'Edit' } %>
-        <%= link_to raw('<span class="fas fa-trash"></span>'), admin_database_path(database), method: :delete, class: 'delete-button', data: { confirm: 'Are you sure?' }, title:'Delete' %>
+        <%= link_to raw('<span class="fas fa-eye"></span>'), admin_database_path(database), { class: 'show-button', title: 'Show', 'aria-label':"Show #{database.name}" } %>
+        <%= link_to raw('<span class="fas fa-edit"></span>'), edit_admin_database_path(database), { class: 'edit-button', title:'Edit', 'aria-label':"Edit #{database.name} " } %>
+        <%= link_to raw('<span class="fas fa-trash"></span>'), admin_database_path(database), method: :delete, class: 'delete-button', data: { confirm: 'Are you sure?' }, title:'Delete', 'aria-label':"Delete #{database.name}"  %>
       </div>
     </div>
   <% end %>

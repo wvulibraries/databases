@@ -11,3 +11,5 @@
 //= require turbolinks
 //= require jquery/dist/jquery
 
+//= require public/equal_heights
+

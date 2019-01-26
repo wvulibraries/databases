@@ -1,0 +1,23 @@
+#help {
+  background:$light-gray;
+  font-size: 14px; 
+  
+  .container { 
+    padding:2em 1em; 
+  }
+
+  h2, p { 
+    width:100%;
+    margin:0 0 1em;
+  }
+
+  .help-box { 
+    @include grid-column(12);
+    @include breakpoint(tablet){ 
+      @include grid-column(6);
+    }
+    @include breakpoint(laptop){
+      @include grid-column(3); 
+    }
+  }
+}

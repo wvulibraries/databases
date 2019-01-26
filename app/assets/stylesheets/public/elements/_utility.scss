@@ -1,0 +1,15 @@
+.utility { 
+  @include grid-column(12); 
+  margin:0;
+  margin-bottom:2em; 
+
+  .breadcrumbs, .results { 
+    @include grid-column(12);
+    @include breakpoint(tablet){ 
+      @include grid-column(6);
+    } 
+  }
+  .results { 
+    text-align: right;
+  }
+}

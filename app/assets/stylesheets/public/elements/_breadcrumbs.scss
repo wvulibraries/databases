@@ -1,0 +1,80 @@
+$hover-color: $action-color; 
+$breadcrumb-background: lighten($gray-text,25%);
+$breadcrumb-background-current: lighten($hover-color,30%);
+
+.breadcrumbs{
+  overflow: hidden;
+
+  ul { 
+    list-style: none;
+    padding:0; 
+    width:100%;
+    margin:0;
+    overflow:hidden;
+  }
+
+  li{
+    float: left;
+    margin: 0 .5em 0 1em;
+  }
+
+  a{
+    background: $breadcrumb-background;
+    padding: .5em 1.5em;
+    float: left;
+    color: darken($breadcrumb-background, 60%);
+    position: relative;
+
+    &:hover, &:active, &:focus { 
+      color:#000; 
+      background:$hover-color; 
+      padding: .5em 1.5em;
+      border:none;
+    }
+
+    &::before{
+      content: "";
+      position: absolute;
+      top: 50%; 
+      margin-top: -1.5em;   
+      border-width: 1.5em 0 1.5em 1em;
+      border-style: solid;
+      border-color: $breadcrumb-background $breadcrumb-background $breadcrumb-background transparent;
+      left: -1em;
+    }
+
+    &:focus::before, &:hover::before { 
+      border-color: $hover-color $hover-color $hover-color transparent;
+    }
+
+    &::after{
+      content: "";
+      position: absolute;
+      top: 50%; 
+      margin-top: -1.5em;   
+      border-top: 1.5em solid transparent;
+      border-bottom: 1.5em solid transparent;
+      border-left: 1em solid $breadcrumb-background;
+      right: -1em;
+    }
+    
+    &:hover::after, &:focus::after {
+      border-left-color: $hover-color;
+    }
+  }
+
+  $border-color: $breadcrumb-background-current; 
+  .current, .current:hover{
+    font-weight: bold;
+    color:#000;
+    background:$breadcrumb-background-current; 
+    border-color: $breadcrumb-background-current; 
+    
+    &::before, &:hover::before{
+      border-color: $border-color $border-color $border-color transparent;
+    }
+    &::after, &:hover::after{
+      border-left-color: $border-color;
+    }
+  }
+}

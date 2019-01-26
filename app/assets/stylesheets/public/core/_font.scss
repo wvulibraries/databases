@@ -1,0 +1,62 @@
+h1,h2,h3,h4,h5,h6 { 
+  font-weight:300; 
+  margin-bottom:1em;  
+}
+
+body { 
+  font-size: 1em; 
+  line-height:1.25;
+  @include breakpoint(laptop){
+    line-height:1.5; 
+  }  
+}
+
+h1 { 
+  font-size: 2em; 
+  line-height:1.25; 
+  
+  @include breakpoint(laptop){ 
+    font-size:3em;
+    line-height: 1;  
+  }
+}
+
+h2 { 
+  font-size: 1.65em; 
+  line-height:1.25; 
+  
+  @include breakpoint(laptop){ 
+    font-size:2em; 
+  }
+}
+
+h3 { 
+  font-size: 1.375em; 
+  line-height:1; 
+  margin-bottom:0; 
+  
+  @include breakpoint(laptop){ 
+    font-size:1.65em; 
+  }
+}
+
+h4,h5,h6 { 
+  font-size: 1.175em;
+  margin-bottom:0;    
+  @include breakpoint(laptop){ 
+    font-size:1.25em; 
+  }
+}
+
+blockquote { 
+  font-size: 1.25em; 
+  line-height:1.25; 
+  
+  @include breakpoint(laptop){ 
+    font-size:1.5em;
+    line-height:1.5;  
+  }
+}
+
+
+

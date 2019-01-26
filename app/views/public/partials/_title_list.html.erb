@@ -1,0 +1,9 @@
+<h2> Databases By Title </h2>
+
+<ul class="title-list">
+  <li> <a href="/AtoZ"> All </a> </li> 
+  <% @letters.each do |letter| %> 
+    <li> <a href="/AtoZ/<%=letter%>"> <%= letter %> </a> </li>
+  <% end %>
+  <li> <a href="/AtoZ/NUM"> # </a></li>
+</ul>

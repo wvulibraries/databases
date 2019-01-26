@@ -47,15 +47,15 @@ class Database < ApplicationRecord
   belongs_to :access_plain_text, optional: true, required: false
 
   # resources 
-  has_many :database_resources, dependent: :nullify
+  has_many :database_resources
   has_many :resources, through: :database_resources
 
   # subjects
-  has_many :database_subjects, dependent: :nullify
+  has_many :database_subjects
   has_many :subjects, through: :database_subjects
 
   # curated subjects
-  has_many :database_curated, dependent: :nullify
+  has_many :database_curated
   has_many :curated, through: :database_curated, source: :subject
 
   # landing page
@@ -68,6 +68,16 @@ class Database < ApplicationRecord
   scope :with_status, ->(status) { where(status: status) }
   scope :trials, -> { where(trial_database: true) }
   scope :no_vendor, -> { where(vendor: nil) }
+
+  # scoping for alphabetical listing by titles
+  scope :alpha_list, ->(letter) { where("name LIKE ?", "#{letter}%") }
+  scope :number_list, -> { where("name REGEXP '^[0-9]'")}
+
+  # scoping for subject listing 
+  scope :subject_list, ->(id) { includes(:subjects).order(:name).where(subjects: {id: id }) }
+  scope :letters, -> { all.order('name ASC').group_by{ |db| db.name[0].upcase }.keys.reject { |i| i =~ /\A\d+\z/ }.uniq } 
+  scope :grouped_alpha, -> { all.production.order('name ASC').group_by{ |db| db.name[0].upcase } } 
+  scope :total_count, -> { all.production.count }
 
   # callbacks
   before_validation :mint_uuid, on: [:create]

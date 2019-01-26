@@ -1,0 +1,18 @@
+.micro-text-styles { 
+  letter-spacing: 1px;
+  font-weight: 400;
+  color: #5f5f5f;
+  font-size: .75em;
+  font-style: italic;
+  text-align: center;
+}
+
+.micro-text {
+  @include grid-column(12);
+  @extend .micro-text-styles;
+}
+ 
+.micro {
+  padding: unset; 
+  @extend .micro-text-styles;
+}

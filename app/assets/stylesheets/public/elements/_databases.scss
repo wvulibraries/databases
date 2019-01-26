@@ -1,0 +1,57 @@
+h2 {  
+  @include grid-column(12);
+  color: $wvu-blue; 
+  border-bottom:2px dotted rgba($wvu-blue, .3);  
+  margin:0; 
+}
+
+.title-list { 
+  @include grid-column(12);
+  list-style:none; 
+  margin:2em 0;
+  li { 
+    float:left; 
+    margin-bottom:1.5em;
+    a { 
+      font-size:1.25em; 
+      padding:.25em;
+      margin-right:1em; 
+      text-decoration:none; 
+      padding-bottom:.5em; 
+      border:2px dotted transparent;
+      border-style: dotted dotted solid dotted; 
+      border-color: transparent transparent $link-color transparent;
+      &:focus { 
+        border:2px dotted $action-color;
+      }
+    } 
+  }
+}
+
+.database-results { 
+  @include grid-column(12);
+  margin:1em 0;
+}
+
+.subject-group { 
+  @include grid-column(12);
+  padding:1em; 
+  h3 { 
+    width:100%; 
+    font-weight:bold; 
+    padding:0;
+    margin-bottom:2px;
+    border-bottom:1px solid $light-gray;
+  }
+  ul {
+    @include grid-column(12);
+  }
+
+  @include breakpoint(tablet){ 
+    @include grid-column(6);
+  }
+
+  @include breakpoint(laptop){ 
+    @include grid-column(4);
+  }
+}

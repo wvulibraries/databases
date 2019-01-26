@@ -1,6 +1,11 @@
 .menu-button { 
   @include button_maker($action-color, 'ghost');
   color: $action-color;
+  &:hover,&:active,&:focus { 
+    background-color: transparent; 
+    border-color: #fff; 
+    color: #fff;
+  }
 }
 
 .show-button {

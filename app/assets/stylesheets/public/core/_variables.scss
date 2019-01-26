@@ -1,0 +1,91 @@
+// visual grid 
+$visual-grid: false;
+
+// Font Sizes
+$base-font-size: 1em;
+
+// Line height
+$base-line-height: 1.5;
+$heading-line-height: 1.2;
+
+// Other Sizes
+$base-border-radius: 3px;
+$base-spacing: $base-line-height * 1em;
+$small-spacing: $base-spacing / 2;
+$base-z-index: 0;
+
+// Breakpoints
+$bp-micro: 340 !default;
+$bp-mini: 450 !default;
+$bp-small: 570 !default;
+$bp-medium: 768 !default;
+$bp-large: 960 !default;
+$bp-xlarge: 1200 !default;
+$bp-jumbo: 1720 !default;
+
+// masthead
+$blue-flying-wv: 'https://patterns.wvu.edu/images/flying-wv-blue.png'!default;
+$wvu-masthead-two-line-lockup: false !default;
+$wvu-masthead-background: 'blue' !default;
+$wvu-masthead-has-signature: true !default;
+$wvu-masthead-is-sub-brand: false !default;
+
+// Colors
+$wvu-blue: #002855;
+$wvu-gold: #EAAA00;
+$nav-bg: #eee; 
+$black: #2C2A29;
+$pms-300-c: #005EB8;
+
+$default: #eee;
+$gray-text: #aaa;
+
+// Bitters Defaults
+$dark-gray: #333;
+$medium-gray: #999;
+$light-gray: $default;
+
+// Web Application Colors
+$link-color: #005EB8; 
+$notice: #29abe0;
+$error: #d9534f;
+$success: #93c54b;
+$warning: #f47c3c;
+
+// Borders
+$header-background: $default;
+
+// Padding
+$padding: 20px;
+
+// Font Colors
+$base-font-color: $dark-gray;
+$action-color: $link-color;
+
+// Border
+$base-border-color: $light-gray;
+$base-border: 1px solid $base-border-color;
+
+// Custom Existing Vars
+$border: $base-border;
+$border-color: $base-border-color;
+
+// Background Colors
+$base-background-color: #fff;
+$secondary-background-color: tint($base-border-color, 75%);
+
+// Forms
+$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
+$form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
+
+// Animations
+$base-duration: 150ms;
+$base-timing: ease;
+
+// Forms 
+$font-color:#666; 
+$input-bg: #eee; 
+$input-border: #666;
+$label-color:$font-color; 
+$fieldset:#666; 
+$borders: 1px solid $input-border; 

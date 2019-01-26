@@ -1,0 +1,25 @@
+.app-header { 
+    .container { padding:1em 2em; }
+    h1 { 
+      margin:0; 
+      a {
+        color:#fff; 
+        text-decoration: none; 
+        border:none;
+        &:hover, &:active { 
+          text-decoration:underline; 
+        } 
+        &:focus { 
+          border: 2px dotted $action-color;
+        }
+      }
+    } 
+
+    background: asset_url("wise.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-color: #002855;
+    height: auto;
+    display: block;
+    overflow: hidden;
+}

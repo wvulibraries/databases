@@ -1,0 +1,28 @@
+<%# Utility Bar %>
+<div class="utility"> 
+  <div class="breadcrumbs"> 
+    <ul> 
+      <li> <a href="/"> Home </a> </li>
+      <li> <a href="/AtoZ/<%=@character%>" class="current"> By Title: <%= @character %> </a> </li>
+    </ul>
+  </div>
+
+  <div class="results"> 
+    <strong>
+      <%= @databases.count %> 
+    </strong>
+    Results
+  </div>
+</div>
+
+<%# Databases by Title  %>
+<%= render 'public/partials/title_list'  %>
+
+<%# Database List %>
+<% @databases.each do |db| %>
+  <div class="database-results"> 
+    <h3> <%= db.name %> </h3>
+    <p> <%= db.description %> </p>
+  </div>
+<% end %>
+
