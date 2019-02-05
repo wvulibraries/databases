@@ -1,6 +1,24 @@
-<%# Databases by Title  %>
-<%= render 'public/partials/title_list'  %>
+<% if @trials.present? || @popular.present?  %>
+  <div class="left">
+    <%# Databases by Title  %>
+    <%= render 'public/partials/title_list'  %>
 
-<%# Databases by Subject  %>
-<%= render 'public/partials/subjects_list' %>
+    <%# Databases by Subject  %>
+    <%= render 'public/partials/subjects_list' %>
+  </div>
+
+  <div class="right">
+    <%# Trail Databases  %>
+    <%= render 'public/partials/trials' if @trials.present? %>
+    <%# Popular  %>
+    <%= render 'public/partials/popular' if @popular.present? %>
+  </div>
+<% else %>
+  <%# Databases by Title  %>
+  <%= render 'public/partials/title_list'  %>
+
+  <%# Databases by Subject  %>
+  <%= render 'public/partials/subjects_list' %>
+<% end %>
+
 

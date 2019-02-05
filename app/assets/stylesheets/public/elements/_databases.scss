@@ -1,7 +1,8 @@
 h2 {  
   @include grid-column(12);
+  width:100%; 
   color: $wvu-blue; 
-  border-bottom:2px dotted rgba($wvu-blue, .3);  
+  border-bottom:2px dotted rgba($wvu-blue, .3); 
   margin:0; 
 }
 
@@ -30,7 +31,10 @@ h2 {
 
 .database-results { 
   @include grid-column(12);
-  margin:1em 0;
+  margin:0 0 1em;
+  &:last-child { 
+    margin:0; 
+  }
 }
 
 .subject-group { 
@@ -53,5 +57,105 @@ h2 {
 
   @include breakpoint(laptop){ 
     @include grid-column(4);
+  }
+}
+
+$curated-bg: lighten($wvu-gold, 50%); 
+$curated-dark: $wvu-blue;
+.curated { 
+  @include grid-column(12);
+  margin-top:1em;
+  padding:1em; 
+  background: $curated-bg; 
+  border-radius:.5em; 
+  h3 { 
+    color: $curated-dark; 
+  }
+}
+
+.databases { 
+  @include grid-column(12);
+  padding:1em; 
+}
+
+.left { 
+  @include grid-column(12); 
+  @include breakpoint(tablet){ 
+    @include grid-column(8);
+  }
+}
+
+.right { 
+  @include grid-column(12); 
+
+  @include breakpoint(tablet){ 
+    @include grid-column(4);
+  }
+}
+
+.trial, .popular { 
+  @include grid-column(12); 
+  border: 2px dotted $wvu-gold;
+  padding:1em;
+  margin-bottom: 2em; 
+
+  h2 { margin-bottom:1em; }
+
+  h3 { 
+    font-size:1.2em;
+    margin-bottom:1em;
+    &:before {  
+      font-family: "FontAwesome";
+      content: "\f005";
+      font-size: 1em;
+    }
+  }
+  p { font-size:.8em; }
+}
+
+.popular { 
+  display:none; 
+  @include breakpoint(tablet){
+    display:block;
+  }
+}
+
+h3.popular-title { 
+  &:before {  
+    font-family: "FontAwesome";
+    content: "\f005";
+    font-size:90%;
+  }
+}
+
+.subject-headers { 
+  @include grid-column(12);
+  position:relative; 
+  border-bottom:2px dotted rgba($wvu-blue, .3); 
+
+  h2 { 
+    border-bottom:none; 
+    @include grid-column(12);
+    margin-bottom:1em; 
+
+    @include breakpoint(tablet){ 
+      @include grid-column(8);
+      margin-bottom:0;
+    }
+  }
+
+  .guide { 
+    @include grid-column(12);
+    text-align:right; 
+    
+    .btn {
+      text-align: center; 
+      margin-bottom:1em;
+    }
+    
+    @include breakpoint(tablet){ 
+      @include grid-column(4);
+      .btn { margin-top: -1em; margin-bottom:0; }
+    }
   }
 }

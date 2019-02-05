@@ -62,22 +62,23 @@ class Database < ApplicationRecord
   has_one :landing_page, required: false
 
   # scopes
-  scope :production, -> { where(status: 'production') }
-  scope :development, -> { where(status: 'development') }
-  scope :hidden, -> { where(status: 'hidden') }
+  scope :prod, -> { where(status: 'production') }
+  scope :dev, -> { where(status: 'development') }
+  scope :hide, -> { where(status: 'hidden') }
   scope :with_status, ->(status) { where(status: status) }
-  scope :trials, -> { where(trial_database: true) }
+  scope :trials, -> { where(trial_database: true).where('trial_expiration_date > ?', DateTime.now) }
   scope :no_vendor, -> { where(vendor: nil) }
+  scope :pop_list, -> { where(popular: true) }
 
   # scoping for alphabetical listing by titles
   scope :alpha_list, ->(letter) { where("name LIKE ?", "#{letter}%") }
   scope :number_list, -> { where("name REGEXP '^[0-9]'")}
 
   # scoping for subject listing 
-  scope :subject_list, ->(id) { includes(:subjects).order(:name).where(subjects: {id: id }) }
+  scope :list_subjects, ->(id) { includes(:subjects, :curated).order(:name).where(subjects: {id: id }, status: 'production') }
   scope :letters, -> { all.order('name ASC').group_by{ |db| db.name[0].upcase }.keys.reject { |i| i =~ /\A\d+\z/ }.uniq } 
-  scope :grouped_alpha, -> { all.production.order('name ASC').group_by{ |db| db.name[0].upcase } } 
-  scope :total_count, -> { all.production.count }
+  scope :grouped_alpha, -> { all.prod.order('name ASC').group_by{ |db| db.name[0].upcase } } 
+  scope :total_count, -> { all.prod.count }
 
   # callbacks
   before_validation :mint_uuid, on: [:create]
@@ -154,7 +155,6 @@ class Database < ApplicationRecord
   # @author David J. Davis
   # @abstract
   # @return truthy 
-  # @TODO: This needs to be added to the configuration option.
   def set_defaults
     self.help ||= ENV['help_text']
     self.help_url ||= ENV['help_url']

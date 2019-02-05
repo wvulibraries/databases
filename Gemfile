@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.5.3'
 
 # Rails Specific 
 # =====================================================================================
@@ -49,6 +49,7 @@ gem 'schema_to_scaffold'
 # =====================================================================================
 group :test do
   gem 'rspec-rails'
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem "factory_bot_rails"
   gem 'database_cleaner'

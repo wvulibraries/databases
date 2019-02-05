@@ -1,0 +1,4 @@
+.button, .btn {
+  @include button_maker($link-color, 'solid');
+  @include determine-text-color($link-color);
+}

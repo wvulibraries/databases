@@ -21,7 +21,7 @@
 <%# Database List %>
 <% @databases.each do |db| %>
   <div class="database-results"> 
-    <h3> <%= db.name %> </h3>
+    <h3> <%= DatabaseDecorator.new(db).display_title %> </h3>
     <p> <%= db.description %> </p>
   </div>
 <% end %>

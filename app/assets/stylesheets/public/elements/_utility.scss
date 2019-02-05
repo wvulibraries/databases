@@ -3,13 +3,32 @@
   margin:0;
   margin-bottom:2em; 
 
-  .breadcrumbs, .results { 
+  .breadcrumbs{ 
     @include grid-column(12);
+
     @include breakpoint(tablet){ 
       @include grid-column(6);
-    } 
+      margin-left:0;
+    }
+
+    @include breakpoint(laptop){
+      @include grid-column(8);
+      margin-left:0;
+    }
   }
   .results { 
-    text-align: right;
+    padding:1em 0;
+    @include grid-column(12);
+    display:none;
+
+    @include breakpoint(tablet){ 
+      display: block;
+      text-align: right;
+      @include grid-column(6);
+    } 
+
+    @include breakpoint(laptop){
+      @include grid-column(4);
+    }
   }
 }

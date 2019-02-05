@@ -1,11 +1,27 @@
 Rails.application.routes.draw do
+  # FRONTEND
+  # ------------------------------------------------------------------
   get '/', to: 'public/base#index'
+
+  # A to Z Listings 
   get '/AtoZ', to: 'public/base#all'
   get '/AtoZ/:character', to: 'public/base#a_to_z'
+
+  # Subject Listings 
   get '/subject', to: 'public/base#subject'
+  get '/subjects', to: 'public/base#subject'
+  get '/databases/subjects', to: redirect('/subjects')
   get '/subject/:id', to: 'public/base#subject_databases'
 
+  # landing pages 
+  get '/about/:uuid', to: 'public/about#index'
 
+  # url connection 
+  get '/connect/:uuid', to: 'public/connect#index'
+
+
+  # ADMIN
+  # ------------------------------------------------------------------
   namespace :admin do
     # databases
     get '/databases/list', to: 'databases#listall'

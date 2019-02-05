@@ -20,6 +20,9 @@ time_zone: 'Eastern Time (US & Canada)'
 help_text:  'Ask a Librarian'
 help_url: 'http://westvirginia.libanswers.com/'
 
+# IP Rangs
+campus_ip: '157.182.0.0/16' # in subnet shorthand notation 
+
 # Google Analytics 
 google_analytics_key: "UA-35722661-5"
 

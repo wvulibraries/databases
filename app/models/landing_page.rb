@@ -1,6 +1,6 @@
 class LandingPage < ApplicationRecord
   # associations 
-  belongs_to :database
+  belongs_to :database, optional: true
 
   # valdiations 
   validates_presence_of :instructions, 

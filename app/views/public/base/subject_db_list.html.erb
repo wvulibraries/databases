@@ -1,0 +1,51 @@
+<%# @databases.inspect %> 
+
+<%# Utility Bar %>
+<div class="utility"> 
+  <div class="breadcrumbs"> 
+    <ul> 
+      <li> <a href="/"> Home </a> </li>
+      <li> <a href="/subjects"> Subjects </a>
+      <li> <a href="/subject/<%= @subject.id %>" class="current"> By Subject: <%= @subject.name %> </a> </li>
+    </ul>
+  </div>
+
+  <div class="results"> 
+    <strong>
+      <%= @count %> 
+    </strong>
+    Results
+  </div>
+</div>
+
+<div class="subject-headers"> 
+  <h2> <%= @subject.name %> Database's </h2>
+  
+  <div class="guide"> 
+    <a href="<%= @subject.url %>" class="btn"> 
+      <span class="fa fa-compass"></span>
+      <%= @subject.name %> Guide 
+    </a>
+  </div>
+</div>
+
+<% if @curated.present? %>
+  <section class="curated" aria-label="Curated Database List">
+    <% @curated.each do |db| %>
+      <div class="database-results"> 
+         <%= DatabaseDecorator.new(db.database).display_title %>
+        <p> <%= db.database.description %> </p>
+      </div>
+    <% end %>
+  </section>
+<% end %>
+
+<section class="databases">
+  <%# Database List %>
+  <% @databases.each do |db| %>
+    <div class="database-results" aria-label="Database List"> 
+      <%= DatabaseDecorator.new(db).display_title %>
+      <p> <%= db.description %> </p>
+    </div>
+  <% end %>
+</section>

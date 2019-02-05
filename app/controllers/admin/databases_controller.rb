@@ -126,6 +126,6 @@ class Admin::DatabasesController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def database_params
-      params.require(:database).permit(:name, :status, :years_of_coverage, :url, :off_campus_url, :updated, :full_text_db, :new_database, :trial_database, :help, :help_url, :description, :created_date, :updated_date, :popular, :trial_expire_date, :alumni, :title_search)
+      params.require(:database).permit(:name, :status, :years_of_coverage, :url, :off_campus_url, :updated, :full_text_db, :new_database, :trial_database, :help, :help_url, :description, :created_date, :updated_date, :popular, :trial_expire_date, :alumni, :title_search, :vendor, :trial_expiration_date, :vendor_id, subject_ids: [], resource_ids:[])
     end
 end

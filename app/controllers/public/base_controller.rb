@@ -2,6 +2,8 @@ class Public::BaseController < ApplicationController
   def index 
     @subjects = Subject.all.order('name ASC').group_by{|d| d.name[0]}
     @letters = Database.letters
+    @trials = Database.trials
+    @popular = Database.pop_list
     render :index
   end
   
@@ -9,9 +11,9 @@ class Public::BaseController < ApplicationController
     @letters = Database.letters
     @character = params[:character]
     if @character == "NUM"
-      @databases = Database.number_list.production.order('name ASC')
+      @databases = Database.number_list.prod.order('name ASC')
     else 
-      @databases = Database.alpha_list(@character).production.order('name ASC')
+      @databases = Database.alpha_list(@character).prod.order('name ASC')
     end  
     render :list
   end 
@@ -27,5 +29,15 @@ class Public::BaseController < ApplicationController
     @subjects = Subject.all.order('name ASC').group_by{|d| d.name[0]}
     @letters = Database.letters
     render :subject
+  end
+
+  def subject_databases
+    subject_id = params[:id]
+    @curated = DatabaseCurated.includes(:database).where(subject_id: subject_id)
+    curated_ids = @curated.pluck(:database_id)
+    @databases = Database.subject_list(subject_id).where.not(id: curated_ids)
+    @subject = Subject.find(subject_id)
+    @count = @databases.count + @curated.count
+    render :subject_db_list
   end
 end
