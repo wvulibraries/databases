@@ -35,7 +35,7 @@ class Public::BaseController < ApplicationController
     subject_id = params[:id]
     @curated = DatabaseCurated.includes(:database).where(subject_id: subject_id)
     curated_ids = @curated.pluck(:database_id)
-    @databases = Database.subject_list(subject_id).where.not(id: curated_ids)
+    @databases = Database.list_subjects(subject_id).includes(:landing_page).where.not(id: curated_ids)
     @subject = Subject.find(subject_id)
     @count = @databases.count + @curated.count
     render :subject_db_list
