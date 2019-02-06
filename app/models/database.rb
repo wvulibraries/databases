@@ -120,12 +120,12 @@ class Database < ApplicationRecord
     vendor.name unless vendor.nil?
   end
 
-  # Adjusts the presentation of the trail_expiration_date  
+  # Checks to see if the campus only designation is set 
   # @author David J. Davis
-  # @return string or nil
-  # def trial_expiration_date
-  #   self[:trial_expiration_date].strftime("%m/%d/%Y") unless self[:trial_expiration_date].nil?
-  # end 
+  # @return boolean
+  def campus_only?
+    self.access == 'Campus Only Access (No Proxy)'
+  end
 
   # Creates a csv object of all database records.
   # @author David J. Davis

@@ -23,6 +23,9 @@ help_url: 'http://westvirginia.libanswers.com/'
 # IP Rangs
 campus_ip: '157.182.0.0/16' # in subnet shorthand notation 
 
+# Proxy URL for off campus Databases
+proxy_url: 'http://www.libproxy.wvu.edu/login?url=' 
+
 # Google Analytics 
 google_analytics_key: "UA-35722661-5"
 

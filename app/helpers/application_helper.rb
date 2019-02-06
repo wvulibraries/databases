@@ -11,7 +11,7 @@ module ApplicationHelper
   # @param campus_ip (should be an ipAddr object)
   # @author David J. Davis
   # @return boolean
-  def campus? client_ip
+  def campus_ip? client_ip
     ip_range = IPAddr.new(ENV['campus_ip'])
     ip_range.include? client_ip 
   end  

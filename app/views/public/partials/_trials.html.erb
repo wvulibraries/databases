@@ -2,7 +2,7 @@
     <h2> Trial Databases </h2>
     <% @trials.each do |db| %>
       <div class="database-results"> 
-        <h3> <%= db.name %> </h3>
+        <%= DatabaseDecorator.new(db).display_title %>
         <p> <%= db.description %> </p>
         <strong> Trial ends on <%= l(db.trial_expiration_date, format: :human_readable) %> </strong>
       </div>

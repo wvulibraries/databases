@@ -176,6 +176,20 @@ RSpec.describe Database, type: :model do
     end 
   end
 
+  context ".campus_only" do
+    it 'campus only enumeration is set' do
+      database.access = 'Campus Only Access (No Proxy)'
+      database.save! 
+      expect(database.campus_only?).to be true 
+    end 
+
+    it 'proxy is set for off campus' do
+      database.access = 'Campus and Off Campus (Proxy)'
+      database.save! 
+      expect(database.campus_only?).to be false
+    end 
+  end 
+
   context 'subjects' do
     before(:each) do
       @sub1 = FactoryBot.create :subject
@@ -235,6 +249,7 @@ RSpec.describe Database, type: :model do
       expect(db.url_uuid).to_not be_nil
     end 
   end 
+  
 
   context 'creates default values for help' do
     it 'has a default help text' do

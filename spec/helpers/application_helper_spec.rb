@@ -17,14 +17,14 @@ describe ApplicationHelper do
   end
 
 
-  describe "#campus" do
+  describe "#campus_ip?" do
     it "on campus" do
       test_ip = IPAddr.new('157.182.3.19')
-      expect(helper.campus?(test_ip)).to be true
+      expect(helper.campus_ip?(test_ip)).to be true
     end
     it "off campus" do
       test_ip = IPAddr.new('241.232.3.19')
-      expect(helper.campus?(test_ip)).to be false
+      expect(helper.campus_ip?(test_ip)).to be false
     end
   end
 end

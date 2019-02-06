@@ -2,8 +2,8 @@ class Public::BaseController < ApplicationController
   def index 
     @subjects = Subject.all.order('name ASC').group_by{|d| d.name[0]}
     @letters = Database.letters
-    @trials = Database.trials
-    @popular = Database.pop_list
+    @trials = Database.trials.includes(:landing_page)
+    @popular = Database.pop_list.includes(:landing_page)
     render :index
   end
   
@@ -11,9 +11,9 @@ class Public::BaseController < ApplicationController
     @letters = Database.letters
     @character = params[:character]
     if @character == "NUM"
-      @databases = Database.number_list.prod.order('name ASC')
+      @databases = Database.number_list.prod.includes(:landing_page).order('name ASC')
     else 
-      @databases = Database.alpha_list(@character).prod.order('name ASC')
+      @databases = Database.alpha_list(@character).prod.includes(:landing_page).order('name ASC')
     end  
     render :list
   end 
