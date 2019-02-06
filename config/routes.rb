@@ -32,12 +32,17 @@ Rails.application.routes.draw do
 
     # vendors
     resources :vendors
+
     # resources
-    resources :resources 
+    resources :resources
+
     # subjects
     resources :subjects
     get '/curated', to: 'subjects#curated', as: 'curated'
     get '/curated/:subject/sort', to: 'subjects#sort', as: 'sort_curated'
     post '/curated', to: 'subjects#update_curated', as: 'update_curated'
+
+    # landing pages 
+    resources :landing_pages
   end
 end

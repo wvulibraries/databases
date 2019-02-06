@@ -8,4 +8,11 @@ class LandingPage < ApplicationRecord
                         :contact_email, 
                         :contact_phone_number, 
                         :contact_title
+
+  # Returns the database name negatting nil database
+  # @author David J. Davis
+  # @return string
+  def database_name 
+    self.database.nil? ? 'Not Assigned' : self.database.name 
+  end 
 end

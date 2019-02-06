@@ -1,0 +1,87 @@
+<%= form_for [:admin, landing_page], html: { multipart: true } do |form| %>
+  <% if landing_page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(landing_page.errors.count, "error") %> prohibited this landing_page from being saved:</h2>
+
+      <ul>
+      <% landing_page.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset> 
+    <legend> Database Consultant </legend>
+
+    <p class="micro-text"> This information will be used to show the user who they should contact for information on how to access the database. </p>
+
+    <div class="row">
+      <div class="field half">
+        <%= form.label :contact_name, 'Name', class: 'required' %>
+        <%= form.text_field :contact_name %>
+      </div>
+
+      <div class="field half">
+        <%= form.label :contact_email, 'Email', class: 'required' %>
+        <%= form.text_field :contact_email %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field half">
+        <%= form.label :contact_phone_number, 'Phone Number', class: 'required' %>
+        <%= form.text_field :contact_phone_number %>
+      </div>
+
+      <div class="field half">
+        <%= form.label :contact_title, 'Title', class: 'required' %>
+        <%= form.text_field :contact_title %>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend> Database Information </legend>
+      
+      <p class="micro-text"> HTML is allowed in the form fields, but please be careful of HTML.  These fields will render HTML in the public view.  HTML not written properly can and will cause other issues with the page and can introduce security concerns.  The primary purpose of these fields is for creating links needed for helping users navigate appropriately.  </p>
+
+      <div class="row">
+        <div class="field full">
+          <%= form.label :instructions, class: 'required' %>
+          <%= form.text_area :instructions %>
+        </div>
+
+        <div class="field full">
+          <%= form.label :restrictions %>
+          <%= form.text_area :restrictions %>
+        </div>
+
+        <div class="field full">
+          <%= form.label :html_links, 'Other Notes' %>
+          <%= form.text_area :html_links %>
+        </div>
+      </div>
+  </fieldset>
+
+  <fieldset>
+    <legend> Assign to Databse </legend>
+      <div class="row">
+        <div class="field full">
+          <%= form.label :database_id, 'Resource Types' %>
+          <div class="select-style">
+            <%= form.collection_select :database_id, 
+                                  Database.prod.order(:name), 
+                                  :id, 
+                                  :name, 
+                                  { prompt: "Assign to a Database" }
+                                  %>
+          </div>
+        </div>
+      </div>
+  </fieldset>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

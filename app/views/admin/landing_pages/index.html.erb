@@ -1,0 +1,25 @@
+<h1>Landing Pages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th> Contact Name </th>
+      <th> Contact Title </th>
+      <th> Database </th>
+      <th colspan="3"> Actions </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @landing_pages.each do |landing_page| %>
+      <tr>
+        <td data-label="Contact Name"> <%= landing_page.contact_name %> </td>
+        <td data-label="Title"> <%= landing_page.contact_title %> </td>
+        <td data-label="Database Name"> <%= landing_page.database_name %> </td>
+        <td data-label="Preview"> <%= link_to raw('<span class="fas fa-eye"></span>'), admin_landing_page_path(landing_page), { class: 'show-button', title: 'Show' } %></td>
+        <td data-label="Edit"> <%= link_to raw('<span class="fas fa-edit"></span>'), edit_admin_landing_page_path(landing_page), { class: 'edit-button', title: 'Edit' } %></td>
+        <td data-label="Delete"> <%= link_to raw('<span class="fas fa-trash"></span>'), admin_landing_page_path(landing_page), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-button', data: { confirm: 'Are you sure?' }, title:'Delete' %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

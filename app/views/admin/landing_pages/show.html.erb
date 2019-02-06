@@ -1,8 +1,11 @@
-<h2> <%= @database.name %> </h2>
+<strong> This is a preview of the landing page without branded styles. </strong>
+<hr/>
 
-<% unless @database.nil? %>
+<h2> <%= @landing_page.database_name %> </h2>
+
+<% unless @landing_page.database.nil? %>
   <h3> Description </h3>
-  <p> <%= raw @database.description %> </p><br/>
+  <p> <%= raw @landing_page.database.description %> </p><br/>
 <% end %>
 
 <% if @landing_page.instructions.present? %>
@@ -20,10 +23,9 @@
   <p> <%= raw @landing_page.html_links %> </p><br/>
 <% end %>
 
+
 <h3> Contact </h3>
   <p> <strong> <%= @landing_page.contact_name %> </strong> </p>
   <p> <%= @landing_page.contact_title %> </p>
   <p> <%= @landing_page.contact_email %> </p>
-  <p> <%= @landing_page.contact_phone_number %> </p> <br/>
-
-<a href="/connect/<%=@database.url_uuid%>" class="button"> Go To <%= @database.name %> </a>
+  <p> <%= @landing_page.contact_phone_number %> </p>
