@@ -1,3 +1,5 @@
+# Subjects are used in searching and finding databases and curations.
+# @author David J. Davis
 class Subject < ApplicationRecord
   # validatations
   validates :name,

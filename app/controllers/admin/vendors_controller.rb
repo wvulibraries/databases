@@ -1,3 +1,4 @@
+# Vendors Controller
 class Admin::VendorsController < AdminController
   # filters
   before_action :set_admin_vendor, only: [:edit, :update, :destroy]

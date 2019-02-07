@@ -1,3 +1,4 @@
+# Admin Landing Pages Controller
 class Admin::LandingPagesController < AdminController
   before_action :set_admin_landing_page, only: [:show, :edit, :update, :destroy]
 

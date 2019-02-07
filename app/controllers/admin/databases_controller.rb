@@ -1,3 +1,4 @@
+# Admin Databases Controller
 class Admin::DatabasesController < AdminController
   # filters
   before_action :set_database, only: [:show, :edit, :update, :destroy]

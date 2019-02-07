@@ -1,3 +1,5 @@
+# Model for creating pages about each database.
+# @author David J. Davis
 class LandingPage < ApplicationRecord
   # associations 
   belongs_to :database, optional: true

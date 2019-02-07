@@ -1,4 +1,5 @@
-# The main model for storing academic databases. NOT DATABASE CONNECTIONS!
+# The main model for storing academic databases. 
+# NOT DATABASE CONNECTIONS!
 # @author David J. Davis
 class Database < ApplicationRecord
   # set table name

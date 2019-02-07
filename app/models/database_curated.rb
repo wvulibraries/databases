@@ -1,3 +1,5 @@
+# Creates a curated list of database per each subject and gives them a hierarchy.  
+# @author David J. Davis
 class DatabaseCurated < ApplicationRecord
   # set table name
   self.table_name = :databases_curated

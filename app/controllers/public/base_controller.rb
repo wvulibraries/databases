@@ -1,4 +1,9 @@
+# Public::AboutController 
+# Controller that deals with the public facing interfaces. 
 class Public::BaseController < ApplicationController
+  # Root controller of public inteface.  
+  # Sets the subjects, letters, trial databases, and public databases.
+  # @author David J. Davis
   def index 
     @subjects = Subject.all.order('name ASC').group_by{|d| d.name[0]}
     @letters = Database.letters
@@ -7,6 +12,8 @@ class Public::BaseController < ApplicationController
     render :index
   end
   
+  # AtoZ method sets the database for searching by titles
+  # @author David J. Davis
   def a_to_z 
     @letters = Database.letters
     @character = params[:character].upcase
@@ -18,6 +25,8 @@ class Public::BaseController < ApplicationController
     render :list
   end 
 
+  # Shows all the database in alphabetical order by title
+  # @author David J. Davis
   def all 
     @letters = Database.letters
     @databases = Database.grouped_alpha
@@ -25,12 +34,16 @@ class Public::BaseController < ApplicationController
     render :list_all
   end
 
+  # Shows all of the subjects in the system that have an associated database 
+  # @author David J. Davis
   def subject
     @subjects = Subject.all.order('name ASC').group_by{|d| d.name[0]}
     @letters = Database.letters
     render :subject
   end
 
+  # Lists the databases by the subject selected. 
+  # @author David J. Davis
   def subject_databases
     subject_id = params[:id]
     @curated = DatabaseCurated.includes(:database).where(subject_id: subject_id)

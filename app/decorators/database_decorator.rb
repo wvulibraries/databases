@@ -2,7 +2,7 @@
 class DatabaseDecorator < SimpleDelegator
   # Checks attributes title/popular to format title
   # @author David J. Davis
-  # @return string (h3 with nested link)
+  # @return [String] h3 with nested link
   def display_title
     link = title_link
     if popular || trial_database
@@ -14,7 +14,7 @@ class DatabaseDecorator < SimpleDelegator
 
   # Creates a link to return to the display_title 
   # @author David J. Davis
-  # @return string (link)
+  # @return [String] link
   def title_link
     if landing_page?
       "<a href='#{link_to_landing_page}'> #{name} </a>"
@@ -26,7 +26,7 @@ class DatabaseDecorator < SimpleDelegator
   # Checks to see if the database has a landing page.
   # This will determine logic for the database linking.  
   # @author David J. Davis
-  # @return boolean
+  # @return [Boolean]
   def landing_page? 
     landing_page.present? 
   end
@@ -34,14 +34,14 @@ class DatabaseDecorator < SimpleDelegator
   # Checks to see if the database has a landing page.
   # This will determine logic for the database linking.  
   # @author David J. Davis
-  # @return string of url
+  # @return [String] url
   def link_to_landing_page 
     "/about/#{url_uuid}"
   end
 
   # Forwards user to the proper database page based on the 
   # @author David J. Davis
-  # @return string of url
+  # @return [String] url
   def link_to_database 
     "/connect/#{url_uuid}"
   end

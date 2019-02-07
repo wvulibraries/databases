@@ -6,7 +6,7 @@
 <title>
   Class: Database
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.18
   
 </title>
 
@@ -103,7 +103,34 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>The main model for storing academic databases.  NOT DATABASE CONNECTIONS!</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>David J. Davis</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
 
 
 
@@ -150,6 +177,30 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#campus_only%3F-instance_method" title="#campus_only? (instance method)">#<strong>campus_only?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Checks to see if the campus only designation is set.</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -323,25 +374,25 @@
       <pre class="lines">
 
 
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118</pre>
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/database.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'app/models/database.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_to_csv'>to_csv</span>
   <span class='const'>CSV</span><span class='period'>.</span><span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='label'>headers:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_csv'>csv</span><span class='op'>|</span>
-    <span class='id identifier rubyid_attributes'>attributes</span> <span class='op'>=</span> <span class='qwords_beg'>%w{</span><span class='tstring_content'>id</span><span class='words_sep'> </span><span class='tstring_content'>name</span><span class='words_sep'> </span><span class='tstring_content'>status</span><span class='words_sep'> </span><span class='tstring_content'>years_of_coverage</span><span class='words_sep'> </span><span class='tstring_content'>vendor_name</span><span class='words_sep'> </span><span class='tstring_content'>url</span><span class='words_sep'> </span><span class='tstring_content'>access</span><span class='words_sep'> </span><span class='tstring_content'>full_text_db</span><span class='words_sep'> </span><span class='tstring_content'>new_database</span><span class='words_sep'> </span><span class='tstring_content'>trial_database</span><span class='words_sep'> </span><span class='tstring_content'>access_plain_text</span><span class='words_sep'> </span><span class='tstring_content'>help</span><span class='words_sep'> </span><span class='tstring_content'>help_url</span><span class='words_sep'> </span><span class='tstring_content'>description</span><span class='words_sep'> </span><span class='tstring_content'>url_uuid</span><span class='words_sep'> </span><span class='tstring_content'>popular</span><span class='words_sep'> </span><span class='tstring_content'>trial_database</span><span class='words_sep'> </span><span class='tstring_content'>trial_expiration_date</span><span class='words_sep'> </span><span class='tstring_content'>title_search</span><span class='words_sep'> </span><span class='tstring_content'>resource_list</span><span class='words_sep'> </span><span class='tstring_content'>subject_list</span><span class='words_sep'> </span><span class='tstring_content'>created_at</span><span class='words_sep'> </span><span class='tstring_content'>updated_at</span><span class='tstring_end'>}</span></span>
+    <span class='id identifier rubyid_attributes'>attributes</span> <span class='op'>=</span> <span class='qwords_beg'>%w{</span><span class='tstring_content'>id</span><span class='words_sep'> </span><span class='tstring_content'>name</span><span class='words_sep'> </span><span class='tstring_content'>status</span><span class='words_sep'> </span><span class='tstring_content'>years_of_coverage</span><span class='words_sep'> </span><span class='tstring_content'>vendor_name</span><span class='words_sep'> </span><span class='tstring_content'>url</span><span class='words_sep'> </span><span class='tstring_content'>access</span><span class='words_sep'> </span><span class='tstring_content'>full_text_db</span><span class='words_sep'> </span><span class='tstring_content'>new_database</span><span class='words_sep'> </span><span class='tstring_content'>trial_database</span><span class='words_sep'> </span><span class='tstring_content'>help</span><span class='words_sep'> </span><span class='tstring_content'>help_url</span><span class='words_sep'> </span><span class='tstring_content'>description</span><span class='words_sep'> </span><span class='tstring_content'>url_uuid</span><span class='words_sep'> </span><span class='tstring_content'>popular</span><span class='words_sep'> </span><span class='tstring_content'>trial_database</span><span class='words_sep'> </span><span class='tstring_content'>trial_expiration_date</span><span class='words_sep'> </span><span class='tstring_content'>title_search</span><span class='words_sep'> </span><span class='tstring_content'>resource_list</span><span class='words_sep'> </span><span class='tstring_content'>subject_list</span><span class='words_sep'> </span><span class='tstring_content'>created_at</span><span class='words_sep'> </span><span class='tstring_content'>updated_at</span><span class='tstring_end'>}</span></span>
 
-    <span class='id identifier rubyid_csv'>csv</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_attributes'>attributes</span>
+    <span class='id identifier rubyid_csv'>csv</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:titleize</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_database'>database</span><span class='op'>|</span>
       <span class='id identifier rubyid_csv'>csv</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_attr'>attr</span><span class='op'>|</span> <span class='id identifier rubyid_database'>database</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_attr'>attr</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
     <span class='kw'>end</span>
@@ -359,7 +410,82 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="keywords-instance_method">
+  <h3 class="signature first" id="campus_only?-instance_method">
+  
+    #<strong>campus_only?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Checks to see if the campus only designation is set</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>boolean</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>David J. Davis</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+127
+128
+129</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/database.rb', line 127</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_campus_only?'>campus_only?</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_access'>access</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Campus Only Access (No Proxy)</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="keywords-instance_method">
   
     #<strong>keywords</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -418,13 +544,13 @@
       <pre class="lines">
 
 
-75
-76
-77
-78</pre>
+93
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/database.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'app/models/database.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_keywords'>keywords</span>
   <span class='id identifier rubyid_attr'>attr</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_title_search'>title_search</span><span class='comma'>,</span> <span class='id identifier rubyid_subject_list'>subject_list</span><span class='rbracket'>]</span>
@@ -495,14 +621,14 @@
       <pre class="lines">
 
 
-93
-94
-95
-96
-97</pre>
+111
+112
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/database.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'app/models/database.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_resource_list'>resource_list</span>
   <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -578,14 +704,14 @@
       <pre class="lines">
 
 
-84
-85
-86
-87
-88</pre>
+102
+103
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/database.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'app/models/database.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subject_list'>subject_list</span>
   <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -657,12 +783,12 @@
       <pre class="lines">
 
 
-102
-103
-104</pre>
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/database.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'app/models/database.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_vendor_name'>vendor_name</span>
   <span class='id identifier rubyid_vendor'>vendor</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='kw'>unless</span> <span class='id identifier rubyid_vendor'>vendor</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -677,9 +803,9 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Jan  2 08:29:28 2019 by
+  Generated on Thu Feb  7 15:41:01 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.16 (ruby-2.5.1).
+  0.9.18 (ruby-2.5.3).
 </div>
 
     </div>

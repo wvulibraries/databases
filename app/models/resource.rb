@@ -1,3 +1,5 @@
+# Resources gives the ability to tag databases with these types for searching/filtering.
+# @author David J. Davis
 class Resource < ApplicationRecord
   self.table_name = 'resource_types'
 

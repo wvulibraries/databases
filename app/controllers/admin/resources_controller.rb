@@ -1,3 +1,4 @@
+# Resources Controller
 class Admin::ResourcesController < AdminController
   before_action :set_admin_resource, only: [:show, :edit, :update, :destroy]
 

@@ -1,4 +1,8 @@
+# Public::AboutController 
+# Controller deals with connecting to the database keeps a "permanent URL". 
 class Public::ConnectController < ApplicationController
+  # An interesting set of logic taken from the prior version of this app that was in PHP. 
+  # @author David J. Davis
   def index 
     # set database
     database = Database.where(url_uuid: params[:uuid]).first
@@ -19,7 +23,7 @@ class Public::ConnectController < ApplicationController
 
   # Users IpAddr objects to check IP ranges from subnets 
   # must be set in environment ENV['campus_ip']
-  # @param campus_ip (should be an ipAddr object)
+  # @param [IPAddr<object>] client_ip
   # @author David J. Davis
   # @return boolean
   def campus_ip? client_ip

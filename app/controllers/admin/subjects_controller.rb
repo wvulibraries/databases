@@ -1,3 +1,4 @@
+# Subjects Controller
 class Admin::SubjectsController < AdminController
   before_action :set_admin_subject, only: [:edit, :update, :destroy]
 

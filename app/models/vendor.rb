@@ -1,3 +1,5 @@
+# Vendor model owns the databases.  Gives a base url for contact. 
+# @author David J. Davis
 class Vendor < ApplicationRecord
   # validations
   validates :name,
