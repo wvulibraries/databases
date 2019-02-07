@@ -95,9 +95,14 @@ $curated-dark: $wvu-blue;
 
 .trial, .popular { 
   @include grid-column(12); 
+  width:100%; 
   border: 2px dotted $wvu-gold;
   padding:1em;
   margin-bottom: 2em; 
+
+  .database-results { 
+    width:100%;
+  }
 
   h2 { margin-bottom:1em; }
 

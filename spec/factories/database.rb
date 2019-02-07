@@ -28,7 +28,6 @@ FactoryBot.define do
       created_date { Date.today }
       updated_date { Date.today }
     end 
-  
 
     factory :database_default_values do
       name { Faker::HitchhikersGuideToTheGalaxy.planet << Faker::Educator.course_name }
