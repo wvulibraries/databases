@@ -28,7 +28,7 @@ class Admin::LandingPagesController < AdminController
 
     respond_to do |format|
       if @landing_page.save
-        format.html { redirect_to admin_landing_page_path(@landing_page), notice: 'Landing page was successfully created.' }
+        format.html { redirect_to admin_landing_page_path(@landing_page), success: I18n.t('admin.basic.messages.created', model: 'Landing Page')}
         format.json { render :show, status: :created, location: @landing_page }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class Admin::LandingPagesController < AdminController
   def update
     respond_to do |format|
       if @landing_page.update(admin_landing_page_params)
-        format.html { redirect_to admin_landing_page_path(@landing_page), notice: 'Landing page was successfully updated.' }
+        format.html { redirect_to admin_landing_page_path(@landing_page), success: I18n.t('admin.basic.messages.updated', model: 'Landing Page')}
         format.json { render :show, status: :ok, location: @landing_page }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class Admin::LandingPagesController < AdminController
   def destroy
     @landing_page.destroy
     respond_to do |format|
-      format.html { redirect_to admin_landing_pages_url, notice: 'Landing page was successfully destroyed.' }
+      format.html { redirect_to admin_landing_pages_url, error: I18n.t('admin.basic.messages.deleted', model: 'Landing Page') }
       format.json { head :no_content }
     end
   end

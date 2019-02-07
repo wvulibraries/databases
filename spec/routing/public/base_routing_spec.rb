@@ -30,10 +30,6 @@ RSpec.describe Public::BaseController, type: :routing do
       expect(:get => "/subjects").to route_to("public/base#subject")
     end
 
-    # it "/databases/subjects" do
-    #   expect(:get => "/databases/subjects").to redirect_to('/subjects')
-    # end
-
     it "/subject/1" do
       expect(:get => "/subject/1").to route_to(
         :controller => "public/base", 
