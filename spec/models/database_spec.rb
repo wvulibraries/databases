@@ -277,4 +277,38 @@ RSpec.describe Database, type: :model do
       end 
     end 
   end 
+
+  context '.libguides_export' do
+    before do
+      database
+      database.status = 'production'
+      database.save!
+    end  
+
+    it 'expects CSV string' do
+      csv = Database.libguides_export
+      expect(csv).to be_a(String)
+    end 
+
+    it 'expects the values from the csv hash' do
+      attributes = database.csv_hash.values
+      csv = Database.libguides_export
+      attributes.each do |attr| 
+        expect(csv).to include database[attr].to_s
+      end 
+    end 
+  end 
+
+  context '.csv_hash' do
+    it 'expects a hash' do
+      expect(database.csv_hash).to be_a(Hash)
+    end 
+
+    it 'expects certain values to not be nil' do
+      csv_hash = database.csv_hash
+      expect(csv_hash[:name]).to be(database.name)
+      expect(csv_hash[:url]).to be(database.url)
+      expect(csv_hash[:vendor]).to be(database.vendor_name)
+    end 
+  end 
 end

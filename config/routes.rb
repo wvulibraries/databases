@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     get '/databases/list/:status', to: 'databases#list'
     get '/databases/tables', to: 'databases#tables'
     get '/databases/tables/:status', to: 'databases#tables'
+    get '/databases/libguides', to: 'databases#lib_guides'
     resources :databases
 
     # vendors

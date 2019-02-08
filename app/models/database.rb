@@ -15,8 +15,9 @@ class Database < ApplicationRecord
             length: { within: 2..50 }
 
   validates :libguides_id, 
-            uniqueness: true, 
             numericality: { :only_integer => true, :allow_nil => true }
+  validates_uniqueness_of :libguides_id, :allow_blank => true, :allow_nil => true
+
 
   validates :years_of_coverage,
             length: { maximum: 50 }
@@ -145,6 +146,53 @@ class Database < ApplicationRecord
       end
     end
   end 
+
+  # Generates a CSV to populate libguides a-to-z listing.
+  # @author David J. Davis
+  # @return csv object
+  def self.libguides_export 
+    headers = %w{vendor name url enable_proxy description more_info enable_new enable_trial types keywords target slug best_bets subjects desc_pos lib_note enable_popular enable_hidden internal_note owner resource_icons thumbnail content_id}
+    CSV.generate(headers: true) do |csv|
+      csv << headers 
+      # get everything else 
+      all.each do |database|
+        csv << database.csv_hash.values  
+      end
+    end
+  end 
+
+  # Creates a hash to use in the lib_guides CSV.
+  # LibGuides requries the use of these fields 
+  # vendor name url enable_proxy description more_info enable_new enable_trial types keywords target slug best_bets subjects desc_pos lib_note enable_popular enable_hidden internal_note owner resource_icons thumbnail content_id
+  # @author David J. Davis
+  # @return [Hash] Custom for LibGuides.
+  def csv_hash
+    { 
+      vendor: self.vendor_name, 
+      name: self.name,
+      url: self.url, 
+      enable_proxy: self.access == 2 ? 1 : 0, 
+      description: self.description, 
+      more_info: '', 
+      enable_new: self.new_database ? 1 : 0, 
+      enable_trial: self.trial_database ? 1 : 0, 
+      types: self.resources.join(';'), 
+      keywords: '', 
+      target: 0, 
+      slug: '', 
+      best_bets: self.curated.join(';'), 
+      subjects: self.subjects.join(';'), 
+      desc_pos: 1, 
+      lib_note: 0, 
+      enable_popular: self.popular ? 1 : 0, 
+      enable_hidden: 0, 
+      internal_note: '', 
+      owner: '', 
+      resource_icons: '', 
+      thumbnail: '',  
+      content_id: self.libguides_id
+    }
+  end
 
   private 
 

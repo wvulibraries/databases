@@ -25,6 +25,23 @@ class Admin::DatabasesController < AdminController
       end 
     end         
   end
+  
+  # GET /admin/databases.csv 
+  def lib_guides
+    @databases = Database.prod
+    respond_to do |format|
+      format.csv do 
+        @databases = @databases.includes(
+          :database_subjects,
+          :resources, 
+          :subjects, :vendor, 
+          :access_plain_text, 
+          :access_type)
+        .order('name ASC')
+        send_data @databases.libguides_export, filename: "libguides-#{Date.today}.csv"
+      end 
+    end
+  end   
 
   # GET /admin/databases/list/:status
   def listall
