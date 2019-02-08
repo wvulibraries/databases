@@ -14,6 +14,10 @@ class Database < ApplicationRecord
             uniqueness: { case_sensitive: true },
             length: { within: 2..50 }
 
+  validates :libguides_id, 
+            uniqueness: true, 
+            numericality: { :only_integer => true, :allow_nil => true }
+
   validates :years_of_coverage,
             length: { maximum: 50 }
 

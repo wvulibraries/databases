@@ -9,7 +9,6 @@ RSpec.describe Database, type: :model do
     it { should validate_presence_of(:status) }
     it { should validate_presence_of(:url) }
     it { should validate_presence_of(:description) }
-    # it { should validate_presence_of(:url_uuid) }
   end
 
   context 'enums' do
@@ -27,6 +26,8 @@ RSpec.describe Database, type: :model do
 
   context 'validates uniqueness' do
     it { should validate_uniqueness_of(:url_uuid) }
+    it { should validate_uniqueness_of(:libguides_id) }
+    it { should validate_numericality_of(:libguides_id).only_integer }
   end 
 
   # You will get a shoulda warning that this is not fully validatable
