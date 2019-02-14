@@ -37,13 +37,13 @@ gem "bourbon"
 gem "neat"
 gem 'normalize-scss'
 gem 'font-awesome-sass'
-gem "non-stupid-digest-assets" # generates assets without fingerprint for 404 and 500 errors. 
+gem "non-stupid-digest-assets" # generates assets for 404/500/etc. 
 
-# breadcrumbs
-gem "breadcrumbs_on_rails"
+# searching / indexing
+gem 'kaminari' # must be before elasticsearch
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
-# schema to scaffold, only needed really to get us started
-gem 'schema_to_scaffold'
 
 # Test Suite
 # =====================================================================================

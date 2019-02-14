@@ -2,10 +2,16 @@
 # NOT DATABASE CONNECTIONS!
 # @author David J. Davis
 class Database < ApplicationRecord
-  # set table name
+  # TABLE NAME
+  # -----------------------------------------------------
   self.table_name = :database_list
 
-  # validations
+  # CONCERNS
+  # -----------------------------------------------------
+  include Searchable 
+
+  # VALIDATIONS
+  # -----------------------------------------------------
   validates :name,
             presence: true,
             length: { within: 2..190 }
@@ -40,14 +46,16 @@ class Database < ApplicationRecord
   validates :trial_database, inclusion: { in: [true, false] }
   validates :alumni, inclusion: { in: [true, false] }
 
-  # enums
+  # ENUMS
+  # -----------------------------------------------------
   enum status: { undefined: 0, production: 1, development: 2, hidden: 3 }
   validates :status, presence: true
 
   enum access: { 'Campus Only Access (No Proxy)' => 1, 
                  'Campus and Off Campus (Proxy)' => 2  }
 
-  # associations
+  # ASSOCIATIONS
+  # -----------------------------------------------------
   belongs_to :vendor, optional: true, required: false
   belongs_to :access_type, optional: true, required: false
   belongs_to :access_plain_text, optional: true, required: false
@@ -67,7 +75,27 @@ class Database < ApplicationRecord
   # landing page
   has_one :landing_page, required: false
 
-  # scopes
+  # RAILS CALLBACKS
+  # -----------------------------------------------------
+  before_validation :mint_uuid, on: [:create]
+  
+  # default values 
+  after_initialize :set_defaults
+
+  after_commit on: [:create] do
+    # elasticsearch override for production only
+    __elasticsearch__.index_document if status == 'production'
+  end
+
+  # update
+  after_commit on: [:update] do
+    # elasticsearch override for production only 
+    __elasticsearch__.update_document
+    __elasticsearch__.delete_document unless status == 'production'
+  end
+
+  # SCOPES
+  # -----------------------------------------------------
   scope :prod, -> { where(status: 'production') }
   scope :dev, -> { where(status: 'development') }
   scope :hide, -> { where(status: 'hidden') }
@@ -86,11 +114,8 @@ class Database < ApplicationRecord
   scope :grouped_alpha, -> { all.prod.order('name ASC').group_by{ |db| db.name[0].upcase } } 
   scope :total_count, -> { all.prod.count }
 
-  # callbacks
-  before_validation :mint_uuid, on: [:create]
-  
-  # default values 
-  after_initialize :set_defaults
+  # PUBLIC METHODS
+  # -----------------------------------------------------
 
   # Creates keywords for indexing, filtering, search etc.
   # @author David J. Davis
@@ -102,7 +127,6 @@ class Database < ApplicationRecord
 
   # Creates comma seperated list of subjects.
   # @author David J. Davis
-  # @abstract 
   # @return string
   def subject_list
     list = []
@@ -117,6 +141,27 @@ class Database < ApplicationRecord
     list = []
     resources.each { |rss| list << rss.name }
     list.to_sentence
+  end
+
+  # Returns an array of names for search index.
+  # @author David J. Davis
+  # @return [Array]
+  def subject_search_index
+    subjects.pluck(:name)
+  end
+
+  # Returns an array of names for search index.
+  # @author David J. Davis
+  # @return [Array]
+  def rss_search_index
+    resources.pluck(:name)
+  end
+
+  # Returns an array of names for search index.
+  # @author David J. Davis
+  # @return [Array]
+  def curated_search_index
+    curated.pluck(:name)
   end
 
   # Calls the association for vendor unless nil, and returns the vendors name. 
@@ -193,6 +238,48 @@ class Database < ApplicationRecord
       content_id: self.libguides_id
     }
   end
+
+  # Elastic search settings using indexed json. 
+  # @author David J. Davis
+  # rake elasticsearch:import:model CLASS='Database' SCOPE="production" FORCE=y
+  def as_indexed_json(_options)
+    as_json(
+      methods: [:vendor_name, :subject_search_index, :rss_search_index, :curated_search_index],
+      only: [:id, :name, :vendor_name, :description, :title_search]
+    )
+  end
+
+  # Mapping the elasticsearch information to english language for better search.
+  # @author David J. Davis
+  mapping do
+    indexes :name, analyzer: 'english'
+    indexes :vendor_name, analyzer: 'english'
+    indexes :description, analyzer: 'english'
+    indexes :subject_search_index, analyzer: 'english'
+    indexes :rss_search_index, analyzer: 'english'
+    indexes :curated_search_index, analyzer: 'english'
+  end
+
+  # Seach query for searching with boosted items. 
+  # Boosting Name and Vendorname in the search results.
+  # @author David J. Davis
+  def self.search(query, num = 1000)
+    __elasticsearch__.search(
+      {
+        query: {
+          multi_match: {
+            query: query,
+            fields: ['name^20', 'vendor_name^5', 'subject_search_index', 'curated_search_index', 'rss_search_index', 'description^2'],
+            fuzziness: 2
+          }, 
+        },
+        size: num
+      }
+    )
+  end
+
+  # PRIVATE METHODS
+  # -----------------------------------------------------
 
   private 
 

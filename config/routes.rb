@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   # ------------------------------------------------------------------
   get '/', to: 'public/base#index'
 
+  # Search 
+  get '/search(/:page)', to: 'public/search#index'
+
   # A to Z Listings 
   get '/AtoZ', to: 'public/base#all'
   get '/AtoZ/:character', to: 'public/base#a_to_z'
