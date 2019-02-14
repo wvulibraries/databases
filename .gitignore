@@ -34,5 +34,9 @@
 
 .DS_Store
 
+# Elastic Search
+/search_data
+/search_data/*
+
 # Ignore application configuration
 # /config/application.yml
