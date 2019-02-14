@@ -16,6 +16,9 @@
 # Timezone
 time_zone: 'Eastern Time (US & Canada)'
 
+# Search
+ELASTICSEARCH_URL: 'http://elasticsearch:9200'
+  
 # Default values for databases
 help_text:  'Ask a Librarian'
 help_url: 'http://westvirginia.libanswers.com/'

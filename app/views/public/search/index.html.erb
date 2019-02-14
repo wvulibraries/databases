@@ -1,0 +1,26 @@
+<%# Utility Bar %>
+<div class="utility"> 
+  <div class="breadcrumbs"> 
+    <ul> 
+      <li> <a href="/"> Home </a> </li>
+      <li> <a href="<%= request.fullpath %>" class="current"> Search Term: <%= @search_term %> </a> </li>
+    </ul>
+  </div>
+
+  <div class="results"> 
+    <%= page_entries_info @databases, entry_name: 'Search Results' %>
+  </div>
+</div>
+
+
+<h2 class="search-results"> Search Results </h2>
+
+<%# Database List %>
+<% @databases.includes(:landing_page).each do |db| %>
+  <div class="database-results"> 
+    <%= DatabaseDecorator.new(db).display_title %>
+    <p> <%= db.description %> </p>
+  </div>
+<% end %>
+
+<%= paginate @databases %>

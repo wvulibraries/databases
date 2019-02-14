@@ -31,9 +31,16 @@ h2 {
 
 .database-results { 
   @include grid-column(12);
-  margin:0 0 1em;
+  margin:0 0 2em;
   &:last-child { 
     margin:0; 
+  }
+
+  p { 
+    font-size:.8em; 
+    letter-spacing:1px; 
+    margin-top: .5em; 
+    max-width:75em;
   }
 }
 
@@ -126,10 +133,14 @@ $curated-dark: $wvu-blue;
 }
 
 h3.popular-title { 
+  position: relative;
   &:before {  
     font-family: "FontAwesome";
     content: "\f005";
-    font-size:90%;
+    font-size:50%;
+    color: gold; 
+    top: -5px;
+    position:relative;
   }
 }
 
@@ -163,4 +174,8 @@ h3.popular-title {
       .btn { margin-top: -1em; margin-bottom:0; }
     }
   }
+}
+
+h2.search-results { 
+  margin-bottom:1em;
 }

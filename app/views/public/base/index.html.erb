@@ -1,5 +1,9 @@
 <% if @trials.present? || @popular.present?  %>
   <div class="left">
+    <%# Search Bar %>
+    <h2> Database Search </h2>
+    <%= render 'public/search/search_bar' %>
+
     <%# Databases by Title  %>
     <%= render 'public/partials/title_list'  %>
 

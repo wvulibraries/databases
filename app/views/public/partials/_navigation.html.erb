@@ -1,10 +1,13 @@
-<nav>
+<% if current_page?('/') %>
+  <nav class="home-page" aria-label="Main Navigation">
+<% else %>
+  <nav class="inner-page" aria-label="Main Navigation"> 
+<% end %>
   <div class="container"> 
     <ul>
       <li> 
         <a href="/"> 
           <span class='fa fa-home'></span> 
-          Home
         </a> 
       </li>
       <li>
@@ -26,5 +29,11 @@
         </a>
       </li>
     </ul>
+
+    <% unless current_page?('/') %>
+      <div class="nav-search">
+        <%= render 'public/search/search_bar' %>
+      </div>
+      <% end %>
   </div>
 </nav>

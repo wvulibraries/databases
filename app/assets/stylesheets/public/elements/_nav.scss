@@ -3,15 +3,40 @@ nav {
   ul { 
     list-style:none; 
     margin:0; 
+    padding:10px;
     
     li { 
-      span { 
-        color: $wvu-gold;
-        font-size:1.2em;  
+      font-size:1.05em;  
+      display:inline-block; 
+      padding:0 10px;
+      a { 
+        text-decoration:none; 
+        span { 
+          color: $wvu-gold;
+        }
       }
-      display:inline; 
-      padding:1em 2em;
     }
   }
 }
 
+nav.home-page { 
+  ul {
+    @include grid-column(12);
+  }
+}
+
+nav.inner-page { 
+  ul { 
+    @include grid-column(8);
+  }
+  .nav-search { 
+    @include grid-column(4);
+  }
+}
+
+nav.inner-page, nav.home-page { 
+  display:none; 
+  @include breakpoint(laptop){
+    display:block;
+  }
+}
