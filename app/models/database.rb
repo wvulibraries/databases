@@ -6,10 +6,6 @@ class Database < ApplicationRecord
   # -----------------------------------------------------
   self.table_name = :database_list
 
-  # CONCERNS
-  # -----------------------------------------------------
-  include Searchable 
-
   # VALIDATIONS
   # -----------------------------------------------------
   validates :name,
@@ -75,24 +71,15 @@ class Database < ApplicationRecord
   # landing page
   has_one :landing_page, required: false
 
+  # CONCERNS
+  # -----------------------------------------------------
+  include Searchable 
+
   # RAILS CALLBACKS
   # -----------------------------------------------------
-  before_validation :mint_uuid, on: [:create]
-  
   # default values 
+  before_validation :mint_uuid, on: [:create]
   after_initialize :set_defaults
-
-  after_commit on: [:create] do
-    # elasticsearch override for production only
-    __elasticsearch__.index_document if status == 'production'
-  end
-
-  # update
-  after_commit on: [:update] do
-    # elasticsearch override for production only 
-    __elasticsearch__.update_document
-    __elasticsearch__.delete_document unless status == 'production'
-  end
 
   # SCOPES
   # -----------------------------------------------------
@@ -116,6 +103,10 @@ class Database < ApplicationRecord
 
   # PUBLIC METHODS
   # -----------------------------------------------------
+
+  def published
+    self.production? 
+  end 
 
   # Creates keywords for indexing, filtering, search etc.
   # @author David J. Davis
@@ -244,7 +235,7 @@ class Database < ApplicationRecord
   # rake elasticsearch:import:model CLASS='Database' SCOPE="production" FORCE=y
   def as_indexed_json(_options)
     as_json(
-      methods: [:vendor_name, :subject_search_index, :rss_search_index, :curated_search_index],
+      methods: [:vendor_name, :subject_search_index, :rss_search_index, :curated_search_index, :published],
       only: [:id, :name, :vendor_name, :description, :title_search]
     )
   end
@@ -252,30 +243,39 @@ class Database < ApplicationRecord
   # Mapping the elasticsearch information to english language for better search.
   # @author David J. Davis
   mapping do
-    indexes :name, analyzer: 'english'
-    indexes :vendor_name, analyzer: 'english'
-    indexes :description, analyzer: 'english'
-    indexes :subject_search_index, analyzer: 'english'
-    indexes :rss_search_index, analyzer: 'english'
-    indexes :curated_search_index, analyzer: 'english'
+    indexes :name, type: :text, analyzer: 'english'
+    indexes :vendor_name, type: :text, analyzer: 'english'
+    indexes :description, type: :text,analyzer: 'english'
+    indexes :subject_search_index, type: :text, analyzer: 'english'
+    indexes :rss_search_index, type: :text, analyzer: 'english'
+    indexes :curated_search_index, type: :text, analyzer: 'english'
+    indexes :published, type: :boolean
   end
 
   # Seach query for searching with boosted items. 
   # Boosting Name and Vendorname in the search results.
   # @author David J. Davis
   def self.search(query, num = 1000)
-    __elasticsearch__.search(
-      {
-        query: {
-          multi_match: {
-            query: query,
-            fields: ['name^20', 'vendor_name^5', 'subject_search_index', 'curated_search_index', 'rss_search_index', 'description^2'],
-            fuzziness: 2
-          }, 
-        },
-        size: num
-      }
-    )
+    __elasticsearch__.search({ 
+      "query": {
+        "bool": { 
+          "must": [
+            {
+              "multi_match": {
+                "query": query,
+                "fields": ["name^50", "vendor_name^5", "subject_search_index", "curated_search_index", "rss_search_index", "description^2"], 
+                "fuzziness": "1", 
+                "tie_breaker": 0.5
+              }
+            },{
+              "match": {
+                "published": "true"
+              }
+          }]
+        }
+      }, 
+      "size": num
+    })
   end
 
   # PRIVATE METHODS

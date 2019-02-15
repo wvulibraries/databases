@@ -3,7 +3,7 @@ FactoryBot.define do
   sequence(:url_uuid) { |n| "#{Time.now.to_i}_#{n}" } 
   factory :database do
     factory :database_basic do
-      name { Faker::HitchhikersGuideToTheGalaxy.planet << Faker::Educator.course_name }
+      name { "#{Faker::HitchhikersGuideToTheGalaxy.planet} #{Faker::Educator.course_name }".truncate(150) }
       # database urls
       url
       off_campus_url { Faker::Internet.url }

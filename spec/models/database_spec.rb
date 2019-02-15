@@ -276,7 +276,35 @@ RSpec.describe Database, type: :model do
         expect(csv_string).to include database[attr].to_s
       end 
     end 
-  end 
+  end
+
+  describe 'elasticsearch' do
+    context 'determining indexes' do
+      it 'should return a single search record' do
+        database.status = 'production'
+        database.name = "JoeJack Data"
+        database.save!
+        Database.import(force: true, refresh: true)
+        expect(Database.search(database.name).records.prod.length).to eq(1)
+      end
+
+      it 'should not return development' do
+        database.status = 'development'
+        database.name = "JoeJack Data"
+        database.save!
+        Database.import(force: true, refresh: true)
+        expect(Database.search(database.name).records.prod.length).to eq(0)
+      end
+
+      it 'should not return hidden' do
+        database.status = 'hidden'
+        database.name = "JoeJack Data"
+        database.save!
+        Database.import(force: true, refresh: true)
+        expect(Database.search(database.name).records.prod.length).to eq(0)
+      end
+    end
+  end
 
   context '.libguides_export' do
     before do
