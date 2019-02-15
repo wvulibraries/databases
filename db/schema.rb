@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_08_003401) do
+ActiveRecord::Schema.define(version: 2019_02_15_194942) do
 
   create_table "access_plain_text", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "name", limit: 16777215
@@ -138,6 +138,15 @@ ActiveRecord::Schema.define(version: 2019_02_08_003401) do
 
   create_table "update_text", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "cas_email"
+    t.string "cas_username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

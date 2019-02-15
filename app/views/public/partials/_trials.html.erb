@@ -3,7 +3,7 @@
     <% @trials.each do |db| %>
       <div class="database-results"> 
         <%= DatabaseDecorator.new(db).display_title %>
-        <p> <%= db.description %> </p>
+        <p> <%= db.description.truncate(150) %> </p>
         <strong> Trial ends on <%= l(db.trial_expiration_date, format: :human_readable) %> </strong>
       </div>
     <% end %>

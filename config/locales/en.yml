@@ -34,6 +34,8 @@ en:
     formats:
       human_readable: "%B %d, %Y"
   campus_only: "This database is available for on campus only use."
+  users:
+    valid_email: 'Email be a valid .edu email address.'
   views:
     pagination:
       first: "&laquo; First"
