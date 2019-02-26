@@ -11,13 +11,13 @@ class User < ApplicationRecord
   # A cancatenated string of names for display purposes. 
   # @author David J. Davis
   # @return [String] first_name last_name 
-  def name 
+  def name
     [first_name, last_name].join(' ')
-  end 
+  end
 
   # Does a validation check on the email
   # @author David J. Davis
-  # @return [Boolean] 
+  # @return [Boolean]
   def valid_email
     email_regex = !!(cas_email =~ /^[\w+\-.]+@[a-z\d\-]+[\.[a-z\d\-]+]*\.edu/i)
     errors.add :cas_email, I18n.t('users.valid_email') unless email_regex
