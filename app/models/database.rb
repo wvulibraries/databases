@@ -73,11 +73,11 @@ class Database < ApplicationRecord
 
   # CONCERNS
   # -----------------------------------------------------
-  include Searchable 
+  include Searchable
 
   # RAILS CALLBACKS
   # -----------------------------------------------------
-  # default values 
+  # default values
   before_validation :mint_uuid, on: [:create]
   after_initialize :set_defaults
 
@@ -104,9 +104,13 @@ class Database < ApplicationRecord
   # PUBLIC METHODS
   # -----------------------------------------------------
 
+  # Uses Enum method to determine if something is published.
+  # Only used in the search params for elasticsearch
+  # @author David J. Davis
+  # @return Boolean
   def published
-    self.production? 
-  end 
+    self.production?
+  end
 
   # Creates keywords for indexing, filtering, search etc.
   # @author David J. Davis
@@ -159,14 +163,14 @@ class Database < ApplicationRecord
   # @author David J. Davis
   # @return string or nil
   def vendor_name
-    vendor.name unless vendor.nil?
+    vendor&.name
   end
 
   # Checks to see if the campus only designation is set 
   # @author David J. Davis
   # @return boolean
   def campus_only?
-    self.access == 'Campus Only Access (No Proxy)'
+    access == 'Campus Only Access (No Proxy)'
   end
 
   # Creates a csv object of all database records.
@@ -174,11 +178,16 @@ class Database < ApplicationRecord
   # @return csv object
   def self.to_csv
     CSV.generate(headers: true) do |csv|
-      attributes = %w{id name status years_of_coverage vendor_name url access full_text_db new_database trial_database help help_url description url_uuid popular trial_database trial_expiration_date title_search resource_list subject_list created_at updated_at}
+      attributes = %w[
+        id name status years_of_coverage vendor_name url access full_text_db
+        new_database trial_database help help_url description url_uuid popular
+        trial_database trial_expiration_date title_search resource_list
+        subject_list created_at updated_at
+      ]
 
       csv << attributes.map(&:titleize)
-      all.each do |database|
-        csv << attributes.map{ |attr| database.send(attr) }
+      all.find_each do |database|
+        csv << attributes.map { |attr| database.send(attr) }
       end
     end
   end 
@@ -186,46 +195,54 @@ class Database < ApplicationRecord
   # Generates a CSV to populate libguides a-to-z listing.
   # @author David J. Davis
   # @return csv object
-  def self.libguides_export 
-    headers = %w{vendor name url enable_proxy description more_info enable_new enable_trial types keywords target slug best_bets subjects desc_pos lib_note enable_popular enable_hidden internal_note owner resource_icons thumbnail content_id}
+  def self.libguides_export
+    headers = %w[
+      vendor name url enable_proxy description more_info enable_new
+      enable_trial types keywords target slug best_bets subjects
+      desc_pos lib_note enable_popular enable_hidden internal_note
+      owner resource_icons thumbnail content_id
+    ]
     CSV.generate(headers: true) do |csv|
-      csv << headers 
-      # get everything else 
-      all.each do |database|
-        csv << database.csv_hash.values  
+      csv << headers
+      # get everything else
+      all.find_each do |database|
+        csv << database.csv_hash.values
       end
     end
-  end 
+  end
 
   # Creates a hash to use in the lib_guides CSV.
-  # LibGuides requries the use of these fields 
-  # vendor name url enable_proxy description more_info enable_new enable_trial types keywords target slug best_bets subjects desc_pos lib_note enable_popular enable_hidden internal_note owner resource_icons thumbnail content_id
+  # LibGuides requries the use of these fields
+  # vendor name url enable_proxy description more_info enable_new enable_trial
+  # types keywords target slug best_bets subjects desc_pos lib_note
+  # enable_popular enable_hidden internal_note owner resource_icons
+  # thumbnail content_id
   # @author David J. Davis
   # @return [Hash] Custom for LibGuides.
   def csv_hash
-    { 
-      vendor: self.vendor_name, 
+    {
+      vendor: self.vendor_name,
       name: self.name,
-      url: self.url, 
-      enable_proxy: self.access == 2 ? 1 : 0, 
-      description: self.description, 
-      more_info: '', 
-      enable_new: self.new_database ? 1 : 0, 
-      enable_trial: self.trial_database ? 1 : 0, 
-      types: self.resources.pluck(:name).join(';'), 
-      keywords: '', 
-      target: 0, 
-      slug: '', 
-      best_bets: self.curated.pluck(:name).join(';'), 
-      subjects: self.subjects.pluck(:name).join(';'), 
-      desc_pos: 1, 
-      lib_note: 0, 
-      enable_popular: self.popular ? 1 : 0, 
-      enable_hidden: 0, 
-      internal_note: '', 
-      owner: '', 
-      resource_icons: '', 
-      thumbnail: '',  
+      url: self.url,
+      enable_proxy: self.access == 2 ? 1 : 0,
+      description: self.description,
+      more_info: '',
+      enable_new: self.new_database.to_i,
+      enable_trial: self.trial_database.to_i,
+      types: self.resources.pluck(:name).join(';'),
+      keywords: '',
+      target: 0,
+      slug: '',
+      best_bets: self.curated.pluck(:name).join(';'),
+      subjects: self.subjects.pluck(:name).join(';'),
+      desc_pos: 1,
+      lib_note: 0,
+      enable_popular: self.popular.to_i,
+      enable_hidden: 0,
+      internal_note: '',
+      owner: '',
+      resource_icons: '',
+      thumbnail: '',
       content_id: self.libguides_id
     }
   end
@@ -256,36 +273,44 @@ class Database < ApplicationRecord
   # Boosting Name and Vendorname in the search results.
   # @author David J. Davis
   def self.search(query, num = 1000)
-    __elasticsearch__.search({ 
+    __elasticsearch__.search(
       "query": {
-        "bool": { 
+        "bool": {
           "must": [
             {
               "multi_match": {
                 "query": query,
-                "fields": ["name^50", "vendor_name^5", "subject_search_index", "curated_search_index", "rss_search_index", "description^2"], 
-                "fuzziness": "1", 
+                "fields": [
+                  'name^50',
+                  'vendor_name^5',
+                  'subject_search_index',
+                  'curated_search_index',
+                  'rss_search_index',
+                  'description^2'
+                ],
+                "fuzziness": 1,
                 "tie_breaker": 0.5
               }
-            },{
+            }, {
               "match": {
-                "published": "true"
+                "published": true
               }
-          }]
+            }
+          ]
         }
-      }, 
+      },
       "size": num
-    })
+    )
   end
 
   # PRIVATE METHODS
   # -----------------------------------------------------
 
-  private 
+  private
 
   # Minting a UUID creates a uuid for the record to use as a stable URL.
   # @author David J. Davis
-  # @return truthy 
+  # @return truthy
   def mint_uuid
     self.url_uuid ||= Time.now.to_i
   end
@@ -294,7 +319,7 @@ class Database < ApplicationRecord
   # These attributes will be set automatically unless the items is set by the user.
   # @author David J. Davis
   # @abstract
-  # @return truthy 
+  # @return truthy
   def set_defaults
     self.help ||= ENV['help_text']
     self.help_url ||= ENV['help_url']
