@@ -33,6 +33,7 @@
       <a href="/admin/databases/tables/hidden" aria-label="Table list for Hidden"> Table </a>
     )
     </li>
+    
     <!-- Management -->
     <li class="title"> <h3> Resource(s) </h3> </li>
     <li> <%= link_to 'New Resource', new_admin_resource_path %>
@@ -40,19 +41,25 @@
     <li class="title"> <h3> Subject(s) </h3> </li>
     <li> <%= link_to 'New Subject', new_admin_subject_path %>
     <li> <a href="/admin/subjects"> Subject List </a></li>
+    
     <!-- Vendor -->
     <li class="title"> <h3>Vendor(s)</h3> </li>
     <li> <%= link_to 'New Vendor', new_admin_vendor_path %> </li>
     <li> <a href="/admin/vendors"> Vendor List </a></li>
+    
     <!-- Landing Pages -->
     <li class="title"> <h3>Landing Pages</h3> </li>
     <li> <%= link_to 'New Vendor', new_admin_landing_page_path %> </li>
     <li> <a href="/admin/landing_pages"> Landing Pages List </a></li>
+    
+    <!-- User Management  -->
+    <li class="title"> <h3>User Management</h3> </li>
+    <li> <%= link_to 'Add User Access', new_admin_user_path %> </li>
+    <li> <a href="/admin/users"> Manage Users </a></li>
+    
     <!-- Reporting -->
     <li class="title"><h3>Exporting </h3>  </li>
     <li> <a href="/admin/databases.csv"> Database(s) CSV Report </a> </li>
-     <li> <a href="/admin/databases/libguides.csv"> LibGuides CSV Export </a> </li>
-    <!-- Importing/Exporting -->
-    <li class="title"> <h3> Importing </h3> </li>
+    <li> <a href="/admin/databases/libguides.csv"> LibGuides CSV Export </a> </li>
   </ul>
 </nav>

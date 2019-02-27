@@ -46,7 +46,10 @@ Rails.application.routes.draw do
     get '/curated/:subject/sort', to: 'subjects#sort', as: 'sort_curated'
     post '/curated', to: 'subjects#update_curated', as: 'update_curated'
 
-    # landing pages 
+    # landing pages
     resources :landing_pages
+
+    # users
+    resources :users
   end
 end

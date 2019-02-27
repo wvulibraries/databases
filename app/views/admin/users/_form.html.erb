@@ -1,0 +1,43 @@
+<%= form_for [:admin, user], html: { multipart: true }  do |form| %>
+
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend> User Details </legend>
+
+    <div class="field half">
+      <%= form.label :first_name, class: 'required ' %>
+      <%= form.text_field :first_name %>
+    </div>
+
+    <div class="field half">
+      <%= form.label :last_name, class: 'required' %>
+      <%= form.text_field :last_name %>
+    </div>
+
+    <div class="field full">
+      <%= form.label :cas_username, "Username", class: 'required' %>
+      <%= form.text_field :cas_username %>
+    </div>
+
+    <div class="field full">
+      <%= form.label :cas_email, "Email", class: 'required' %>
+      <%= form.text_field :cas_email %>
+    </div>
+
+  </fieldset>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

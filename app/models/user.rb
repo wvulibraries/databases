@@ -15,7 +15,8 @@ class User < ApplicationRecord
     [first_name, last_name].join(' ')
   end
 
-  # Does a validation check on the email
+  # Does a validation check on the email.
+  # Will be true for only emails that end in a `.edu`.
   # @author David J. Davis
   # @return [Boolean]
   def valid_email
