@@ -5,7 +5,7 @@ RSpec.configure do |config|
       Database.__elasticsearch__.refresh_index!
     rescue Elasticsearch::Transport::Transport::Errors::NotFound => e
     rescue => e
-      STDERR.puts "There was an error creating the elasticsearch index for #{model.name}: #{e.inspect}"
+      STDERR.puts "There was an error creating the elasticsearch index for Database: #{e.inspect}"
     end
   end
 
