@@ -27,7 +27,8 @@ addons:
       - awesome
 services:
   - mysql
-  - elasticsearch
+before_install:
+  - curl -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/6.6.0/elasticsearch-6.6.0.deb && sudo dpkg -i --force-confnew elasticsearch-6.6.0.deb && sudo service elasticsearch restart
 before_script:
   - sleep 20 # makes sure services are ready
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
