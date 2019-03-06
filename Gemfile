@@ -25,6 +25,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # Application Specific 
 # =====================================================================================
+# cas client
+gem 'rack-cas', '~> 0.16.0'
+
 # configurations 
 gem "figaro"
 

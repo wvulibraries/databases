@@ -30,6 +30,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  auth: 
+    success: "Success! You have been signed in."
+    invalid_access: "Authentication Error: You do not have access, if you feel this is an error please contact a system admin."
+    invalid_permissions: "Authentication Error: While you may have WVU authentication, you do not have access to edit this application."
+    log_out: "You have been logged out!"
   time:
     formats:
       human_readable: "%B %d, %Y"

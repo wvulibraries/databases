@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # FRONTEND
   # ------------------------------------------------------------------
+  root to: 'public/base#index'
   get '/', to: 'public/base#index'
 
   # Search 

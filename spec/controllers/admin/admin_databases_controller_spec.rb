@@ -15,14 +15,15 @@ describe Admin::DatabasesController, type: :controller do
   describe "/libguides.csv" do
     before :each do 
       get :lib_guides, format: :csv
-    end 
+    end
 
     it 'generates a csv' do
       expect(response.header['Content-Type']).to include 'text/csv'
-    end 
+    end
 
     it 'creates a properly formed csv file' do
       expect(response.body).to include("vendor,name,url,enable_proxy,description,more_info,enable_new,enable_trial,types,keywords,target,slug,best_bets,subjects,desc_pos,lib_note,enable_popular,enable_hidden,internal_note,owner,resource_icons,thumbnail,content_id")
-    end 
-  end 
+    end
+  end
+
 end

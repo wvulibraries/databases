@@ -34,7 +34,7 @@ module Databases
     config.active_record.default_timezone = :local
 
     # CAS
-    # config.rack_cas.server_url = ENV['cas_url']
+    config.rack_cas.server_url = ENV['cas_url']
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
