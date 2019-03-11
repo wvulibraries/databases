@@ -32,7 +32,7 @@
 
     <% unless current_page?('/') %>
       <div class="nav-search">
-        <%= render 'public/search/search_bar' %>
+        <%= render partial: 'public/search/search_bar', locals: {unique_id: 'desktop-search'} %>
       </div>
       <% end %>
   </div>

@@ -5,4 +5,9 @@ class AdminController < ApplicationController
   
   # run a filter with authenticatable concern
   before_action :access_permissions unless Rails.env.test?
+
+  # render the index of the admin section
+  def home
+    render :index
+  end
 end

@@ -46,15 +46,18 @@
     <aside>
       <!-- Help -->
       <%= render 'public/partials/help' %>
+      <!-- Mobile Sticky Navigation -->
+      <%= render 'public/partials/mobile_navigation' %>
     </aside>
 
-
-
     <!-- Footers -->
-    <%# render 'shared/built_by_footer'%>
-  
+    <%= render 'public/partials/footer' %>
+
     <!-- JavaScripts -->
     <%= yield :js %>
+
+    <!-- Browser Update -->
+    <%= render 'shared/browser_update' %>
 
   </body>
 </html>

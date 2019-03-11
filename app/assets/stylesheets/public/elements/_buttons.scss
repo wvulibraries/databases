@@ -2,3 +2,27 @@
   @include button_maker($link-color, 'solid');
   @include determine-text-color($link-color);
 }
+
+.admin-panel { 
+  @include button_maker($link-color, 'solid');
+  @include determine-text-color($link-color);
+  text-decoration: none;
+}
+
+.signout { 
+  @include button_maker($error, 'solid');
+  color:#fff;
+  text-decoration: none;
+  &:hover, &:active, &:focus { 
+    color:#fff;
+  }
+}
+
+.login { 
+  @include button_maker($success, 'solid');
+  @include determine-text-color($success);
+  text-decoration: none;
+  &:hover, &:active, &:focus { 
+    color:#000;
+  }
+}

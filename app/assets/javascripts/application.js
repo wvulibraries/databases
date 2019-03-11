@@ -13,4 +13,5 @@
 
 //= require public/alerts 
 //= require public/equal_heights
+//= require public/mobile_interface
 

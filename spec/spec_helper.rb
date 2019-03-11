@@ -25,4 +25,5 @@ SimpleCov.start do
   add_filter %r{^/bin/}
   add_filter %r{^/config/}
   add_filter 'app/controllers/public/connect_controller.rb'
+  add_filter 'app/controllers/concerns/authenticatable.rb'
 end

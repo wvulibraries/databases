@@ -8,6 +8,30 @@
   }
 }
 
+.github-button { 
+  @include button_maker($action-color, 'ghost');
+  color: $action-color;
+  text-decoration: none;
+
+  @include grid-column(12);
+  text-align: center;
+  margin:1em 0;
+
+  @include breakpoint(tablet){
+    @include grid-column(4);
+  }
+}
+
+.bug-button { 
+  @include button_maker($error, 'ghost');
+  color: $error;
+}
+
+.feature-button  {
+  @include button_maker($warning, 'ghost');
+  color: $warning;
+}
+
 .show-button {
   @include button_maker($success, 'solid');
   color:#fff;

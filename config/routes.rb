@@ -4,28 +4,43 @@ Rails.application.routes.draw do
   root to: 'public/base#index'
   get '/', to: 'public/base#index'
 
-  # Search 
+  # Search
   get '/search(/:page)', to: 'public/search#index'
 
-  # A to Z Listings 
+  # A to Z Listings
   get '/AtoZ', to: 'public/base#all'
   get '/AtoZ/:character', to: 'public/base#a_to_z'
 
-  # Subject Listings 
+  # Subject Listings
   get '/subject', to: 'public/base#subject'
   get '/subjects', to: 'public/base#subject'
   get '/databases/subjects', to: redirect('/subjects')
   get '/subject/:id', to: 'public/base#subject_databases'
 
-  # landing pages 
+  # landing pages
   get '/about/:uuid', to: 'public/about#index'
 
-  # url connection 
+  # url connection
   get '/connect/:uuid', to: 'public/connect#index'
 
+  # CAS
+  # ------------------------------------------------------------------
+  get '/login',
+      to: 'application#login',
+      as: 'login'
+
+  get '/signout',
+      to: 'application#signout',
+      as: 'signout'
+
+  get '/logout',
+      to: 'application#logout',
+      as: 'logout'
 
   # ADMIN
   # ------------------------------------------------------------------
+  get '/admin', to: 'admin#home', as: 'admin'
+
   namespace :admin do
     # databases
     get '/databases/list', to: 'databases#listall'

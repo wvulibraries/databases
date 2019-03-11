@@ -1,0 +1,101 @@
+/* Footer */
+footer.wvu-footer  {
+  background-color: $wvu-blue;
+  width:100%;
+  color:#fff;
+  font-size:12px;
+  padding:1em;
+
+  text-align: center; 
+  @include breakpoint(tablet){ 
+    text-align: left;
+  }
+
+  .wvu-container { 
+    padding:1em; 
+    @include grid-column(12);
+
+    p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .wvu-contact, .lib-social-media, .wvu-credits, .wvu-icons { 
+    @include grid-column(12); 
+    @include breakpoint(tablet){ 
+      @include grid-column(6);
+    }
+  }
+
+  .lib-social-media { 
+    text-align: center; 
+    padding:2em 0;
+
+    @include breakpoint(tablet){ 
+      text-align:right;
+    }
+
+    ul { 
+      list-style: none; 
+      li {
+        width: 40px;
+        padding: 3px;
+        display: inline-block;
+      }
+
+      li img {
+        width: 30px;
+        height: auto;
+      }
+    }
+  }
+
+  .wvu-credits { 
+    ul { 
+      list-style: none; 
+
+      li { 
+        display:inline; 
+        padding-right:.5em; 
+        &:before { 
+          content: '|';
+          padding-right: .5em;
+        }
+
+        &:first-child { 
+          &:before { 
+            content: ' ';
+            padding-right:.5em;
+          }
+        }
+      }
+    }
+  }
+
+  .wvu-links { 
+    list-style: none; 
+    text-align: center;
+    margin-top:10px; 
+
+    li { 
+      display:inline; 
+      padding-right:.5em; 
+    }
+
+    @include breakpoint(tablet){ 
+      text-align: right;
+      margin-top: unset;
+    }
+  }
+  
+  .footerTitle {
+    color: #EAAA00;
+    font-size: 1.25em;
+    letter-spacing: 1px;
+  }
+
+  a {
+    color: #EAAA00;
+  }
+}

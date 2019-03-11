@@ -1,0 +1,32 @@
+    <menu class="sticky-menu"> 
+      <ul> 
+        <li>
+        <a href="/subjects/" title="database-subjects">
+          <span class="fas fa-sort-amount-up"></span>
+        </a>
+      </li>
+      <li>
+        <a href="/AtoZ/">
+          <span class="fas fa-sort-alpha-up"></span>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" class="search-toggle" aria-pressed="false" aria-controls="search_popup">
+          <span class="fa fa-search"></span>
+        </a>
+        <div class="search-popup hidden" id="search_popup" aria-hidden="true"> 
+          <%= render partial: 'public/search/search_bar', locals: {unique_id: 'mobile-search'} %>
+        </div>
+      </li>
+      <li>
+        <a href="javascript:void(0)" class="help-toggle" aria-pressed="false" aria-controls="help_popup">
+          <span class="fa fa-question-circle"></span>
+        </a>
+        <div class="help-popup hidden" id="help_popup" aria-hidden="true"> 
+          <%= render 'public/partials/help' %>
+        </div>
+      </li>
+      </ul>
+    </menu>
+
+    

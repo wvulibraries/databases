@@ -1,10 +1,16 @@
-#help {
+.help {
   background:$light-gray;
   border-top: 3px solid darken($light-gray, 10%);
   font-size: 14px; 
+  display:none; 
+  
+  @include breakpoint(laptop){
+    display:block; 
+  }
   
   .container { 
-    padding:2em 1em; 
+    @include grid-column(12);
+    padding:2em 2em; 
   }
 
   h2, p { 

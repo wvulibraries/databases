@@ -1,7 +1,27 @@
 .app-header { 
     .container { padding:1em 2em; }
-    h1 { 
-      margin:0; 
+    h1, .authentication_links { 
+      @include grid-column(12); 
+
+      @include breakpoint(tablet){ 
+        @include grid-column(6); 
+      }
+
+      margin-bottom:0; 
+    }
+    
+    h1 {
+      @include grid-column(12); 
+      text-align: center;
+      margin-bottom:1em;
+ 
+
+      @include breakpoint(tablet){ 
+        @include grid-column(6); 
+        text-align: unset; 
+        margin-bottom:0; 
+      }
+
       a {
         color:#fff; 
         text-decoration: none; 
@@ -14,6 +34,24 @@
         }
       }
     } 
+
+    .authentication_links { 
+      @include grid-column(12);
+      text-align: center; 
+
+      @include breakpoint(tablet){ 
+        @include grid-column(6);
+        text-align: right; 
+      }
+
+      a { 
+        @include grid-column(6); 
+        @include breakpoint(tablet){ 
+          width:unset; 
+          float:unset;
+        }
+      }
+    }
 
     background: asset_url("wise.jpg");
     background-size: cover;

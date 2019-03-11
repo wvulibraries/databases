@@ -1,0 +1,104 @@
+$menu-bg: #edecec;
+
+.sticky-menu { 
+  background: $menu-bg;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  box-sizing: content-box;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.5);
+
+  @include breakpoint(laptop){
+    display:none;
+  }
+
+  ul {
+    width:100%; 
+    float:left;
+    > li { 
+      width:25%;
+      float:left;
+      display:inline-block;
+      margin:0; 
+      list-style: none;
+      > a { 
+        padding: 1em 0;
+        width:100%; 
+        float:left;
+        display:block;
+        text-align: center;
+        border: 1px solid darken($menu-bg,10%);
+        &:active, &:hover, &:focus { 
+          border: 1px dashed $link-color; 
+        }
+      }
+    }
+  }
+
+  .help-popup { 
+    position:absolute; 
+    box-sizing: border-box;
+    background:$wvu-blue; 
+    bottom:54px;
+    padding:1em; 
+    left:0; 
+    width:100%;
+    z-index: 55;
+    
+    .help { 
+      max-height:200px; 
+      overflow-y:auto;
+      display:block;
+    }
+
+    &:after { 
+      display: block; 
+      width:20px; 
+      height:20px; 
+      background:$wvu-blue; 
+      position: absolute; 
+      right: calc(12.5% - 10px);
+      bottom: -10px;
+      transform: rotate(45deg);
+      z-index: 1;
+    }
+  }
+
+  .search-popup { 
+    position:absolute; 
+    box-sizing: border-box;
+    background:$wvu-blue; 
+    bottom:54px;
+    padding:1em; 
+    left:0; 
+    width:100%;
+    z-index: 55;
+
+    &:after { 
+      display: block; 
+      width:20px; 
+      height:20px; 
+      background:$wvu-blue; 
+      position: absolute; 
+      right: calc(37.5% - 10px);
+      bottom: -10px;
+      transform: rotate(45deg);
+      z-index: 1;
+    }
+
+    .search-bar { 
+      margin: unset; 
+      width: 100%;
+      box-sizing: border-box;
+
+      input[type='search'] { 
+        box-sizing: border-box;
+      }
+      button { 
+        box-sizing: border-box;
+      }
+    }
+  }
+}
