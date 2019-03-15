@@ -1,0 +1,64 @@
+$background: $success; 
+$text: #000; 
+.ask a { 
+  position:fixed; 
+  transform: rotate(-90deg);
+  background: $background; 
+  padding:1em 2em; 
+  display: inline-block;
+  right:-66px; 
+  top:60vh; 
+  border:2px solid #fff;
+  font-weight:bold;
+  text-decoration: none;
+  color: $text;
+  font-size:14px;
+  box-shadow: 0px 0px 20px rgba(#666, .7);
+
+  background: linear-gradient(-45deg, darken($background, 20%), darken($background, 10%), lighten($background, 10%), lighten($background, 5%));
+	background-size: 300% 300%;
+	-webkit-animation: Gradient 15s ease infinite;
+	-moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
+  
+  &:hover, &:active, &:focus { 
+    background: lighten($background, 5%);
+    color:#000;
+  }
+}
+
+@-webkit-keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}

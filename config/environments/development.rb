@@ -67,4 +67,16 @@ Rails.application.configure do
     Bullet.rails_logger = false
   end
 
+  # Email Tests
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_deliveries    = false
+  config.action_mailer.delivery_method       = :smtp
+  config.action_mailer.default_url_options   = { :host => 'databases.lib.wvu.edu' }
+  config.action_mailer.preview_path = Rails.root.join('spec', 'mailers', 'previews')
+
+  config.action_mailer.smtp_settings = {
+    address: "smtp.wvu.edu",
+    port: 25,
+    enable_starttls_auto: true
+  }
 end

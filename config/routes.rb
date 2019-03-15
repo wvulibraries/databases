@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   # Search
   get '/search(/:page)', to: 'public/search#index'
 
+  # Feedback
+  get '/feedback(/:db_id)', to: 'public/feedback#index'
+  post '/feedback', to: 'public/feedback#email_submission'
+
   # A to Z Listings
   get '/AtoZ', to: 'public/base#all'
   get '/AtoZ/:character', to: 'public/base#a_to_z'

@@ -1,0 +1,9 @@
+Feedback From: <%= @feedback.name %>
+===============================================
+Name: <%= @feedback.name %>
+Email: <%= @feedback.email %>
+Phone: <%= @feedback.phone unless @feedback.phone.nil? %>
+
+Database: <%= @database&.name %>
+===============================================
+<%= @feedback.feedback %>
