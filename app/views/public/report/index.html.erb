@@ -1,0 +1,79 @@
+
+<h2> Error Report </h2>
+
+<p> If you are having a problem with a database or online resource, please let us know. </p>
+
+<%= form_for @report, url: '/report', html: {multipart: true, class: 'report-form', method: 'post'} do |f| %>
+
+  <% if @report.errors.any? %>
+    <div id="error_explanation" class="full" role="alert" aria-atomic="true">  
+      <h2>
+        <%= pluralize(@report.errors.count, "error") %> 
+        Prevented this form from being submitted! 
+      </h2>
+
+      <ul>
+      <% @report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset> 
+    <legend> Database Information </legend>
+    <div class="field full"> 
+      <%= f.label :database, 'Database/Journal', class: 'required' %>
+      <div class="select-style"> 
+        <%= f.select(:database, Database.all.collect {|d| [ d.name, d.id ] }, { prompt: "Select A Database / Journal", selected: params[:db_id] }) %>
+      </div>
+    </div>
+
+    <div class="field full">
+      <%= f.label :error_report, class: 'required' %>
+      <%= f.text_area :error_report %>
+      
+      <p> Optional: Include the citation of the book or article you are trying to access. </p>
+    </div>
+
+    <div class="field full">
+      <%= f.label :screenshot %>
+      <%= image_tag(@report.screenshot_url) if @report.screenshot? %>
+      <%= f.file_field :screenshot %>
+      <%= f.hidden_field :screenshot_cache %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend> Contact Information </legend>
+
+    <div class="field full">
+      <p> Please provide your contact information so that we can contact you to help provide a resolution to your problem. </p>
+    </div>
+    
+    <div class="field full"> 
+      <%= f.label :name, class: 'required' %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field full"> 
+      <%= f.label :email, class: 'required' %>
+      <%= f.text_field :email %>
+    </div>
+
+    <div class="field full"> 
+      <%= f.label :phone %>
+      <%= f.text_field :phone %>
+    </div>
+  </fieldset>
+
+  <div class="field full"> 
+    <%= recaptcha_tags %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit "Report Error", class: 'button' %>
+  </div>
+
+  
+<% end %>

@@ -5,34 +5,62 @@
 
 <%= form_for @feedback, url: '/feedback', html: {class: 'feedback-form', method: 'post'} do |f| %>
 
-  <div class="field"> 
-    <%= f.label :trial_database, 'Database/Journal', class: 'required' %>
-    <div class="select-style"> 
-      <%= f.select(:trial_database, Database.all.collect {|d| [ d.name, d.id ] }, { prompt: "Select A Database / Journal", selected: params[:db_id] }) %>
+  <% if @feedback.errors.any? %>
+    <div id="error_explanation" class="full" role="alert" aria-atomic="true">  
+      <h2>
+        <%= pluralize(@feedback.errors.count, "error") %> 
+        Prevented this form from being submitted! 
+      </h2>
+
+      <ul>
+      <% @feedback.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
     </div>
+  <% end %>
+
+  <fieldset> 
+    <legend> Database Information </legend>
+
+    <div class="field full"> 
+      <%= f.label :trial_database, 'Database/Journal', class: 'required' %>
+      <div class="select-style"> 
+        <%= f.select(:trial_database, Database.all.collect {|d| [ d.name, d.id ] }, { prompt: "Select A Database / Journal", selected: params[:db_id] }) %>
+      </div>
+    </div>
+
+    <div class="field full"> 
+      <%= f.label :feedback, class: 'required' %>
+      <%= f.text_area :feedback %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend> Contact Information </legend>
+    <div class="field full"> 
+      <%= f.label :name, class: 'required' %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field full"> 
+      <%= f.label :email, class: 'required' %>
+      <%= f.text_field :email %>
+    </div>
+
+    <div class="field full"> 
+      <%= f.label :phone %>
+      <%= f.text_field :phone %>
+    </div>
+  </fieldset>
+
+  <div class="field full"> 
+    <%= recaptcha_tags %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit "Send Feedback", class: 'button' %>
   </div>
 
-  <div class="field"> 
-    <%= f.label :name, class: 'required' %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field"> 
-    <%= f.label :email, class: 'required' %>
-    <%= f.text_field :email %>
-  </div>
-
-  <div class="field"> 
-    <%= f.label :phone %>
-    <%= f.text_field :phone %>
-  </div>
-
-  <div class="field"> 
-    <%= f.label :feedback, class: 'required' %>
-    <%= f.text_area :feedback %>
-  </div>
-
-  <%= recaptcha_tags %>
-
-  <%= f.submit "Send Feedback", class: 'button' %>
+  
 <% end %>

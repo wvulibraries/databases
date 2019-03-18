@@ -42,6 +42,7 @@ gem 'normalize-scss'
 gem 'font-awesome-sass'
 gem "non-stupid-digest-assets" # generates assets for 404/500/etc. 
 gem "recaptcha" # google recaptcha api
+gem 'carrierwave'
 
 # searching / indexing
 gem 'kaminari' # must be before elasticsearch

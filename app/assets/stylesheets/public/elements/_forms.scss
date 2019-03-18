@@ -15,6 +15,15 @@ form{
   position:relative;
   z-index:55;
 
+  #error_explanation { 
+    @include grid-column(12);
+    @include clearfix;
+  }
+
+  .field { 
+    @include clearfix;
+  }
+
   fieldset { 
     padding:1em; 
     border: $borders; 
@@ -243,6 +252,10 @@ form{
     font-weight:500;
     letter-spacing: 1px;
     border: 2px solid darken($input-bg,10%);
+
+    .field_with_errors { 
+      background: $error;
+    }
     
     @include transition(
       color 0.6s $easeOutExpo, 

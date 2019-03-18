@@ -1,0 +1,9 @@
+Error Report: 
+===============================================
+Name: <%= @report.name %>
+Email: <%= @report.email %>
+Phone: <%= @report.phone unless @report.phone.nil? %>
+
+Database: <%= @database&.name %>
+===============================================
+<%= @report.error_report %>

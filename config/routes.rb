@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   get '/feedback(/:db_id)', to: 'public/feedback#index'
   post '/feedback', to: 'public/feedback#email_submission'
 
+   # Feedback
+   get '/report(/:db_id)', to: 'public/report#index'
+   post '/report', to: 'public/report#error_report'
+
   # A to Z Listings
   get '/AtoZ', to: 'public/base#all'
   get '/AtoZ/:character', to: 'public/base#a_to_z'
