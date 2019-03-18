@@ -8,10 +8,8 @@ class ReportMailer < ApplicationMailer
     @report = report
     db_id = report.database
     @database = Database.find(db_id) if Database.exists?(db_id)
-    subject = 'Database Error Report:'
-    attachments[report.screenshot.title] = File.read(report.screenshot.attachment.file.path)
-
-    # mail(to: ENV['reporting_email'], subject: subject)
-    mail(to: 'djdavis@mail.wvu.edu', subject: subject)
+    subject = 'Database Error Report'
+    attachments[report.screenshot.title] = File.read(report.screenshot.attachment.file.path) unless report.screenshot.file.nil?
+    mail(to: ENV['reporting_email'], subject: subject)
   end
 end

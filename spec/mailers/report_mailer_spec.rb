@@ -1,19 +1,19 @@
 require 'rails_helper'
 
-RSpec.describe FeedbackMailer, type: :mailer do
+RSpec.describe ReportMailer, type: :mailer do
   describe 'email_message' do
     let(:database) { FactoryBot.create(:database_default_values) }
-    let(:feedback) do
-      Feedback.new( name: 'Joe',
-                    email: 'joe@mail.wvu.edu',
-                    feedback: 'Something Dark Side.',
-                    trial_database: database.id.to_s)
+    let(:report) do
+      Report.new( name: 'Joe',
+                  email: 'joe@mail.wvu.edu',
+                  error_report: 'Something Dark Side.',
+                  database: database.id.to_s )
     end
     
-    let(:mail) { FeedbackMailer.email_message(feedback) }
+    let(:mail) { ReportMailer.email_message(report) }
 
     it 'renders the headers' do
-      expect(mail.subject).to eq('Database Feedback')
+      expect(mail.subject).to eq('Database Error Report')
       expect(mail.to).to eq([ENV['reporting_email']])
       expect(mail.from).to eq(['libsys@mail.wvu.edu'])
     end

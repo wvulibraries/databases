@@ -101,14 +101,52 @@
         null,
         null
       ],
-      "/home/databases/app/models/feedback.rb": [
+      "/home/databases/app/models/report.rb": [
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null
+      ],
+      "/home/databases/app/uploaders/screen_shot_uploader.rb": [
+        1,
         null,
         null,
         null,
+        null,
+        null,
         1,
+        null,
+        null,
+        null,
+        null,
         1,
+        0,
+        null,
+        null,
+        null,
+        null,
         1,
-        1,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
       ],
       "/home/databases/app/models/database.rb": [
@@ -494,6 +532,6 @@
         null
       ]
     },
-    "timestamp": 1552487926
+    "timestamp": 1552915846
   }
 }

@@ -8,8 +8,7 @@ class FeedbackMailer < ApplicationMailer
     @feedback = feedback
     db_id = feedback.trial_database
     @database = Database.find(db_id) if Database.exists?(db_id)
-    subject = 'Database Feedback:'
-    # mail(to: ENV['reporting_email'], subject: subject)
-    mail(to:'djdavis@mail.wvu.edu', subject: subject)
+    subject = 'Database Feedback'
+    mail(to: ENV['reporting_email'], subject: subject)
   end
 end
