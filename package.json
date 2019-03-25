@@ -2,6 +2,7 @@
   "name": "databases",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.1",
     "hiraku": "^2.1.6",
     "jquery": "^3.3.1",
     "moment": "^2.22.2",

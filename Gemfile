@@ -39,7 +39,6 @@ gem 'sanitize'
 gem "bourbon"
 gem "neat"
 gem 'normalize-scss'
-gem 'font-awesome-sass'
 gem "non-stupid-digest-assets" # generates assets for 404/500/etc. 
 gem "recaptcha" # google recaptcha api
 gem 'carrierwave'

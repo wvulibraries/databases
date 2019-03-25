@@ -117,7 +117,7 @@ $curated-dark: $wvu-blue;
     font-size:1.2em;
     margin-bottom:1em;
     &:before {  
-      font-family: "FontAwesome";
+  font-family: 'Font Awesome 5 Free';
       content: "\f005";
       font-size: 1em;
     }
@@ -135,7 +135,7 @@ $curated-dark: $wvu-blue;
 h3.popular-title { 
   position: relative;
   &:before {  
-    font-family: "FontAwesome";
+font-family: 'Font Awesome 5 Free';
     content: "\f005";
     font-size:50%;
     color: gold; 

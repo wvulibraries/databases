@@ -29,7 +29,8 @@ $breadcrumb-background-current: lighten($hover-color,30%);
 
     &:after { 
       position: absolute;
-      font-family: "FontAwesome";
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
       content: "\f105";
       top:calc(50% - 12px);
       right:0;
