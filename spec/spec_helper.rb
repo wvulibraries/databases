@@ -1,5 +1,7 @@
 require 'simplecov'
 require 'simplecov-console'
+require "rack_session_access/capybara"
+
 ENV['RAILS_ENV'] ||= 'test'
 
 RSpec.configure do |config|
@@ -26,4 +28,5 @@ SimpleCov.start do
   add_filter %r{^/config/}
   add_filter 'app/controllers/public/connect_controller.rb'
   add_filter 'app/controllers/concerns/authenticatable.rb'
+  add_filter 'app/helpers/authentication_helper.rb'
 end

@@ -54,6 +54,7 @@ gem 'elasticsearch-rails'
 group :test do
   gem 'rspec-rails'
   gem 'rails-controller-testing'
+  gem 'rack_session_access'
   gem 'shoulda-matchers'
   gem "factory_bot_rails"
   gem 'database_cleaner'
