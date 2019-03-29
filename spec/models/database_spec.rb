@@ -71,7 +71,7 @@ RSpec.describe Database, type: :model do
     end 
   end
 
-  context 'help url' do
+  context '.help_url' do
     it 'expects invalid url' do
       database.help_url = 'soemthing'
       expect(database).to_not be_valid
@@ -124,7 +124,7 @@ RSpec.describe Database, type: :model do
     end
   end
 
-  context 'keywords and indexing' do
+  context '.keywords' do
     it 'expects keywords to exist' do 
       expect(database.keywords.length).to be > 0
     end 
@@ -151,45 +151,49 @@ RSpec.describe Database, type: :model do
   end
 
   context 'vendors' do
-    it 'allows vendor to be added to database' do
-      database.vendor = vendor
-      expect(database).to be_valid
-      database.save
-      expect(database.vendor).to be_truthy
-      expect(database.vendor.name).to eq(vendor.name)
-    end
+    context '.vendor' do
+      it 'allows vendor to be added to database' do
+        database.vendor = vendor
+        expect(database).to be_valid
+        database.save
+        expect(database.vendor).to be_truthy
+        expect(database.vendor.name).to eq(vendor.name)
+      end
 
-    it 'allows vendor to be nil' do
-      database.vendor = nil
-      expect(database).to be_valid
-      database.save
-      expect(database.vendor).to be_nil
-    end
-
-    it 'expects vendor name to be empty' do
-      database.vendor = nil
-      expect(database.vendor_name).to be_nil
+      it 'allows vendor to be nil' do
+        database.vendor = nil
+        expect(database).to be_valid
+        database.save
+        expect(database.vendor).to be_nil
+      end
     end 
 
-    it 'successful vendor name' do
-      database.vendor = vendor
-      expect(database.vendor_name).to eq(vendor.name)
-    end 
+    context '.vendor_name' do
+      it 'expects vendor name to be empty' do
+        database.vendor = nil
+        expect(database.vendor_name).to be_nil
+      end
+
+      it 'successful vendor name' do
+        database.vendor = vendor
+        expect(database.vendor_name).to eq(vendor.name)
+      end
+    end
   end
 
-  context ".campus_only" do
+  context '.campus_only' do
     it 'campus only enumeration is set' do
       database.access = 'Campus Only Access (No Proxy)'
-      database.save! 
-      expect(database.campus_only?).to be true 
-    end 
+      database.save!
+      expect(database.campus_only?).to be true
+    end
 
     it 'proxy is set for off campus' do
       database.access = 'Campus and Off Campus (Proxy)'
-      database.save! 
+      database.save!
       expect(database.campus_only?).to be false
-    end 
-  end 
+    end
+  end
 
   context 'subjects' do
     before(:each) do
@@ -198,18 +202,28 @@ RSpec.describe Database, type: :model do
       @sub3 = FactoryBot.create :subject 
       database.subjects = [@sub1, @sub2, @sub3]
     end
-   
+
     it 'expects database to be valid and have 3 subjects' do
       expect(database).to be_valid
       database.save
-      expect(database.subjects.count).to eq 3 
-    end 
+      expect(database.subjects.count).to eq 3
+    end
 
-    it 'expects database to send back a comma seperated sentance' do
-      expect(database.subject_list).to include @sub1.name
-      expect(database.subject_list).to include @sub2.name
-      expect(database.subject_list).to include @sub3.name
-    end 
+    context '.subject_list' do
+      it 'expects database to send back a comma seperated sentance' do
+        expect(database.subject_list).to include @sub1.name
+        expect(database.subject_list).to include @sub2.name
+        expect(database.subject_list).to include @sub3.name
+      end
+    end
+
+    context '.subjects_column' do
+      it 'expects database to send back a ; delimited string' do
+        subject_string = [@sub1.name, @sub2.name, @sub3.name].join(';')
+        expect(database.subjects_column).to be_a String
+        expect(database.subjects_column).to eq(subject_string)
+      end
+    end
   end
 
   context 'resources' do
@@ -219,50 +233,60 @@ RSpec.describe Database, type: :model do
       @rss3 = FactoryBot.create :resource
       database.resources = [@rss1, @rss2, @rss3]
     end
-   
+
     it 'expects database to be valid and have 3 resources' do
       expect(database).to be_valid
       database.save
-      expect(database.resources.count).to eq 3 
+      expect(database.resources.count).to eq 3
     end
 
-    it 'expects database to send back a comma seperated sentance of resources' do
-      expect(database.resource_list).to include @rss1.name
-      expect(database.resource_list).to include @rss2.name
-      expect(database.resource_list).to include @rss3.name
-    end 
+    context '.resource_list' do
+      it 'expects database to send back a comma seperated sentance of resources' do
+        expect(database.resource_list).to include @rss1.name
+        expect(database.resource_list).to include @rss2.name
+        expect(database.resource_list).to include @rss3.name
+      end
+    end
+
+    context '.resources_column' do
+      it 'expects database to send back a ; delimited string' do
+        resource_string = [@rss1.name, @rss2.name, @rss3.name].join(';')
+        expect(database.resources_column).to be_a String
+        expect(database.resources_column).to eq(resource_string)
+      end
+    end
   end
 
   context 'create a url_uuid' do
     it 'expects a similar url_uuid to fail' do
       db2 = FactoryBot.create(:database_basic)
       expect(FactoryBot.build(:database)).to_not be_valid
-    end 
+    end
 
     it 'expects the uuid to be created using callbacks' do
       expect(database.url_uuid).to be_truthy
-    end 
+    end
 
     it 'expects the uuid will never be nil' do
       attrs = FactoryBot.attributes_for(:database_basic)
       attrs[:url_uuid] = nil
       db = Database.create(attrs)
       expect(db.url_uuid).to_not be_nil
-    end 
-  end 
-  
+    end
+  end
+
 
   context 'creates default values for help' do
     it 'has a default help text' do
       db = FactoryBot.create(:database_default_values)
       expect(db.help).to eq ENV['help_text']
-    end 
+    end
 
     it 'has a default help url' do
       db = FactoryBot.create(:database_default_values)
       expect(db.help_url).to eq ENV['help_url']
-    end 
-  end  
+    end
+  end
 
   context 'creates a csv report' do
     it 'csv stuff' do
@@ -270,7 +294,7 @@ RSpec.describe Database, type: :model do
       databases = Database.all
       csv_string = databases.to_csv.to_s
       # attr to check
-      attributes = %w{id name status years_of_coverage vendor_name url access full_text_db new_database trial_database access_plain_text help help_url description url_uuid popular trial_database trial_expiration_date title_search resource_list subject_list created_at updated_at}
+      attributes = %w{id libguides_id name status years_of_coverage vendor_name url access full_text_db new_database trial_database access_plain_text help help_url description url_uuid popular trial_database trial_expiration_date title_search resources_column subject_column created_at updated_at}
       # run an expecatation for each attribute
       attributes.each do |attr| 
         expect(csv_string).to include database[attr].to_s

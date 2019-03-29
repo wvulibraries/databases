@@ -136,6 +136,12 @@ class Admin::DatabasesController < AdminController
     end
   end
 
+  ## GET /admin/databases/import
+  def import
+    @database_import = ImportDatabase.new # form model
+    render :import
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_database

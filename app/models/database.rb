@@ -129,6 +129,24 @@ class Database < ApplicationRecord
     list.to_sentence
   end
 
+  # Creates groupings of subjects seprated by semi-colons. 
+  # @author David J. Davis
+  # @return string
+  def subjects_column
+    list = []
+    subjects.each { |subject| list << subject.name }
+    list.join(';')
+  end
+
+  # Creates groupings of resources seprated by semi-colons.
+  # @author David J. Davis
+  # @return string
+  def resources_column
+    list = []
+    resources.each { |rss| list << rss.name }
+    list.join(';')
+  end
+
   # Creates comma seperated list of resources.
   # @author David J. Davis
   # @return string
@@ -179,10 +197,10 @@ class Database < ApplicationRecord
   def self.to_csv
     CSV.generate(headers: true) do |csv|
       attributes = %w[
-        id name status years_of_coverage vendor_name url access full_text_db
-        new_database trial_database help help_url description url_uuid popular
-        trial_database trial_expiration_date title_search resource_list
-        subject_list created_at updated_at
+        id libguides_id name status years_of_coverage vendor_name url access 
+        full_text_db help help_url description url_uuid new_database popular
+        trial_database trial_expiration_date title_search subjects_column
+        resources_column created_at updated_at
       ]
 
       csv << attributes.map(&:titleize)
@@ -245,6 +263,7 @@ class Database < ApplicationRecord
       thumbnail: '',
       content_id: self.libguides_id
     }
+
   end
 
   # Elastic search settings using indexed json. 
