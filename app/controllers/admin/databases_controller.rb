@@ -142,14 +142,26 @@ class Admin::DatabasesController < AdminController
     render :import
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_database
-      @database = Database.find(params[:id])
-    end
+  ## POST /admin/import
+  def csv_import
+    render :test
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def database_params
-      params.require(:database).permit(:name, :status, :years_of_coverage, :url, :off_campus_url, :updated, :full_text_db, :new_database, :trial_database, :help, :help_url, :description, :created_date, :updated_date, :popular, :trial_expire_date, :alumni, :title_search, :vendor, :trial_expiration_date, :vendor_id, subject_ids: [], resource_ids:[])
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_database
+    @database = Database.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, 
+  # only allow the white list through.
+  def database_params
+    params.require(:database).permit(:name, :status, :years_of_coverage, :url, :off_campus_url, :updated, :full_text_db, :new_database, :trial_database, :help, :help_url, :description, :created_date, :updated_date, :popular, :trial_expire_date, :alumni, :title_search, :vendor, :trial_expiration_date, :vendor_id, subject_ids: [], resource_ids:[])
+  end
+
+  # allow a single parameter from the form
+  def csv_params
+    params.require(:import_database).permit(:csv, :csv_cache)
+  end
 end

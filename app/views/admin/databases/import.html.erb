@@ -2,7 +2,7 @@
 
 <p> There is a possibility that the full import does not happen or something errors during this process.  We may not be able to inform you fully of any errors that happen during the bulk database importing and updating please be sure to check all information after the import completes. </p>
 
-<%= form_for @database_import, url: '/import', html: {multipart: true, class: 'report-form', method: 'post'} do |f| %>
+<%= form_for @database_import, url: '/admin/import', html: {multipart: true, class: 'report-form', method: 'post'} do |f| %>
 
   <% if @database_import.errors.any? %>
     <div id="error_explanation" class="full" role="alert" aria-atomic="true">  

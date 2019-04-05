@@ -8,7 +8,7 @@ describe Admin::DatabasesController, type: :controller do
   
     it "generate CSV" do
       expect(response.header['Content-Type']).to include 'text/csv'
-      expect(response.body).to include("Id,Libguides,Name,Status,Years Of Coverage,Vendor Name,Url,Access,Full Text Db,Help,Help Url,Description,Url Uuid,New Database,Popular,Trial Database,Trial Expiration Date,Title Search,Subjects Column,Resources Column,Created At,Updated At")
+      expect(response.body).to include("Id,Libguides Id,Name,Status,Years Of Coverage,Vendor Name,Url,Access,Full Text Db,Help,Help Url,Description,Url Uuid,New Database,Popular,Trial Database,Trial Expiration Date,Title Search,Subjects Column,Resources Column,Created At,Updated At")
     end
   end
 

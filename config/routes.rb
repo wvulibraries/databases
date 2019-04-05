@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
     # import databases
     get '/import', to: 'databases#import'
+    post '/import', to: 'databases#csv_import'
 
     # vendors
     resources :vendors

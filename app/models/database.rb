@@ -203,7 +203,7 @@ class Database < ApplicationRecord
         resources_column created_at updated_at
       ]
 
-      csv << attributes.map(&:titleize)
+      csv << attributes.map(&:better_titleize)
       all.find_each do |database|
         csv << attributes.map { |attr| database.send(attr) }
       end
