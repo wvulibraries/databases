@@ -1,4 +1,4 @@
-<h2> Welcome, <%= session['cas']['extra_attributes']['displayName'] %> </h2>
+<h2> Welcome, <%= session['cas']['extra_attributes']['displayName'] unless session['cas'].nil? %> </h2>
 
 <p> Welcome to the admin panel for the LibDataBase application. The main admin interface is powered by the big menu button in the top right corner of the page.  This is where you will find links to manage the databases, vendors, users, and other critical aspects of this application.  </p> <br/>
 

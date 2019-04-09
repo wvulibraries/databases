@@ -73,6 +73,8 @@ en:
         updated: "Success! We updated the %{model}."
         failed: "Failed to %{action} a %{model}." 
     databases:
+      import: 
+          success: "Import Completed, please manually check your records to make sure they appear as intended.  Because of the nature of the import we can not gaurantee that the import passes validations and lines up 100%."
       index: 
         heading: "Database List"
       filter_label: "Filter Databases"

@@ -37,4 +37,4 @@
   }
 }
 
-.alert .content { @include grid-column(12);}
+.alert .content { @include grid-column(12); padding-right:1.5em; }

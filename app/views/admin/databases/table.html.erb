@@ -18,7 +18,7 @@
       <td data-label="Status"> <%= database.status %> </td>
       <td data-label="Vendor"> <%= database.vendor_name %> </td>
       <td data-label="Trial"> <%= database.trial_database ? "Yes" : "No" %> </td>
-      <td data-label="Trial Date"> <%= l(database.trial_expiration_date, format: :human_readable) %> </td>
+      <td data-label="Trial Date"> <%= l(database.trial_expiration_date, format: :human_readable) unless database.trial_expiration_date.nil? %> </td>
       <td data-label="Show"> <%= link_to raw('<span class="fas fa-eye" title="Show"></span>'), admin_database_path(database), { class: 'show-button', title:'show', 'aria-label':"Show #{database.name}" } %> </td>
       <td data-label="Edit"> <%= link_to raw('<span class="fas fa-edit" title="Edit"></span>'), edit_admin_database_path(database), { class: 'edit-button', title:'edit', 'aria-label':"Edit #{database.name}" } %> </td>
       <td data-label="Destroy"> <%= link_to raw('<span class="fas fa-trash" title="Delete"></span>'), admin_database_path(database), method: :delete, class: 'delete-button', data: { confirm: 'Are you sure?' }, title:'delete', 'aria-label':"Delete #{database.name}" %> </td>

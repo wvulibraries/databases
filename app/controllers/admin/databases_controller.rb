@@ -144,7 +144,14 @@ class Admin::DatabasesController < AdminController
 
   ## POST /admin/import
   def csv_import
-    render :test
+    @database_import = ImportDatabase.new(csv_params)
+    csv = @database_import.csv.current_path
+    result = DatabaseImportService.new.import(csv)
+    if result == true
+      redirect_to '/admin', warning: I18n.t('admin.databases.import.success')
+    else
+      redirect_to '/admin', error: "Error: #{result}"
+    end
   end
 
   private

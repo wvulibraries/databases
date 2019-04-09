@@ -20,15 +20,17 @@ class DatabaseImportService
                                    :subjects_column,
                                    :resources_column)
         database = Database.where(id: db_hash[:id]).first_or_initialize(db_params)
-        Rails.logger.debug database.inspect
         # setting associations
         database.vendor = create_vendor(db_hash[:vendor_name]) unless db_hash[:vendor_name].blank? 
         database.subject_ids = create_association_lists(db_hash[:subjects_column], Subject) unless db_hash[:subjects_column].blank? 
         database.resource_ids = create_association_lists(db_hash[:resources_column], Resource) unless db_hash[:resources_column].blank? 
         # save the database ignore validations
-        database.save!(validate: false)
+        database.save(validate: false)
       end
     end
+    true
+  rescue StandardError => e
+    e.message
   end
 
   # Returns the vendor object if it can find it otherwise creates one

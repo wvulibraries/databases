@@ -231,7 +231,7 @@ RSpec.feature "Admin::Databases", type: :feature do
   context '#delete' do
     before :each do
       database # instantiate a database
-    end 
+    end
 
     scenario 'deletes databases' do
       visit '/admin/databases'
@@ -240,5 +240,37 @@ RSpec.feature "Admin::Databases", type: :feature do
       expect(page).to have_content(I18n.t('admin.databases.controllers.delete'))
       expect(page).to_not have_content(database.name)
     end
-  end 
+  end
+
+  context 'Importing' do
+    scenario 'shows the import page' do
+      visit '/admin/import'
+      expect(page).to have_content('Database Import')
+      expect(page).to have_content('Database CSV')
+    end
+
+    scenario 'performs a csv upload' do
+      visit '/admin/import'
+      expect(page).to have_content('Database Import')
+      attach_file("Csv", "#{Rails.root}/spec/support/files/databases-auto-import.csv")
+      click_button 'Import Now'
+      expect(page.text).to have_content('Import Complete')
+    end
+
+    scenario 'performs a failing import' do
+      # complete the import once
+      visit '/admin/import'
+      expect(page).to have_content('Database Import')
+      attach_file("Csv", "#{Rails.root}/spec/support/files/databases-auto-import.csv")
+      click_button 'Import Now'
+      expect(page.text).to have_content('Import Complete')
+      # then run the import again which will cause a failure because of
+      # duplicate content
+      visit '/admin/import'
+      expect(page).to have_content('Database Import')
+      attach_file("Csv", "#{Rails.root}/spec/support/files/databases-auto-import.csv")
+      click_button 'Import Now'
+      expect(page.text).to have_content('Error:')
+    end
+  end
 end
