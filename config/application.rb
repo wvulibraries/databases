@@ -36,6 +36,13 @@ module Databases
     # CAS
     config.rack_cas.server_url = ENV['cas_url']
 
+    # security 
+    config.force_ssl = ENV['ssl']
+
+    # session store
+    config.session_store :cookie_store, expire_after: nil, secure: true if Rails.env.production?
+    config.session_store :cookie_store, key: 'cas', expire_after: 12.hours, secure: true if Rails.env.production?
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

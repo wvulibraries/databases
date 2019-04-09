@@ -45,4 +45,5 @@ development:
   ssl: 'false'
   google_analytics_key: ~ #nullifies for dev
 test:
+  ssl: 'false'
   google_analytics_key: ~ #nullifies for test
