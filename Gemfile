@@ -48,7 +48,6 @@ gem 'kaminari' # must be before elasticsearch
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 
-
 # Test Suite
 # =====================================================================================
 group :test do
