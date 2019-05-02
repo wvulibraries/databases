@@ -43,9 +43,12 @@ jobs:
       #     keys:
       #       - rails-bundle-{{ checksum "Gemfile.lock" }}
       #       - rails-bundle-
+      # - run:
+      #     name: install gems
+      #     command: gem install capybara-webkit -v '1.15.1' || bundle install
       - run:
-          name: install gems
-          command: gem install capybara-webkit -v '1.15.1' || bundle install
+            name: bundle install
+            command: bundle install
       # - run:
       #     name: Bundle Gems
       #     command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle
