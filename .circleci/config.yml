@@ -45,7 +45,7 @@ jobs:
             - rails-bundle-
       - run: 
           name: Install capybara-wekit gem
-          command: gem install capybara-webkit -v '1.15.1' --source          
+          command: gem install capybara-webkit -v '1.15.1' --source  || bundle install         
       - run:
           name: Bundle Gems
           command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle      
