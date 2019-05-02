@@ -63,6 +63,7 @@ group :test do
   gem 'capybara-webkit', github: 'thoughtbot/capybara-webkit', branch: 'master'
   gem 'selenium-webdriver', '~> 3.14'  
   gem 'executables'
+  gem 'rspec_junit_formatter'  
 end
 
 # Developoment / Test Items (Primarily debugging)
