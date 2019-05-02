@@ -1,5 +1,5 @@
 # Databases 
-[![Build Status](https://travis-ci.org/wvulibraries/databases.svg?branch=master)](https://travis-ci.org/wvulibraries/databases)
+[![CircleCI](https://circleci.com/gh/wvulibraries/databases.svg?style=svg)](https://circleci.com/gh/wvulibraries/databases)
 [![Maintainability](https://api.codeclimate.com/v1/badges/dc9fb3109c8a8ff1301c/maintainability)](https://codeclimate.com/github/wvulibraries/databases/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/dc9fb3109c8a8ff1301c/test_coverage)](https://codeclimate.com/github/wvulibraries/databases/test_coverage)
 
