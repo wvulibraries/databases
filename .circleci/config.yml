@@ -7,7 +7,7 @@ jobs:
     # Container Setup
     #############################################
     docker:
-      - image: circleci/ruby:2.5.3-node-browsers
+      - image: circleci/ruby:2.6-node-browsers
         environment:
           - RAILS_ENV=test
           - CC_TEST_REPORTER_ID=28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
@@ -18,6 +18,9 @@ jobs:
           - MYSQL_ROOT_PASSWORD=circleci
       - image: elasticsearch:6.6.2
         environment:    
+          - transport.host: localhost
+          - network.host: 0.0.0.0
+          - http.port: 9200                
           - discovery.type=single-node
       - image: selenium/standalone-chrome-debug
         name: selenium
@@ -25,13 +28,6 @@ jobs:
           - "4444:4444"
       - image: kibana:6.6.0
         name: kibana
-        environment:
-          SERVER_NAME: localhost
-          ELASTICSEARCH_URL: http://elasticsearch:9200/
-    ports:
-      - 5601:5601
-    links: 
-      - elasticsearch                          
     
     #############################################
     # Build Steps
