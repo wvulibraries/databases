@@ -16,7 +16,7 @@ jobs:
         environment:
           - MYSQL_ROOT_HOST=%
           - MYSQL_ROOT_PASSWORD=circleci
-      - image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
+      - image: docker.elastic.co/elasticsearch/elasticsearch:6.2.0
         environment:
           - cluster.name: elasticsearch
           - xpack.security.enabled: false
@@ -27,16 +27,7 @@ jobs:
       - image: selenium/standalone-chrome-debug
         name: selenium
         ports: 
-          - "4444:4444"
-      # - image: kibana:6.6.0
-      #   name: kibana
-      #   environment:
-      #     SERVER_NAME: localhost
-      #     ELASTICSEARCH_URL: http://elasticsearch:9200/
-      #   ports:
-      #     - 5601:5601
-      #   links: 
-      #     - elasticsearch                          
+          - "4444:4444"                       
     
     #############################################
     # Build Steps
@@ -83,6 +74,7 @@ jobs:
           key: rails-bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+
       ###########################################
       # Code Climate
       ###########################################
