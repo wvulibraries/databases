@@ -17,7 +17,7 @@
 time_zone: 'Eastern Time (US & Canada)'
 
 # Search
-# ELASTICSEARCH_URL: 'http://elasticsearch:9200'
+ 
 
 # Feedback / Email Resource Accounts
 reporting_email: 'eresources@mail.wvu.edu'
@@ -40,6 +40,7 @@ google_analytics_key: "UA-35722661-5"
 production:
   cas_url: 'https://sso.wvu.edu/cas/' 
   ssl: 'true' 
+  ELASTICSEARCH_URL: 'http://elasticsearch:9200'
 development:
   cas_url: https://ssodev.wvu.edu/cas/
   ssl: 'false'
