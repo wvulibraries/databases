@@ -22,7 +22,16 @@ jobs:
       - image: selenium/standalone-chrome-debug
         name: selenium
         ports: 
-          - "4444:4444"                
+          - "4444:4444"
+      - image: kibana:6.6.0
+        name: kibana
+        environment:
+          SERVER_NAME: localhost
+          ELASTICSEARCH_URL: http://elasticsearch:9200/
+    ports:
+      - 5601:5601
+    links: 
+      - elasticsearch                          
     
     #############################################
     # Build Steps
