@@ -22,7 +22,7 @@ jobs:
           - xpack.security.enabled: false
           - transport.host: localhost
           - network.host: 127.0.0.1
-          - http.port: 9250
+          - http.port: 9200
           - discovery.type: single-node
       - image: selenium/standalone-chrome-debug
         name: selenium
@@ -53,10 +53,10 @@ jobs:
       ###########################################
       # Bundler w/ caching
       ###########################################
-      # - restore_cache:
-      #     keys:
-      #       - rails-bundle-{{ checksum "Gemfile.lock" }}
-      #       - rails-bundle-
+      - restore_cache:
+          keys:
+            - rails-bundle-{{ checksum "Gemfile.lock" }}
+            - rails-bundle-
       - run:
           name: Install System Dependencies
           command: sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
