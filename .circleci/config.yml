@@ -7,7 +7,7 @@ jobs:
     # Container Setup
     #############################################
     docker:
-      - image: circleci/ruby:2.6-node-browsers
+      - image: circleci/ruby:2.5.3-node-browsers
         environment:
           - RAILS_ENV=test
           - CC_TEST_REPORTER_ID=28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
@@ -16,18 +16,27 @@ jobs:
         environment:
           - MYSQL_ROOT_HOST=%
           - MYSQL_ROOT_PASSWORD=circleci
-      - image: elasticsearch:6.6.2
-        environment:    
+      - image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
+        environment:
+          - cluster.name: elasticsearch
+          - xpack.security.enabled: false
           - transport.host: localhost
-          - network.host: 0.0.0.0
-          - http.port: 9200                
-          - discovery.type=single-node
+          - network.host: 127.0.0.1
+          - http.port: 9250
+          - discovery.type: single-node
       - image: selenium/standalone-chrome-debug
         name: selenium
         ports: 
           - "4444:4444"
-      - image: kibana:6.6.0
-        name: kibana
+      # - image: kibana:6.6.0
+      #   name: kibana
+      #   environment:
+      #     SERVER_NAME: localhost
+      #     ELASTICSEARCH_URL: http://elasticsearch:9200/
+      #   ports:
+      #     - 5601:5601
+      #   links: 
+      #     - elasticsearch                          
     
     #############################################
     # Build Steps
@@ -44,10 +53,10 @@ jobs:
       ###########################################
       # Bundler w/ caching
       ###########################################
-      - restore_cache:
-          keys:
-            - rails-bundle-{{ checksum "Gemfile.lock" }}
-            - rails-bundle-
+      # - restore_cache:
+      #     keys:
+      #       - rails-bundle-{{ checksum "Gemfile.lock" }}
+      #       - rails-bundle-
       - run:
           name: Install System Dependencies
           command: sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
