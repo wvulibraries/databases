@@ -17,7 +17,7 @@
 time_zone: 'Eastern Time (US & Canada)'
 
 # Search
-ELASTICSEARCH_URL: 'http://elasticsearch:9200'
+# ELASTICSEARCH_URL: 'http://elasticsearch:9200'
 
 # Feedback / Email Resource Accounts
 reporting_email: 'eresources@mail.wvu.edu'
