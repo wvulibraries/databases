@@ -342,6 +342,7 @@ class Database < ApplicationRecord
   def set_defaults
     self.help ||= ENV['help_text']
     self.help_url ||= ENV['help_url']
+    self.created_at ||= DateTime.current
   end
   
 end

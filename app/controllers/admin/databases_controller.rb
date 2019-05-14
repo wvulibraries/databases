@@ -1,91 +1,93 @@
 # Admin Databases Controller
 class Admin::DatabasesController < AdminController
   # filters
-  before_action :set_database, only: [:show, :edit, :update, :destroy]
+  before_action :set_database, only: %i[show edit update destroy]
 
   # GET /admin/databases
   # GET /admin/databases.json
-  # GET /admin/databases.csv 
+  # GET /admin/databases.csv
   def index
     @databases = Database.all
     respond_to do |format|
-      format.html do 
+      format.html do
         @databases = @databases.includes(:vendor).order('name ASC')
-        render :table 
-      end 
+        render :table
+      end
       format.csv do
         @databases = @databases.includes(
           :database_subjects,
-          :resources, 
-          :subjects, :vendor, 
-          :access_plain_text, 
-          :access_type)
-        .order('name ASC')
-        send_data @databases.to_csv, filename: "databases-#{Date.today}.csv" 
-      end 
-    end         
+          :resources,
+          :subjects, :vendor,
+          :access_plain_text,
+          :access_type
+        )
+                               .order('name ASC')
+        send_data @databases.to_csv, filename: "databases-#{Date.today}.csv"
+      end
+    end
   end
-  
-  # GET /admin/databases.csv 
+
+  # GET /admin/databases.csv
   def lib_guides
     @databases = Database.prod
     respond_to do |format|
-      format.csv do 
+      format.csv do
         @databases = @databases.includes(
           :database_subjects,
-          :resources, 
-          :subjects, :vendor, 
-          :access_plain_text, 
-          :access_type)
-        .order('name ASC')
+          :resources,
+          :subjects, :vendor,
+          :access_plain_text,
+          :access_type
+        )
+                               .order('name ASC')
         send_data @databases.libguides_export, filename: "libguides-#{Date.today}.csv"
-      end 
+      end
     end
-  end   
+  end
 
   # GET /admin/databases/list/:status
   def listall
-    @databases =  Database.all
-                          .includes(
-                            :database_subjects, 
-                            :subjects, :vendor, 
-                            :access_plain_text, 
-                            :access_type )
-                          .order('name ASC')
+    @databases = Database.all
+                         .includes(
+                           :database_subjects,
+                           :subjects, :vendor,
+                           :access_plain_text,
+                           :access_type
+                         )
+                         .order('name ASC')
     render :list
-  end 
-
+  end
 
   # GET /admin/databases/list/:status
   def list
-    @databases =  Database.with_status(params[:status])
-                          .includes(
-                            :database_subjects, 
-                            :subjects, :vendor, 
-                            :access_plain_text, 
-                            :access_type )
-                          .order('name ASC')
+    @databases = Database.with_status(params[:status])
+                         .includes(
+                           :database_subjects,
+                           :subjects, :vendor,
+                           :access_plain_text,
+                           :access_type
+                         )
+                         .order('name ASC')
     render :list
-  end 
+  end
 
   # GET /admin/databases/tables/:status
-  def tables 
-    if params[:status].present?
-      @databases =  Database.with_status(params[:status])
-                            .includes(:vendor)
-                            .order('name ASC')
-    else
-      @databases = Database.all
-                            .includes(:vendor)
-                            .order('name ASC')
-    end  
+  def tables
+    @databases = if params[:status].present?
+                   Database.with_status(params[:status])
+                           .includes(:vendor)
+                           .order('name ASC')
+                 else
+                   Database.all
+                           .includes(:vendor)
+                           .order('name ASC')
+                 end
     render :table
-  end 
-  
+  end
+
   # GET /admin/databases/1
   # GET /admin/databases/1.json
-  def show
-  end
+  def show; end
 
   # GET /admin/databases/new
   def new
@@ -93,8 +95,7 @@ class Admin::DatabasesController < AdminController
   end
 
   # GET /admin/databases/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /admin/databases
   # POST /admin/databases.json
@@ -161,10 +162,10 @@ class Admin::DatabasesController < AdminController
     @database = Database.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, 
+  # Never trust parameters from the scary internet,
   # only allow the white list through.
   def database_params
-    params.require(:database).permit(:name, :status, :years_of_coverage, :url, :off_campus_url, :updated, :full_text_db, :new_database, :trial_database, :help, :help_url, :description, :created_date, :updated_date, :popular, :trial_expire_date, :alumni, :title_search, :vendor, :trial_expiration_date, :vendor_id, subject_ids: [], resource_ids:[])
+    params.require(:database).permit(:name, :status, :years_of_coverage, :url, :off_campus_url, :updated, :full_text_db, :new_database, :trial_database, :help, :help_url, :description, :created_at, :updated_at, :popular, :alumni, :title_search, :vendor, :trial_expiration_date, :vendor_id, subject_ids: [], resource_ids: [])
   end
 
   # allow a single parameter from the form

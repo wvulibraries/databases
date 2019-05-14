@@ -16,9 +16,6 @@
 # Timezone
 time_zone: 'Eastern Time (US & Canada)'
 
-# Search
- 
-
 # Feedback / Email Resource Accounts
 reporting_email: 'eresources@mail.wvu.edu'
   
@@ -43,8 +40,10 @@ production:
   ELASTICSEARCH_URL: 'http://elasticsearch:9200'
 development:
   cas_url: https://ssodev.wvu.edu/cas/
+  ELASTICSEARCH_URL: 'http://elasticsearch:9200'
   ssl: 'false'
   google_analytics_key: ~ #nullifies for dev
 test:
   ssl: 'false'
   google_analytics_key: ~ #nullifies for test
+  # ELASTICSEARCH_URL: 'http://elasticsearch:9200' # for local comment out for circle ci
