@@ -1,0 +1,33 @@
+.four-col { 
+  @include grid-column(12);
+
+  @include breakpoint(tablet) {
+    @include grid-column(6);
+  }
+
+  @include breakpoint(laptop) {
+    @include grid-column(3);
+  }
+}
+
+.database-show { 
+
+
+  h3, p, .container { 
+    margin-bottom:1em; 
+  }
+
+  h3 { 
+    padding-bottom:.5em;
+    border-bottom: 1px solid #eee;
+  }
+
+  .datestamp { 
+    @extend .micro-text;
+    text-align:left;
+    display: inline; 
+    width:unset; 
+    padding:0;
+  }
+
+}

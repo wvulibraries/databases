@@ -1,92 +1,114 @@
-<p>
-  <strong>Name:</strong>
-  <%= @database.name %>
-</p>
+<div class="database-show">
+  <div class="container">
+    <h2> <%= @database.name %> </h2>
+    <p> 
+      <%= @database.description %> 
+    </p>
+  </div>
 
-<p>
-  <strong>Status:</strong>
-  <%= @database.status %>
-</p>
+  <div class="container"> 
+    <h3> Database Information </h3>
+    <p> <strong> UUID </strong> <%= @database.url_uuid %> </p>
+    <p> <strong> ID </strong> <%= @database.id %> </p>
+    <p> <strong> Landing Page </strong> <%= @database.landing_page ? "Yes" : "No" %> </p>
+    <p> <strong> Status </strong> <%= @database.status %> </p> 
+    <p> <strong> Years of Coverage </strong> <%= @database.years_of_coverage %> </p> 
+  </div>
 
-<p>
-  <strong>Years of coverage:</strong>
-  <%= @database.years_of_coverage %>
-</p>
+  <div class="container"> 
+  <h3> Vendor Information </h3> 
+    <p>
+    <% if @database.vendor_name.nil? %>
+      No Vendor Name Supplied
+    <% else %>
+    <strong> Vendor Name </strong> 
+      <%= @database.vendor_name unless @database.vendor_name.nil? %> 
+    <% end %>
+    </p>
 
-<p>
-  <strong>Url:</strong>
-  <%= @database.url %>
-</p>
+    <p> 
+      <strong> URL </strong> 
+      <%= @database.url %>
+    </p>
 
-<p>
-  <strong>Off campus url:</strong>
-  <%= @database.off_campus_url %>
-</p>
+    <% unless @database.off_campus_url %>
+      <strong> Off Campus URL </strong>
+      <%= @database.off_campus_url %>
+    <% end %>
+  </div>
 
-<p>
-  <strong>Updated:</strong>
-  <%= @database.updated %>
-</p>
+  <div class="container"> 
+    <h3> Database Subjects </h3>
+    <%= @database.subject_list %>
+  </div>
 
-<p>
-  <strong>Full text db:</strong>
-  <%= @database.full_text_db %>
-</p>
+  <div class="container"> 
+    <h3> Database Resources </h3>
+    <%= @database.resource_list %>
+  </div>
 
-<p>
-  <strong>New database:</strong>
-  <%= @database.new_database %>
-</p>
+  <div class="container">
+    <h3> Database Types / Access Types </h3> 
 
-<p>
-  <strong>Trial database:</strong>
-  <%= @database.trial_database %>
-</p>
+    <div class="four-col">
+      <strong> Alumni Database </strong> 
+      <%= @database.alumni ? "Yes" : "No" %>
+    </div> 
+    <div class="four-col">
+      <strong> Popular Database </strong> 
+      <%= @database.popular ? "Yes" : "No" %>
+    </div>
+    <div class="four-col">
+      <strong> Full Text Database </strong> 
+      <%= @database.full_text_db ? "Yes" : "No" %>
+    </div>
+    <div class="four-col">
+      <strong> New Database </strong> 
+      <%= @database.new_database ? "Yes" : "No" %>
+    </div>
+  </div>
 
-<p>
-  <strong>Help:</strong>
-  <%= @database.help %>
-</p>
+  <div class="container">
+    <h3> Trial Information </h3> 
+    <p>
+      <strong> Trial Database </strong> 
+      <%= @database.trial_database ? "Yes" : "No" %>
+    </p>
+    <p> 
+      <strong> Trial Expiration </strong>
+      <% unless @database.trial_expiration_date.nil? %>
+        <%= @database.trial_expiration_date.strftime("%B %d, %Y at %I:%M%p") %>
+      <% else %>
+        N/A
+      <% end %>
+    </p>
+  </div>
 
-<p>
-  <strong>Help url:</strong>
-  <%= @database.help_url %>
-</p>
+  <div class="containe"> 
+    <h3> Search Keywords </h3>
+    <p>
+      <strong> Basic Keywords </strong>
+      <%= @database.title_search %>
+    </p>
+    
+    <p> 
+      <strong> Full Index </strong> <br/> 
+      <%= @database.keywords %>
+    </p>
+  </div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @database.description %>
-</p>
 
-<p>
-  <strong>Created date:</strong>
-  <%= @database.created_date %>
-</p>
+  <div class="container"> 
+    <h3> Created / Updated </h3> 
+    <p class="datestamp">
+      Created at <%= @database.created_at.strftime("%B %d, %Y at %I:%M%p") %> 
+    </p>
+    <p class="datestamp">
+      Updated at <%= @database.updated_at.strftime("%B %d, %Y at %I:%M%p")%>
+    </p>
+  </div>
+  
+  <%= link_to 'Edit', edit_admin_database_path(@database) %> |
+  <%= link_to 'Back', admin_databases_path %>
 
-<p>
-  <strong>Updated date:</strong>
-  <%= @database.updated_date %>
-</p>
-
-<p>
-  <strong>Popular:</strong>
-  <%= @database.popular %>
-</p>
-
-<p>
-  <strong>Trial expire date:</strong>
-  <%= @database.trial_expire_date %>
-</p>
-
-<p>
-  <strong>Alumni:</strong>
-  <%= @database.alumni %>
-</p>
-
-<p>
-  <strong>Title search:</strong>
-  <%= @database.title_search %>
-</p>
-
-<%= link_to 'Edit', edit_admin_database_path(@database) %> |
-<%= link_to 'Back', admin_databases_path %>
+</div>
