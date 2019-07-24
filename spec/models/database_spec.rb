@@ -28,7 +28,7 @@ RSpec.describe Database, type: :model do
     it { should validate_uniqueness_of(:url_uuid) }
     it { should validate_uniqueness_of(:libguides_id) }
     it { should validate_numericality_of(:libguides_id).only_integer }
-  end 
+  end
 
   # You will get a shoulda warning that this is not fully validatable
   # https://github.com/thoughtbot/shoulda-matchers/issues/512#issuecomment-50213690
@@ -68,7 +68,7 @@ RSpec.describe Database, type: :model do
     it 'expects valid url' do
       database.url = Faker::Internet.url
       expect(database).to be_valid
-    end 
+    end
   end
 
   context '.help_url' do
@@ -81,7 +81,7 @@ RSpec.describe Database, type: :model do
     it 'expects valid url ' do
       database.help_url = Faker::Internet.url
       expect(database).to be_valid
-    end 
+    end
   end
 
   # May not be used
@@ -101,7 +101,7 @@ RSpec.describe Database, type: :model do
   context 'status scopes' do
     it 'expects production status to eq 1' do
       database.status = 'production'
-      database.save! 
+      database.save!
       expect(Database.production.count).to eq 1
       expect(Database.with_status('production').count).to eq 1
     end
@@ -125,7 +125,7 @@ RSpec.describe Database, type: :model do
   end
 
   context '.keywords' do
-    it 'expects keywords to exist' do 
+    it 'expects keywords to exist' do
       expect(database.keywords.length).to be > 0
     end 
 
@@ -143,11 +143,11 @@ RSpec.describe Database, type: :model do
 
     it 'expects keywords to use subject_list' do
       sub1 = FactoryBot.create :subject
-      sub2 = FactoryBot.create :subject 
+      sub2 = FactoryBot.create :subject
       database.subjects = [sub1, sub2]
       database.save
       expect(database.keywords).to include database.subject_list
-    end 
+    end
   end
 
   context 'vendors' do
@@ -166,7 +166,7 @@ RSpec.describe Database, type: :model do
         database.save
         expect(database.vendor).to be_nil
       end
-    end 
+    end
 
     context '.vendor_name' do
       it 'expects vendor name to be empty' do
@@ -198,8 +198,8 @@ RSpec.describe Database, type: :model do
   context 'subjects' do
     before(:each) do
       @sub1 = FactoryBot.create :subject
-      @sub2 = FactoryBot.create :subject 
-      @sub3 = FactoryBot.create :subject 
+      @sub2 = FactoryBot.create :subject
+      @sub3 = FactoryBot.create :subject
       database.subjects = [@sub1, @sub2, @sub3]
     end
 
@@ -275,7 +275,6 @@ RSpec.describe Database, type: :model do
     end
   end
 
-
   context 'creates default values for help' do
     it 'has a default help text' do
       db = FactoryBot.create(:database_default_values)
@@ -296,10 +295,10 @@ RSpec.describe Database, type: :model do
       # attr to check
       attributes = %w{id libguides_id name status years_of_coverage vendor_name url access full_text_db new_database trial_database access_plain_text help help_url description url_uuid popular trial_database trial_expiration_date title_search resources_column subject_column created_at updated_at}
       # run an expecatation for each attribute
-      attributes.each do |attr| 
+      attributes.each do |attr|
         expect(csv_string).to include database[attr].to_s
-      end 
-    end 
+      end
+    end
   end
 
   describe 'elasticsearch' do
@@ -335,32 +334,32 @@ RSpec.describe Database, type: :model do
       database
       database.status = 'production'
       database.save!
-    end  
+    end
 
     it 'expects CSV string' do
       csv = Database.libguides_export
       expect(csv).to be_a(String)
-    end 
+    end
 
     it 'expects the values from the csv hash' do
       attributes = database.csv_hash.values
       csv = Database.libguides_export
       attributes.each do |attr| 
         expect(csv).to include database[attr].to_s
-      end 
-    end 
-  end 
+      end
+    end
+  end
 
   context '.csv_hash' do
     it 'expects a hash' do
       expect(database.csv_hash).to be_a(Hash)
-    end 
+    end
 
     it 'expects certain values to not be nil' do
       csv_hash = database.csv_hash
       expect(csv_hash[:name]).to be(database.name)
       expect(csv_hash[:url]).to be(database.url)
       expect(csv_hash[:vendor]).to be(database.vendor_name)
-    end 
-  end 
+    end
+  end
 end
