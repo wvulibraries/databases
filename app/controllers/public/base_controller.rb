@@ -1,7 +1,7 @@
 # Public::AboutController 
 # Controller that deals with the public facing interfaces. 
 class Public::BaseController < ApplicationController
-  # Root controller of public inteface.  
+  # Root controller of public inteface.
   # Sets the subjects, letters, trial databases, and public databases.
   # @author David J. Davis
   def index 
@@ -11,19 +11,19 @@ class Public::BaseController < ApplicationController
     @popular = Database.pop_list.prod.includes(:landing_page)
     render :index
   end
-  
+
   # AtoZ method sets the database for searching by titles
   # @author David J. Davis
-  def a_to_z 
+  def a_to_z
     @letters = Database.letters
     @character = params[:character].upcase
     if @character == "NUM"
       @databases = Database.number_list.prod.includes(:landing_page).order('name ASC')
-    else 
+    else
       @databases = Database.alpha_list(@character).prod.includes(:landing_page).order('name ASC')
-    end  
+    end
     render :list
-  end 
+  end
 
   # Shows all the database in alphabetical order by title
   # @author David J. Davis

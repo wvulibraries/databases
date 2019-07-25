@@ -1,4 +1,4 @@
-# Authenticatable 
+# Authenticatable
 # Setup for the CAS Authentication.
 module Authenticatable
   extend ActiveSupport::Concern
@@ -8,7 +8,7 @@ module Authenticatable
   # @author David J. Davis
   # @return No return value.
   def login
-    if authenticated? && admin?
+    if authenticated?
       redirect_to root_path, success: I18n.t('auth.success')
     else
       render(plain: 'Unauthorized!', status: :unauthorized)
