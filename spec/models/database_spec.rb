@@ -40,9 +40,9 @@ RSpec.describe Database, type: :model do
   #   it { should validate_inclusion_of(:alumni).in_array([true, false]) }
   # end
 
-  # context 'belongs to' do
-  #   it { should belong_to(:vendor) }
-  # end
+  context 'belongs to' do
+    it { should belong_to(:vendor).optional }
+  end
 
   context 'has_many associations' do
     it { should have_many(:resources) }

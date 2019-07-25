@@ -12,9 +12,9 @@ RSpec.describe LandingPage, type: :model do
     it { should validate_presence_of(:contact_title) }
   end
 
-  # context 'belongs to' do
-  #   it { should belong_to(:database) }
-  # end
+  context 'belongs to' do
+    it { should belong_to(:database).optional }
+  end
 
   context '.database_name' do
     it "sucessful name" do
@@ -26,6 +26,6 @@ RSpec.describe LandingPage, type: :model do
       database.landing_page = nil
       database.save! 
       expect(landing_page.database_name).to eq('Not Assigned')
-    end 
-  end 
+    end
+  end
 end
