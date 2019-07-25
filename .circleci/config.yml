@@ -69,11 +69,11 @@ jobs:
           command: sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
       - run:
           name: Bundle Gems
-          command: bundle install
-      # - save_cache:
-      #     key: rails-bundle-{{ checksum "Gemfile.lock" }}
-      #     paths:
-      #       - vendor/bundle
+          command: bundle install --path=vendor/bundle
+      - save_cache:
+          key: rails-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
 
       ###########################################
       # Code Climate
