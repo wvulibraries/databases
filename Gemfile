@@ -66,7 +66,7 @@ group :test do
   gem 'rspec_junit_formatter'  
 end
 
-# Developoment / Test Items (Primarily debugging)
+# Development / Test Items (Primarily debugging)
 # =====================================================================================
 group :development, :test do
   gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
