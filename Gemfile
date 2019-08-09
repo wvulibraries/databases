@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '2.6.2'
 
 # Rails Specific 
 # =====================================================================================
@@ -66,7 +66,7 @@ group :test do
   gem 'rspec_junit_formatter'  
 end
 
-# Developoment / Test Items (Primarily debugging)
+# Development / Test Items (Primarily debugging)
 # =====================================================================================
 group :development, :test do
   gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'

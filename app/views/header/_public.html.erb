@@ -30,6 +30,9 @@
           <span class="fa fa-cog"></span>
           Admin 
         </a>
+      <% end %>
+
+      <% if authenticated?%>
         <a href="/signout" class="button signout"> 
           <span class="fa fa-lock"></span>
           Sign Out 

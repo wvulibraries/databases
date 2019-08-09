@@ -1,4 +1,4 @@
-FROM ruby:2.5.3
+FROM ruby:2.6.2
 
 # Install capybara-webkit deps
 RUN apt-get update \
@@ -30,3 +30,7 @@ WORKDIR /home/databases
 ADD ./ /home/databases
 RUN bundle install --jobs=4 --retry=3
 RUN yarn install
+
+ADD ./startup.sh /usr/bin/
+RUN chmod -v +x /usr/bin/startup.sh
+ENTRYPOINT ["/usr/bin/startup.sh"]
