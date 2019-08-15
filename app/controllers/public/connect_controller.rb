@@ -12,7 +12,7 @@ class Public::ConnectController < ApplicationController
     if @database.campus_only? && !on_campus
       redirect root_path, error: I18n.t('campus_only')
     else
-      redirect_to URI.encode(url)
+      redirect_to url
     end
   end
 
