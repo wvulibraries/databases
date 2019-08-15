@@ -15,7 +15,7 @@ RSpec.describe Vendor, type: :model do
 
   context 'vendor website or url' do
     it 'expects invalid url' do
-      vendor.url = 'soemthing'
+      vendor.url = 'something'
       expect(vendor).to_not be_valid
       expect(vendor.errors.messages[:url]).to eq ['is not a valid URL']
     end

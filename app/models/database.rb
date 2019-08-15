@@ -39,6 +39,7 @@ class Database < ApplicationRecord
   # https://github.com/thoughtbot/shoulda-matchers/issues/512#issuecomment-50213690
   validates :popular, inclusion: { in: [true, false] }
   validates :new_database, inclusion: { in: [true, false] }
+  validates :disable_proxy, inclusion: { in: [true, false] } 
   validates :trial_database, inclusion: { in: [true, false] }
   validates :alumni, inclusion: { in: [true, false] }
 

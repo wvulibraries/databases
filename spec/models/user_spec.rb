@@ -55,7 +55,7 @@ RSpec.describe User, type: :model do
       expect(user.name).to be_a(String)
     end 
 
-    it 'expects it to be a cancatenation of first and last name' do
+    it 'expects it to be a concatenation of first and last name' do
       expect(user.name).to eq ("#{user.first_name} #{user.last_name}")
     end 
   end 

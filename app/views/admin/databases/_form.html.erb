@@ -110,6 +110,13 @@
           <%= form.select :new_database, options_for_select([['Yes', true], ['No', false]], selected: form.object.new_database) %>
         </div>
       </div>
+
+      <div class="field one-fourth">
+        <%= form.label :disable_proxy %>
+        <div class="select-style">
+          <%= form.select :disable_proxy, options_for_select([['Yes', true], ['No', false]], selected: form.object.disable_proxy) %>
+        </div>
+      </div>      
     </div>
   </fieldset>
 
