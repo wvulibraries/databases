@@ -41,8 +41,8 @@ jobs:
           name: Configure database.yml
           command: mv config/database.ci.yml config/database.yml
       - run:
-        name: Remove capybara.rb
-        command: rm spec/support/capybara.rb
+          name: Remove capybara.rb
+          command: rm spec/support/capybara.rb
       - run:
           name: Configure application.yml
           command: mv config/application.ci.yml config/application.yml      
