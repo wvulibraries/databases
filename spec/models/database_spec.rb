@@ -60,7 +60,7 @@ RSpec.describe Database, type: :model do
 
   context 'database url' do
     it 'expects invalid url' do
-      database.url = 'soemthing'
+      database.url = 'something'
       expect(database).to_not be_valid
       expect(database.errors.messages[:url]).to eq ['is not a valid URL']
     end
@@ -73,7 +73,7 @@ RSpec.describe Database, type: :model do
 
   context '.help_url' do
     it 'expects invalid url' do
-      database.help_url = 'soemthing'
+      database.help_url = 'something'
       expect(database).to_not be_valid
       expect(database.errors.messages[:help_url]).to eq ['is not a valid URL']
     end
@@ -87,7 +87,7 @@ RSpec.describe Database, type: :model do
   # May not be used
   # context 'off campus url' do
   #   it 'expects invalid url' do
-  #     database.off_campus_url = 'soemthing'
+  #     database.off_campus_url = 'something'
   #     expect(database).to_not be_valid
   #     expect(database.errors.messages[:off_campus_url]).to eq ['is not a valid URL']
   #   end

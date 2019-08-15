@@ -17,6 +17,7 @@ FactoryBot.define do
       title_search { Faker::Movies::HitchhikersGuideToTheGalaxy.planet << Faker::Educator.course_name }
 
       # database booleans
+      disable_proxy { Faker::Boolean.boolean }
       new_database { Faker::Boolean.boolean }
       trial_database { Faker::Boolean.boolean }
       popular { Faker::Boolean.boolean }
@@ -41,6 +42,7 @@ FactoryBot.define do
       title_search { Faker::Movies::HitchhikersGuideToTheGalaxy.planet << Faker::Educator.course_name }
 
       # database booleans
+      disable_proxy { Faker::Boolean.boolean }
       new_database { Faker::Boolean.boolean }
       trial_database { Faker::Boolean.boolean }
       popular { Faker::Boolean.boolean }

@@ -3,6 +3,7 @@
 class Public::ConnectController < ApplicationController
   # An interesting set of logic taken from the prior version of this app that was in PHP. 
   # @author David J. Davis
+  # @modified_by Tracy A. McCormick
   def index
     # set database
     @database = Database.where(url_uuid: params[:uuid]).first
@@ -12,6 +13,7 @@ class Public::ConnectController < ApplicationController
     if @database.campus_only? && !on_campus
       redirect root_path, error: I18n.t('campus_only')
     else
+      # redirect_to URI.encode(url) ? url : URI.encode(url)
       redirect_to url
     end
   end
@@ -29,13 +31,10 @@ class Public::ConnectController < ApplicationController
   # This will generate the URL to have a proxy or use the Db URL. 
   # @param <boolean> campus_ip
   # @author David J. Davis
+  # @modified_by Tracy A. McCormick
   # @return string
   def build_url
-    proxy_url = "#{ENV['proxy_url']}#{@database.url}"
-    if campus_ip?(@client_ip)
-      @database.url
-    else
-      proxy_url
-    end
+    return @database.url if (campus_ip?(@client_ip) || @database.disable_proxy)
+    "#{ENV['proxy_url']}#{@database.url}"
   end
 end

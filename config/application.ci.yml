@@ -46,4 +46,3 @@ development:
 test:
   ssl: 'false'
   google_analytics_key: ~ #nullifies for test
-  ELASTICSEARCH_URL: 'http://elasticsearch:9200'
