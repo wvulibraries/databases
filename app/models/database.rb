@@ -210,7 +210,6 @@ class Database < ApplicationRecord
 
       csv << attributes.map(&:better_titleize)
       all.find_each do |database|
-        database.url = database.connect_url
         csv << attributes.map { |attr| database.send(attr) }
       end
     end
@@ -230,6 +229,7 @@ class Database < ApplicationRecord
       csv << headers
       # get everything else
       all.find_each do |database|
+        database.url = database.connect_url
         csv << database.csv_hash.values
       end
     end
