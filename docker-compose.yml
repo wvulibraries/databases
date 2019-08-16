@@ -37,6 +37,7 @@ services:
       - TERM=xterm
       - CAPTCHA_SITE=6Lcto5cUAAAAAB90nqRI2E9l8wB6yLZXiPJ9DLnw
       - CAPTCHA_SECRET=6Lcto5cUAAAAANIlTQgB6R2SrW_H7qRUKEuTEqG4
+      # - RAILS_ENV=production # uncomment for production
     volumes:
       - ./:/home/databases
     ports:
