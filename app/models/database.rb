@@ -192,6 +192,10 @@ class Database < ApplicationRecord
     access == 'Campus Only Access (No Proxy)'
   end
 
+  def connect_url
+     'https://databases.lib.wvu.edu/connect/' + url_uuid
+  end
+
   # Creates a csv object of all database records.
   # @author David J. Davis
   # @return csv object
@@ -206,6 +210,7 @@ class Database < ApplicationRecord
 
       csv << attributes.map(&:better_titleize)
       all.find_each do |database|
+        database.url = database.connect_url
         csv << attributes.map { |attr| database.send(attr) }
       end
     end
