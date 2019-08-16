@@ -210,7 +210,7 @@ class Database < ApplicationRecord
 
       csv << attributes.map(&:better_titleize)
       all.find_each do |database|
-        database.url = database.connect_url if database.url
+        database.url = database.connect_url
         csv << attributes.map { |attr| database.send(attr) }
       end
     end
