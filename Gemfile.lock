@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/stympy/faker.git
-  revision: 2047b04a7c3f8005d1ddbec9b2c512f4a355ebb8
-  branch: master
-  specs:
-    faker (1.9.6)
-      i18n (>= 0.7)
-
-GIT
   remote: https://github.com/thoughtbot/capybara-webkit.git
   revision: 77fdac424cd6fdb5aa266b229a888cc58da8e95e
   branch: master
@@ -120,6 +112,8 @@ GEM
     factory_bot_rails (5.0.2)
       factory_bot (~> 5.0.2)
       railties (>= 4.2.0)
+    faker (2.1.2)
+      i18n (>= 0.8)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.1)
@@ -338,7 +332,7 @@ DEPENDENCIES
   elasticsearch-rails
   executables
   factory_bot_rails
-  faker!
+  faker
   figaro
   jbuilder (~> 2.5)
   kaminari
