@@ -23,11 +23,7 @@ jobs:
           - transport.host: localhost
           - network.host: 127.0.0.1
           - http.port: 9200
-          - discovery.type: single-node
-      # - image: selenium/standalone-chrome-debug
-      #   name: selenium
-      #   ports: 
-      #     - "4444:4444"                       
+          - discovery.type: single-node                    
     
     #############################################
     # Build Steps
