@@ -69,7 +69,7 @@ end
 # Development / Test Items (Primarily debugging)
 # =====================================================================================
 group :development, :test do
-  gem 'faker'
+  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry'
   gem 'pry-rails'
