@@ -66,13 +66,20 @@ jobs:
       ###########################################
       # Bundler w/ caching
       ###########################################
+      ###########################################
+      # Bundler w/ caching
+      ###########################################
       # - restore_cache:
       #     keys:
       #       - rails-bundle-{{ checksum "Gemfile.lock" }}
       #       - rails-bundle-
       - run:
+          name: Install System Dependencies
+          command: sudo apt-get install qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
+
+      - run:
           name: Bundle Gems
-          command: bundle check --path=vendor/bundle || bundle install --deployment
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle
       # - save_cache:
       #     key: rails-bundle-{{ checksum "Gemfile.lock" }}
       #     paths:
