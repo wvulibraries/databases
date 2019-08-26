@@ -60,7 +60,7 @@ group :test do
   gem 'simplecov'
   gem 'simplecov-console'
   gem 'capybara', '>= 2.15', '< 4.0'
-  gem 'capybara-webkit', github: 'thoughtbot/capybara-webkit', branch: 'master'
+  # gem 'capybara-webkit', github: 'thoughtbot/capybara-webkit', branch: 'master'
   gem 'selenium-webdriver', '~> 3.14'  
   gem 'executables'
   gem 'rspec_junit_formatter'  
