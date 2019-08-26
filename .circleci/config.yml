@@ -24,10 +24,10 @@ jobs:
           - network.host: 127.0.0.1
           - http.port: 9200
           - discovery.type: single-node
-      - image: selenium/standalone-chrome-debug
-        name: selenium
-        ports: 
-          - "4444:4444"                       
+      # - image: selenium/standalone-chrome-debug
+      #   name: selenium
+      #   ports: 
+      #     - "4444:4444"                       
     
     #############################################
     # Build Steps
@@ -40,9 +40,6 @@ jobs:
       - run:
           name: Configure database.yml
           command: mv config/database.ci.yml config/database.yml
-      - run:
-          name: Remove capybara.rb
-          command: rm spec/support/capybara.rb
       - run:
           name: Configure application.yml
           command: mv config/application.ci.yml config/application.yml      
@@ -66,17 +63,17 @@ jobs:
       ###########################################
       # Bundler w/ caching
       ###########################################
-      # - restore_cache:
-      #     keys:
-      #       - rails-bundle-{{ checksum "Gemfile.lock" }}
-      #       - rails-bundle-
+      - restore_cache:
+          keys:
+            - rails-bundle-{{ checksum "Gemfile.lock" }}
+            - rails-bundle-
       - run:
           name: Bundle Gems
-          command: bundle install --deployment
-      # - save_cache:
-      #     key: rails-bundle-{{ checksum "Gemfile.lock" }}
-      #     paths:
-      #       - vendor/bundle
+          command: bundle check --path=vendor/bundle || bundle install --deployment
+      - save_cache:
+          key: rails-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
 
       ###########################################
       # Code Climate
