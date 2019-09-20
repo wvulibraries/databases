@@ -167,6 +167,7 @@
     <!-- Subject Field -->
     <div class="field">
       <%= form.label :subject_ids, 'Subjects' %>
+      <input type="hidden" name="database[subject_ids][]" value=""/>
       <%= form.collection_select :subject_ids, 
                                  Subject.all.order(:name), 
                                  :id, 
@@ -187,6 +188,7 @@
     <!-- Curated Fields -->
     <div class="field">
       <%= form.label :curated_ids, 'Curated Subjects' %>
+      <input type="hidden" name="database[curated_ids][]" value=""/>
       <%= form.collection_select :curated_ids, 
                                  Subject.all.order(:name), 
                                  :id, 
@@ -207,6 +209,7 @@
      <!-- Resource Fields -->
     <div class="field">
       <%= form.label :resource_ids, 'Resource Types' %>
+      <input type="hidden" name="database[resource_ids][]" value=""/>
       <%= form.collection_select :resource_ids, 
                                  Resource.all.order(:name), 
                                  :id, 

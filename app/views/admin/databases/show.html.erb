@@ -43,6 +43,11 @@
   </div>
 
   <div class="container"> 
+    <h3> Curated Subjects </h3>
+    <%= @database.curated_search_index.to_sentence %>
+  </div>
+
+  <div class="container"> 
     <h3> Database Resources </h3>
     <%= @database.resource_list %>
   </div>
@@ -88,7 +93,7 @@
     </p>
   </div>
 
-  <div class="containe"> 
+  <div class="container"> 
     <h3> Search Keywords </h3>
     <p>
       <strong> Basic Keywords </strong>
