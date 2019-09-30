@@ -14,10 +14,10 @@
   <div class="right">
     <%# Trail Databases  %>
     <%= render 'public/partials/trials' if @trials.present? %>
+    <%# New  %>
+    <%= render 'public/partials/new_databases' if @new_databases.present? %>        
     <%# Popular  %>
     <%= render 'public/partials/popular' if @popular.present? %>
-    <%# New  %>
-    <%= render 'public/partials/new_databases' if @new_databases.present? %>    
   </div>
 <% else %>
   <%# Databases by Title  %>
