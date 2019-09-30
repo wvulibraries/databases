@@ -1,6 +1,6 @@
-  <section class="popular" aria-label="Popular Databases"> 
-    <h2> Popular </h2>
-    <% @popular.each do |db| %>
+  <section class="new_database" aria-label="New Databases"> 
+    <h2> New </h2>
+    <% @new_databases.each do |db| %>
       <div class="database-results"> 
         <%= DatabaseDecorator.new(db).display_title %>
         <p> <%= db.description.truncate(150) %> </p>

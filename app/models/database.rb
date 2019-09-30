@@ -91,6 +91,8 @@ class Database < ApplicationRecord
   scope :trials, -> { where(trial_database: true).where('trial_expiration_date > ?', DateTime.now) }
   scope :no_vendor, -> { where(vendor: nil) }
   scope :pop_list, -> { where(popular: true) }
+  scope :new_list, -> { where(new_database: true) }
+
 
   # scoping for alphabetical listing by titles
   scope :alpha_list, ->(letter) { where("name LIKE ?", "#{letter}%") }

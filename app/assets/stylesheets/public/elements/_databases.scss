@@ -100,7 +100,7 @@ $curated-dark: $wvu-blue;
   }
 }
 
-.trial, .popular { 
+.trial, .popular, .new_database { 
   @include grid-column(12); 
   width:100%; 
   border: 2px dotted $wvu-gold;
