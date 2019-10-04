@@ -43,11 +43,11 @@ class Public::BaseController < ApplicationController
     render :subject
   end
 
-  # Lists the databases by the subject selected. 
+  # Lists the databases by the subject selected.
   # @author David J. Davis
   def subject_databases
     subject_id = params[:id]
-    @curated = DatabaseCurated.includes(:database).where(subject_id: subject_id)
+    @curated = DatabaseCurated.includes(:database).where(subject_id: subject_id).order(sort: :desc)
     curated_ids = @curated.pluck(:database_id)
     @databases = Database.list_subjects(subject_id).includes(:landing_page).where.not(id: curated_ids)
     @subject = Subject.find(subject_id)
