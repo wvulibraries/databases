@@ -93,7 +93,6 @@ class Database < ApplicationRecord
   scope :pop_list, -> { where(popular: true) }
   scope :new_list, -> { where(new_database: true) }
 
-
   # scoping for alphabetical listing by titles
   scope :alpha_list, ->(letter) { where("name LIKE ?", "#{letter}%") }
   scope :number_list, -> { where("name REGEXP '^[0-9]'")}

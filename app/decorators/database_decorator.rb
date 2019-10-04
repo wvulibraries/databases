@@ -5,7 +5,7 @@ class DatabaseDecorator < SimpleDelegator
   # @return [String] h3 with nested link
   def display_title
     link = title_link
-    if popular || trial_database
+    if popular || trial_database || new_database
       "<h3 class='popular-title'> #{link} </h3>".html_safe
     else
       "<h3> #{link} </h3>".html_safe

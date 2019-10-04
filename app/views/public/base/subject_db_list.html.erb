@@ -34,7 +34,7 @@
     <% @curated.each do |db| %>
       <div class="database-results"> 
          <%= DatabaseDecorator.new(db.database).display_title %>
-        <p> <%= db.database.description %> </p>
+        <p> <%= raw db.database.description %> </p>
       </div>
     <% end %>
   </section>
@@ -45,7 +45,7 @@
   <% @databases.each do |db| %>
     <div class="database-results" aria-label="Database List"> 
       <%= DatabaseDecorator.new(db).display_title %>
-      <p> <%= db.description %> </p>
+      <p> <%= raw db.description %> </p>
     </div>
   <% end %>
 </section>
