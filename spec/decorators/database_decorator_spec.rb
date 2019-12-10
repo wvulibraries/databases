@@ -8,7 +8,8 @@ describe DatabaseDecorator do
   context ".display_title" do
     it 'db is popular expects the class popular-title to be added to the string' do
       database.popular = true
-      database.trial_database = false; 
+      database.trial_database = false
+      database.new_database = false 
       database.save! 
       decorator = DatabaseDecorator.new(database).display_title
       expect(decorator).to be_a(String)
@@ -17,7 +18,8 @@ describe DatabaseDecorator do
 
     it 'db is trial expects the class popular-title to be added to the string' do
       database.popular = false
-      database.trial_database = true; 
+      database.trial_database = true
+      database.new_database = false 
       database.save! 
       decorator = DatabaseDecorator.new(database).display_title
       expect(decorator).to be_a(String)
@@ -26,7 +28,8 @@ describe DatabaseDecorator do
 
     it 'db is neither expects the class popular-title is not added' do
       database.popular = false
-      database.trial_database = false; 
+      database.trial_database = false
+      database.new_database = false
       database.save! 
       decorator = DatabaseDecorator.new(database).display_title
       expect(decorator).to be_a(String)
