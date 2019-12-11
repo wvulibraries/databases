@@ -31,7 +31,7 @@ describe DatabaseDecorator do
       database.trial_database = false
       database.new_database = false
       database.save! 
-      expect(database.new_database ).to be false
+
       decorator = DatabaseDecorator.new(database).display_title
       expect(decorator).to be_a(String)
       expect(decorator).not_to  include 'popular-title'
