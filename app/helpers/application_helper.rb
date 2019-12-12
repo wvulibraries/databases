@@ -7,4 +7,8 @@ module ApplicationHelper
   def is_number? string
     true if Float(string) rescue false
   end
+
+  def title(title)
+    content_for(:title) { "Databases | #{title}" }
+  end
 end

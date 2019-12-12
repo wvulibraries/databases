@@ -1,8 +1,5 @@
 
-
-<% if @landing_page.database_name.present? %>
- <% @title = @landing_page.database_name %>
-<% end %>
+<% title(@landing_page.database_name) %>
 
 <strong> This is a preview of the landing page without branded styles. </strong>
 <hr/>

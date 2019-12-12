@@ -5,12 +5,12 @@
 <html lang="en" class="no-js">
   <head>
     <title>
-    <% if @title.present? %>
-      <%= 'Databases | ' + @title %>
-    <% else %>
-      <%= 'Databases' %>
-    <% end %>
-    </title>
+      <% if yield(:title).present? %>
+        <%= yield(:title) %>
+      <% else %>
+        Databases
+      <% end %>
+    </title> 
     
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
