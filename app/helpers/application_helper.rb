@@ -8,6 +8,9 @@ module ApplicationHelper
     true if Float(string) rescue false
   end
 
+  # takes string and sets title for page
+  # @author David J. Davis
+  # @author Tracy A. McCormick
   def title(title)
     content_for(:title) { "Databases | #{title}" }
   end
