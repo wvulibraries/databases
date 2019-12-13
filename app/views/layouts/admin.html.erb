@@ -4,7 +4,13 @@
 <!-- nagios check -->
 <html lang="en" class="no-js">
   <head>
-    <title>Databases</title>
+    <title>
+      <% if yield(:title).present? %>
+        <%= yield(:title) %>
+      <% else %>
+        Databases
+      <% end %>
+    </title> 
     
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
