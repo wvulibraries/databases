@@ -15,4 +15,10 @@ describe ApplicationHelper do
       expect(helper.is_number?(nil)).to be false
     end 
   end
+  describe "#title" do
+    it "should return the supplied block if a block was given" do
+      helper.title ( "Some Block" )
+      helper.content_for(:title).should eql "Databases | Some Block"
+    end
+  end
 end
