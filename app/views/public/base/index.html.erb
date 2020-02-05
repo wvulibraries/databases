@@ -20,6 +20,10 @@
     <%= render 'public/partials/popular' if @popular.present? %>
   </div>
 <% else %>
+  <%# Search Bar %>
+  <h2> Database Search </h2>
+  <%= render partial: 'public/search/search_bar', locals: {unique_id: 'body-search'} %>
+
   <%# Databases by Title  %>
   <%= render 'public/partials/title_list'  %>
 
