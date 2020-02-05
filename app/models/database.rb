@@ -270,7 +270,6 @@ class Database < ApplicationRecord
       thumbnail: '',
       content_id: self.libguides_id
     }
-
   end
 
   # Elastic search settings using indexed json. 
@@ -278,8 +277,8 @@ class Database < ApplicationRecord
   # rake elasticsearch:import:model CLASS='Database' SCOPE="production" FORCE=y
   def as_indexed_json(_options)
     as_json(
-      methods: [:vendor_name, :subject_search_index, :rss_search_index, :curated_search_index, :published],
-      only: [:id, :name, :vendor_name, :description, :title_search]
+      methods: [:vendor_name, :subject_search_index, :rss_search_index, :curated_search_index, :published, :keywords],
+      only: [:id, :name, :vendor_name, :description, :title_search, :keywords]
     )
   end
 
@@ -292,6 +291,7 @@ class Database < ApplicationRecord
     indexes :subject_search_index, type: :text, analyzer: 'english'
     indexes :rss_search_index, type: :text, analyzer: 'english'
     indexes :curated_search_index, type: :text, analyzer: 'english'
+    indexes :keywords, type: :text, analyzer: 'english'
     indexes :published, type: :boolean
   end
 
@@ -311,6 +311,7 @@ class Database < ApplicationRecord
                   'vendor_name^5',
                   'subject_search_index',
                   'curated_search_index',
+                  'keywords',
                   'rss_search_index',
                   'description^2'
                 ],
