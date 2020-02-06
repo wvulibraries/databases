@@ -16,20 +16,11 @@ module Searchable
     # set number of shards
     settings number_of_shards: 1
 
-    # create
-    after_commit on: [:create] do
-      __elasticsearch__.index_document
-    end
-
-    # update
-    after_commit on: [:update] do
-      __elasticsearch__.update_document
-    end
+    # create / update
+    after_commit lambda { __elasticsearch__.index_document  },  on: [:create, :update]
 
     # delete
-    after_commit on: [:destroy] do
-      __elasticsearch__.delete_document
-    end
+    after_commit lambda { __elasticsearch__.delete_document },  on: :destroy
 
     # create a core mapping
     mapping do
