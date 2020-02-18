@@ -81,6 +81,8 @@ class Database < ApplicationRecord
   # default values
   before_validation :mint_uuid, on: [:create]
   after_initialize :set_defaults
+  # sanitize description only basic html tags allowed
+  before_save :sanitize_description
 
   # SCOPES
   # -----------------------------------------------------
@@ -351,5 +353,12 @@ class Database < ApplicationRecord
     self.help_url ||= ENV['help_url']
     self.created_at ||= DateTime.current
   end
+
+
+  # Sanitize the Description field
+  # @author Tracy A. McCormick
+  def sanitize_description
+    self.description = Sanitize.fragment(self.description, Sanitize::Config::BASIC)
+  end  
   
 end

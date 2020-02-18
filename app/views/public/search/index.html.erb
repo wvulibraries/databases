@@ -19,7 +19,7 @@
 <% @databases.includes(:landing_page).each do |db| %>
   <div class="database-results"> 
     <%= DatabaseDecorator.new(db).display_title %>
-    <p> <%= db.description %> </p>
+    <p> <%= raw db.description %> </p>
   </div>
 <% end %>
 
