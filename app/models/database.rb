@@ -286,15 +286,68 @@ class Database < ApplicationRecord
 
   # Mapping the elasticsearch information to english language for better search.
   # @author David J. Davis
-  mapping do
-    indexes :name, type: :text, analyzer: 'english'
-    indexes :vendor_name, type: :text, analyzer: 'english'
-    indexes :description, type: :text,analyzer: 'english'
-    indexes :subject_search_index, type: :text, analyzer: 'english'
-    indexes :rss_search_index, type: :text, analyzer: 'english'
-    indexes :curated_search_index, type: :text, analyzer: 'english'
-    indexes :keywords, type: :text, analyzer: 'english'
-    indexes :published, type: :boolean
+  settings index: {
+    number_of_shards: 1,
+    number_of_replicas: 0,
+    analysis: {
+      analyzer: {
+        pattern: {
+          type: 'pattern',
+          pattern: "\\s|_|-|\\.",
+          lowercase: true
+        },
+        trigram: {
+          tokenizer: 'trigram'
+        }
+      },
+      tokenizer: {
+        trigram: {
+          type: 'ngram',
+          min_gram: 3,
+          max_gram: 3,
+          token_chars: ['letter', 'digit']
+        }
+      }
+    } 
+  } do
+    mapping do
+      indexes :name, type: 'text', analyzer: 'english' do
+        indexes :keyword, analyzer: 'keyword'
+        indexes :pattern, analyzer: 'pattern'
+        indexes :trigram, analyzer: 'trigram'
+      end
+      indexes :vendor_name, type: 'text', analyzer: 'english' do
+        indexes :keyword, analyzer: 'keyword'
+        indexes :pattern, analyzer: 'pattern'
+        indexes :trigram, analyzer: 'trigram'
+      end
+      indexes :keywords, type: 'text', analyzer: 'english' do
+        indexes :keyword, analyzer: 'keyword'
+        indexes :pattern, analyzer: 'pattern'
+        indexes :trigram, analyzer: 'trigram'
+      end
+      indexes :subject_search_index, type: 'text', analyzer: 'english' do
+        indexes :keyword, analyzer: 'keyword'
+        indexes :pattern, analyzer: 'pattern'
+        indexes :trigram, analyzer: 'trigram'
+      end
+      indexes :rss_search_index, type: 'text', analyzer: 'english' do
+        indexes :keyword, analyzer: 'keyword'
+        indexes :pattern, analyzer: 'pattern'
+        indexes :trigram, analyzer: 'trigram'
+      end
+      indexes :curated_search_index, type: 'text', analyzer: 'english' do
+        indexes :keyword, analyzer: 'keyword'
+        indexes :pattern, analyzer: 'pattern'
+        indexes :trigram, analyzer: 'trigram'
+      end
+      indexes :description, type: 'text', analyzer: 'english' do
+        indexes :keyword, analyzer: 'keyword'
+        indexes :pattern, analyzer: 'pattern'
+        indexes :trigram, analyzer: 'trigram'
+      end
+      indexes :published, type: :boolean
+    end
   end
 
   # Seach query for searching with boosted items. 
@@ -303,29 +356,20 @@ class Database < ApplicationRecord
   def self.search(query, num = 1000)
     __elasticsearch__.search(
       "query": {
-        "bool": {
-          "must": [
-            {
-              "multi_match": {
-                "query": query,
-                "fields": [
-                  'name^50',
-                  'vendor_name^5',
-                  'subject_search_index',
-                  'curated_search_index',
-                  'keywords',
-                  'rss_search_index',
-                  'description^2'
-                ],
-                "fuzziness": 1,
-                "tie_breaker": 0.5
-              }
-            }, {
-              "match": {
-                "published": true
-              }
-            }
-          ]
+        "query_string": {
+          "query": "(*#{query}*) AND (published:true)", 
+          "fields": [
+            '*',
+            '*name^10',
+            'subject_search_index^5',
+            'curated_search_index',
+            'keywords^10',
+            'rss_search_index',
+            'description^5'
+          ],
+          "lenient": true,  
+          "analyze_wildcard": true,
+          "rewrite": "constant_score"       
         }
       },
       "size": num
