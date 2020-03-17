@@ -32,6 +32,10 @@ proxy_url: 'http://www.libproxy.wvu.edu/login?url='
 # Google Analytics 
 google_analytics_key: "UA-35722661-5"
 
+# Google Recaptcha 
+CAPTCHA_SITE: 'CHANGEME'
+CAPTCHA_SECRET: 'CHANGEME'
+
 # DEVELOPMENT ENVIRONMENT SPECIFIC 
 # -----------------------------------------------------------------
 production:
