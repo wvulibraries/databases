@@ -4,7 +4,11 @@
       <div class="database-results"> 
         <%= DatabaseDecorator.new(db).display_title %>
         <p> <%= db.description.truncate(150) %> </p>
+
+        <br/> 
         <strong> Trial ends on <%= l(db.trial_expiration_date, format: :human_readable) %> </strong>
+        <br/>
+        <a href="/feedback/<%= db.id %>"> <span class="fas fa-envelope"></span> Trial Feedback </a>
       </div>
     <% end %>
   </section>
