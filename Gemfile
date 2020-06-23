@@ -48,6 +48,9 @@ gem 'kaminari' # must be before elasticsearch
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 
+# jobs
+gem 'whenever', require: false
+
 # Test Suite
 # =====================================================================================
 group :test do
