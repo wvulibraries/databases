@@ -33,6 +33,7 @@ class Database::Mature
       database.new_database = false 
       database.save(validate: false)
     end
+    return true
   end 
 
   # Triggers an active record save if the validation passes.
