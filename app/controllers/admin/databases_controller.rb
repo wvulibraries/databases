@@ -165,7 +165,7 @@ class Admin::DatabasesController < AdminController
   # Never trust parameters from the scary internet,
   # only allow the white list through.
   def database_params
-    params.require(:database).permit(:name, :status, :years_of_coverage, :url, :off_campus_url, :updated, :full_text_db, :new_database, :disable_proxy, :trial_database, :help, :help_url, :description, :created_at, :updated_at, :popular, :alumni, :title_search, :vendor, :trial_expiration_date, :vendor_id, subject_ids: [], resource_ids: [], curated_ids: [])
+    params.require(:database).permit(:name, :status, :years_of_coverage, :url, :off_campus_url, :updated, :full_text_db, :new_database, :open_access, :disable_proxy, :trial_database, :help, :help_url, :description, :created_at, :updated_at, :popular, :alumni, :title_search, :vendor, :trial_expiration_date, :vendor_id, subject_ids: [], resource_ids: [], curated_ids: [])
   end
 
   # allow a single parameter from the form

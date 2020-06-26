@@ -1,0 +1,9 @@
+  <section class="open_access" aria-label="New Databases"> 
+    <h2> Open Access </h2>
+    <% @open_access.each do |db| %>
+      <div class="database-results"> 
+        <%= DatabaseDecorator.new(db).display_title %>
+        <p> <%= db.description.truncate(150) %> </p>
+      </div>
+    <% end %>
+  </section>

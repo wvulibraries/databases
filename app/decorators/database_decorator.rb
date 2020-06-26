@@ -7,6 +7,8 @@ class DatabaseDecorator < SimpleDelegator
     link = title_link
     if popular || trial_database || new_database
       "<h3 class='popular-title'> #{link} </h3>".html_safe
+    elsif open_access 
+      "<h3 class='open-title'> #{link} </h3>".html_safe
     else
       "<h3> #{link} </h3>".html_safe
     end 

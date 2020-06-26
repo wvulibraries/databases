@@ -112,6 +112,13 @@
       </div>
 
       <div class="field one-fourth">
+        <%= form.label :open_access %>
+        <div class="select-style">
+          <%= form.select :open_access, options_for_select([['Yes', true], ['No', false]], selected: form.object.open_access) %>
+        </div>
+      </div>
+
+      <div class="field one-fourth">
         <%= form.label :disable_proxy %>
         <div class="select-style">
           <%= form.select :disable_proxy, options_for_select([['Yes', true], ['No', false]], selected: form.object.disable_proxy) %>

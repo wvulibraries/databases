@@ -98,6 +98,16 @@ RSpec.describe Database, type: :model do
   #   end
   # end
 
+  context 'Open Access' do
+    context '.open_access_list' do
+      it 'queries open access databases' do
+        database.open_access = true 
+        database.save! 
+        expect(Database.open_access_list.count).to eq 1
+      end 
+    end
+  end 
+
   context 'status scopes' do
     it 'expects production status to eq 1' do
       database.status = 'production'
