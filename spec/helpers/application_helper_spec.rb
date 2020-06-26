@@ -18,7 +18,7 @@ describe ApplicationHelper do
   describe "#title" do
     it "should return the supplied block if a block was given" do
       helper.title ( "Some Block" )
-      expect(helper.content_for(:title).to eq "Databases | Some Block"
+      expect(helper.content_for(:title)).to eq "Databases | Some Block"
     end
   end
 end
