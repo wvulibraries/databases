@@ -22,6 +22,7 @@ FactoryBot.define do
       trial_database { Faker::Boolean.boolean }
       popular { Faker::Boolean.boolean }
       alumni { Faker::Boolean.boolean }
+      open_access { Faker::Boolean.boolean }
 
       # dates 
       trial_expiration_date { Faker::Date.between(2.years.ago, 1.year.from_now) }

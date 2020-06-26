@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_15_151418) do
+ActiveRecord::Schema.define(version: 2020_06_25_120232) do
 
   create_table "access_plain_text", id: :integer, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "name", limit: 16777215
@@ -48,15 +48,15 @@ ActiveRecord::Schema.define(version: 2019_08_15_151418) do
     t.boolean "alumni", default: false, null: false
     t.boolean "mobile", default: false, unsigned: true
     t.string "title_search"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.datetime "trial_expiration_date"
     t.integer "access", default: 2
     t.integer "libguides_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "disable_proxy", default: false
+    t.boolean "open_access", default: false
     t.index ["libguides_id"], name: "index_database_list_on_libguides_id", unique: true
     t.index ["url_uuid"], name: "index_database_list_on_url_uuid", unique: true
-    t.index ["vendor_id"], name: "fk_vendor_id"
   end
 
   create_table "database_status", id: :integer, limit: 1, unsigned: true, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 2019_08_15_151418) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "landing_pages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "landing_pages", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.text "instructions"
     t.text "restrictions"
     t.text "html_links"
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 2019_08_15_151418) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "cas_email"
@@ -159,5 +159,4 @@ ActiveRecord::Schema.define(version: 2019_08_15_151418) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "database_list", "vendors", name: "fk_vendor_id"
 end

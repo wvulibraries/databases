@@ -41,6 +41,7 @@ class Database < ApplicationRecord
   validates :new_database, inclusion: { in: [true, false] }
   validates :disable_proxy, inclusion: { in: [true, false] } 
   validates :trial_database, inclusion: { in: [true, false] }
+  validates :open_access, inclusion: { in: [true, false] }
   validates :alumni, inclusion: { in: [true, false] }
 
   # ENUMS
@@ -94,6 +95,7 @@ class Database < ApplicationRecord
   scope :no_vendor, -> { where(vendor: nil) }
   scope :pop_list, -> { where(popular: true) }
   scope :new_list, -> { where(new_database: true) }
+  scope :open_access_list, -> { where(open_access: true) }
 
   # scoping for alphabetical listing by titles
   scope :alpha_list, ->(letter) { where("name LIKE ?", "#{letter}%") }

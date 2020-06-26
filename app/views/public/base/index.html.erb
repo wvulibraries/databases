@@ -18,6 +18,8 @@
     <%= render 'public/partials/new_databases' if @new_databases.present? %>        
     <%# Popular  %>
     <%= render 'public/partials/popular' if @popular.present? %>
+    <%# Open Access  %>
+    <%= render 'public/partials/open_access_databases' if @open_access.present? %>
   </div>
 <% else %>
   <%# Search Bar %>

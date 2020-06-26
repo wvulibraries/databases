@@ -100,7 +100,7 @@ $curated-dark: $wvu-blue;
   }
 }
 
-.trial, .popular, .new_database { 
+.trial, .popular, .new_database, .open_access { 
   @include grid-column(12); 
   width:100%; 
   border: 2px dotted $wvu-gold;
@@ -125,6 +125,26 @@ $curated-dark: $wvu-blue;
   p { font-size:.8em; }
 }
 
+.open_access { 
+  h3 { 
+    font-size:1.2em;
+    margin-bottom:1em;
+    &:before {  
+      font-family: unset; 
+      content: '';
+      background: asset-data-url("noun_unlock.png") no-repeat center center;
+      background-image: asset-data-url("noun_unlock.svg");
+      background-size: contain;
+      width: 20px; 
+      height: 20px;
+      margin-right: -5px;
+      display: inline-block;
+      position: relative;
+      top: 4px;
+    }
+  }
+}
+
 .popular { 
   display:none; 
   @include breakpoint(tablet){
@@ -138,9 +158,25 @@ h3.popular-title {
 font-family: 'Font Awesome 5 Free';
     content: "\f005";
     font-size:50%;
-    color: gold; 
+    color: #EAAA00; 
     top: -5px;
     position:relative;
+  }
+}
+
+h3.open-title { 
+  &:before {  
+    font-family: unset; 
+    content: '';
+    background: asset-data-url("noun_unlock.png") no-repeat center center;
+    background-image: asset-data-url("noun_unlock.svg");
+    background-size: contain;
+    width: 17px; 
+    height: 17px;
+    margin-right: -2px;
+    display: inline-block;
+    position: relative;
+    top: -2px;
   }
 }
 

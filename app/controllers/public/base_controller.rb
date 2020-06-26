@@ -10,6 +10,7 @@ class Public::BaseController < ApplicationController
     @trials = Database.trials.prod.includes(:landing_page)
     @popular = Database.pop_list.prod.includes(:landing_page)
     @new_databases = Database.new_list.prod.includes(:landing_page)
+    @open_access = Database.open_access_list.prod.includes(:landing_page)
     render :index
   end
 
