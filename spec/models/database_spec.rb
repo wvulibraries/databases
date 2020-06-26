@@ -101,7 +101,7 @@ RSpec.describe Database, type: :model do
   context 'Open Access' do
     context '.open_access_list' do
       it 'queries open access databases' do
-        databases.open_access = true 
+        database.open_access = true 
         database.save! 
         expect(Database.open_access_list.count).to eq 1
       end 
