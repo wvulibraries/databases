@@ -345,7 +345,7 @@ DEPENDENCIES
   puma (~> 3.12)
   rack-cas (~> 0.16.0)
   rack_session_access
-  rails (~> 5.2.1)
+  rails (~> 5.2.4.3)
   rails-controller-testing
   recaptcha
   rspec-rails
@@ -354,7 +354,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   selenium-webdriver (~> 3.14)
   shoulda-matchers
-  simplecov
+  simplecov (~> 0.10, < 0.18)
   simplecov-console
   spring
   spring-watcher-listen (~> 2.0.0)
