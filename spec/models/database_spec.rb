@@ -12,8 +12,8 @@ RSpec.describe Database, type: :model do
   end
 
   context 'enums' do
-    it { should define_enum_for(:status).with(%i[undefined production development hidden]) }
-    it { should define_enum_for(:access).with ({'Campus Only Access (No Proxy)' => 1, 'Campus and Off Campus (Proxy)' => 2 }) }
+    it { should define_enum_for(:status).with_values(%i[undefined production development hidden]) }
+    it { should define_enum_for(:access).with_values({'Campus Only Access (No Proxy)' => 1, 'Campus and Off Campus (Proxy)' => 2 }) }
   end
 
   context 'validates the length of the item' do

@@ -25,8 +25,8 @@ FactoryBot.define do
       open_access { Faker::Boolean.boolean }
 
       # dates 
-      trial_expiration_date { Faker::Date.between(2.years.ago, 1.year.from_now) }
-      years_of_coverage { "#{Faker::Date.between(2.years.ago, Time.zone.today)} - #{Faker::Date.between(2.days.ago, Time.zone.today)}" }
+      trial_expiration_date { Faker::Date.between(from: 2.years.ago, to: 1.year.from_now) }
+      years_of_coverage { "#{Faker::Date.between(from: 2.years.ago, to: Time.zone.today)} - #{Faker::Date.between(from: 2.days.ago, to: Time.zone.today)}" }
       created_date { Time.zone.today }
       updated_date { Time.zone.today }
     end
@@ -50,8 +50,8 @@ FactoryBot.define do
       alumni { Faker::Boolean.boolean }
 
       # dates 
-      trial_expiration_date { Faker::Date.between(2.years.ago, 1.year.from_now) }
-      years_of_coverage { "#{Faker::Date.between(2.years.ago, Time.zone.today)} - #{Faker::Date.between(2.days.ago, Time.zone.today)}" }
+      trial_expiration_date { Faker::Date.between(from: 2.years.ago, to: 1.year.from_now) }
+      years_of_coverage { "#{Faker::Date.between(from: 2.years.ago, to: Time.zone.today)} - #{Faker::Date.between(from: 2.days.ago, to: Time.zone.today)}" }
       created_date { Time.zone.today }
       updated_date { Time.zone.today }
     end

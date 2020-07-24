@@ -11,7 +11,7 @@ RSpec.describe DatabaseCurated, type: :model do
   end
 
   context 'enums' do 
-    it { should define_enum_for(:sort).with({ 'High' => 3, 'Medium' => 2, 'Low' => 1, 'Default' => 0 }) }
+    it { should define_enum_for(:sort).with_values({ 'High' => 3, 'Medium' => 2, 'Low' => 1, 'Default' => 0 }) }
   end 
 
   context '.database_name' do
