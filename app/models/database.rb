@@ -359,15 +359,15 @@ class Database < ApplicationRecord
     __elasticsearch__.search(
       "query": {
         "query_string": {
-          "query": "(*#{query}*) AND (published:true)", 
+          "query": "(#{query}) AND (published:true)", 
           "fields": [
-            '*',
-            '*name^10',
+            'name^10',
+            'vendor_name^1',
             'subject_search_index^5',
             'curated_search_index',
-            'keywords^10',
+            'keywords^5',
             'rss_search_index',
-            'description^5'
+            'description'
           ],
           "lenient": true,  
           "analyze_wildcard": true,
@@ -377,6 +377,8 @@ class Database < ApplicationRecord
       "size": num
     )
   end
+
+  
 
   # PRIVATE METHODS
   # -----------------------------------------------------
