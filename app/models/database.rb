@@ -403,7 +403,6 @@ class Database < ApplicationRecord
     self.created_at ||= DateTime.current
   end
 
-
   # Sanitize the Description field
   # @author Tracy A. McCormick
   def sanitize_description

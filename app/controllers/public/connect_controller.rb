@@ -1,4 +1,4 @@
-# Public::AboutController 
+# Public::ConnectController 
 # Controller deals with connecting to the database keeps a "permanent URL". 
 class Public::ConnectController < ApplicationController
   # An interesting set of logic taken from the prior version of this app that was in PHP. 
@@ -13,9 +13,20 @@ class Public::ConnectController < ApplicationController
     if @database.campus_only? && !on_campus
       redirect root_path, error: I18n.t('campus_only')
     else
+      # save client ip to link tracking for reporting
+      save_ip
       # redirect_to URI.encode(url) ? url : URI.encode(url)
       redirect_to url
     end
+  end
+
+  # Saves the client_ip for database tracking purposes. 
+  # @author Tracy A. McCormick  
+  def save_ip 
+    link_tracking = LinkTracking.new
+    link_tracking.ip_address = @client_ip
+    link_tracking.database = @database
+    link_tracking.save
   end
 
   # Users IpAddr objects to check IP ranges from subnets 

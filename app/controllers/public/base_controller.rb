@@ -1,4 +1,4 @@
-# Public::AboutController 
+# Public::BaseController 
 # Controller that deals with the public facing interfaces. 
 class Public::BaseController < ApplicationController
   # Root controller of public inteface.
