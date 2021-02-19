@@ -23,10 +23,7 @@ class Public::ConnectController < ApplicationController
   # Saves the client_ip for database tracking purposes. 
   # @author Tracy A. McCormick  
   def save_ip 
-    link_tracking = LinkTracking.new
-    link_tracking.ip_address = @client_ip
-    link_tracking.database = @database
-    link_tracking.save
+    LinkTracking.create(database: @database, ip_address: @client_ip)
   end
 
   # Users IpAddr objects to check IP ranges from subnets 
