@@ -96,4 +96,7 @@ en:
         keyword_field_label: "Keywords"
         informative_tags_description:
           html: "Subject tags help to identify what subjects each database will be listed under, while curated subject tags will create a sorting order for databases that should show up first as <strong> preferred </strong> databases."
+    link_tracking:
+      index:
+        heading: "Database Link Tracking"
         

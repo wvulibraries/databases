@@ -1,0 +1,19 @@
+<h1><%= I18n.t('admin.link_tracking.index.heading') %></h1>
+
+<table class="table">
+  <thead>
+    <tr> 
+      <th> Title </th>
+      <th> Click Count </th>
+      <th colspan="3"> Actions </th>
+    </tr>
+  </thead>
+  
+  <% @databases.each do |database| %>
+    <tr> 
+      <td data-label="Title"> <%= database.name %> </td>
+      <td data-label="Click Count"> <%= database.link_tracking.size %> </td>
+      <td data-label="Show"> <%= link_to raw('<span class="fas fa-eye" title="Show"></span>'), admin_database_path(database), { class: 'show-button', title:'show', 'aria-label':"Show #{database.name}" } %> </td>
+    </tr>
+  <% end %>
+</table>

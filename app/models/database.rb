@@ -73,6 +73,9 @@ class Database < ApplicationRecord
   # landing page
   has_one :landing_page, required: false
 
+  # link tracking
+  has_many :link_tracking
+
   # CONCERNS
   # -----------------------------------------------------
   include Searchable
@@ -377,8 +380,6 @@ class Database < ApplicationRecord
       "size": num
     )
   end
-
-  
 
   # PRIVATE METHODS
   # -----------------------------------------------------

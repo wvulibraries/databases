@@ -4,7 +4,7 @@ class LinkTracking < ApplicationRecord
   # validations
   validates :database, 
             presence: true  
-            
+
   validates :ip_address,
             presence: true,
             length: { within: 7..15 }  
