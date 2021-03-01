@@ -1,5 +1,15 @@
 <h1><%= I18n.t('admin.link_tracking.index.heading') %></h1>
 
+<%= form_tag '', :method => :get do %>
+  <div class="form-group">
+    <%= date_field_tag(:start_date, class: "form-control", id: "start_date", name: "start_date") %>
+    <p class="text-center">to</span>
+    <%= date_field_tag(:end_date, class: "form-control", id: "end_date", name: "end_date") %>
+  </div>
+
+  <%= submit_tag "Filter" %>
+<% end %>
+
 <table class="table">
   <thead>
     <tr> 
@@ -9,11 +19,16 @@
     </tr>
   </thead>
   
-  <% @databases.each do |database| %>
-    <tr> 
-      <td data-label="Title"> <%= database.name %> </td>
-      <td data-label="Click Count"> <%= database.link_tracking.size %> </td>
-      <td data-label="Show"> <%= link_to raw('<span class="fas fa-eye" title="Show"></span>'), admin_database_path(database), { class: 'show-button', title:'show', 'aria-label':"Show #{database.name}" } %> </td>
-    </tr>
+  <% if @databases != nil %>
+    <% @databases.each do |database| %>
+      <tr> 
+        <td data-label="Title"> <%= database.name %> </td>
+        <td data-label="Click Count"> <%= database.tracking_count %> </td>
+        <td data-label="Show"> <%= link_to raw('<span class="fas fa-eye" title="Show"></span>'), admin_database_path(database), { class: 'show-button', title:'show', 'aria-label':"Show #{database.name}" } %> </td>
+      </tr>
+    <% end %>
+  <% else %>
+      No Results Returned.
   <% end %>
+
 </table>

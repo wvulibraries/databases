@@ -79,5 +79,8 @@ Rails.application.routes.draw do
 
     # users
     resources :users
+
+    # link tracking
+    resources :link_tracking    
   end
 end

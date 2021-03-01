@@ -113,6 +113,14 @@ class Database < ApplicationRecord
   # PUBLIC METHODS
   # -----------------------------------------------------
 
+  # Returns number of link_tracking assocations
+  # Only used for reporting purposes
+  # @author Tracy A. McCormick
+  # @return integer
+  def tracking_count
+    link_tracking.count
+  end
+
   # Uses Enum method to determine if something is published.
   # Only used in the search params for elasticsearch
   # @author David J. Davis

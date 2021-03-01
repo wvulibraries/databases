@@ -7,5 +7,11 @@ class LinkTracking < ApplicationRecord
 
   validates :ip_address,
             presence: true,
-            length: { within: 7..15 }  
+            length: { within: 7..15 } 
+            
+  # scoping for subject listing 
+  scope :total_count, -> { all.count }
+  
+  scope :prev_month_count, -> { where('created_at < ?', DateTime.now).count } 
+  scope :current_month_count, -> { where('created_at < ?', DateTime.now).count } 
 end
