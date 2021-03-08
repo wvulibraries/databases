@@ -251,6 +251,22 @@ class Database < ApplicationRecord
     end
   end
 
+  # Generates a CSV to export link tracking data.
+  # @author Tracy A. McCormick
+  # @return csv object
+  def self.linktracking_export
+    headers = %w[
+      name count
+    ]
+    CSV.generate(headers: true) do |csv|
+      csv << headers
+      # get everything else
+      all.find_each do |database|
+        csv << database.link_tracking_csv_hash.values
+      end
+    end
+  end  
+
   # Creates a hash to use in the lib_guides CSV.
   # LibGuides requries the use of these fields
   # vendor name url enable_proxy description more_info enable_new enable_trial
@@ -284,6 +300,18 @@ class Database < ApplicationRecord
       resource_icons: '',
       thumbnail: '',
       content_id: self.libguides_id
+    }
+  end
+
+  # Creates a hash to use in the link_tracking CSV.
+  # LibGuides requries the use of these fields
+  # name tracking_count
+  # @author Tracy A. McCormick
+  # @return [Hash] Custom for LinkTracking.
+  def link_tracking_csv_hash
+    {
+      name: self.name,
+      count: self.tracking_count
     }
   end
 

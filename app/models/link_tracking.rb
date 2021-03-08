@@ -9,7 +9,7 @@ class LinkTracking < ApplicationRecord
             presence: true,
             length: { within: 7..15 } 
             
-  # scoping for subject listing 
+  # scoping for count 
   scope :total_count, -> { all.count }
   
   scope :prev_month_count, -> { where('created_at < ?', DateTime.now).count } 

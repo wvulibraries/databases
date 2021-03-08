@@ -1,13 +1,22 @@
-<h1><%= I18n.t('admin.link_tracking.index.heading') %></h1>
 
+<h2> <%= I18n.t('admin.link_tracking.index.heading') %> </h2>
+    
 <%= form_tag '', :method => :get do %>
-  <div class="form-group">
-    <%= date_field_tag(:start_date, class: "form-control", id: "start_date", name: "start_date") %>
-    <p class="text-center">to</span>
-    <%= date_field_tag(:end_date, class: "form-control", id: "end_date", name: "end_date") %>
-  </div>
+  <div class="filter-results">  
+    <div class="filter-date-select">
+      <%= label_tag(:start_date, "Start Date:") %>
+      <%= date_field_tag(:start_date, @start, id: "start_date", name: "start_date") %>
+    </div>
+    
+    <div class="filter-date-select">
+      <%= label_tag(:end_date, "End Date:") %>
+      <%= date_field_tag(:end_date, @end, id: "end_date", name: "end_date") %>        
+    </div>
 
-  <%= submit_tag "Filter" %>
+    <div class="filter-actions">
+      <%= submit_tag "Filter", class: 'submit-button'%>
+    </div>    
+  </div>
 <% end %>
 
 <table class="table">

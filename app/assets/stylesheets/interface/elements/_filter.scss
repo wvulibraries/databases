@@ -1,0 +1,21 @@
+.filter-results{
+  @include grid-column(12); 
+  margin-top:1em;   
+  margin-bottom:1em;
+}
+
+.filter-date-select{
+  @include grid-column(12); 
+  @include breakpoint(tablet){ 
+    @include grid-column(4);
+  }
+}
+
+.filter-actions { 
+  @include grid-column(12); 
+  padding-top: 5px;
+  @include breakpoint(tablet){ 
+    @include grid-column(4);
+    padding-top: 30px;
+  }
+}
