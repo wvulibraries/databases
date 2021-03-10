@@ -14,9 +14,14 @@ class Admin::LinkTrackingController < AdminController
           @start, 
           @end )
           .distinct
+
     respond_to do |format|
       format.html do
-        render :index 
+        if params[:commit] == 'Export'
+          send_data @databases.linktracking_export, filename: "linktracking-#{Date.today}.csv"
+        else  
+          render :index
+        end 
       end
       format.csv do
         send_data @databases.linktracking_export, filename: "linktracking-#{Date.today}.csv"
