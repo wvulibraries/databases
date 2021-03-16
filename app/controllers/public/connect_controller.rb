@@ -26,23 +26,13 @@ class Public::ConnectController < ApplicationController
     LinkTracking.create(database: @database, ip_address: @client_ip)
   end
 
-  # Users IpAddr objects to check IP ranges from subnets 
-  # must be set in environment ENV['campus_ip']
-  # @param [IPAddr<object>] client_ip
-  # @author David J. Davis
-  # @return boolean
-  def campus_ip? client_ip
-    ip_range = IPAddr.new(ENV['campus_ip'])
-    ip_range.include? client_ip
-  end
-
   # This will generate the URL to have a proxy or use the Db URL. 
   # @param <boolean> campus_ip
   # @author David J. Davis
   # @modified_by Tracy A. McCormick
   # @return string
   def build_url
-    return @database.url if (campus_ip?(@client_ip) || @database.disable_proxy)
+    return @database.url if (IpLocation.new(@client_ip).campus? || @database.disable_proxy)
     "#{ENV['proxy_url']}#{@database.url}"
   end
 end
