@@ -1,7 +1,7 @@
 
 <h2> <%= I18n.t('admin.link_tracking.index.heading') %> </h2>
     
-<%= form_tag '', :method => :get do %>
+<%= form_tag '', method: :get, id: 'filter-results' do %>
   <div class="filter-results">  
     <div class="filter-date-select">
       <%= label_tag(:start_date, "Start Date:") %>
@@ -14,11 +14,14 @@
     </div>
 
     <div class="filter-actions">
-      <%= submit_tag "Filter", class: 'submit-button'%>
-      <%= submit_tag "Export", class: 'submit-button'%>
-    </div>       
+      <%= submit_tag "Filter", class: 'submit-button', id: 'filter' %>
+      <%= submit_tag "Export", class: 'submit-button', id: 'export' %>
+    </div> 
+
   </div>
 <% end %>
+
+
 
 <table class="table">
   <thead>
