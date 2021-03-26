@@ -15,7 +15,7 @@ RSpec.describe Subject, type: :model do
 
   context 'subject website or url' do
     it 'expects invalid url' do
-      subject.url = 'soemthing'
+      subject.url = 'something'
       expect(subject).to_not be_valid
       expect(subject.errors.messages[:url]).to eq ['is not a valid URL']
     end
