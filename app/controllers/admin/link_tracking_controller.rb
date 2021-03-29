@@ -1,6 +1,7 @@
 # Admin Link Tracking Controller
 class Admin::LinkTrackingController < AdminController
-  before_action :set_dates , only: [:index]
+  before_action :start , only: [:index]
+  before_action :end , only: [:index]
     
   # Rendering an index form for link tracking
   # @author Tracy A. McCormick
@@ -17,18 +18,13 @@ class Admin::LinkTrackingController < AdminController
   end
   
   private
-    # set start and end dates for the filter
-    # verify start_date and end_date is in proper 
-    # format from passed params.
-    # @author Tracy A. McCormick    
-    def set_dates
-      if params[:start_date] && params[:end_date]
-        @start = params[:start_date]
-        @end = params[:end_date]
-      else
-        @start = Date.today - 1.month
-        @end = Date.today
-      end  
-    end  
+  
+    def start 
+      @start = (params[:start_date] || Date.today.prev_month)
+    end 
+
+    def end 
+      @end = (params[:end_date] || Date.today)
+    end     
 
 end
