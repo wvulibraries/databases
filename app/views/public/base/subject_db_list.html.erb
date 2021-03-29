@@ -18,15 +18,19 @@
   </div>
 </div>
 
+
 <div class="subject-headers"> 
   <h2> <%= @subject.name %> Databases </h2>
   
-  <div class="guide"> 
-    <a href="<%= @subject.url %>" class="btn"> 
-      <span class="fa fa-compass"></span>
-      <%= @subject.name %> Guide 
-    </a>
-  </div>
+  <% if @subject.url.present? %>
+    <div class="guide"> 
+      <a href="<%= @subject.url %>" class="btn"> 
+        <span class="fa fa-compass"></span>
+        <%= @subject.name %> Guide 
+      </a>
+    </div>
+  <% end %>
+
 </div>
 
 <% if @curated.present? %>
