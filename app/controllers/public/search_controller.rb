@@ -1,4 +1,4 @@
-# Public::AboutController 
+# Public::SearchController 
 # this controller will be for landing pages. 
 class Public::SearchController < ApplicationController
   # Queries the search and returns result.

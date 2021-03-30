@@ -22,3 +22,4 @@
 //= require plugins/search_filter
 //= require plugins/multi_selects
 //= require plugins/off_canvas
+//= require plugins/stat_csv_export

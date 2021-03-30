@@ -73,6 +73,9 @@ class Database < ApplicationRecord
   # landing page
   has_one :landing_page, required: false
 
+  # link tracking
+  has_many :link_tracking
+
   # CONCERNS
   # -----------------------------------------------------
   include Searchable
@@ -109,6 +112,14 @@ class Database < ApplicationRecord
 
   # PUBLIC METHODS
   # -----------------------------------------------------
+
+  # Returns number of link_tracking assocations
+  # Only used for reporting purposes
+  # @author Tracy A. McCormick
+  # @return integer
+  def tracking_count
+    link_tracking.count
+  end
 
   # Uses Enum method to determine if something is published.
   # Only used in the search params for elasticsearch
@@ -240,6 +251,22 @@ class Database < ApplicationRecord
     end
   end
 
+  # Generates a CSV to export link tracking data.
+  # @author Tracy A. McCormick
+  # @return csv object
+  def self.linktracking_export
+    headers = %w[
+      name count
+    ]
+    CSV.generate(headers: true) do |csv|
+      csv << headers
+      # get everything else
+      all.find_each do |database|
+        csv << database.link_tracking_csv_hash.values
+      end
+    end
+  end  
+
   # Creates a hash to use in the lib_guides CSV.
   # LibGuides requries the use of these fields
   # vendor name url enable_proxy description more_info enable_new enable_trial
@@ -273,6 +300,18 @@ class Database < ApplicationRecord
       resource_icons: '',
       thumbnail: '',
       content_id: self.libguides_id
+    }
+  end
+
+  # Creates a hash to use in the link_tracking CSV.
+  # LibGuides requries the use of these fields
+  # name tracking_count
+  # @author Tracy A. McCormick
+  # @return [Hash] Custom for LinkTracking.
+  def link_tracking_csv_hash
+    {
+      name: self.name,
+      count: self.tracking_count
     }
   end
 
@@ -378,8 +417,6 @@ class Database < ApplicationRecord
     )
   end
 
-  
-
   # PRIVATE METHODS
   # -----------------------------------------------------
 
@@ -402,7 +439,6 @@ class Database < ApplicationRecord
     self.help_url ||= ENV['help_url']
     self.created_at ||= DateTime.current
   end
-
 
   # Sanitize the Description field
   # @author Tracy A. McCormick

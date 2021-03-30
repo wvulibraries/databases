@@ -79,5 +79,19 @@ Rails.application.routes.draw do
 
     # users
     resources :users
+
+    # link tracking
+    resources :link_tracking
+
+    # statistics
+    get '/stats', to: 'statistics#show_all', as: 'csv_stats_all'
+    get '/stats/:start_date/:end_date', to: 'statistics#show', as: 'csv_stats_filtered'
+    #resources :statistics
+
+    # get '/stats' to: 'statistics#show_all', as: 'stats'
+
+    # admin/stats/10-22-2018/10-22-2021
+    # get '/stats/:start_date/:end_date', to: 'statistics#show'
+    # get 'stats' to: 'statistics#show_all'
   end
 end
