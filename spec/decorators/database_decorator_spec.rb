@@ -9,7 +9,8 @@ describe DatabaseDecorator do
     it 'db is popular expects the class popular-title to be added to the string' do
       database.popular = true
       database.trial_database = false
-      database.new_database = false 
+      database.new_database = false
+      database.open_access = false       
       database.save! 
       decorator = DatabaseDecorator.new(database).display_title
       expect(decorator).to be_a(String)
@@ -19,23 +20,55 @@ describe DatabaseDecorator do
     it 'db is trial expects the class popular-title to be added to the string' do
       database.popular = false
       database.trial_database = true
-      database.new_database = false 
+      database.new_database = false
+      database.open_access = false 
       database.save! 
       decorator = DatabaseDecorator.new(database).display_title
       expect(decorator).to be_a(String)
       expect(decorator).to  include 'popular-title'
     end 
 
+    it 'db is open access expects the class open-title to be added to the string' do
+      database.popular = false
+      database.trial_database = false
+      database.new_database = false 
+      database.open_access = true
+      database.save! 
+      decorator = DatabaseDecorator.new(database).display_title
+      expect(decorator).to be_a(String)
+      expect(decorator).to  include 'open-title'
+    end  
+    
     it 'db is neither expects the class popular-title is not added' do
       database.popular = false
       database.trial_database = false
       database.new_database = false
+      database.open_access = false
       database.save! 
 
       decorator = DatabaseDecorator.new(database).display_title
       expect(decorator).to be_a(String)
       expect(decorator).not_to  include 'popular-title'
     end 
+  end
+
+  context ".display_open_title" do
+    it 'db is open access expects the class open-title to be added to the string' do
+      database.open_access = true
+      database.save! 
+      decorator = DatabaseDecorator.new(database).display_open_title
+      expect(decorator).to be_a(String)
+      expect(decorator).to  include 'open-title'
+    end 
+
+    it 'db is not open_access expects the class open-title not to be added' do
+      database.open_access = false
+      database.save! 
+
+      decorator = DatabaseDecorator.new(database).display_open_title
+      expect(decorator).to be_a(String)
+      expect(decorator).not_to  include 'open-title'
+    end     
   end
 
   context ".landing_page?" do
