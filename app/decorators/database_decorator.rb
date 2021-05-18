@@ -13,8 +13,20 @@ class DatabaseDecorator < SimpleDelegator
       "<h3> #{link} </h3>".html_safe
     end 
   end 
+  
+  # Checks attributes title/open to format title
+  # @author Tracy A. McCormick
+  # @return [String] h3 with nested link  
+  def display_open_title
+    link = title_link
+    if open_access 
+      "<h3 class='open-title'> #{link} </h3>".html_safe
+    else
+      "<h3> #{link} </h3>".html_safe
+    end 
+  end 
 
-  # Creates a link to return to the display_title 
+  # Creates a link to return to the display_title and display_open_title
   # @author David J. Davis
   # @return [String] link
   def title_link

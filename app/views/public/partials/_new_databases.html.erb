@@ -3,7 +3,7 @@
     <% @new_databases.each do |db| %>
       <div class="database-results"> 
         <%= DatabaseDecorator.new(db).display_title %>
-        <p> <%= db.description.truncate(150) %> </p>
+        <p> <%= raw db.description.truncate(150) %> </p>
       </div>
     <% end %>
   </section>
