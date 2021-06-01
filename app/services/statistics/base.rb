@@ -23,6 +23,7 @@ class Statistics::Base
         @start_date, 
         @end_date )
         .distinct
+        .order(:name)
     else 
       raise StandardError.new "Improper Dates, Date is not valid."
     end 
