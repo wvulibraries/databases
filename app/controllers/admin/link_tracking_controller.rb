@@ -1,5 +1,6 @@
 # Admin Link Tracking Controller
 class Admin::LinkTrackingController < AdminController
+  # Set Initial Start and End dates for view
   before_action :start, :end, only: [:index]
     
   # Rendering an index form for link tracking

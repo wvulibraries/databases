@@ -17,13 +17,13 @@ class Statistics::Base
   def perform_query # return array
     if self.valid? 
       # query
-      return @database = Database.all
-        .joins(:link_tracking)
-        .where( 'link_trackings.created_at > ? AND link_trackings.created_at < ?', 
-        @start_date, 
-        @end_date )
-        .distinct
-        .order(:name)
+      time_range = @start_date..@end_date
+      return @databases = Database.all
+                                  .joins(:link_tracking)
+                                  .select('database_list.*, COUNT(link_trackings.id) as tracking_count')
+                                  .group('database_list.id')
+                                  .where(link_trackings: {created_at: time_range})
+                                  .order(:name)
     else 
       raise StandardError.new "Improper Dates, Date is not valid."
     end 
