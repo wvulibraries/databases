@@ -5,6 +5,7 @@ export TERM=vt100
 
 # start cron and update whenever 
 service cron start
+bundle exec whenever
 whenever --update-crontab
 
 # remove PID and start the server
