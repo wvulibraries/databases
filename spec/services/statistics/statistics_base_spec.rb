@@ -1,6 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Statistics::Base, type: :model do
+RSpec.describe Statistics::Base do
+  let(:linktracking) { FactoryBot.create :link_tracking_database_association }
+
   context '.init' do
     it '@start_date' do
       params_hash = { 
@@ -54,6 +56,15 @@ RSpec.describe Statistics::Base, type: :model do
   end
 
   context '.perform_query' do
+    # it 'should return an array of objects' do
+    #   params_hash = { 
+    #     start_date: Date.today.to_s, 
+    #     end_date: 1.year.from_now.to_s  
+    #   }
+    #   base = described_class.new(params_hash)
+    #   expect(base.perform_query.count).to eq(1)
+    # end
+
     it 'should pass an exception' do
       params_hash = { 
         start_date: Date.today.to_s, 

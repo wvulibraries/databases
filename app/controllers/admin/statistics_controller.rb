@@ -6,6 +6,7 @@ class Admin::StatisticsController < AdminController
       @databases = Database.all
         .joins(:link_tracking)
         .distinct
+        .order(:name)
       send_data @databases.linktracking_export, filename: "database-usage-full-#{Date.today}.csv"
     end 
 

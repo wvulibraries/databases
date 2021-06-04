@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence(:url) { |n| Faker::Internet.url("somethingcool#{n}.com", '/index.html') }
+  sequence(:url) { |n| Faker::Internet.url(host: "somethingcool#{n}.com", path: '/index.html') }
   sequence(:url_uuid) { |n| "#{Time.now.to_i}_#{n}" } 
   factory :database do
     factory :database_basic do
@@ -14,7 +14,7 @@ FactoryBot.define do
       help { Faker::TvShows::GameOfThrones.quote }
       help_url { Faker::Internet.url }
       description { Faker::ChuckNorris.fact }
-      title_search { Faker::Movies::HitchhikersGuideToTheGalaxy.planet << Faker::Educator.course_name }
+      title_search { "#{Faker::Movies::HitchhikersGuideToTheGalaxy.planet} #{Faker::Educator.course_name}".truncate(150)  }
 
       # database booleans
       disable_proxy { Faker::Boolean.boolean }
@@ -32,7 +32,7 @@ FactoryBot.define do
     end
 
     factory :database_default_values do
-      name { Faker::Movies::HitchhikersGuideToTheGalaxy.planet << Faker::Educator.course_name }
+      name { "#{Faker::Movies::HitchhikersGuideToTheGalaxy.planet} #{Faker::Educator.course_name}".truncate(150) }
       # database urls
       url
       off_campus_url { Faker::Internet.url }
@@ -40,7 +40,7 @@ FactoryBot.define do
       # database info
       status { rand(0..3) } # enumerations are 0-3
       description { Faker::ChuckNorris.fact }
-      title_search { Faker::Movies::HitchhikersGuideToTheGalaxy.planet << Faker::Educator.course_name }
+      title_search { "#{Faker::Movies::HitchhikersGuideToTheGalaxy.planet} #{Faker::Educator.course_name}".truncate(150) }
 
       # database booleans
       disable_proxy { Faker::Boolean.boolean }
