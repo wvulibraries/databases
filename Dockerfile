@@ -6,7 +6,7 @@ RUN apt-get update \
                           gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x xclip
 
 # Node.js
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
     && apt-get install -y nodejs
 
 # yarn
