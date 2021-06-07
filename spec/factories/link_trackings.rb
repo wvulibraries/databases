@@ -6,8 +6,8 @@ FactoryBot.define do
       association :database, factory: :database_default_values
     end    
 
-    factory :seed_testing do
+     factory :link_tracking_rspec do
        association :database, factory: :database_basic, status: 1
-    end    
+    end   
   end
 end

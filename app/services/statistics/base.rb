@@ -18,10 +18,9 @@ class Statistics::Base
     if self.valid? 
       # query
       time_range = @start_date..@end_date
-      return @databases = Database.all
-                                  .joins(:link_tracking)
-                                  .select('database_list.*, COUNT(link_trackings.id) as tracking_count')
+      return @databases = Database.joins(:link_tracking)
                                   .group('database_list.id')
+                                  .select('database_list.*', 'COUNT(link_trackings.id) as tracking_count')
                                   .where(link_trackings: {created_at: time_range})
                                   .order(:name)
     else 
