@@ -8,7 +8,7 @@ class Admin::LinkTrackingController < AdminController
 
   # GET /admin/link_tracking
   def index
-    stats = Statistics::Base.new(params.slice(:start_date, :end_date))
+    stats = Statistics::Base.new(link_params)
     begin
       @databases = stats.perform_query
       render :index
@@ -20,11 +20,14 @@ class Admin::LinkTrackingController < AdminController
   private
   
     def start 
-      @start = (params[:start_date] || Date.today.prev_month)
+      @start = (link_params[:start_date] || Date.today.prev_month)
     end 
 
     def end 
-      @end = (params[:end_date] || Date.today)
+      @end = (link_params[:end_date] || Date.today)
     end     
 
+    def link_params
+      params.permit(:start_date, :end_date)
+    end
 end
