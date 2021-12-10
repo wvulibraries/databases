@@ -29,7 +29,7 @@ describe CsvUploader do
     end
 
     it 'checks whitelist types' do
-      expect(uploader.extension_whitelist).to eq(%w[csv])
+      expect(uploader.extension_allowlist).to eq(%w[csv])
     end
   end
 

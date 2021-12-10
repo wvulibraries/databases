@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
-    "hiraku": "^2.1.6",
+    "hiraku": "^2.1.8",
     "jquery": "^3.5.0",
     "moment": "^2.22.2",
     "multiselect": "^0.9.12",

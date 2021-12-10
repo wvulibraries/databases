@@ -30,7 +30,7 @@ describe ScreenShotUploader do
     
     it 'checks whitelist types' do
       files =  %w[jpg jpeg gif png]
-      expect(uploader.extension_whitelist).to eq(files)
+      expect(uploader.extension_allowlist).to eq(files)
     end
   end
 

@@ -482,10 +482,10 @@ has-yarn@^1.0.0:
   resolved "https://registry.yarnpkg.com/has-yarn/-/has-yarn-1.0.0.tgz#89e25db604b725c8f5976fff0addc921b828a5a7"
   integrity sha1-ieJdtgS3Jcj1l2//Ct3JIbgopac=
 
-hiraku@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/hiraku/-/hiraku-2.1.6.tgz#3b82b8b239f5840500212daeae9058ca5222160c"
-  integrity sha512-3qcjY047hannAEsB59pTdKRs4dIv2X0dqXqkRwAze0u7NdNyIua9C6HXM9YEnz0WAUuAre/3sKla9gEWwIEj1g==
+hiraku@^2.1.8:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/hiraku/-/hiraku-2.1.8.tgz#3d9de3f1485318f4f496cf2cfd8bf77a5baeb1c4"
+  integrity sha512-DlzH3WOrQFWb4/ud5vQ4QoablQpnD364QEXLjqB3D9E/3SE62Hyafn/uyzVtabk91yqMrEG1BkKoz1mBZDwysA==
   dependencies:
     custom-event-polyfill "^0.3.0"
     debounce "^1.1.0"
