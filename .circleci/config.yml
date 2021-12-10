@@ -7,7 +7,7 @@ jobs:
     # Container Setup
     #############################################
     docker:
-      - image: circleci/ruby:2.6.2-stretch-node-browsers
+      - image: circleci/ruby:2.7.2-node-browsers
         environment:
           - RAILS_ENV=test
           - CC_TEST_REPORTER_ID=28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
@@ -16,7 +16,7 @@ jobs:
         environment:
           - MYSQL_ROOT_HOST=%
           - MYSQL_ROOT_PASSWORD=circleci
-      - image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+      - image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
         environment:
           - cluster.name: elasticsearch
           - xpack.security.enabled: false
