@@ -64,8 +64,9 @@ jobs:
             - rails-bundle-{{ checksum "Gemfile.lock" }}
             - rails-bundle-
       - run:
-          name: Bundle Gems
-          command: bundle check --path=vendor/bundle || bundle install --deployment
+          name: install ruby dependencies
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
           key: rails-bundle-{{ checksum "Gemfile.lock" }}
           paths:
