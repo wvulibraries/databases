@@ -23,9 +23,6 @@ RUN gem install bundler \
 ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# ENV RAILS_ENV development
-# ENV RACK_ENV development
-
 WORKDIR /home/databases
 ADD ./ /home/databases
 RUN bundle install --jobs=4 --retry=3

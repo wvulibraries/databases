@@ -25,3 +25,16 @@ There are some configuration items that were setup to be easy to use and very co
 - Campus IP Range  
 - Deault HelpText / HelpURL
 - Emails 
+
+## Rake Tasks
+
+```
+rake search_index:database                              # Re-index databases
+```
+
+## RSPEC
+We are using Rspec and Shoulda matchers in the backend for testing our models.
+
+`RAILS_ENV=test bundle exec rspec` will run the full test
+`RAILS_ENV=test bundle exec rspec {directory_path}` will run a specific subset of tests
+`RAILS_ENV=test bundle exec rspec {directory_path}/{test_name}` will run a single test.
