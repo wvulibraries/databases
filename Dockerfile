@@ -18,7 +18,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
 # Install our dependencies and rails
 RUN gem install bundler \
 	&& gem install rails \
-	&& mkdir -p /home/rb
+	&& mkdir -p /home/databases
 
 ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

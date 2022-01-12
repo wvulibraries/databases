@@ -6,23 +6,21 @@ services:
     image: elasticsearch:7.10.1
     container_name: elasticsearch
     restart: always
-    environment:
-      - "discovery.type=single-node"
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m -Dlog4j2.formatMsgNoLookups=true"
+    env_file:
+      - '.env.es'    
     volumes: 
       - ./search_data:/usr/share/elasticsearch/data
     ports: 
-      - 9200:9200
-      - 9300:9300 
+      - "9200"
    
   db:
     image: mysql:5.7.27
     container_name: databases_mysql
     restart: always
     ports:
-      - "3310:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=docker
+      - "3310"
+    env_file:
+      - '.env.db'      
     volumes:
       - ./mysql:/var/lib/mysql
       - ./mysql-files:/var/lib/mysql-files
@@ -34,15 +32,12 @@ services:
     tty: true
     stdin_open: true
     container_name: databases_app
-    environment:
-      - SECRET_KEY_BASE=3eaa9178c5728347e93d431a61061bac6b4d62ffa62840d269168b1250e26364180d65dc91555a47d472f32542e4d7bbc9f4452cb2efbf45c5ac7038194cc02c
-      - DATABASE_PASSWORD=docker
-      - TERM=xterm
+    env_file:
+      - '.env.rails'      
     volumes:
       - ./:/home/databases
     ports:
       - "3000:3000" 
-      - "3001:3001"
     links:
       - db
       - elasticsearch
@@ -50,9 +45,8 @@ services:
   kibana:
     image: kibana:6.6.0
     container_name: kibana
-    environment:
-      SERVER_NAME: localhost
-      ELASTICSEARCH_URL: http://elasticsearch:9200/
+    env_file:
+      - '.env.kibana'       
     ports:
       - 5601:5601
     links: 
