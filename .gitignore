@@ -29,6 +29,7 @@
 
 # App Specific 
 /mysql 
+/mysql/*
 /mysql-files
 /log/*
 !/log/.keep
