@@ -20,17 +20,14 @@
     <%= render 'public/partials/popular' if @popular.present? %>
     <%# Open Access  %>
     <%= render 'public/partials/open_access_databases' if @open_access.present? %>
-    <section class="open_access" aria-label="New Databases">
-    <h2> Admin Login </h2>
-     
-     
-  <div class="authentication_links">
-
+    <section class="open_access" aria-label="Admin Login>
+      <h2> Admin Login </h2>
+      <div class="authentication_links">
          <a href="/login" class="button login">
-          <span class="fa fa-unlock"></span>
-          Login
-        </a>
-    </div></section>
+         <span class="fa fa-unlock"></span>
+        Login </a>
+      </div>
+    </section>
   </div>
 <% else %>
   <%# Search Bar %>
