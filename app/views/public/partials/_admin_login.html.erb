@@ -1,9 +1,3 @@
-<section class="open_access" aria-label="New Databases"> 
-<h2> Open Access </h2>
-<% @open_access.each do |db| %>
-  <div class="database-results"> 
-    <%= DatabaseDecorator.new(db).display_open_title %>
-    <p> <%= raw db.description.truncate(150) %> </p>
-  </div>
-<% end %>
+<section class="admin_login" aria-label="Admin Login"> 
+<h2> Admin Login </h2>
 </section>
