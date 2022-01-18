@@ -20,8 +20,7 @@
     <%= render 'public/partials/popular' if @popular.present? %>
     <%# Open Access  %>
     <%= render 'public/partials/open_access_databases' if @open_access.present? %>
-  </div>
-  <section class="open_access" aria-label="New Databases">
+    <section class="open_access" aria-label="New Databases">
     <h2> Admin Login </h2>
      
      
@@ -32,6 +31,7 @@
           Login
         </a>
     </div></section>
+  </div>
 <% else %>
   <%# Search Bar %>
   <h2> Database Search </h2>
