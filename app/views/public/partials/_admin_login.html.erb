@@ -1,11 +1,23 @@
-<section class="open_access" aria-label="New Databases">
-    <h2> Admin Login </h2>
-     
-     
-  <div class="authentication_links">
+<section class="open_access" aria-label="Admin Login">
+<h2> Admin Login </h2>
+<div class="authentication_links">
+<% if authenticated? && admin? %>
+  <a href="/admin" class="button admin-panel"> 
+    <span class="fa fa-cog"></span>
+    Admin 
+  </a>
+<% end %>
 
-         <a href="/login" class="button login">
-          <span class="fa fa-unlock"></span>
-          Login
-        </a>
-    </div></section>
+<% if authenticated?%>
+  <a href="/signout" class="button signout"> 
+    <span class="fa fa-lock"></span>
+    Sign Out 
+  </a>
+<% else %>
+   <a href="/login" class="button login"> 
+    <span class="fa fa-unlock"></span>
+    Login
+  </a>
+<% end %>
+</div>
+</section>
