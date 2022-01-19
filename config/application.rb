@@ -36,6 +36,8 @@ module Databases
     # CAS
     config.rack_cas.server_url = ENV['cas_url']
 
+    config.web_console.permissions = '157.182.112.128/27'
+
     # security
     config.force_ssl = ENV['ssl'] if Rails.env.production?
 
