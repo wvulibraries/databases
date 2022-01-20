@@ -7,7 +7,7 @@ services:
     container_name: elasticsearch
     restart: always
     env_file:
-      - '.env.es'    
+      - './env/.env.dev.es'    
     volumes: 
       - ./search_data:/usr/share/elasticsearch/data
     ports: 
@@ -20,7 +20,7 @@ services:
     ports:
       - "3310"
     env_file:
-      - '.env.db'      
+      - './env/.env.dev.db'      
     volumes:
       - ./mysql:/var/lib/mysql
       - ./mysql-files:/var/lib/mysql-files
@@ -33,7 +33,7 @@ services:
     stdin_open: true
     container_name: databases_app
     env_file:
-      - '.env.rails'      
+      - './env/.env.dev.rails'      
     volumes:
       - ./:/home/databases
     ports:
@@ -46,7 +46,7 @@ services:
     image: kibana:6.6.0
     container_name: kibana
     env_file:
-      - '.env.kibana'       
+      - './env/.env.dev.kibana'       
     ports:
       - 5601:5601
     links: 
