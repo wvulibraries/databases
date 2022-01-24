@@ -6,9 +6,8 @@ services:
     image: elasticsearch:7.10.1
     container_name: elasticsearch
     restart: always
-    environment:
-      - "discovery.type=single-node"
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m -Dlog4j2.formatMsgNoLookups=true"
+    env_file:
+      - './env/.env.prod.es'     
     volumes: 
       - ./search_data:/usr/share/elasticsearch/data
     ports: 
@@ -21,8 +20,8 @@ services:
     restart: always
     ports:
       - "3310:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=docker
+    env_file:
+      - './env/.env.prod.db'  
     volumes:
       - ./mysql:/var/lib/mysql
       - ./mysql-files:/var/lib/mysql-files
@@ -34,13 +33,8 @@ services:
     tty: true
     stdin_open: true
     container_name: databases_app
-    environment:
-      - SECRET_KEY_BASE=3eaa9178c5728347e93d431a61061bac6b4d62ffa62840d269168b1250e26364180d65dc91555a47d472f32542e4d7bbc9f4452cb2efbf45c5ac7038194cc02c
-      - DATABASE_PASSWORD=docker
-      - TERM=xterm
-      #- CAPTCHA_SITE=
-      #- CAPTCHA_SECRET=      
-      - RAILS_ENV=production
+    env_file:
+      - './env/.env.prod.rails'       # env file for rails
     volumes:
       - ./:/home/databases
     ports:

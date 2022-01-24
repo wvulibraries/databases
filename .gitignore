@@ -29,6 +29,7 @@
 
 # App Specific 
 /mysql 
+/mysql/*
 /mysql-files
 /log/*
 !/log/.keep
@@ -41,3 +42,10 @@
 
 # Ignore application configuration
 # /config/application.yml
+
+# Ignore env files
+/env/.env*
+
+# Ignore sym-links for easy start and stop of containers:
+.up.sh
+.down.sh

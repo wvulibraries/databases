@@ -38,3 +38,17 @@ We are using Rspec and Shoulda matchers in the backend for testing our models.
 `RAILS_ENV=test bundle exec rspec` will run the full test
 `RAILS_ENV=test bundle exec rspec {directory_path}` will run a specific subset of tests
 `RAILS_ENV=test bundle exec rspec {directory_path}/{test_name}` will run a single test.
+
+## Application Setup
+Databases code updates steps:
+`git pull`
+Then exec into app container (no need to shutdown) and do:
+`bundle install`
+`bundle clean` (optional)
+`bin/rails db:create`
+`bin/rails db:schema:load`
+`bin/rails db:seed` (only for dev to load testing data)
+`bin/rails assets:precompile`
+`bin/rails restart`
+`bin/rails search_index:database`
+`bundle exec rake search_index:database`

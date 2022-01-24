@@ -79,4 +79,9 @@ Rails.application.configure do
     port: 25,
     enable_starttls_auto: true
   }
+
+# Remove IP restrictions for Admin login to authenticate databases_app using ssodev (default is to only allow local IPs/loopback, etc).
+config.web_console.whiny_requests = false
+
 end
+

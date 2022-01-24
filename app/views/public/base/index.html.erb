@@ -20,6 +20,8 @@
     <%= render 'public/partials/popular' if @popular.present? %>
     <%# Open Access  %>
     <%= render 'public/partials/open_access_databases' if @open_access.present? %>
+    <%# Admin Login  %>
+    <%= render 'public/partials/admin_login' %>
   </div>
 <% else %>
   <%# Search Bar %>
