@@ -11,15 +11,14 @@ services:
     volumes: 
       - ./search_data:/usr/share/elasticsearch/data
     ports: 
-      - 9200:9200
-      - 9300:9300 
+      - "9200"
    
   db:
     image: mysql:5.7.27
     container_name: databases_mysql
     restart: always
     ports:
-      - "3310:3306"
+      - "3310"
     env_file:
       - './env/.env.prod.db'  
     volumes:
@@ -39,7 +38,6 @@ services:
       - ./:/home/databases
     ports:
       - "3000:3000" 
-      - "3001:3001"
     links:
       - db
       - elasticsearch
