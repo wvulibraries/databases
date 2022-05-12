@@ -21,6 +21,8 @@
 /yarn-error.log
 
 /public/assets
+/public/uploads/
+/public/uploads/*
 /public/uploads/test/*
 .byebug_history
 
@@ -44,6 +46,8 @@
 # /config/application.yml
 
 # Ignore env files
+/env/
+/env/*
 /env/.env*
 
 # Ignore sym-links for easy start and stop of containers:
