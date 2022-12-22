@@ -5,7 +5,7 @@
 <html lang="en" class="no-js">
   <head>
     <title>Databases</title>
-    
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -25,7 +25,11 @@
   </head>
 
   <body>
-    <!-- Skip to Navigation --> 
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K523XTD"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <!-- Skip to Navigation -->
     <header>
       <a class="skip-nav" href="#main"> Skip to Main Content </a>
       <%= render 'header/public' %>
@@ -36,10 +40,10 @@
 
     <!-- Templated Content Region -->
     <main id="main" class="wrapper">
-      <div class="container"> 
+      <div class="container">
         <!-- Flash -->
         <%= render "utilities/alerts" %>
-        
+
         <!-- Yield -->
         <div class="main-content">
           <%= yield %>
