@@ -105,8 +105,8 @@ class Database < ApplicationRecord
   scope :number_list, -> { where("name REGEXP '^[0-9]'")}
 
   # scoping for subject listing 
-  scope :list_subjects, ->(id) { includes(:subjects, :curated).order(:name).where(subjects: {id: id }, status: 'production') }
-  scope :letters, -> { all.order('name ASC').group_by{ |db| db.name[0].upcase }.keys.reject { |i| i =~ /\A\d+\z/ }.uniq } 
+  scope :list_subjects, -> (id) { includes(:subjects, :curated).order(:name).where(subjects: {id: id }) }
+  scope :letters, -> { all.prod.order('name ASC').group_by{ |db| db.name[0].upcase }.keys.reject { |i| i =~ /\A\d+\z/ }.uniq } 
   scope :grouped_alpha, -> { all.prod.order('name ASC').group_by{ |db| db.name[0].upcase } } 
   scope :total_count, -> { all.prod.count }
 

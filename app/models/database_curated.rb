@@ -21,7 +21,7 @@ class DatabaseCurated < ApplicationRecord
     subject&.name
   end
 
-  # Returns the Databses name unles the itme is nil
+  # Returns the Database name unless the item is nil
   # @author David J. Davis
   # @return string
   def database_name
