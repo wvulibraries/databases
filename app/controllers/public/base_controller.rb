@@ -60,8 +60,7 @@ class Public::BaseController < ApplicationController
 
   # Take an array of ids and check if the database is in production
   # If they are not in production remove them from the array
-  # @param [Array] ids
-  # @return [Array] ids
+  # @return [Array] of curated databases objects
   # @author Tracy A. McCormick
   def active_curated_databases(subject_id)
     curated_items = DatabaseCurated.includes(:database).where(subject_id: subject_id).order(sort: :desc)
