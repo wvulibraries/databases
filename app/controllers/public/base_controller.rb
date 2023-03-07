@@ -48,9 +48,7 @@ class Public::BaseController < ApplicationController
   # @author David J. Davis
   def subject_databases
     subject_id = params[:id]
-    @curated = DatabaseCurated.includes(:database).where(subject_id: subject_id).order(sort: :desc)
-    # list only production databases
-    @curated = check_curated_databases(@curated)
+    @curated = active_curated_databases(subject_id)
     curated_ids = @curated.pluck(:database_id)
     @databases = Database.list_subjects(subject_id).includes(:landing_page).where.not(id: curated_ids).where(status: "production")
     @subject = Subject.find(subject_id)
@@ -58,19 +56,23 @@ class Public::BaseController < ApplicationController
     render :subject_db_list
   end
 
+  private
+
   # Take an array of ids and check if the database is in production
   # If they are not in production remove them from the array
   # @param [Array] ids
   # @return [Array] ids
   # @author Tracy A. McCormick
-  def check_curated_databases(curated_items)
+  def active_curated_databases(subject_id)
+    curated_items = DatabaseCurated.includes(:database).where(subject_id: subject_id).order(sort: :desc)
+    prod_curated_databases = []
     # loop over each id and check if it is in production
     curated_items.each do |db|
       # if not in production remove it from the list
-      if Database.find(db.database_id).status != "production"
-        curated_items.delete(db.id)
+      if Database.find(db.database_id).status == "production"
+        prod_curated_databases << db
       end
     end
-    return curated_items
+    return prod_curated_databases
   end
 end
