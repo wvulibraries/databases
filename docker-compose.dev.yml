@@ -6,11 +6,8 @@ services:
     image: elasticsearch:7.16.2
     container_name: elasticsearch
     restart: always
-    environment:
-      - "discovery.type=single-node"
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m -Dlog4j2.formatMsgNoLookups=true" 
-    # env_file:
-    #   - './env/.env.dev.es'    
+    env_file:
+      - './env/.env.dev.es'    
     
     volumes: 
       - ./search_data:/usr/share/elasticsearch/data
