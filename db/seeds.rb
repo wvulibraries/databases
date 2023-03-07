@@ -50,3 +50,12 @@ my_user = {
 }
 
 User.create(my_user)
+
+my_user = {
+  first_name: 'Jessica',
+  last_name: 'McMillen',
+  cas_username: 'jmm0177',  
+  cas_email: 'jessica.mcmillen@mail.wvu.edu'
+}
+
+User.create(my_user)
