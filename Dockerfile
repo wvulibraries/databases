@@ -1,8 +1,8 @@
-FROM ruby:2.7.2
+FROM ruby:2.7.7
 
 # Install capybara-webkit deps
 RUN apt-get update \
-    && apt-get install -y xvfb cron git qt5-default libqt5webkit5-dev \
+    && apt-get install -y xvfb cron git qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5webkit5-dev \
                           gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x xclip
 
 # Node.js
