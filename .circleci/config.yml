@@ -7,7 +7,7 @@ jobs:
     # Container Setup
     #############################################
     docker:
-      - image: circleci/ruby:2.7.2-node-browsers
+      - image: cimg/ruby:2.7-browsers
         environment:
           - RAILS_ENV=test
           - CC_TEST_REPORTER_ID=28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
@@ -66,7 +66,7 @@ jobs:
       - run:
           name: install ruby dependencies
           command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+            bundle install --jobs=4 --retry=3
       - save_cache:
           key: rails-bundle-{{ checksum "Gemfile.lock" }}
           paths:
