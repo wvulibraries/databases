@@ -1,117 +1,30 @@
-version: 2
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/configuration-reference
+version: 2.1
+
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/orb-intro/
+orbs:
+  ruby: circleci/ruby@2.0.1
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
   build:
-    parallelism: 1  # however many CPUs you need/pay for
-    
-    #############################################
-    # Container Setup
-    #############################################
     docker:
-      - image: cimg/ruby:2.7-browsers
-        environment:
-          - RAILS_ENV=test
-          - CC_TEST_REPORTER_ID=28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-          - COVERAGE=true          
-      - image: circleci/mysql:5.7
-        environment:
-          - MYSQL_ROOT_HOST=%
-          - MYSQL_ROOT_PASSWORD=circleci
-      - image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
-        environment:
-          - cluster.name: elasticsearch
-          - xpack.security.enabled: false
-          - transport.host: localhost
-          - network.host: 127.0.0.1
-          - http.port: 9200
-          - discovery.type: single-node                    
-    
-    #############################################
-    # Build Steps
-    #############################################
+      - image: cimg/ruby:3.1.0
+    executor: ruby/default
     steps:
       - checkout
       - run:
-          name: Configure secrets.yml
-          command: mv config/secrets.ci.yml config/secrets.yml
-      - run:
-          name: Configure database.yml
-          command: mv config/database.ci.yml config/database.yml
-      - run:
-          name: Configure application.yml
-          command: mv config/application.ci.yml config/application.yml      
+          name: Which bundler?
+          command: bundle -v
+      - ruby/install-deps
 
-      ###########################################
-      # Yarn w/ caching
-      ###########################################        
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: yarn-packages-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-
-      ###########################################
-      # Bundler w/ caching
-      ###########################################
-      - restore_cache:
-          keys:
-            - rails-bundle-{{ checksum "Gemfile.lock" }}
-            - rails-bundle-
-      - run:
-          name: install ruby dependencies
-          command: |
-            bundle install --jobs=4 --retry=3
-      - save_cache:
-          key: rails-bundle-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-
-      ###########################################
-      # Code Climate
-      ###########################################
-      - run:
-          name: Install Code Climate Test Reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter            
-
-      ###########################################
-      # Database
-      ###########################################
-      - run:
-          name: Wait for MySQL
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
-      - run:
-          name: Load DB schema
-          command: bin/rails db:schema:load --trace
-
-      ###########################################
-      # Run rspec in parallel
-      ###########################################
-      - run:
-          name: Run rspec in parallel
-          command: |
-            mkdir -p test_results
-            ./cc-test-reporter before-build
-            bundle exec rspec --profile 10 \
-                              --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              --format progress \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      - run:
-          name: Code Climate Test Coverage
-          command: |
-            ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"    
-
-      # Save test results for timing analysis
-      - store_test_results:
-          path: test_results
-      - deploy:
-          command: |
-            ./cc-test-reporter sum-coverage --output - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -          
+# Orchestrate jobs using workflows
+# See: https://circleci.com/docs/configuration-reference/#workflows
+workflows:
+  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
+    jobs:
+      - build
