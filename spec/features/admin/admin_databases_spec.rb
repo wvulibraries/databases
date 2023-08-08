@@ -175,7 +175,7 @@ RSpec.feature "Admin::Databases", type: :feature do
       find('#database_status').find(:xpath, 'option[3]').select_option
       fill_in 'Url', with: attrs[:url]
       fill_in 'Description', with: attrs[:description]
-      fill_in 'Years of coverage', with: Faker::Lorem.characters(55)
+      fill_in 'Years of coverage', with: Faker::Lorem.characters(number: 55)
       click_button 'Create Database'
       expect(page).to have_content("1 error")
       expect(page).to have_content("Years of coverage is too long (maximum is 50 characters)")
