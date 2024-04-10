@@ -28,6 +28,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # cas client
 gem 'rack-cas', '~> 0.16.0'
 
+# session store
+gem 'activerecord-session_store'
+
 # configurations 
 gem "figaro"
 

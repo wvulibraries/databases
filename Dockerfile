@@ -16,7 +16,8 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
     && apt-get install -y yarn
 		
 # Install our dependencies and rails
-RUN gem install bundler \
+RUN gem install bundler -v 2.4.22 \
+    && gem install nokogiri -v 1.15.6 \
 	&& gem install rails \
 	&& mkdir -p /home/databases
 
