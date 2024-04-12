@@ -40,8 +40,8 @@ module Databases
     config.force_ssl = ENV['ssl'] if Rails.env.production?
 
     # session store
-    config.session_store :active_record_store,, expire_after: nil, secure: true if Rails.env.production?
-    config.session_store :active_record_store,, key: 'cas', expire_after: 12.hours, secure: true if Rails.env.production?
+    config.session_store :active_record_store, expire_after: nil, secure: true if Rails.env.production?
+    config.session_store :active_record_store, key: 'cas', expire_after: 12.hours, secure: true if Rails.env.production?
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
