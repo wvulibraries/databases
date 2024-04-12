@@ -15,6 +15,10 @@ services:
    
   db:
     image: mysql:5.7.27
+        ulimits:
+      nofile: # Fix memory leak issue on some systems when LimitCORE=infinity (containerd)
+        soft: 1048576
+        hard: 1048576
     container_name: databases_mysql
     restart: always
     ports:
