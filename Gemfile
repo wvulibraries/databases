@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.8'
+ruby '3.3.0'
 
 # Rails Dependencies
 # =====================================================
-gem 'rails', '~> 6.1.7.6'
+gem 'rails', '~> 7.0.7'
 gem 'puma', '~> 6.4.0'
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 gem 'uglifier', '>= 1.3.0'
@@ -89,7 +89,7 @@ end
 
 group :development do
   gem 'web-console', '>= 3.3.0'  
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   # performance helper

@@ -1,4 +1,4 @@
-FROM ruby:2.7.8
+FROM ruby:3.3.0
 
 # Install capybara-webkit deps
 RUN apt-get update \
@@ -16,8 +16,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
     && apt-get install -y yarn
 		
 # Install our dependencies and rails
-RUN gem install bundler -v 2.4.22 \
-    && gem install nokogiri -v 1.15.6 \
+RUN gem install bundler \
 	&& gem install rails \
 	&& mkdir -p /home/databases
 
