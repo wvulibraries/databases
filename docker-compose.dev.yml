@@ -8,7 +8,6 @@ services:
     restart: always
     env_file:
       - './env/.env.dev.es'    
-    
     volumes: 
       - search_data:/usr/share/elasticsearch/data
     ports: 
