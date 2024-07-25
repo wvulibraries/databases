@@ -1,4 +1,4 @@
-FROM ruby:3.3.0
+FROM ruby:3.3.4
 
 # Install capybara-webkit deps
 RUN apt-get update \

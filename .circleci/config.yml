@@ -7,7 +7,7 @@ jobs:
     # Container Setup
     #############################################
     docker:
-      - image: cimg/ruby:3.3-browsers
+      - image: cimg/ruby:3.3.4-browsers
         environment:
           - RAILS_ENV=test
           - CC_TEST_REPORTER_ID=28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
