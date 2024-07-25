@@ -52,3 +52,7 @@ Then exec into app container (no need to shutdown) and do:
 `bin/rails restart`
 `bin/rails search_index:database`
 `bundle exec rake search_index:database`
+
+# Loading MySql backup
+Run the following from the host system after doing `bin/rails db:create` in the docker container.
+`docker exec -i db mysql -u root -pdocker databases_development < ./mysql-files/{backup filename}.sql`

@@ -10,20 +10,20 @@ services:
       - './env/.env.dev.es'    
     
     volumes: 
-      - ./search_data:/usr/share/elasticsearch/data
+      - search_data:/usr/share/elasticsearch/data
     ports: 
       - "9200"
    
   db:
     image: mysql:5.7.27
-    container_name: databases_mysql
+    container_name: db
     restart: always
     ports:
       - "3310"
     env_file:
       - './env/.env.dev.db'      
     volumes:
-      - ./mysql:/var/lib/mysql
+      - mysql:/var/lib/mysql
       - ./mysql-files:/var/lib/mysql-files
   
   rails: 
@@ -52,3 +52,7 @@ services:
       - 5601:5601
     links: 
       - elasticsearch
+
+volumes:
+  mysql:
+  search_data:

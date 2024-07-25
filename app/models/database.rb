@@ -1,6 +1,8 @@
 # The main model for storing academic databases. 
 # NOT DATABASE CONNECTIONS!
 # @author David J. Davis
+# @modified_by Tracy A. McCormick
+# @modified_on 2024-07-25
 class Database < ApplicationRecord
   # TABLE NAME
   # -----------------------------------------------------
@@ -59,22 +61,22 @@ class Database < ApplicationRecord
   belongs_to :access_plain_text, optional: true, required: false
 
   # resources 
-  has_many :database_resources
+  has_many :database_resources, dependent: :destroy
   has_many :resources, through: :database_resources
 
   # subjects
-  has_many :database_subjects
+  has_many :database_subjects, dependent: :destroy
   has_many :subjects, through: :database_subjects
 
   # curated subjects
-  has_many :database_curated
+  has_many :database_curated, dependent: :destroy
   has_many :curated, through: :database_curated, source: :subject
 
   # landing page
-  has_one :landing_page, required: false
+  has_one :landing_page, required: false, dependent: :destroy
 
   # link tracking
-  has_many :link_tracking
+  has_many :link_tracking, dependent: :destroy
 
   # CONCERNS
   # -----------------------------------------------------

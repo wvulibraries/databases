@@ -64,13 +64,21 @@ class Public::BaseController < ApplicationController
   # @return [Array] of curated databases objects (only listing those in production)
   # @author Tracy A. McCormick
   # @created 2023-03-07
+  # @edited 2024-07-25
   def active_curated_databases(subject_id)
     curated_items = DatabaseCurated.includes(:database).where(subject_id: subject_id).order(sort: :desc)
     prod_curated_databases = []
     # loop over each id and check if it is in production
     curated_items.each do |db|
-      # if not in production remove it from the list
-      if Database.find(db.database_id).status == "production"
+      # if not in production or not found remove it from the list
+      database = Database.find_by(id: db.database_id)
+
+      # if the database is not found remove it from DatabaseCurated
+      if database.nil?
+        DatabaseCurated.where(database_id: db.database_id).first.destroy
+      end
+
+      if database && database.status == "production"
         prod_curated_databases << db
       end
     end
