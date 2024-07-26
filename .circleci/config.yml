@@ -23,7 +23,8 @@ jobs:
           http.port: 9200
           discovery.type: single-node            
     steps:
-      - checkout
+       - checkout:
+            path: ~/circleci-databases
 
       # Restore bundle cache
       - restore_cache:
