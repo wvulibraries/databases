@@ -24,51 +24,45 @@ jobs:
           discovery.type: single-node            
     steps:
       - checkout:
-            path: ~/circleci-databases
+          path: ~/circleci-databases
+
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
+
       - run:
           name: Configure database.yml
           command: mv config/database.ci.yml config/database.yml
+
       - run:
           name: Configure application.yml
           command: mv config/application.ci.yml config/application.yml  
 
-      # Restore bundle cache
       - restore_cache:
-          key: app-{{ checksum "Gemfile.lock" }}
+          keys:
+            - gem-cache-{{ checksum "Gemfile.lock" }}
+            - gem-cache-
 
       - run:
-          name: Configure bundler
+          name: Install Bundler
           command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            gem install bundler
+            gem install bundler -v $(tail -n 1 Gemfile.lock)
+            bundle install --jobs=4 --retry=3
 
-      # Install Node 18
-      - run:
-          name: Install Node 18
-          command: |
-            curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-            sudo apt-get install -y nodejs
+      - restore_cache:
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+            - yarn-
 
-      # Yarn install
       - run:
-          name: Yarn install
-          command: yarn install
-
-      # install yarn packages
-      - run:
-          name: Install Yarn Packages
+          name: Install Yarn
           command: yarn install --frozen-lockfile
 
-      # Bundle install
-      - run:
-          name: Bundle install
-          command: bundle install
+      - save_cache:
+          paths:
+            - ~/.cache/yarn
+          key: yarn-{{ checksum "yarn.lock" }}
 
-      # Wait for mysql
       - run:
           name: Wait for MySQL
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
@@ -79,10 +73,16 @@ jobs:
 
       - run:
           name: Precompile assets
-          command: | 
-            bundle exec rake assets:precompile
+          command: bundle exec rake assets:precompile
 
-      # Rspec
+      - run:
+          name: Verify Turbolinks Installation
+          command: |
+            if [ ! -d "node_modules/turbolinks" ]; then
+              echo "Turbolinks not found!"
+              exit 1
+            fi
+
       - run:
           name: Setup Code Climate Test Reporter
           command: |
@@ -112,3 +112,4 @@ jobs:
           command: |
             ./tmp/cc-test-reporter format-coverage -t simplecov $CIRCLE_ARTIFACTS/coverage/.resultset.json
             ./tmp/cc-test-reporter upload-coverage
+
