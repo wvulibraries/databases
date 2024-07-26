@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/app
+    working_directory: ~/circleci-databases/databases  
     docker:
       - image: cimg/ruby:3.3.4-node
         environment:
@@ -24,7 +24,16 @@ jobs:
           discovery.type: single-node            
     steps:
       - checkout:
-            path: ~/app
+            path: ~/circleci-databases
+      - run:
+          name: Configure secrets.yml
+          command: mv config/secrets.ci.yml config/secrets.yml
+      - run:
+          name: Configure database.yml
+          command: mv config/database.ci.yml config/database.yml
+      - run:
+          name: Configure application.yml
+          command: mv config/application.ci.yml config/application.yml  
 
       # Restore bundle cache
       - restore_cache:
