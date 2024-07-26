@@ -65,6 +65,11 @@ jobs:
           name: Load DB schema
           command: bin/rails db:schema:load --trace
 
+      - run:
+          name: Precompile assets
+          command: | 
+            bundle exec rake assets:precompile
+
       # Rspec
       - run:
           name: Setup Code Climate Test Reporter
