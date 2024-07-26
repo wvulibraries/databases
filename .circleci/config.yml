@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/circleci-databases/databases
     docker:
-      - image: cimg/ruby:3.3.4-node
+      - image: cimg/ruby:3.3.4-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
@@ -45,6 +45,13 @@ jobs:
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
             gem install bundler
+
+      # Install Node 18
+      - run:
+          name: Install Node 18
+          command: |
+            curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+            sudo apt-get install -y nodejs
 
       # Yarn install
       - run:
