@@ -12,7 +12,7 @@ class Admin::StatisticsController < AdminController
 
     # /admin/stats/:start_date/:end_date/
     def show
-      stats = Statistics::CSV.new(params.slice(:start_date, :end_date))
+      stats = Statistics::Csv.new(params.slice(:start_date, :end_date))
       begin
         send_data stats.as_csv, filename: "database-usage-#{params[:start_date]}-#{params[:end_date]}.csv", disposition: 'inline'
       rescue StandardError => error

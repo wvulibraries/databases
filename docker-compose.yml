@@ -41,13 +41,16 @@ services:
     volumes:
       - ./databases:/home/databases
       - ./scripts:/home/databases/scripts
+      # these directories are saved to the data directory 
+      # they do not need comitted to git. This keeps
+      # the image size down and the data persistent
       - ./data/node_modules:/home/databases/node_modules
       - ./data/log:/home/databases/log
       - ./data/coverage:/home/databases/coverage
       - ./data/public/assets:/home/databases/public/assets
       - ./data/public/uploads:/home/databases/public/uploads
       # don't mount tmp directory 
-      - /home/databases/tmp     
+      - /home/databases/tmp      
     ports:
       - "3000:3000" 
     links:

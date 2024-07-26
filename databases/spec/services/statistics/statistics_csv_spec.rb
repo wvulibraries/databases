@@ -1,6 +1,8 @@
+# databases/spec/services/statistics/statistics_csv_spec.rb
+
 require 'rails_helper'
 
-RSpec.describe Statistics::CSV do
+RSpec.describe Statistics::Csv do
   context '.as_csv' do
     it 'should return csv file' do
       db1 = FactoryBot.create :link_tracking_rspec

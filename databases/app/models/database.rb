@@ -3,6 +3,8 @@
 # @author David J. Davis
 # @modified_by Tracy A. McCormick
 # @modified_on 2024-07-25
+
+require 'csv'
 class Database < ApplicationRecord
   # TABLE NAME
   # -----------------------------------------------------

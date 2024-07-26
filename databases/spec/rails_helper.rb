@@ -15,6 +15,8 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 ActiveRecord::Migration.maintain_test_schema!
 
+Rails.application.eager_load!
+
 RSpec.configure do |config|
    config.infer_spec_type_from_file_location!
    config.filter_rails_from_backtrace!
