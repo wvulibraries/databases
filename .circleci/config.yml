@@ -81,22 +81,19 @@ jobs:
       ###########################################
       # Bundler w/ caching
       ###########################################
-      # - restore_cache:
-      #     name: Restore Bundler Cache
-      #     keys:
-      #       - bundler-cache-{{ checksum "Gemfile.lock" }}
-      # - run:
-      #     name: install ruby dependencies
-      #     command: |
-      #       bundle install --jobs=4 --retry=3
-      # - save_cache:
-      #     name: Save Bundler Cache
-      #     key: bundler-cache-{{ checksum "Gemfile.lock" }}
-      #     paths:
-      #       - vendor/bundle
-     - run:
-          name: bundle gems
-          command: bundle install --path vendor/bundle
+      - restore_cache:
+          name: Restore Bundler Cache
+          keys:
+            - bundler-cache-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: install ruby dependencies
+          command: |
+            bundle install --jobs=4 --retry=3
+      - save_cache:
+          name: Save Bundler Cache
+          key: bundler-cache-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
 
       ###########################################
       # Code Climate
