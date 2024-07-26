@@ -81,23 +81,19 @@ jobs:
       ###########################################
       # Bundler w/ caching
       ###########################################
-      # - restore_cache:
-      #     name: Restore Bundler Cache
-      #     keys:
-      #       - bundler-cache-{{ checksum "Gemfile.lock" }}
-      # - run:
-      #     name: install ruby dependencies
-      #     command: |
-      #       bundle install --jobs=4 --retry=3
-      # - save_cache:
-      #     name: Save Bundler Cache
-      #     key: bundler-cache-{{ checksum "Gemfile.lock" }}
-      #     paths:
-      #       - vendor/bundle
+      - restore_cache:
+          name: Restore Bundler Cache
+          keys:
+            - bundler-cache-{{ checksum "Gemfile.lock" }}
       - run:
-          name: bundle gems
+          name: install ruby dependencies
           command: |
-            bundle install --path vendor/bundle      
+            bundle install --jobs=4 --retry=3
+      - save_cache:
+          name: Save Bundler Cache
+          key: bundler-cache-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
 
       ###########################################
       # Code Climate
@@ -124,7 +120,7 @@ jobs:
       - run:
           name: Precompile Assets
           command: |
-            bundle exec rake assets:precompile
+            bin/rails assets:precompile
 
       ###########################################
       # Run rspec in parallel
