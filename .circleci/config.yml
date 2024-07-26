@@ -120,7 +120,6 @@ jobs:
       - run:
           name: Precompile Assets
           command: |
-            gem install turbolinks
             bundle exec rake assets:precompile
 
       ###########################################
