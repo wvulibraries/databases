@@ -49,17 +49,7 @@ jobs:
           command: mv config/application.ci.yml config/application.yml  
       - run:
           name: apt update
-          command: sudo apt update   
-      - run:
-          name: Install Node 18
-          command: |
-            curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-            sudo apt-get install -y nodejs 
-      - run:
-          name: install dockerize
-          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-          environment:
-            DOCKERIZE_VERSION: v0.6.1                    
+          command: sudo apt update              
 
       ###########################################
       # Yarn w/ caching
@@ -88,10 +78,6 @@ jobs:
             source $BASH_ENV
             gem install bundler
 
-     - run:
-          name: bundle gems
-          command: bundle install --path vendor/bundle
-
       ###########################################
       # Bundler w/ caching
       ###########################################
@@ -108,6 +94,9 @@ jobs:
       #     key: bundler-cache-{{ checksum "Gemfile.lock" }}
       #     paths:
       #       - vendor/bundle
+     - run:
+          name: bundle gems
+          command: bundle install --path vendor/bundle
 
       ###########################################
       # Code Climate
