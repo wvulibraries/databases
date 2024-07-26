@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     working_directory: ~/circleci-databases/databases  
-    parallelism: 4
+    parallelism: 1
     shell: /bin/bash --login
     environment:
       RAILS_ENV: test
