@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/databases/app
+    working_directory: ~/app
     docker:
       - image: cimg/ruby:3.3.4-node
         environment:
