@@ -58,6 +58,11 @@ jobs:
           name: Yarn install
           command: yarn install
 
+      # install yarn packages
+      - run:
+          name: Install Yarn Packages
+          command: yarn install --frozen-lockfile
+
       # Bundle install
       - run:
           name: Bundle install
