@@ -127,6 +127,7 @@ GEM
     date (3.3.4)
     diff-lcs (1.5.1)
     docile (1.4.1)
+    drb (2.2.1)
     elastic-transport (8.3.5)
       faraday (< 3)
       multi_json
@@ -395,6 +396,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   csv
   database_cleaner
+  drb
   elasticsearch-model
   elasticsearch-rails
   executables

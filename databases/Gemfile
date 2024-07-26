@@ -14,11 +14,13 @@ gem 'jbuilder', '~> 2.5'
 gem 'turbolinks', '~> 5.2'
 
 # seeing warnings about these gems not being part of the 
-# standard library, so adding them here
+# standard library, they will no longer be included soon
+# so adding them here
 gem 'base64'
 gem 'mutex_m'
 gem 'bigdecimal'
 gem 'csv'
+gem 'drb'
 
 # Frontend Dependencies
 # =====================================================

@@ -88,7 +88,11 @@ jobs:
       - run:
           name: install ruby dependencies
           command: |
-            bundle install --jobs=4 --retry=3
+            bundle check --path vendor/bundle
+            bundle install --deployment --jobs=4 --retry=3
+
+      - run: bundle exec rake assets:precompile
+
       - save_cache:
           name: Save Bundler Cache
           key: bundler-cache-{{ checksum "Gemfile.lock" }}
