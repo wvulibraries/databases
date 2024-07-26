@@ -13,6 +13,13 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'turbolinks', '~> 5'
 
+# seeing warnings about these gems not being part of the 
+# standard library, so adding them here
+gem 'base64'
+gem 'mutex_m'
+gem 'bigdecimal'
+gem 'csv'
+
 # Frontend Dependencies
 # =====================================================
 gem "sassc-rails", "~> 2.1"
