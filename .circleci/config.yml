@@ -24,7 +24,7 @@ jobs:
           discovery.type: single-node            
     steps:
        - checkout:
-            path: ~/circleci-databases
+          path: ~/circleci-databases
 
       # Restore bundle cache
       - restore_cache:
