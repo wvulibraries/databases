@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/databases 
+    working_directory: ~
     docker:
       - image: cimg/ruby:3.3.4-node
         environment:
@@ -24,7 +24,7 @@ jobs:
           discovery.type: single-node            
     steps:
       - checkout:
-            path: ~/databases
+            path: ~
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
