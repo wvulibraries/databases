@@ -94,9 +94,10 @@ jobs:
       #     key: bundler-cache-{{ checksum "Gemfile.lock" }}
       #     paths:
       #       - vendor/bundle
-     - run:
+      - run:
           name: bundle gems
-          command: bundle install --path vendor/bundle      
+          command: |
+            bundle install --path vendor/bundle      
 
       ###########################################
       # Code Climate
