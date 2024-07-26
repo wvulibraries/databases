@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/circleci-databases/databases  
+    working_directory: ~/app
     docker:
       - image: cimg/ruby:3.3.4-node
         environment:
@@ -23,8 +23,8 @@ jobs:
           http.port: 9200
           discovery.type: single-node            
     steps:
-       - checkout:
-          path: ~/circleci-databases
+      - checkout:
+            path: ~/app
 
       # Restore bundle cache
       - restore_cache:
