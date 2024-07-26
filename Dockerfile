@@ -24,10 +24,10 @@ ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 WORKDIR /home/databases
-ADD ./ /home/databases
+ADD ./databases /home/databases
 RUN bundle install --jobs=4 --retry=3
 RUN yarn install
 
-ADD ./startup.sh /usr/bin/
+ADD ./scripts/startup.sh /usr/bin/
 RUN chmod -v +x /usr/bin/startup.sh
 ENTRYPOINT ["/usr/bin/startup.sh"]
