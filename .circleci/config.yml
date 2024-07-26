@@ -115,14 +115,6 @@ jobs:
           command: bin/rails db:schema:load --trace
 
       ###########################################
-      # Compile Assets
-      ###########################################
-      - run:
-          name: Precompile Assets
-          command: |
-            bin/rails assets:precompile
-
-      ###########################################
       # Run rspec in parallel
       ###########################################
       - run:
