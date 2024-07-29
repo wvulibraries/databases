@@ -21,7 +21,7 @@ jobs:
           transport.host: localhost
           network.host: 127.0.0.1
           http.port: 9200
-          discovery.type: single-node
+          discovery.type: single-node            
     steps:
       - checkout:
           path: ~/circleci-databases
@@ -49,6 +49,11 @@ jobs:
             gem install bundler -v $(tail -n 1 Gemfile.lock)
             bundle install --jobs=4 --retry=3
 
+      - save_cache:
+          paths:
+            - vendor/bundle
+          key: gem-cache-{{ checksum "Gemfile.lock" }}
+
       - restore_cache:
           keys:
             - yarn-{{ checksum "yarn.lock" }}
@@ -72,26 +77,12 @@ jobs:
           command: bin/rails db:schema:load --trace
 
       - run:
-          name: Clean Assets
-          command: bin/rails assets:clobber
+          name: Print Bundler Path
+          command: echo $BUNDLE_PATH
 
       - run:
-          name: Print Ruby and Bundler versions
-          command: |
-            ruby -v
-            bundler -v
-
-      - run:
-          name: Print Bundle Config
-          command: bundle config
-
-      - run:
-          name: Install dependencies
-          command: bundle install --path vendor/bundle
-
-      - run:
-          name: Precompile assets
-          command: bundle exec rake assets:precompile
+          name: Check Installed Gems
+          command: bundle list
 
       - run:
           name: Verify Turbolinks Installation
@@ -102,21 +93,15 @@ jobs:
             fi
 
       - run:
+          name: Precompile assets
+          command: bundle exec rake assets:precompile
+
+      - run:
           name: Setup Code Climate Test Reporter
           command: |
             mkdir -p tmp/
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
             chmod +x ./tmp/cc-test-reporter
-
-      - run:
-          name: Debug Environment
-          command: |
-            echo "NODE PATH: $(which node)"
-            echo "YARN PATH: $(which yarn)"
-            echo "BUNDLE PATH: $(which bundle)"
-            node -v
-            yarn -v
-            bundle -v
 
       - run:
           name: Run RSpec
