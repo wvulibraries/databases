@@ -72,6 +72,11 @@ jobs:
               echo "Turbolinks not found!"
               exit 1
             fi
+      - run:
+          name: Manually Install Burbon and Neat
+          command: |
+            yarn add bourbon
+            yarn add neat
 
       # - run:
       #     name: Install Yarn
