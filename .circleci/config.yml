@@ -77,7 +77,7 @@ jobs:
 
       - run:
           name: Precompile assets
-          command: bundle exec rake assets:precompile
+          command: bundle install && bundle exec rake assets:precompile
 
       - run:
           name: Verify Turbolinks Installation
