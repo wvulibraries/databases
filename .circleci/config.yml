@@ -46,7 +46,6 @@ jobs:
       - run:
           name: Install Bundler
           command: |
-            cd databases
             gem install bundler -v $(tail -n 1 Gemfile.lock)
             bundle install --jobs=4 --retry=3
 
@@ -100,7 +99,6 @@ jobs:
       - run:
           name: Run RSpec
           command: |
-            cd databases
             bundle exec rspec --profile 10 \
                               --format RspecJunitFormatter \
                               --out /tmp/test-results/rspec.xml \
