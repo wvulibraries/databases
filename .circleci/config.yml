@@ -38,14 +38,15 @@ jobs:
           name: Configure application.yml
           command: mv ~/circleci-databases/databases/config/application.ci.yml ~/circleci-databases/databases/config/application.yml  
 
-      - restore_cache:
-          keys:
-            - gem-cache-{{ checksum "~/circleci-databases/databases/Gemfile.lock" }}
-            - gem-cache-
+      # - restore_cache:
+      #     keys:
+      #       - gem-cache-{{ checksum "~/circleci-databases/databases/Gemfile.lock" }}
+      #       - gem-cache-
 
       - run:
           name: Install Bundler
           command: |
+            cd ~/circleci-databases/databases
             gem install bundler -v $(tail -n 1 Gemfile.lock)
             bundle install --jobs=4 --retry=3
 
@@ -54,10 +55,18 @@ jobs:
       #       - yarn-{{ checksum "~/circleci-databases/databases/yarn.lock" }}
       #       - yarn-
 
-      # - run:
-      #     name: Install Yarn
-      #     command: |
-      #       yarn install --frozen-lockfile
+      - run:
+          name: Verify Yarn Installation Path
+          command: |
+                    cd ~/circleci-databases/databases
+                    mkdir -p node_modules
+                    ls -la node_modules
+
+      - run:
+          name: Install Yarn
+          command: |
+            cd ~/circleci-databases/databases
+            yarn install --frozen-lockfile
 
       # - save_cache:
       #     paths:
@@ -73,29 +82,22 @@ jobs:
           command: |
             bin/rails db:schema:load --trace
 
-      - run:
-          name: Verify Yarn Installation Path
-          command: |
-                    mkdir -p node_modules
-                    ls -la node_modules
-
-      - run:
-          name: Install Yarn
-          command: |
-            yarn install
-
+      # - run:
+      #     name: Install Yarn
+      #     command: |
+      #       yarn install
 
       # - run:
       #     name: Manually Install Turbolinks
       #     command: yarn add turbolinks
 
-      - run:
-          name: Verify Turbolinks Installation
-          command: |
-            if [ ! -d "node_modules/turbolinks" ]; then
-              echo "Turbolinks not found!"
-              exit 1
-            fi
+      # - run:
+      #     name: Verify Turbolinks Installation
+      #     command: |
+      #       if [ ! -d "node_modules/turbolinks" ]; then
+      #         echo "Turbolinks not found!"
+      #         exit 1
+      #       fi
 
       # - run: install package.json dependencies
       #     name: Install Yarn
