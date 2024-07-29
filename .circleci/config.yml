@@ -57,7 +57,6 @@ jobs:
       - run:
           name: Install Yarn
           command: |
-            cd databases
             yarn install --frozen-lockfile
 
       - save_cache:
