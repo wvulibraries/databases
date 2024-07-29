@@ -46,7 +46,6 @@ jobs:
       - run:
           name: Install Bundler
           command: |
-            cd ~/circleci-databases/databases
             gem install bundler -v $(tail -n 1 Gemfile.lock)
             bundle install --jobs=4 --retry=3
 
@@ -63,20 +62,21 @@ jobs:
 
       - run:
           name: Manually Install Turbolinks
-          command: yarn add turbolinks
+          command: gem install turbolinks
 
-      - run:
-          name: Verify Turbolinks Installation
-          command: |
-            if [ ! -d "node_modules/turbolinks" ]; then
-              echo "Turbolinks not found!"
-              exit 1
-            fi
-      - run:
-          name: Manually Install Burbon and Neat
-          command: |
-            gem install bourbon
-            gem install neat
+      # - run:
+      #     name: Verify Turbolinks Installation
+      #     command: |
+      #       if [ ! -d "node_modules/turbolinks" ]; then
+      #         echo "Turbolinks not found!"
+      #         exit 1
+      #       fi
+
+      # - run:
+      #     name: Manually Install Burbon and Neat
+      #     command: |
+      #       gem install bourbon
+      #       gem install neat
 
       # - run:
       #     name: Install Yarn
