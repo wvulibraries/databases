@@ -21,72 +21,48 @@ jobs:
           transport.host: localhost
           network.host: 127.0.0.1
           http.port: 9200
-          discovery.type: single-node            
+          discovery.type: single-node
     steps:
       - checkout:
           path: ~/circleci-databases
 
       - run:
           name: Configure secrets.yml
-          command: mv ~/circleci-databases/databases/config/secrets.ci.yml ~/circleci-databases/databases/config/secrets.yml
+          command: mv config/secrets.ci.yml config/secrets.yml
 
       - run:
           name: Configure database.yml
-          command: mv ~/circleci-databases/databases/config/database.ci.yml ~/circleci-databases/databases/config/database.yml
+          command: mv config/database.ci.yml config/database.yml
 
       - run:
           name: Configure application.yml
-          command: mv ~/circleci-databases/databases/config/application.ci.yml ~/circleci-databases/databases/config/application.yml  
+          command: mv config/application.ci.yml config/application.yml
 
-      # - restore_cache:
-      #     keys:
-      #       - gem-cache-{{ checksum "~/circleci-databases/databases/Gemfile.lock" }}
-      #       - gem-cache-
+      - restore_cache:
+          keys:
+            - gem-cache-{{ checksum "Gemfile.lock" }}
+            - gem-cache-
 
       - run:
           name: Install Bundler
           command: |
-            gem install bundler -v $(tail -n 1 Gemfile.lock)
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+            gem install bundler
+            bundle config path 'vendor/bundle'
+            bundle install --jobs=4 --retry=3
 
-      # - restore_cache:
-      #     keys:
-      #       - yarn-{{ checksum "~/circleci-databases/databases/yarn.lock" }}
-      #       - yarn-
-
-      - run:
-          name: Verify Yarn Installation Path
-          command: |
-            mkdir -p ~/circleci-databases/databases/node_modules
-            ls -la node_modules
-
-      # - run:
-      #     name: Manually Install Turbolinks
-      #     command: gem install turbolinks
-
-      # - run:
-      #     name: Verify Turbolinks Installation
-      #     command: |
-      #       if [ ! -d "node_modules/turbolinks" ]; then
-      #         echo "Turbolinks not found!"
-      #         exit 1
-      #       fi
-
-      # - run:
-      #     name: Manually Install Burbon and Neat
-      #     command: |
-      #       gem install bourbon
-      #       gem install neat
+      - restore_cache:
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+            - yarn-
 
       - run:
           name: Install Yarn
-          command: |
-            yarn install --frozen-lockfile
+          command: yarn install --frozen-lockfile
 
-      # - save_cache:
-      #     paths:
-      #       - ~/.cache/yarn
-      #     key: yarn-{{ checksum "~/circleci-databases/databases/yarn.lock" }}
+      - save_cache:
+          paths:
+            - ~/.cache/yarn
+          key: yarn-{{ checksum "yarn.lock" }}
 
       - run:
           name: Wait for MySQL
@@ -94,39 +70,23 @@ jobs:
 
       - run:
           name: Load DB schema
-          command: |
-            bin/rails db:schema:load --trace
-
-      # - run:
-      #     name: Install Yarn
-      #     command: |
-      #       yarn install
-
-      # - run:
-      #     name: Manually Install Turbolinks
-      #     command: yarn add turbolinks
-
-      # - run:
-      #     name: Verify Turbolinks Installation
-      #     command: |
-      #       if [ ! -d "node_modules/turbolinks" ]; then
-      #         echo "Turbolinks not found!"
-      #         exit 1
-      #       fi
-
-      # - run: install package.json dependencies
-      #     name: Install Yarn
-      #     command: yarn install
+          command: bin/rails db:schema:load --trace
 
       - run:
           name: Precompile assets
+          command: bundle exec rake assets:precompile
+
+      - run:
+          name: Verify Turbolinks Installation
           command: |
-            RAILS_ENV=test bundle exec rake assets:precompile
+            if [ ! -d "node_modules/turbolinks" ]; then
+              echo "Turbolinks not found!"
+              exit 1
+            fi
 
       - run:
           name: Setup Code Climate Test Reporter
           command: |
-            cd databases
             mkdir -p tmp/
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
             chmod +x ./tmp/cc-test-reporter
@@ -142,15 +102,14 @@ jobs:
           when: always
 
       - store_test_results:
-          path: ~/circleci-databases/databases/tmp/test-results
+          path: /tmp/test-results
 
       - store_artifacts:
-          path: ~/circleci-databases/databases/tmp/test-results
+          path: /tmp/test-results
           destination: test-results
 
       - run:
           name: Upload coverage results to Code Climate
           command: |
-            cd databases
             ./tmp/cc-test-reporter format-coverage -t simplecov $CIRCLE_ARTIFACTS/coverage/.resultset.json
             ./tmp/cc-test-reporter upload-coverage
