@@ -76,8 +76,22 @@ jobs:
           command: bin/rails assets:clobber
 
       - run:
+          name: Print Ruby and Bundler versions
+          command: |
+            ruby -v
+            bundler -v
+
+      - run:
+          name: Print Bundle Config
+          command: bundle config
+
+      - run:
+          name: Install dependencies
+          command: bundle install --path vendor/bundle
+
+      - run:
           name: Precompile assets
-          command: bundle install && bundle exec rake assets:precompile
+          command: bundle exec rake assets:precompile
 
       - run:
           name: Verify Turbolinks Installation
