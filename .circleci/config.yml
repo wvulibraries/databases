@@ -38,6 +38,10 @@ jobs:
           name: Configure application.yml
           command: mv config/application.ci.yml config/application.yml  
 
+      - run:
+          name: Copy yarn.lock to correct location
+          command: cp yarn.lock /usr/local/yarn_cache/yarn.lock
+
       - restore_cache:
           keys:
             - gem-cache-{{ checksum "Gemfile.lock" }}
@@ -58,10 +62,6 @@ jobs:
           keys:
             - yarn-{{ checksum "yarn.lock" }}
             - yarn-
-
-      - run:
-          name: Install Yarn
-          command: yarn install --frozen-lockfile
 
       - save_cache:
           paths:
