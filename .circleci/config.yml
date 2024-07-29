@@ -79,15 +79,15 @@ jobs:
                     mkdir -p node_modules
                     ls -la node_modules
 
-      - run:
-          name: Install Yarn
-          command: |
-            yarn install --frozen-lockfile
+      # - run:
+      #     name: Install Yarn
+      #     command: |
+      #       yarn install --frozen-lockfile
 
-      - run:
-          name: Precompile assets
-          command: |
-            RAILS_ENV=test bundle exec rake assets:precompile
+
+      # - run:
+      #     name: Manually Install Turbolinks
+      #     command: yarn add turbolinks
 
       - run:
           name: Verify Turbolinks Installation
@@ -97,6 +97,11 @@ jobs:
               echo "Turbolinks not found!"
               exit 1
             fi
+
+      - run:
+          name: Precompile assets
+          command: |
+            RAILS_ENV=test bundle exec rake assets:precompile
 
       - run:
           name: Setup Code Climate Test Reporter
