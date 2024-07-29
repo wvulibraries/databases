@@ -40,7 +40,7 @@ jobs:
 
       - run:
           name: Copy yarn.lock to correct location
-          command: cp yarn.lock /usr/local/yarn_cache/yarn.lock
+          command: cp ~/circleci-databases/yarn.lock yarn.lock
 
       - restore_cache:
           keys:
