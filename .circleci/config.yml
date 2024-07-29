@@ -57,7 +57,9 @@ jobs:
 
       - run:
           name: Verify Yarn Installation Path
-          command: ls -la node_modules
+          command: |
+            mkdir -p ~/circleci-databases/databases/node_modules
+            ls -la node_modules
 
       - run:
           name: Manually Install Turbolinks
