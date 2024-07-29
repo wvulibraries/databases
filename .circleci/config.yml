@@ -47,7 +47,7 @@ jobs:
           name: Install Bundler
           command: |
             gem install bundler -v $(tail -n 1 Gemfile.lock)
-            bundle install --jobs=4 --retry=3
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       # - restore_cache:
       #     keys:
@@ -60,9 +60,9 @@ jobs:
             mkdir -p ~/circleci-databases/databases/node_modules
             ls -la node_modules
 
-      - run:
-          name: Manually Install Turbolinks
-          command: gem install turbolinks
+      # - run:
+      #     name: Manually Install Turbolinks
+      #     command: gem install turbolinks
 
       # - run:
       #     name: Verify Turbolinks Installation
@@ -78,11 +78,10 @@ jobs:
       #       gem install bourbon
       #       gem install neat
 
-      # - run:
-      #     name: Install Yarn
-      #     command: |
-      #       cd ~/circleci-databases/databases
-      #       yarn install --frozen-lockfile
+      - run:
+          name: Install Yarn
+          command: |
+            yarn install --frozen-lockfile
 
       # - save_cache:
       #     paths:
