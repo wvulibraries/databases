@@ -28,19 +28,19 @@ jobs:
 
       - run:
           name: Configure secrets.yml
-          command: mv config/secrets.ci.yml config/secrets.yml
+          command: mv ~/circleci-databases/databases/config/secrets.ci.yml ~/circleci-databases/databases/config/secrets.yml
 
       - run:
           name: Configure database.yml
-          command: mv config/database.ci.yml config/database.yml
+          command: mv ~/circleci-databases/databases/config/database.ci.yml ~/circleci-databases/databases/config/database.yml
 
       - run:
           name: Configure application.yml
-          command: mv config/application.ci.yml config/application.yml  
+          command: mv ~/circleci-databases/databases/config/application.ci.yml ~/circleci-databases/databases/config/application.yml  
 
       - restore_cache:
           keys:
-            - gem-cache-{{ checksum "databases/Gemfile.lock" }}
+            - gem-cache-{{ checksum "~/circleci-databases/databases/Gemfile.lock" }}
             - gem-cache-
 
       - run:
@@ -52,7 +52,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - yarn-{{ checksum "databases/yarn.lock" }}
+            - yarn-{{ checksum "~/circleci-databases/databases/yarn.lock" }}
             - yarn-
 
       - run:
@@ -64,7 +64,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.cache/yarn
-          key: yarn-{{ checksum "databases/yarn.lock" }}
+          key: yarn-{{ checksum "~/circleci-databases/databases/yarn.lock" }}
 
       - run:
           name: Wait for MySQL
