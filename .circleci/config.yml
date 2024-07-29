@@ -21,7 +21,7 @@ jobs:
           transport.host: localhost
           network.host: 127.0.0.1
           http.port: 9200
-          discovery.type: single-node            
+          discovery.type: single-node
     steps:
       - checkout:
           path: ~/circleci-databases
@@ -72,6 +72,10 @@ jobs:
           command: bin/rails db:schema:load --trace
 
       - run:
+          name: Clean Assets
+          command: bin/rails assets:clobber
+
+      - run:
           name: Precompile assets
           command: bundle exec rake assets:precompile
 
@@ -89,6 +93,16 @@ jobs:
             mkdir -p tmp/
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
             chmod +x ./tmp/cc-test-reporter
+
+      - run:
+          name: Debug Environment
+          command: |
+            echo "NODE PATH: $(which node)"
+            echo "YARN PATH: $(which yarn)"
+            echo "BUNDLE PATH: $(which bundle)"
+            node -v
+            yarn -v
+            bundle -v
 
       - run:
           name: Run RSpec
