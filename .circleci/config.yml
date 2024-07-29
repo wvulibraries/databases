@@ -57,16 +57,25 @@ jobs:
 
       - run:
           name: Verify Yarn Installation Path
-          command: |
-                    cd ~/circleci-databases/databases
-                    mkdir -p node_modules
-                    ls -la node_modules
+          command: ls -la node_modules
 
       - run:
-          name: Install Yarn
+          name: Manually Install Turbolinks
+          command: yarn add turbolinks
+
+      - run:
+          name: Verify Turbolinks Installation
           command: |
-            cd ~/circleci-databases/databases
-            yarn install --frozen-lockfile
+            if [ ! -d "node_modules/turbolinks" ]; then
+              echo "Turbolinks not found!"
+              exit 1
+            fi
+
+      # - run:
+      #     name: Install Yarn
+      #     command: |
+      #       cd ~/circleci-databases/databases
+      #       yarn install --frozen-lockfile
 
       # - save_cache:
       #     paths:
