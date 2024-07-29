@@ -75,8 +75,8 @@ jobs:
       - run:
           name: Manually Install Burbon and Neat
           command: |
-            yarn add bourbon
-            yarn add neat
+            gem install bourbon
+            gem install neat
 
       # - run:
       #     name: Install Yarn
