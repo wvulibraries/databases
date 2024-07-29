@@ -80,11 +80,9 @@ jobs:
                     ls -la node_modules
 
       - run:
-          name: Manually Install Turbolinks, Burbon, and Neat
+          name: Install Yarn
           command: |
-            yarn add turbolinks
-            yarn add bourbon
-            yarn add neat
+            yarn install --frozen-lockfile
 
       - run:
           name: Precompile assets
