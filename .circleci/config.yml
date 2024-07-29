@@ -97,6 +97,10 @@ jobs:
               exit 1
             fi
 
+      - run: install package.json dependencies
+          name: Install Yarn
+          command: yarn install
+
       - run:
           name: Precompile assets
           command: |
