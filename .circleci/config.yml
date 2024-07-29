@@ -92,7 +92,6 @@ jobs:
       - run:
           name: Verify Turbolinks Installation
           command: |
-            cd databases
             if [ ! -d "node_modules/turbolinks" ]; then
               echo "Turbolinks not found!"
               exit 1
