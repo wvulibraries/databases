@@ -73,13 +73,11 @@ jobs:
       - run:
           name: Load DB schema
           command: |
-            cd databases
             bin/rails db:schema:load --trace
 
       - run:
           name: Precompile assets
           command: |
-            cd databases
             RAILS_ENV=test bundle exec rake assets:precompile
 
       - run:
