@@ -49,20 +49,21 @@ jobs:
             gem install bundler -v $(tail -n 1 Gemfile.lock)
             bundle install --jobs=4 --retry=3
 
-      - restore_cache:
-          keys:
-            - yarn-{{ checksum "~/circleci-databases/databases/yarn.lock" }}
-            - yarn-
+      # - restore_cache:
+      #     keys:
+      #       - yarn-{{ checksum "~/circleci-databases/databases/yarn.lock" }}
+      #       - yarn-
 
       - run:
           name: Install Yarn
           command: |
+            cp ~/circleci-databases/databases/yarn.lock ./yarn.lock
             yarn install --frozen-lockfile
 
-      - save_cache:
-          paths:
-            - ~/.cache/yarn
-          key: yarn-{{ checksum "~/circleci-databases/databases/yarn.lock" }}
+      # - save_cache:
+      #     paths:
+      #       - ~/.cache/yarn
+      #     key: yarn-{{ checksum "~/circleci-databases/databases/yarn.lock" }}
 
       - run:
           name: Wait for MySQL
