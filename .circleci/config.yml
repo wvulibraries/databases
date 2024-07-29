@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/circleci-databases
+    working_directory: ~/circleci-databases/databases
     docker:
       - image: cimg/ruby:3.3.4-browsers
         environment:
@@ -28,15 +28,15 @@ jobs:
 
       - run:
           name: Configure secrets.yml
-          command: mv ~/circleci-databases/databases/config/secrets.ci.yml ~/circleci-databases/databases/config/secrets.yml
+          command: mv config/secrets.ci.yml config/secrets.yml
 
       - run:
           name: Configure database.yml
-          command: mv ~/circleci-databases/databases/config/database.ci.yml ~/circleci-databases/databases/config/database.yml
+          command: mv config/database.ci.yml config/database.yml
 
       - run:
           name: Configure application.yml
-          command: mv ~/circleci-databases/databases/config/application.ci.yml ~/circleci-databases/databases/config/application.yml  
+          command: mv config/application.ci.yml config/application.yml  
 
       - restore_cache:
           keys:
@@ -80,7 +80,7 @@ jobs:
           name: Precompile assets
           command: |
             cd databases
-            bundle exec rake assets:precompile
+            RAILS_ENV=test bundle exec rake assets:precompile
 
       - run:
           name: Verify Turbolinks Installation
