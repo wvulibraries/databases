@@ -50,22 +50,23 @@ jobs:
             bundle config path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
 
-      - restore_cache:
-          keys:
-            - yarn-{{ checksum "yarn.lock" }}
-            - yarn-
+      # - restore_cache:
+      #     keys:
+      #       - yarn-{{ checksum "yarn.lock" }}
+      #       - yarn-
 
       - run:
           name: Install Yarn
           command: |
-            curl -o- -L https://yarnpkg.com/install.sh | bash
-            export PATH=$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH
-            yarn install --frozen-lockfile
+            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+            apt-get update
+            apt-get install -y yarn
 
-      - save_cache:
-          paths:
-            - ~/.cache/yarn
-          key: yarn-{{ checksum "yarn.lock" }}
+      # - save_cache:
+      #     paths:
+      #       - ~/.cache/yarn
+      #     key: yarn-{{ checksum "yarn.lock" }}
 
       - run:
           name: Wait for MySQL
