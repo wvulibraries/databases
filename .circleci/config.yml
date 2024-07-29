@@ -79,10 +79,10 @@ jobs:
                     mkdir -p node_modules
                     ls -la node_modules
 
-      # - run:
-      #     name: Install Yarn
-      #     command: |
-      #       yarn install --frozen-lockfile
+      - run:
+          name: Install Yarn
+          command: |
+            yarn install
 
 
       # - run:
@@ -97,9 +97,9 @@ jobs:
               exit 1
             fi
 
-      - run: install package.json dependencies
-          name: Install Yarn
-          command: yarn install
+      # - run: install package.json dependencies
+      #     name: Install Yarn
+      #     command: yarn install
 
       - run:
           name: Precompile assets
