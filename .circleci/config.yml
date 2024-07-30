@@ -40,8 +40,10 @@ jobs:
       #     name: Precompile assets
       #     command: docker exec databases_app bundle exec rake assets:precompile
       - run:
-          name: Run Setup Script
-          command: docker exec databases_app sh /home/databases/scripts/setup.sh
+          name: Setup database
+          command: |
+              docker exec databases_app bin/rails db:schema:load
+              docker exec databases_app bin/rails db:seed
       - run:
           name: Run Tests
           command: docker exec databases_app RAILS_ENV=test bundle exec rspec
