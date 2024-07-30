@@ -50,8 +50,8 @@ jobs:
       # - run:
       #     name: Precompile assets
       #     command: docker exec databases_app bundle exec rake assets:precompile
-      
-       - run:
+
+      - run:
           name: Configure secrets.yml
           command: docker exec databases_app mv config/secrets.ci.yml config/secrets.yml
       - run:
