@@ -29,9 +29,9 @@ jobs:
       # - run:
       #     name: Wait for MySQL
       #     command: dockerize -wait tcp://db:3306 -timeout 1m
-      - run:
-          name: Wait for Elasticsearch
-          command: dockerize -wait tcp://elasticsearch:9200 -timeout 3m
+      # - run:
+      #     name: Wait for Elasticsearch
+      #     command: dockerize -wait tcp://elasticsearch:9200 -timeout 3m
       # - run:
       #     name: Wait for Kibana
       #     command: dockerize -wait tcp://kibana:5601 -timeout 1m
@@ -51,15 +51,15 @@ jobs:
       #     name: Precompile assets
       #     command: docker exec databases_app bundle exec rake assets:precompile
 
-      - run:
-          name: Configure secrets.yml
-          command: docker exec databases_app mv config/secrets.ci.yml config/secrets.yml
+      # - run:
+      #     name: Configure secrets.yml
+      #     command: docker exec databases_app mv config/secrets.ci.yml config/secrets.yml
       # - run:
       #     name: Configure database.yml
       #     command: docker exec databases_app mv config/database.ci.yml config/database.yml
-      - run:
-          name: Configure application.yml
-          command: docker exec databases_app mv config/application.ci.yml config/application.yml
+      # - run:
+      #     name: Configure application.yml
+      #     command: docker exec databases_app mv config/application.ci.yml config/application.yml
       - run:
           name: Setup database
           command: |
