@@ -19,7 +19,7 @@ jobs:
             source $BASH_ENV
       - run:
           name: Start Services
-          command: docker-compose -f docker-compose.dev.yml up -d
+          command: docker-compose -f docker-compose.ci.yml up -d
       # - run:
       #     name: Wait for services to be ready
       #     command: |
