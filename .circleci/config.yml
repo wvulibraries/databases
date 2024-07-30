@@ -91,10 +91,10 @@ jobs:
             bundle check
             bundle install --deployment --jobs=4 --retry=3
 
-      - run:
-          name: Precompile assets
-          command: | 
-            bundle exec rake assets:precompile
+      # - run:
+      #     name: Precompile assets
+      #     command: | 
+      #       bundle exec rake assets:precompile
 
       - save_cache:
           name: Save Bundler Cache
