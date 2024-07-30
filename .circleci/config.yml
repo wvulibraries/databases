@@ -3,11 +3,8 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.3.4-browsers
+      - image: cimg/base
     environment:
-      RAILS_ENV: test
-      RACK_ENV: test
-      COVERAGE: true
       TZ: /usr/share/zoneinfo/America/New_York
     steps:
       - checkout
@@ -23,7 +20,7 @@ jobs:
             source $BASH_ENV
       - run:
           name: Start Services
-          command: docker-compose up -d
+          command: docker-compose -f docker-compose.dev.yml up -d
       - run:
           name: Wait for services to be ready
           command: |
