@@ -23,6 +23,7 @@ jobs:
       # - run:
       #     name: Wait for services to be ready
       #     command: |
+      #       dockerize -wait tcp://databases_app:3000 -timeout 1m
       #       dockerize -wait tcp://db:3306 -timeout 1m
       #       dockerize -wait tcp://elasticsearch:9200 -timeout 1m
       #       dockerize -wait tcp://kibana:5601 -timeout 1m
@@ -35,15 +36,19 @@ jobs:
       # - run:
       #     name: Install Ruby Dependencies
       #     command: docker exec databases_app bundle install --jobs=4 --retry=3
-      - run:
-          name: Precompile assets
-          command: docker exec databases_app bundle exec rake assets:precompile
+      # - run:
+      #     name: Precompile assets
+      #     command: docker exec databases_app bundle exec rake assets:precompile
       - run:
           name: Setup Database
-          command: docker exec databases_app sh ./scripts/setup.sh
+          command: |
+            docker exec -it databases_app bash
+            sh ./scripts/setup.sh
       - run:
           name: Run Tests
-          command: docker exec databases_app bundle exec rspec
+          command: |
+            docker exec -it databases_app bash
+            RAILS_ENV=test bundle exec rspec
       - store_test_results:
           path: test_results
 
