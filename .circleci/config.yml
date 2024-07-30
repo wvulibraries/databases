@@ -23,51 +23,29 @@ jobs:
       - run:
           name: Wait for services to be ready
           command: |
-            dockerize -wait tcp://127.0.0.1:3310 -timeout 1m
-            dockerize -wait tcp://127.0.0.1:9200 -timeout 1m
-            dockerize -wait tcp://127.0.0.1:5601 -timeout 1m
-      # - run:
-      #     name: Configure secrets.yml
-      #     command: mv config/secrets.ci.yml config/secrets.yml
-      # - run:
-      #     name: Configure database.yml
-      #     command: mv config/database.ci.yml config/database.yml
-      - restore_cache:
-          name: Restore Yarn Cache
-          keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
+            dockerize -wait tcp://db:3306 -timeout 1m
+            dockerize -wait tcp://elasticsearch:9200 -timeout 1m
+            dockerize -wait tcp://kibana:5601 -timeout 1m
       - run:
           name: Install Yarn Dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache:
-          name: Save Yarn Cache
-          key: yarn-packages-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
+          command: docker exec databases_app yarn install --frozen-lockfile
       - run:
           name: Install Bundler
-          command: |
-            gem install bundler
-            bundle install --jobs=4 --retry=3
-      - restore_cache:
-          name: Restore Bundler Cache
-          keys:
-            - bundler-cache-{{ checksum "Gemfile.lock" }}
-      - save_cache:
-          name: Save Bundler Cache
-          key: bundler-cache-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
+          command: docker exec databases_app gem install bundler
+      - run:
+          name: Install Ruby Dependencies
+          command: docker exec databases_app bundle install --jobs=4 --retry=3
       - run:
           name: Precompile assets
-          command: bundle exec rake assets:precompile
+          command: docker exec databases_app bundle exec rake assets:precompile
       - run:
-          name: Load DB schema
-          command: bin/rails db:schema:load --trace
+          name: Setup Database
+          command: docker exec databases_app sh ./scripts/setup.sh
       - run:
           name: Run Tests
-          command: bundle exec rspec
+          command: docker exec databases_app bundle exec rspec
       - store_test_results:
           path: test_results
+
 
 
