@@ -1,83 +1,147 @@
-version: 2.1
-
+version: 2
 jobs:
   build:
-    docker:
-      - image: cimg/base:2024.07
+    working_directory: ~/circleci-databases/databases  
+    parallelism: 1
+    shell: /bin/bash --login
     environment:
-      TZ: /usr/share/zoneinfo/America/New_York
+      RAILS_ENV: test
+      RACK_ENV: test
+      COVERAGE: true
+      TZ: /usr/share/zoneinfo/America/NewYork
+    
+    #############################################
+    # Container Setup
+    #############################################
+    docker:
+      - image: cimg/ruby:3.3.4-node
+        environment:
+          - RAILS_ENV=test
+          - CC_TEST_REPORTER_ID=28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
+          - COVERAGE=true          
+      - image: cimg/mysql:5.7
+        environment:
+          - MYSQL_ROOT_HOST=%
+          - MYSQL_ROOT_PASSWORD=circleci
+      - image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+        environment:
+          - cluster.name: elasticsearch
+          - xpack.security.enabled: false
+          - transport.host: localhost
+          - network.host: 127.0.0.1
+          - http.port: 9200
+          - discovery.type: single-node                    
+    
+    #############################################
+    # Build Steps
+    #############################################
     steps:
-      - checkout
-      - setup_remote_docker
+      - checkout:
+            path: ~/circleci-databases
       - run:
-          name: Install Docker Compose
+          name: Configure secrets.yml
+          command: mv config/secrets.ci.yml config/secrets.yml
+      - run:
+          name: Configure database.yml
+          command: mv config/database.ci.yml config/database.yml
+      - run:
+          name: Configure application.yml
+          command: mv config/application.ci.yml config/application.yml  
+      - run:
+          name: apt update
+          command: sudo apt update              
+
+      ###########################################
+      # Yarn w/ caching
+      ###########################################        
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      ###########################################
+      # Force Bundler Version
+      ###########################################  
+      - run:
+          name: Force Bundler Version
           command: |
-            mkdir -p ~/bin
-            curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o ~/bin/docker-compose
-            chmod +x ~/bin/docker-compose
-            echo 'export PATH=~/bin:$PATH' >> $BASH_ENV
+            sudo gem update --system
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
-      # - run:
-      #     name: Install Dockerize if not present
-      #     command: |
-      #       if ! command -v dockerize &> /dev/null; then
-      #         curl -sSL https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz | tar -C /usr/local/bin -xzv
-      #       fi
-      - run:
-          name: Start Services
-          command: docker-compose -f docker-compose.ci.yml up -d
+            gem install bundler
 
+      ###########################################
+      # Bundler w/ caching
+      ###########################################
+      # - restore_cache:
+      #     name: Restore Bundler Cache
+      #     keys:
+      #       - bundler-cache-{{ checksum "Gemfile.lock" }}
       - run:
-          name: check containers
+          name: install ruby dependencies
           command: |
-            docker ps -a
-            docker network ls
-            
-      # - run:
-      #     name: Wait for MySQL
-      #     command: dockerize -wait tcp://db:3306 -timeout 3m
-      # - run:
-      #     name: Wait for Elasticsearch
-      #     command: dockerize -wait tcp://elasticsearch:9200 -timeout 3m
-      # - run:
-      #     name: Wait for Kibana
-      #     command: dockerize -wait tcp://kibana:5601 -timeout 3m
-      # - run:
-      #     name: List Directory Contents
-      #     command: docker exec databases_app ls -la /home/databases
-      # - run:
-      #     name: Install Yarn Dependencies
-      #     command: docker exec databases_app yarn install --frozen-lockfile
-      # - run:
-      #     name: Install Bundler
-      #     command: docker exec databases_app gem install bundler
-      # - run:
-      #     name: Install Ruby Dependencies
-      #     command: docker exec databases_app bundle install --jobs=4 --retry=3
-      # - run:
-      #     name: Precompile assets
-      #     command: docker exec databases_app bundle exec rake assets:precompile
+            bundle check
+            bundle install --deployment --jobs=4 --retry=3
 
-      # - run:
-      #     name: Configure secrets.yml
-      #     command: docker exec databases_app mv config/secrets.ci.yml config/secrets.yml
-      # - run:
-      #     name: Configure database.yml
-      #     command: docker exec databases_app mv config/database.ci.yml config/database.yml
-      # - run:
-      #     name: Configure application.yml
-      #     command: docker exec databases_app mv config/application.ci.yml config/application.yml
       - run:
-          name: Setup database
+          name: Precompile assets
+          command: | 
+            bundle exec rake assets:precompile
+
+      - save_cache:
+          name: Save Bundler Cache
+          key: bundler-cache-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      ###########################################
+      # Code Climate
+      ###########################################
+      - run:
+          name: Install Code Climate Test Reporter
           command: |
-              docker exec databases_app /home/databases/bin/rails db:create
-              docker exec databases_app /home/databases/bin/rails db:schema:load
-              docker exec databases_app /home/databases/bin/rails db:seed
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter            
+
+      ###########################################
+      # Database
+      ###########################################
       - run:
-          name: Run Tests
-          command: docker exec databases_app RAILS_ENV=test bundle exec rspec
-      # - store_test_results:
-      #     path: test_results
+          name: Wait for MySQL
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+      - run:
+          name: Load DB schema
+          command: bin/rails db:schema:load --trace
 
+      ###########################################
+      # Run rspec in parallel
+      ###########################################
+      - run:
+          name: Run rspec in parallel
+          command: |
+            mkdir -p test_results
+            ./cc-test-reporter before-build
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - run:
+          name: Code Climate Test Coverage
+          command: |
+            ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"    
 
-
+      # Save test results for timing analysis
+      - store_test_results:
+          path: test_results
+      - deploy:
+          command: |
+            ./cc-test-reporter sum-coverage --output - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -          
