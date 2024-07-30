@@ -63,22 +63,14 @@ jobs:
             apt-get update
             apt-get install -y yarn
 
-      - run:
-          name: Install dockerize
-          command: |
-            apt-get install wget \
-            wget -O - https://github.com/jwilder/dockerize/releases/download/v0.7.0/dockerize-linux-amd64-v0.7.0.tar.gz | 
-            tar xzf - -C /usr/local/bin
-            apt-get autoremove -yqq --purge wget && rm -rf /var/lib/apt/lists/*
-
       # - save_cache:
       #     paths:
       #       - ~/.cache/yarn
       #     key: yarn-{{ checksum "yarn.lock" }}
 
-      - run:
-          name: Wait for MySQL
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+      # - run:
+      #     name: Wait for MySQL
+      #     command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
 
       - run:
           name: Load DB schema
