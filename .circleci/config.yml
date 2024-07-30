@@ -20,7 +20,9 @@ jobs:
       - run:
           name: Install Dockerize
           command: |
-            curl -sSL https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz | tar -C /usr/local/bin -xzv
+            if ! command -v dockerize &> /dev/null; then
+              curl -sSL https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz | tar -C /usr/local/bin -xzv
+            fi
       - run:
           name: Start Services
           command: docker-compose -f docker-compose.ci.yml up -d
