@@ -26,18 +26,18 @@ jobs:
       - run:
           name: Start Services
           command: docker-compose -f docker-compose.ci.yml up -d
-      # - run:
-      #     name: Wait for MySQL
-      #     command: dockerize -wait tcp://db:3306 -timeout 1m
-      # - run:
-      #     name: Wait for Elasticsearch
-      #     command: dockerize -wait tcp://elasticsearch:9200 -timeout 1m
-      # - run:
-      #     name: Wait for Kibana
-      #     command: dockerize -wait tcp://kibana:5601 -timeout 1m
-      # - run:
-      #     name: List Directory Contents
-      #     command: docker exec databases_app ls -la /home/databases
+      - run:
+          name: Wait for MySQL
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run:
+          name: Wait for Elasticsearch
+          command: dockerize -wait tcp://localhost:9200 -timeout 1m
+      - run:
+          name: Wait for Kibana
+          command: dockerize -wait tcp://localhost:5601 -timeout 1m
+      - run:
+          name: List Directory Contents
+          command: docker exec databases_app ls -la /home/databases
       # - run:
       #     name: Install Yarn Dependencies
       #     command: docker exec databases_app yarn install --frozen-lockfile
