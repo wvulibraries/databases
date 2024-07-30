@@ -2,118 +2,51 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/circleci-databases/databases
     docker:
-      - image: ruby:3.3.4 
-        environment:
-          BUNDLE_JOBS: 3
-          BUNDLE_RETRY: 3
-          RAILS_ENV: test
-          CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-          COVERAGE: true
-      - image: cimg/mysql:5.7
-        environment:
-          MYSQL_ROOT_PASSWORD: circleci
-      - image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
-        environment:
-          cluster.name: elasticsearch
-          xpack.security.enabled: false
-          transport.host: localhost
-          network.host: 127.0.0.1
-          http.port: 9200
-          discovery.type: single-node
+      - image: cimg/ruby:3.3.4-browsers
+    environment:
+      RAILS_ENV: test
+      RACK_ENV: test
+      COVERAGE: true
+      TZ: /usr/share/zoneinfo/America/NewYork
     steps:
-      - checkout:
-          path: ~/circleci-databases
-
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.7
       - run:
-          name: Configure secrets.yml
-          command: mv config/secrets.ci.yml config/secrets.yml
-
+          name: Install Docker Compose
+          command: |
+            curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
       - run:
-          name: Configure database.yml
-          command: mv config/database.ci.yml config/database.yml
-
+          name: Start Services
+          command: docker-compose up -d
       - run:
-          name: Configure application.yml
-          command: mv config/application.ci.yml config/application.yml
-
-      - restore_cache:
-          keys:
-            - gem-cache-{{ checksum "Gemfile.lock" }}
-            - gem-cache-
-
+          name: Wait for services to be ready
+          command: |
+            dockerize -wait tcp://127.0.0.1:3310 -timeout 1m
+            dockerize -wait tcp://127.0.0.1:9200 -timeout 1m
+            dockerize -wait tcp://127.0.0.1:5601 -timeout 1m
+      - run:
+          name: Install Yarn Dependencies
+          command: yarn install --frozen-lockfile
       - run:
           name: Install Bundler
           command: |
             gem install bundler
-            bundle config path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
-
-      # - restore_cache:
-      #     keys:
-      #       - yarn-{{ checksum "yarn.lock" }}
-      #       - yarn-
-
-      - run:
-          name: Install Yarn
-          command: |
-            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-            echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-            apt-get update
-            apt-get install -y yarn
-
-      # - save_cache:
-      #     paths:
-      #       - ~/.cache/yarn
-      #     key: yarn-{{ checksum "yarn.lock" }}
-
-      # - run:
-      #     name: Wait for MySQL
-      #     command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
-
-      - run:
-          name: Load DB schema
-          command: bin/rails db:schema:load --trace
-
       - run:
           name: Precompile assets
           command: bundle exec rake assets:precompile
-
       - run:
-          name: Verify Turbolinks Installation
-          command: |
-            if [ ! -d "node_modules/turbolinks" ]; then
-              echo "Turbolinks not found!"
-              exit 1
-            fi
-
+          name: Load DB schema
+          command: bin/rails db:schema:load --trace
       - run:
-          name: Setup Code Climate Test Reporter
-          command: |
-            mkdir -p tmp/
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
-            chmod +x ./tmp/cc-test-reporter
-
-      - run:
-          name: Run RSpec
-          command: |
-            bundle exec rspec --profile 10 \
-                              --format RspecJunitFormatter \
-                              --out /tmp/test-results/rspec.xml \
-                              --format progress \
-                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-          when: always
-
+          name: Run Tests
+          command: bundle exec rspec
       - store_test_results:
-          path: /tmp/test-results
+          path: test_results
 
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
-
-      - run:
-          name: Upload coverage results to Code Climate
-          command: |
-            ./tmp/cc-test-reporter format-coverage -t simplecov $CIRCLE_ARTIFACTS/coverage/.resultset.json
-            ./tmp/cc-test-reporter upload-coverage
+volumes:
+  mysql:
+  search_data:
