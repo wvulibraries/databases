@@ -20,13 +20,13 @@ jobs:
       - run:
           name: Start Services
           command: docker-compose -f docker-compose.ci.yml up -d
-      # - run:
-      #     name: Wait for services to be ready
-      #     command: |
-      #       dockerize -wait tcp://databases_app:3000 -timeout 1m
-      #       dockerize -wait tcp://db:3306 -timeout 1m
-      #       dockerize -wait tcp://elasticsearch:9200 -timeout 1m
-      #       dockerize -wait tcp://kibana:5601 -timeout 1m
+      - run:
+          name: Wait for services to be ready
+          command: |
+            dockerize -wait tcp://databases_app:3000 -timeout 1m
+            dockerize -wait tcp://db:3306 -timeout 1m
+            dockerize -wait tcp://elasticsearch:9200 -timeout 1m
+            dockerize -wait tcp://kibana:5601 -timeout 1m
       # - run:
       #     name: Install Yarn Dependencies
       #     command: docker exec databases_app yarn install --frozen-lockfile
