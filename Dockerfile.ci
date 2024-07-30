@@ -26,11 +26,13 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR /home/databases
 COPY ./databases /home/databases
 RUN bundle install --jobs=4 --retry=3
+
+# Install yarn dependencies
 RUN yarn install
 
-ADD ./scripts/setup.sh /home/databases/scripts/setup.sh
-RUN chmod -v +x /home/databases/scripts/setup.sh
-
+# Copy the startup script and change permissions
 ADD ./scripts/startup.sh /usr/bin/
 RUN chmod -v +x /usr/bin/startup.sh
+
+# Set the entrypoint
 ENTRYPOINT ["/usr/bin/startup.sh"]

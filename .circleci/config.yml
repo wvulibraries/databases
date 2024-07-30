@@ -42,7 +42,9 @@ jobs:
       - run:
           name: Setup database
           command: |
-              docker exec databases_app /home/databases/scripts/setup.sh
+              docker exec databases_app /home/databases/bin/rails db:create
+              docker exec databases_app /home/databases/bin/rails db:schema:load
+              docker exec databases_app /home/databases/bin/rails db:seed
       - run:
           name: Run Tests
           command: docker exec databases_app RAILS_ENV=test bundle exec rspec

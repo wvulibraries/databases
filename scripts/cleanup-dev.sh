@@ -2,4 +2,4 @@
 docker volume prune --all --force
 
 # remove contents of ./data/logs
-rm -rf ./log/*
+rm -rf ./data/log/*
