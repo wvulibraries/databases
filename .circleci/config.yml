@@ -1,26 +1,14 @@
 version: 2.1
 
-orbs:
-  ruby: circleci/ruby@1.1.0
-  node: circleci/node@2
-
-jobs:
-  build:
+executors:
+  default:
+    working_directory: ~/hix_mysql
     docker:
       - image: cimg/ruby:3.3.4-node
-    steps:
-      - checkout:
-          path: ~/circleci-databases
-      - ruby/install-deps
-      # Store bundle cache
-      - node/install-packages:
-          pkg-manager: yarn
-          cache-key: "yarn.lock"
-  test:
-    working_directory: ~/circleci-databases/databases
-    parallelism: 3
-    docker:
-      - image: cimg/ruby:3.3.4-node  
+        environment:
+          RAILS_ENV: test
+          CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
+          COVERAGE: true
       - image: cimg/mysql:5.7
         environment:
           MYSQL_ROOT_HOST: "%"
@@ -32,20 +20,25 @@ jobs:
           transport.host: localhost
           network.host: 127.0.0.1
           http.port: 9200
-          discovery.type: single-node   
-    environment:
-      CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-      COVERAGE: true 
-      BUNDLE_JOBS: "3"
-      BUNDLE_RETRY: "3"
-      RAILS_ENV: test
+          discovery.type: single-node 
+
+commands:
+  configure_bundler:
+    description: Configure bundler
+    steps:
+      - run:
+          name: Configure bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+
+jobs:
+  build:
+    executor: default
     steps:
       - checkout:
           path: ~/circleci-databases
-      - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
-          cache-key: "yarn.lock"
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
@@ -55,21 +48,38 @@ jobs:
       - run:
           name: Configure application.yml
           command: mv config/application.ci.yml config/application.yml  
+      - restore_cache:
+          keys:
+            - rails-bundle-{{ checksum "Gemfile.lock" }}
+            - rails-bundle-
+      - configure_bundler
+      - run:
+          name: Install bundle
+          command: bundle install
       - run:
           name: Wait for DB
-          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
       - run:
-          name: Database setup
-          command: bundle exec rails db:schema:load --trace
-      # Run rspec in parallel
-      - ruby/rspec-test
-      # - ruby/rubocop-check
+          name: Setup DB
+          command: bundle exec rails db:create db:schema:load --trace
+      - run:
+          name: RSpec
+          command: |
+            bundle exec rspec --profile 10 \
+                              --format progress
+      - store_artifacts:
+          path: coverage
+      - save_cache:
+          key: rails-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      # - persist_to_workspace:
+      #     root: ~/
+      #     paths:
+      #       - ./hix
 
 workflows:
   version: 2
-  build_and_test:
+  integration:
     jobs:
       - build
-      - test:
-          requires:
-            - build
