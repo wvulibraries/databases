@@ -32,6 +32,36 @@ commands:
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
             gem install bundler
+      - restore_cache:
+          keys:
+            - rails-bundle-{{ checksum "Gemfile.lock" }}
+            - rails-bundle-
+      - run:
+          name: Install bundle
+          command: bundle install
+      - save_cache:
+          key: rails-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      
+  configure_yarn:
+    desccription: Configure yarn
+    steps:
+      - run:
+          name: apt update
+          command: sudo apt update
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
 
 jobs:
   build:
@@ -48,14 +78,8 @@ jobs:
       - run:
           name: Configure application.yml
           command: mv config/application.ci.yml config/application.yml  
-      - restore_cache:
-          keys:
-            - rails-bundle-{{ checksum "Gemfile.lock" }}
-            - rails-bundle-
       - configure_bundler
-      - run:
-          name: Install bundle
-          command: bundle install
+      - configure_yarn
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
@@ -69,10 +93,7 @@ jobs:
                               --format progress
       - store_artifacts:
           path: coverage
-      - save_cache:
-          key: rails-bundle-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
+
       # - persist_to_workspace:
       #     root: ~/
       #     paths:
