@@ -95,9 +95,9 @@ jobs:
       - run:
           name: Setup DB
           command: bundle exec rails db:create db:schema:load --trace
-      - run:
-          name: Precompile assets
-          command: bin/rails assets:precompile
+      # - run:
+      #     name: Precompile assets
+      #     command: bin/rails assets:precompile
       - run:
           name: Run rspec in parallel
           command: |
