@@ -38,9 +38,9 @@ jobs:
       # - run:
       #     name: List Directory Contents
       #     command: docker exec databases_app ls -la /home/databases
-      # - run:
-      #     name: Install Yarn Dependencies
-      #     command: docker exec databases_app yarn install --frozen-lockfile
+      - run:
+          name: Install Yarn Dependencies
+          command: docker exec databases_app yarn install --frozen-lockfile
       - run:
           name: Install Bundler
           command: docker exec databases_app gem install bundler
