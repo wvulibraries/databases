@@ -3,9 +3,8 @@ version: 2.1
 executors:
   default:
     working_directory: ~/circleci-databases/databases
-    parallelism: 1
     docker:
-      - image: cimg/ruby:3.3.4-browsers
+      - image: cimg/ruby:3.3.4-node
         environment:
           RAILS_ENV: test
           CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
@@ -36,7 +35,6 @@ commands:
       - run:
           name: Configure application.yml
           command: mv config/application.ci.yml config/application.yml  
-          
   configure_bundler:
     description: Configure bundler
     steps:
