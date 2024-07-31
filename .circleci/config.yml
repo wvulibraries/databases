@@ -3,6 +3,7 @@ version: 2.1
 executors:
   default:
     working_directory: ~/circleci-databases/databases
+    parallelism: 1
     docker:
       - image: cimg/ruby:3.3.4-browsers
         environment:
