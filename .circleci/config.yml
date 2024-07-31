@@ -2,36 +2,30 @@ version: 2
 jobs:
   build:
     working_directory: ~/circleci-databases/databases     
-    parallelism: 1  # however many CPUs you need/pay for
-    
-    #############################################
-    # Container Setup
-    #############################################
+    parallelism: 1
+ 
     docker:
       - image: cimg/ruby:3.3.4-node
         environment:
-          - RAILS_ENV=test
-          - CC_TEST_REPORTER_ID=28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-          - COVERAGE=true          
+          RAILS_ENV: test
+          CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
+          COVERAGE: true
       - image: cimg/mysql:5.7
         environment:
-          - MYSQL_ROOT_HOST=%
-          - MYSQL_ROOT_PASSWORD=circleci
+          MYSQL_ROOT_HOST: "%"
+          MYSQL_ROOT_PASSWORD: circleci
       - image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
         environment:
-          - cluster.name: elasticsearch
-          - xpack.security.enabled: false
-          - transport.host: localhost
-          - network.host: 127.0.0.1
-          - http.port: 9200
-          - discovery.type: single-node                    
-    
-    #############################################
-    # Build Steps
-    #############################################
+          cluster.name: elasticsearch
+          xpack.security.enabled: false
+          transport.host: localhost
+          network.host: 127.0.0.1
+          http.port: 9200
+          discovery.type: single-node                    
+ 
     steps:
       - checkout:
-            path: ~/circleci-databases
+          path: ~/circleci-databases
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
@@ -45,9 +39,6 @@ jobs:
           name: apt update
           command: sudo apt update              
 
-      ###########################################
-      # Yarn w/ caching
-      ###########################################        
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
@@ -61,9 +52,6 @@ jobs:
           paths:
             - ~/.cache/yarn
 
-      ###########################################
-      # Force Bundler Version
-      ###########################################  
       - run:
           name: Force Bundler Version
           command: |
@@ -72,9 +60,6 @@ jobs:
             source $BASH_ENV
             gem install bundler
 
-      ###########################################
-      # Bundler w/ caching
-      ###########################################
       - restore_cache:
           keys:
             - rails-bundle-{{ checksum "Gemfile.lock" }}
@@ -88,18 +73,12 @@ jobs:
           paths:
             - vendor/bundle
 
-      ###########################################
-      # Code Climate
-      ###########################################
       - run:
           name: Install Code Climate Test Reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter            
 
-      ###########################################
-      # Database
-      ###########################################
       - run:
           name: Wait for MySQL
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
@@ -107,9 +86,10 @@ jobs:
           name: Load DB schema
           command: bin/rails db:schema:load --trace
 
-      ###########################################
-      # Run rspec in parallel
-      ###########################################
+      - run:
+          name: Precompile assets
+          command: bin/rails assets:precompile
+
       - run:
           name: Run rspec in parallel
           command: |
@@ -125,9 +105,8 @@ jobs:
           command: |
             ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"    
 
-      # Save test results for timing analysis
       - store_test_results:
           path: test_results
       - deploy:
           command: |
-            ./cc-test-reporter sum-coverage --output - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -          
+            ./cc-test-reporter sum-coverage --output - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
