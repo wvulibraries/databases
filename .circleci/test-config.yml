@@ -1,0 +1,96 @@
+version: 2.1
+
+executors:
+  default:
+    working_directory: ~/my_project
+    docker:
+      - image: cimg/ruby:3.1.0
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_PATH: vendor/bundle
+          BUNDLE_RETRY: 3
+          BUNDLER_VERSION: 2.0.1
+          RAILS_ENV: test
+          DB_HOST: 127.0.0.1
+          PG_HOST: 127.0.0.1
+          PGUSER: my_project
+          CI: circleci
+      - image: cimg/postgres:14.5-postgis
+        environment:
+          POSTGRES_DB: my_project_postgresql_test
+          POSTGRES_USER: my_project
+      - image: cimg/node:19.2.0
+
+commands:
+  configure_bundler:
+    description: Configure bundler
+    steps:
+      - run:
+          name: Configure bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+  build:
+    executor: default
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - my_project-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - my_project-
+      - configure_bundler
+      - run:
+          name: Install bundle
+          command: bundle install --jobs=$BUNDLE_JOBS --retry=$BUNDLE_RETRY
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
+      - run:
+          name: Setup DB
+          command: bundle exec rails db:create db:schema:load --trace
+      - run:
+          name: Precompile Assets
+          command: bundle exec rake assets:precompile
+      - save_cache:
+          key: my_project-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - ./my_project
+
+  rake_test:
+    executor: default
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/my_project
+      - run: bundle config set --local path $BUNDLE_PATH
+      - run: bundle
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+            bundle exec rspec --format progress \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --format progress \
+                            -- \
+                            $TEST_FILES
+      - store_test_results:
+          path: /tmp/test-results
+
+workflows:
+  version: 2
+  run_tests:
+    jobs:
+      - build
+      - rake_test:
+          requires:
+            - build
