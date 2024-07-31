@@ -45,6 +45,12 @@ jobs:
           name: Install Turbolinks
           command: docker exec databases_app yarn add turbolinks
       - run:
+          name: Install Burbon
+          command: docker exec databases_app yarn add bourbon
+      - run:
+          name: Install Neat
+          command: docker exec databases_app yarn add neat
+      - run:
           name: Precompile assets
           command: docker exec databases_app bundle exec rake assets:precompile
       - run:
