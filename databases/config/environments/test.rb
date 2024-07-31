@@ -60,4 +60,6 @@ Rails.application.configure do
 
   # Add the middleware
   config.middleware.use RackSessionAccess::Middleware  
+
+  config.assets.precompile += %w( application.js application.scss )
 end
