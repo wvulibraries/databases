@@ -8,12 +8,8 @@ services:
     tty: true
     stdin_open: true
     container_name: databases_app
-    environment:
-      BUNDLE_JOBS: 3
-      BUNDLE_RETRY: 3
-      RAILS_ENV: test
-      CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-      COVERAGE: true        
+    env_file:
+      - './env/.env.dev.rails'     
     ports:
       - "3000:3000" 
     links:
