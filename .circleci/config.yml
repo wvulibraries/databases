@@ -2,7 +2,7 @@ version: 2.1
 
 executors:
   default:
-    working_directory: ~/hix_mysql
+    working_directory: ~/circleci-databases/databases
     docker:
       - image: cimg/ruby:3.3.4-node
         environment:
