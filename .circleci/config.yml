@@ -45,7 +45,7 @@ commands:
             - vendor/bundle
       
   configure_yarn:
-    desccription: Configure yarn
+    description: Configure yarn
     steps:
       - run:
           name: apt update
