@@ -1,29 +1,6 @@
 version: '3.1'
 
 services:
-
-  elasticsearch:
-    image: elasticsearch:7.16.2
-    container_name: elasticsearch
-    restart: always
-    env_file:
-      - './env/.env.dev.es'    
-    volumes: 
-      - search_data:/usr/share/elasticsearch/data
-    ports: 
-      - "9200"
-   
-  db:
-    image: mysql:5.7.27
-    container_name: db
-    restart: always
-    ports:
-      - "3310"
-    env_file:
-      - './env/.env.dev.db'      
-    volumes:
-      - mysql:/var/lib/mysql
-  
   rails: 
     build: 
       context: ./
@@ -31,14 +8,48 @@ services:
     tty: true
     stdin_open: true
     container_name: databases_app
-    env_file:
-      - './env/.env.dev.rails'           
+    environment:
+      BUNDLE_JOBS: 3
+      BUNDLE_RETRY: 3
+      RAILS_ENV: test
+      CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
+      COVERAGE: true        
     ports:
       - "3000:3000" 
     links:
       - db
       - elasticsearch
-  
+    networks:
+      - databases 
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
+    container_name: elasticsearch
+    environment:
+      cluster.name: group-project-test-cluster
+      xpack.security.enabled: false
+      transport.host: localhost
+      network.host: localhost
+      http.port: 9200
+      discovery.type: single-node  
+    volumes: 
+      - search_data:/usr/share/elasticsearch/data
+    networks:
+      - databases
+
+  db:
+    image: mysql:5.7.27
+    container_name: db
+    restart: always
+    ports:
+      - "3310"
+    environment:
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_ROOT_PASSWORD=circleci    
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+    - databases  
   kibana:
     image: kibana:6.6.0
     container_name: kibana
@@ -47,8 +58,16 @@ services:
     ports:
       - 5601:5601
     links: 
-      - elasticsearch
+      - elasticsearch    
+    networks:
+      - databases      
 
 volumes:
   mysql:
   search_data:
+
+networks:
+  databases:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: br-databases
