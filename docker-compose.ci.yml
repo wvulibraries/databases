@@ -9,7 +9,7 @@ services:
     stdin_open: true
     container_name: databases_app
     env_file:
-      - './env/.env.dev.rails'     
+      - './env/.env.ci.rails'     
     ports:
       - "3000:3000" 
     links:
