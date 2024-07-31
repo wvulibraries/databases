@@ -46,7 +46,9 @@ jobs:
           command: docker exec databases_app gem install bundler
       - run:
           name: Install Ruby Dependencies
-          command: docker exec databases_app bundle install --jobs=4 --retry=3
+          command: |
+            docker exec databases_app bundle check
+            docker exec databases_app bundle install --deployment --jobs=4 --retry=3
       - run:
           name: Precompile assets
           command: docker exec databases_app bundle exec rake assets:precompile
