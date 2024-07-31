@@ -1,6 +1,7 @@
 require 'simplecov'
 require 'simplecov-console'
 require "rack_session_access/capybara"
+require 'capybara/rspec'
 
 ENV['RAILS_ENV'] ||= 'test'
 
