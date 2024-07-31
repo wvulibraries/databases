@@ -9,13 +9,15 @@ jobs:
     docker:
       - image: cimg/ruby:3.3.4-node
     steps:
-      - checkout
+      - checkout:
+          path: ~/circleci-databases
       - ruby/install-deps
       # Store bundle cache
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
   test:
+    working_directory: ~/circleci-databases/databases
     parallelism: 3
     docker:
       - image: cimg/ruby:3.3.4-node  
@@ -38,7 +40,8 @@ jobs:
       BUNDLE_RETRY: "3"
       RAILS_ENV: test
     steps:
-      - checkout
+      - checkout:
+          path: ~/circleci-databases
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
