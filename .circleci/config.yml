@@ -2,7 +2,7 @@ version: 2.1
 
 executors:
   default:
-    working_directory: ~/databases
+    working_directory: ~/circleci-databases/databases
     docker:
       - image: cimg/ruby:3.3.4-browsers
         environment:
@@ -35,7 +35,7 @@ commands:
       - run:
           name: Configure application.yml
           command: mv config/application.ci.yml config/application.yml  
-
+          
   configure_bundler:
     description: Configure bundler
     steps:
@@ -77,7 +77,8 @@ jobs:
   build:
     executor: default
     steps:
-      - checkout
+      - checkout:
+          path: ~/circleci-databases
       - setup_config_files
       - run:
           name: apt update
