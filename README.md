@@ -55,4 +55,4 @@ Then exec into app container (no need to shutdown) and do:
 
 # Loading MySql backup
 Run the following from the host system after doing `bin/rails db:create` in the docker container.
-`docker exec -i db mysql -u root -pdocker databases_development < ./mysql-files/{backup filename}.sql`
+`docker exec -i db mysql -u root -pdocker databases_development < ./data/mysql-files/{backup filename}.sql`
