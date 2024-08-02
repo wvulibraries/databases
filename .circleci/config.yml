@@ -1,15 +1,12 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/circleci-databases/databases
-    parallelism: 4
-    shell: /bin/bash --login
-    environment:
-      RAILS_ENV: test
-      RACK_ENV: test
-      COVERAGE: true
-      TZ: /usr/share/zoneinfo/America/New_York
-      
+    working_directory: ~/circleci-databases/databases  
+    parallelism: 1  # however many CPUs you need/pay for
+    
+    #############################################
+    # Container Setup
+    #############################################
     docker:
       - image: cimg/ruby:3.3.4-browsers
         environment:
@@ -28,16 +25,17 @@ jobs:
           - transport.host: localhost
           - network.host: 0.0.0.0
           - http.port: 9200             
-          - discovery.type: single-node   
-      - image: selenium/standalone-chrome
-        name: selenium
-        ports: 
-          - "4444:4444"
-          - "7900:7900"                             
-    steps:    
+          - discovery.type: single-node 
+          - ELASTIC_URL: 127.0.0.1:9200
+          - ELASTIC_USERNAME: elastic
+          - ELASTIC_PASSWORD: password                      
+    
+    #############################################
+    # Build Steps
+    #############################################
+    steps:
       - checkout:
           path: ~/circleci-databases
-
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
@@ -51,160 +49,69 @@ jobs:
           name: Configure capybara.rb
           command: mv spec/support/capybara.ci.rb spec/support/capybara.rb
 
-      - run:
-          name: apt update
-          command: sudo apt update
-
-      - run:
-          name: Install Node 18
-          command: |
-            curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-            sudo apt-get install -y nodejs
-
-      - run:
-          name: Install Yarn
-          command: curl -o- -L https://yarnpkg.com/install.sh | bash
-
-      - run:
-          name: Install Capybara Webkit Dependencies
-          command: |
-            sudo apt-get install -y \
-              libqt5webkit5-dev \
-              qtbase5-dev \
-              qtchooser \
-              qt5-qmake \
-              qtbase5-dev-tools
-
-      - run:
-          name: Install GStreamer Dependencies
-          command: |
-            sudo apt-get install -y \
-              gstreamer1.0-plugins-base \
-              gstreamer1.0-tools \
-              gstreamer1.0-x
-
-      # Restore bundle cache
+    ###########################################
+    # Bundler w/ caching
+    ###########################################
       - restore_cache:
           keys:
-            - databases-bundle-{{ checksum "Gemfile.lock" }}
-
-      - restore_cache:
-          keys:
-            - databases-yarn-{{ checksum "yarn.lock" }}
-
+            - databases-{{ checksum "Gemfile.lock" }}
+            - databases-
       - run:
-          name: Install Dockerize
+          name: Configure Bundler
           command: |
-            wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz
-            sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz
-            rm dockerize-linux-amd64-v0.6.1.tar.gz
-
-      - run:
-          name: Force Bundler Version
-          command: |
-            sudo gem update --system
-            echo 'export BUNDLER_VERSION=$(tail -1 Gemfile.lock | tr -d " ")' >> $BASH_ENV
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
-            gem install bundler
-
+            gem install bundler              
       - run:
-          name: Install Gems
-          command: |
-            bundle config set path 'vendor/bundle'
-            bundle install --jobs=4 --retry=3
-
-      - run:
-          name: Install Yarn Dependencies
-          command: yarn install --cache-folder ~/.cache/yarn
-
+          name: Bundle Gems
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle
+      - save_cache:
+          key: databases-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+            
+    ###########################################
+    # Code Climate
+    ###########################################
       - run:
           name: Install Code Climate Test Reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
+            chmod +x ./cc-test-reporter    
 
+    ###########################################
+    # Database
+    ###########################################
       - run:
-          name: Wait for MySQL to Start
-          command: dockerize -wait tcp://localhost:3306 -timeout 1m
-
-      # Store bundle cache
-      - save_cache:
-          key: databases-bundle-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-
-      # Store yarn cache
-      - save_cache:
-          key: databases-yarn-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.yarn-cache
-
+          name: Wait for MySQL
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
       - run:
-          name: Setup Database
+          name: Load DB schema
+          command: bin/rails db:schema:load --trace
+
+    ###########################################
+    # Run rspec in parallel
+    ###########################################
+      - run:
+          name: Run rspec in parallel
           command: |
-            bundle exec rake db:create db:schema:load
-
-      - run:
-          name: Assets Precompile
-          command: |
-            bundle exec rake assets:clean
-            bundle exec rake assets:precompile
-  
-      - run:
-          name: Run Tests
-          command: |
-            mkdir -p test-results/rspec test-artifacts
+            mkdir -p test_results
             ./cc-test-reporter before-build
-            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-            rspec --profile 10 \
-                  --color \
-                  --order random \
-                  --out test-results/rspec/rspec.xml \
-                  --format progress \
-                  -- ${TESTFILES}
-
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - run:
           name: Code Climate Test Coverage
           command: |
-            ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
+            ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"    
 
-      - persist_to_workspace:
-          root: coverage
-          paths:
-            - codeclimate.*.json
-
+    ###########################################
+    # Save test results for timing analysis
+    ###########################################
       - store_test_results:
-          path: test-results
-
-      - store_artifacts:
-          path: test-artifacts
-
-  upload-coverage:
-    docker:
-      - image: cimg/ruby:3.3.4
-    environment:
-       CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-    working_directory: ~/circleci-databases
-
-    steps:
-      - attach_workspace:
-          at: ~/circleci-databases
-      - run:
-          name: Install Code Climate Test Reporter
+          path: test_results
+      - deploy:
           command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-
-      - run:
-          command: |
-            ./cc-test-reporter sum-coverage --output - codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
-
-workflows:
-  version: 2
-
-  commit:
-    jobs:
-      - build
-      - upload-coverage:
-          requires:
-            - build
+            ./cc-test-reporter sum-coverage --output - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input - 
