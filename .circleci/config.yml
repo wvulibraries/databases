@@ -11,7 +11,7 @@ jobs:
       TZ: /usr/share/zoneinfo/America/NewYork
       
     docker:
-      - image: cimg/ruby:3.3.4-browsers
+      - image: ruby:3.3.4
         environment:
           RAILS_ENV: test
           CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
@@ -82,17 +82,14 @@ jobs:
       - type: cache-restore
         key: databases-bundle-{{ checksum "Gemfile.lock" }}
 
-      # - type: cache-restore
-      #   key: library-directory-yarn-{{ checksum "yarn.lock" }}       
+      - type: cache-restore
+        key: databases-yarn-{{ checksum "yarn.lock" }}       
 
       - run:
           name: install dockerize
           command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
           environment:
             DOCKERIZE_VERSION: v0.6.1
-      # - run:
-      #     name: install system libraries
-      #     command: sudo apt-get update && sudo apt-get -y install postgresql-client
       - run:
           name: Force Bundler Version
           command: |
@@ -124,20 +121,21 @@ jobs:
           - vendor/bundle
 
       # Store yarn cache
-      # - type: cache-save
-      #   key: library-directory-yarn-{{ checksum "yarn.lock" }}
-      #   paths:
-      #     - ~/.yarn-cache
+      - type: cache-save
+        key: databases-yarn-{{ checksum "yarn.lock" }}
+        paths:
+          - ~/.yarn-cache
 
       - run:
           name: Setup Database
           command: |
-            bundle exec rake db:create db:schema:load
+            rake db:create db:schema:load
 
       - run:
           name: Assets Precompile
           command: |
-            bundle exec rake assets:precompile
+            rake assets:clean
+            rake assets:precompile
   
       - run:
           name: Run tests
@@ -145,12 +143,12 @@ jobs:
             mkdir -p test-results/rspec test-artifacts
             ./cc-test-reporter before-build
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-            bundle exec rspec --profile 10 \
-                              --color \
-                              --order random \
-                              --out test-results/rspec/rspec.xml \
-                              --format progress \
-                              -- ${TESTFILES}
+            rspec --profile 10 \
+                  --color \
+                  --order random \
+                  --out test-results/rspec/rspec.xml \
+                  --format progress \
+                  -- ${TESTFILES}
       - run:
           name: Code Climate Test Coverage
           command: |
