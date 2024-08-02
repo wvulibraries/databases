@@ -129,7 +129,7 @@ jobs:
       - run:
           name: Setup Database
           command: |
-            rake db:create db:schema:load
+            bundle exec rake db:create db:schema:load
 
       - run:
           name: Assets Precompile
