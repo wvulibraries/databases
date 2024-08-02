@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/circleci-databases/databases  
     parallelism: 1  # however many CPUs you need/pay for
     
     #############################################
