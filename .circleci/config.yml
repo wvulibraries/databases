@@ -39,7 +39,7 @@ jobs:
             path: ~/circleci-databases
       # - run:
       #     name: Configure timezone
-      #     command: sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+      #     command: ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
@@ -58,12 +58,12 @@ jobs:
       - run:
           name: Install Node 18
           command: |
-            curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-            sudo apt-get install -y nodejs
+            curl -sL https://deb.nodesource.com/setup_18.x
+            apt-get install -y nodejs
       - run:
           name: Install Capybara Webkit Dependencies
           command: |
-            sudo apt-get install -y \
+            apt-get install -y \
               libqt5webkit5-dev \
               qtbase5-dev \
               qtchooser \
@@ -73,7 +73,7 @@ jobs:
       - run:
           name: Install GStreamer Dependencies
           command: |
-            sudo apt-get install -y \
+            apt-get install -y \
               gstreamer1.0-plugins-base \
               gstreamer1.0-tools \
               gstreamer1.0-x
@@ -87,7 +87,7 @@ jobs:
 
       - run:
           name: install dockerize
-          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
           environment:
             DOCKERIZE_VERSION: v0.6.1
       - run:
