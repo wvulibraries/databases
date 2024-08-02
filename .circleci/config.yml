@@ -54,7 +54,7 @@ jobs:
           command: mv spec/support/capybara.ci.rb spec/support/capybara.rb
       - run:
           name: apt update
-          command: sudo apt update
+          command: apt update
       - run:
           name: Install Node 18
           command: |
