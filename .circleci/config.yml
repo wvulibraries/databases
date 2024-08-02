@@ -126,10 +126,10 @@ jobs:
           command: |
             bundle exec rake db:create db:schema:load
 
-      - run:
-          name: Assets Precompile
-          command: |
-            bundle exec rake assets:precompile
+      # - run:
+      #     name: Assets Precompile
+      #     command: |
+      #       bundle exec rake assets:precompile
   
       - run:
           name: Run tests
