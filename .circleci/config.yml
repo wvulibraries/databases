@@ -1,10 +1,13 @@
-version: 2.1
-
-executors:
-  default:
-    working_directory: ~/circleci-databases/databases
+version: 2
+jobs:
+  build:
+    parallelism: 1  # however many CPUs you need/pay for
+    
+    #############################################
+    # Container Setup
+    #############################################
     docker:
-      - image: cimg/ruby:3.3.4
+      - image: cimg/ruby:3.3.4-browsers
         environment:
           RAILS_ENV: test
           CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
@@ -21,49 +24,86 @@ executors:
           - transport.host: localhost
           - network.host: 0.0.0.0
           - http.port: 9200             
-          - discovery.type: single-node 
-
-commands:
-  configure_bundler:
-    description: Configure bundler
+          - discovery.type: single-node                    
+    
+    #############################################
+    # Build Steps
+    #############################################
     steps:
+      - checkout
       - run:
-          name: Configure bundler
+          name: Configure secrets.yml
+          command: mv config/secrets.ci.yml config/secrets.yml
+      - run:
+          name: Configure database.yml
+          command: mv config/database.ci.yml config/database.yml
+      - run:
+          name: Remove capybara.rb
+          command: rm spec/support/capybara.rb
+
+    ###########################################
+    # Bundler w/ caching
+    ###########################################
+      - restore_cache:
+          keys:
+            - rails-bundle-{{ checksum "Gemfile.lock" }}
+            - rails-bundle-
+      - run:
+          name: Configure Bundler
           command: |
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
-            gem install bundler
-
-jobs:
-  build:
-    executor: default
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - databases-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - databases-
-      - configure_bundler
+            gem install bundler              
       - run:
-          name: Install bundle
-          command: bundle install
-      - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
-      - run:
-          name: Setup DB
-          command: bundle exec rails db:create db:schema:load --trace
+          name: Bundle Gems
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle
       - save_cache:
-          key: databases-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: rails-bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - ./databases
+            
+    ###########################################
+    # Code Climate
+    ###########################################
+      - run:
+          name: Install Code Climate Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter    
 
-workflows:
-  version: 2
-  integration:
-    jobs:
-      - build
+    ###########################################
+    # Database
+    ###########################################
+      - run:
+          name: Wait for MySQL
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+      - run:
+          name: Load DB schema
+          command: bin/rails db:schema:load --trace
+
+    ###########################################
+    # Run rspec in parallel
+    ###########################################
+      - run:
+          name: Run rspec in parallel
+          command: |
+            mkdir -p test_results
+            ./cc-test-reporter before-build
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - run:
+          name: Code Climate Test Coverage
+          command: |
+            ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"    
+
+    ###########################################
+    # Save test results for timing analysis
+    ###########################################
+      - store_test_results:
+          path: test_results
+      - deploy:
+          command: |
+            ./cc-test-reporter sum-coverage --output - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input - 
