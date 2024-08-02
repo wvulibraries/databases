@@ -64,6 +64,8 @@ gem 'carrierwave'
 
 # searching / indexing
 gem 'kaminari' # must be before elasticsearch
+
+# elasticsearch
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 

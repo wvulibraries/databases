@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_25_220231) do
     t.boolean "popular", default: false, null: false
     t.integer "trial_expire_date"
     t.boolean "alumni", default: false, null: false
-    t.boolean "mobile", default: false, unsigned: true
+    t.integer "mobile", limit: 1, default: 0, unsigned: true
     t.string "title_search"
     t.datetime "trial_expiration_date", precision: nil
     t.integer "access", default: 2

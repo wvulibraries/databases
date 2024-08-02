@@ -131,10 +131,10 @@ GEM
     elastic-transport (8.3.5)
       faraday (< 3)
       multi_json
-    elasticsearch (8.14.0)
-      elastic-transport (~> 8.3)
-      elasticsearch-api (= 8.14.0)
-    elasticsearch-api (8.14.0)
+    elasticsearch (8.8.0)
+      elastic-transport (~> 8)
+      elasticsearch-api (= 8.8.0)
+    elasticsearch-api (8.8.0)
       multi_json
     elasticsearch-model (8.0.0)
       activesupport (> 3)

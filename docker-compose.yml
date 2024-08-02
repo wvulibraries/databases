@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   elasticsearch:
-    image: elasticsearch:7.17.10
+    image: elasticsearch:8.14.3
     container_name: elasticsearch
     restart: always
     env_file:

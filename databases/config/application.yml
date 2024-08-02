@@ -41,13 +41,13 @@ CAPTCHA_SECRET: 'CHANGEME'
 production:
   cas_url: 'https://sso.wvu.edu/cas/' 
   ssl: 'true' 
-  ELASTICSEARCH_URL: 'http://elasticsearch:9200'
+  ELASTICSEARCH_URL: http://<%= ENV['ELASTIC_USERNAME'] %>:<%= ENV['ELASTIC_PASSWORD'] %>@<%= ENV['ELASTIC_URL'] %>
 development:
   cas_url: https://ssodev.wvu.edu/cas/
-  ELASTICSEARCH_URL: 'http://elasticsearch:9200'
+  ELASTICSEARCH_URL: http://<%= ENV['ELASTIC_USERNAME'] %>:<%= ENV['ELASTIC_PASSWORD'] %>@<%= ENV['ELASTIC_URL'] %>
   ssl: 'false'
   google_analytics_key: ~ #nullifies for dev
 test:
   ssl: 'false'
   google_analytics_key: ~ #nullifies for test
-  ELASTICSEARCH_URL: 'http://elasticsearch:9200'
+  ELASTICSEARCH_URL: http://<%= ENV['ELASTIC_USERNAME'] %>:<%= ENV['ELASTIC_PASSWORD'] %>@<%= ENV['ELASTIC_URL'] %>
