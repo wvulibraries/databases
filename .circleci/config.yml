@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/circleci-databases
+    working_directory: ~/circleci-databases/databases
     parallelism: 4
     shell: /bin/bash --login
     environment:
@@ -40,9 +40,6 @@ jobs:
       # - run:
       #     name: Configure timezone
       #     command: sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-      - run:
-          name: Move all files from databases to circleci-databases
-          command: mv databases/* .
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
