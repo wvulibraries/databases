@@ -1,12 +1,10 @@
 version: 2.1
-jobs:
-  build:
+
+executors:
+  default:
     working_directory: ~/circleci-databases/databases
-
-    # Primary container image where all commands run
-
     docker:
-      - image: cimg/ruby:3.3.4-node
+      - image: cimg/ruby:3.3.4
         environment:
           RAILS_ENV: test
           CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
@@ -14,94 +12,58 @@ jobs:
           ELASTIC_URL: localhost:9200
           ELASTIC_USERNAME: elastic
           ELASTIC_PASSWORD: password 
-
-    # Service container image available at `host: localhost`
-
       - image: cimg/mysql:8.0
         environment:
           MYSQL_ROOT_HOST: 127.0.0.1
-          MYSQL_ROOT_PASSWORD: circleci  
- 
+          MYSQL_ROOT_PASSWORD: circleci   
       - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
         environment:
           - transport.host: localhost
           - network.host: 0.0.0.0
           - http.port: 9200             
-          - discovery.type: single-node  
+          - discovery.type: single-node 
 
+commands:
+  configure_bundler:
+    description: Configure bundler
     steps:
-      - checkout:
-          path: ~/circleci-databases
-
       - run:
-          name: Configure secrets.yml
-          command: mv config/secrets.ci.yml config/secrets.yml
-      - run:
-          name: Configure database.yml
-          command: mv config/database.ci.yml config/database.yml
-      - run:
-          name: Configure application.yml
-          command: mv config/application.ci.yml config/application.yml 
-
-      # Restore bundle cache
-      - restore_cache:
-          keys:
-            - databases-{{ checksum "Gemfile.lock" }}
-            - databases-
-
-      # Bundle install dependencies
-      - run:
-          name: Force Bundler Version
+          name: Configure bundler
           command: |
-            sudo gem update --system
-            echo 'export BUNDLER_VERSION=$(tail -1 Gemfile.lock | tr -d " ")' >> $BASH_ENV
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
             gem install bundler
 
+jobs:
+  build:
+    executor: default
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - databases-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - databases-
+      - configure_bundler
       - run:
-          name: Install Gems
-          command: |
-            bundle config set path 'vendor/bundle'
-            bundle install --jobs=4 --retry=3
-
-      # - run: sudo apt install -y postgresql-client || true
-
-      # Store bundle cache
+          name: Install bundle
+          command: bundle install
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
+      - run:
+          name: Setup DB
+          command: bundle exec rails db:create db:schema:load --trace
       - save_cache:
-          key: databases-{{ checksum "Gemfile.lock" }}
+          key: databases-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - ./databases
 
-      - run:
-          name: Database Setup
-          command: |
-            bundle exec rake db:drop
-            bundle exec rake db:create db:schema:load
-
-      - run:
-          name: Install Code Climate Test Reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-
-      - run:
-          name: Run Tests
-          command: |
-            mkdir -p test-results/rspec test-artifacts
-            ./cc-test-reporter before-build
-            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-            rspec --profile 10 \
-                  --color \
-                  --order random \
-                  --out test-results/rspec/rspec.xml \
-                  --format progress \
-                  -- ${TESTFILES}
-
-      - run:
-          name: Code Climate Test Coverage
-          command: |
-            ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
-
-      # Save artifacts
-      - store_test_results:
-          path: /tmp/test-results
+workflows:
+  version: 2
+  integration:
+    jobs:
+      - build
