@@ -31,7 +31,8 @@ jobs:
     # Build Steps
     #############################################
     steps:
-      - checkout
+      - checkout:
+          path: ~/circleci-databases
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
