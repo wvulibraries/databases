@@ -69,8 +69,28 @@ jobs:
             bundle exec rake db:create db:schema:load
 
       - run:
-          name: Parallel RSpec
-          command: bin/rails test
+          name: Install Code Climate Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+
+      - run:
+          name: Run Tests
+          command: |
+            mkdir -p test-results/rspec test-artifacts
+            ./cc-test-reporter before-build
+            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+            rspec --profile 10 \
+                  --color \
+                  --order random \
+                  --out test-results/rspec/rspec.xml \
+                  --format progress \
+                  -- ${TESTFILES}
+
+      - run:
+          name: Code Climate Test Coverage
+          command: |
+            ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
 
       # Save artifacts
       - store_test_results:
