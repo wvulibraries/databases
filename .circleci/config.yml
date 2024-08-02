@@ -1,50 +1,38 @@
 version: 2.1
+jobs:
+  build:
+    working_directory: ~/circleci-databases/databases
 
-executors:
-  default:
-    working_directory: ~/circleci-databases/databases    
+    # Primary container image where all commands run
+
     docker:
-      - image: cimg/ruby:3.3.4
+      - image: cimg/ruby:3.3.4-node
         environment:
-          BUNDLE_JOBS: 3
-          BUNDLE_PATH: vendor/bundle
-          BUNDLE_RETRY: 3
-          BUNDLER_VERSION: 2.5.16
-          CI: circleci
           RAILS_ENV: test
           CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
           COVERAGE: true 
           ELASTIC_URL: localhost:9200
           ELASTIC_USERNAME: elastic
           ELASTIC_PASSWORD: password 
+
+    # Service container image available at `host: localhost`
+
       - image: cimg/mysql:8.0
         environment:
           MYSQL_ROOT_HOST: 127.0.0.1
           MYSQL_ROOT_PASSWORD: circleci  
-      - image: cimg/node:19.2.0
+ 
       - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
         environment:
           - transport.host: localhost
           - network.host: 0.0.0.0
           - http.port: 9200             
-          - discovery.type: single-node 
+          - discovery.type: single-node  
 
-commands:
-  configure_bundler:
-    description: Configure bundler
-    steps:
-      - run:
-          name: Configure bundler
-          command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            gem install bundler
-
-  build:
-    executor: default
     steps:
       - checkout:
           path: ~/circleci-databases
+
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
@@ -53,63 +41,37 @@ commands:
           command: mv config/database.ci.yml config/database.yml
       - run:
           name: Configure application.yml
-          command: mv config/application.ci.yml config/application.yml    
+          command: mv config/application.ci.yml config/application.yml 
+
+      # Restore bundle cache
       - restore_cache:
           keys:
-            - databases-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - databases-{{ checksum "Gemfile.lock" }}
             - databases-
-      - configure_bundler
+
+      # Bundle install dependencies
       - run:
-          name: Install bundle
-          command: bundle install --jobs=$BUNDLE_JOBS --retry=$BUNDLE_RETRY
-      - run:
-          name: Wait for MySQL
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 1m
-      - run:
-          name: Setup DB
-          command: bundle exec rails db:create db:schema:load --trace
-      - run:
-          name: Precompile Assets
-          command: bundle exec rake assets:precompile
+          name: Install dependencies
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
+
+      # - run: sudo apt install -y postgresql-client || true
+
+      # Store bundle cache
       - save_cache:
-          key: databases-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: databases-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - ./databases
-
-  rake_test:
-    executor: default
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/circleci-databases
-      - run: bundle config set --local path $BUNDLE_PATH
-      - run: bundle
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
 
       - run:
-          name: run tests
+          name: Database Setup
           command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-            bundle exec rspec --format progress \
-                            --format RspecJunitFormatter \
-                            --out /tmp/test-results/rspec.xml \
-                            --format progress \
-                            -- \
-                            $TEST_FILES
+            bundle exec rake db:create
+            bundle exec rake db:structure:load
+
+      - run:
+          name: Parallel RSpec
+          command: bin/rails test
+
+      # Save artifacts
       - store_test_results:
           path: /tmp/test-results
-
-workflows:
-  version: 2
-  run_tests:
-    jobs:
-      - build
-      - rake_test:
-          requires:
-            - build
