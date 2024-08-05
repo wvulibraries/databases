@@ -115,8 +115,9 @@ jobs:
             bundle check
             bundle install --deployment --jobs=4 --retry=3
 
-      - type: cache-save
-          key: databases-bundle-{{ checksum "Gemfile.lock" }}
+      - save_cache:
+          name: Save Bundler Cache
+          key: bundler-cache-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
