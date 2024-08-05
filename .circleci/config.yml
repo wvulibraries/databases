@@ -129,6 +129,8 @@ jobs:
       - run:
           name: Assets Precompile
           command: |
+            # turbolinks is not being found
+            gen install turbolinks
             bundle exec rake assets:precompile
   
       - run:
