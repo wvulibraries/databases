@@ -87,16 +87,39 @@ jobs:
       # - run:
       #     name: install system libraries
       #     command: sudo apt-get update && sudo apt-get -y install postgresql-client
+
+      ###########################################
+      # Force Bundler Version
+      ###########################################  
       - run:
           name: Force Bundler Version
           command: |
             sudo gem update --system
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
-            gem install bundler --no-document
+            gem install bundler
+
+      ###########################################
+      # Bundler w/ caching
+      ###########################################
+      - restore_cache:
+          name: Restore Bundler Cache
+          keys:
+            - bundler-cache-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
       - run:
-          name: bundle gems
-          command: bundle install --path vendor/bundle
+          name: install ruby dependencies
+          command: |
+            bundle check
+            bundle install --deployment --jobs=4 --retry=3
+
+      - type: cache-save
+          key: databases-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
       - run:
           name: Yarn Install
           command: yarn install --cache-folder ~/.cache/yarn
@@ -108,12 +131,6 @@ jobs:
       - run:
           name: Wait for MySQL to start
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
-
-      # Store bundle cache
-      - type: cache-save
-        key: databases-bundle-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
 
       # Store yarn cache
       - type: cache-save
@@ -130,7 +147,7 @@ jobs:
           name: Assets Precompile
           command: |
             # turbolinks is not being found
-            gen install turbolinks
+            # gem install turbolinks
             bundle exec rake assets:precompile
   
       - run:
