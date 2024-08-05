@@ -30,10 +30,7 @@ jobs:
           - "7900:7900"                             
     steps:    
       - checkout:
-            path: ~/circleci-databases
-      # - run:
-      #     name: Configure timezone
-      #     command: sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+          path: ~/circleci-databases
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
@@ -84,9 +81,6 @@ jobs:
           command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
           environment:
             DOCKERIZE_VERSION: v0.6.1
-      # - run:
-      #     name: install system libraries
-      #     command: sudo apt-get update && sudo apt-get -y install postgresql-client
 
       ###########################################
       # Force Bundler Version
@@ -148,10 +142,18 @@ jobs:
             bundle exec rake db:create db:schema:load
 
       - run:
+          name: Clean Assets
+          command: rm -rf public/assets
+
+      - run:
+          name: Check Node Modules
+          command: ls -l node_modules
+
+      - run:
           name: Assets Precompile
           command: |
-            RAILS_ENV=test bundle exec rake assets:precompile --trace
-  
+            RAILS_ENV=production bundle exec rake assets:precompile --trace
+
       - run:
           name: Run tests
           command: |
@@ -182,26 +184,4 @@ jobs:
       - image: cimg/ruby:3.3.4
     environment:
        CC_TEST_REPORTER_ID: de4e83be2764daa72e88022fb8e2ff596aa8fc1074c93e533fedafb00bb62805
-    working_directory: ~/circleci-databases/databases
-
-    steps:
-      - attach_workspace:
-          at: ~/circleci-databases
-      - run:
-          name: Install Code Climate Test Reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-      - run:
-          command: |
-            ./cc-test-reporter sum-coverage --output - codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
-
-workflows:
-  version: 2
-
-  commit:
-    jobs:
-      - build
-      - upload-coverage:
-          requires:
-             - build
+    working_directory: ~/circle
