@@ -114,6 +114,10 @@ jobs:
           command: |
             bundle check || bundle install --path vendor/bundle --jobs=4 --retry=3
 
+      - run:
+          name: Verify Installed Gems
+          command: bundle list
+
       - save_cache:
           name: Save Bundler Cache
           key: bundler-cache-{{ checksum "Gemfile.lock" }}
@@ -146,8 +150,6 @@ jobs:
       - run:
           name: Assets Precompile
           command: |
-            # turbolinks is not being found
-            # gem install turbolinks
             bundle exec rake assets:precompile
   
       - run:
