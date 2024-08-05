@@ -113,7 +113,7 @@ jobs:
           name: install ruby dependencies
           command: |
             bundle check
-            bundle install --deployment --jobs=4 --retry=3
+            bundle install --jobs=4 --retry=3
 
       - save_cache:
           name: Save Bundler Cache
