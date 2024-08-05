@@ -93,7 +93,7 @@ jobs:
             sudo gem update --system
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
-            gem install bundler
+            gem install bundler --no-document
       - run:
           name: bundle gems
           command: bundle install --path vendor/bundle
