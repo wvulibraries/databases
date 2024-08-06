@@ -78,7 +78,8 @@ jobs:
       - run:
           name: bundle gems
           command: |
-            bundle install --path vendor/bundle
+            bundle config set path 'vendor/bundle'
+            bundle install --jobs=4 --retry=3
       # - run:
       #     name: Yarn Install
       #     command: yarn install --cache-folder ~/.cache/yarn
