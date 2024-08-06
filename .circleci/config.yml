@@ -31,15 +31,19 @@ jobs:
       # - run:
       #     name: Configure timezone
       #     command: sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+      - run:
+          name: Change to Databases directory
+          command: cd databases
       - run:
           name: Configure secrets.yml
-          command: mv databases/config/secrets.ci.yml databases/config/secrets.yml
+          command: mv config/secrets.ci.yml config/secrets.yml
       - run:
           name: Configure database.yml
-          command: mv databases/config/database.ci.yml databases/config/database.yml
+          command: mv config/database.ci.yml config/database.yml
       - run:
           name: Configure application.yml
-          command: mv databases/config/application.ci.yml databases/config/application.yml        
+          command: mv config/application.ci.yml config/application.yml        
       - run:
           name: apt update
           command: sudo apt update
@@ -66,7 +70,6 @@ jobs:
       - run:
           name: Force Bundler Version
           command: |
-            cd databases
             sudo gem update --system
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
@@ -74,7 +77,6 @@ jobs:
       - run:
           name: bundle gems
           command: |
-            cd databases
             bundle install --path vendor/bundle
       # - run:
       #     name: Yarn Install
@@ -145,6 +147,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/circleci-databases
+      - run:
+           name: change to databases directory
+           command: cd databases
       - run:
           name: Install Code Climate Test Reporter
           command: |
