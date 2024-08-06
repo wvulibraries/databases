@@ -35,7 +35,7 @@ services:
     env_file:
       - './env/.env.dev.rails'      
     volumes:
-      - ./databases:/home/databases
+      - ./:/home/databases
       - ./scripts:/home/databases/scripts
       # these directories are saved to the data directory 
       # they do not need comitted to git. This keeps

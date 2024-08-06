@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/circleci-databases
+    working_directory: ~/circleci-databases/databases
     parallelism: 4
     shell: /bin/bash --login
     environment:
@@ -160,7 +160,7 @@ jobs:
       - image: cimg/ruby:3.3.4
     environment:
        CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-    working_directory: ~/circleci-databases
+    working_directory: ~/circleci-databases/databases
 
     steps:
       - attach_workspace:
