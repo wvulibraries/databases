@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/circleci-databases
+    working_directory: ~/circleci-databases/databases
     parallelism: 4
     shell: /bin/bash --login
     environment:
@@ -9,49 +9,55 @@ jobs:
       RACK_ENV: test
       COVERAGE: true
       TZ: /usr/share/zoneinfo/America/NewYork
+
     docker:
       - image: cimg/ruby:3.3.4-browsers
         environment:
           RAILS_ENV: test
           CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
           COVERAGE: true  
+
       - image: cimg/mysql:8.0
         environment:
           MYSQL_ROOT_HOST: 127.0.0.1
           MYSQL_ROOT_PASSWORD: circleci   
+
       - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3  
         environment:
           - transport.host: localhost
           - network.host: 0.0.0.0
           - http.port: 9200             
-          - discovery.type: single-node                          
+          - discovery.type: single-node   
+
     steps:    
       - checkout:
             path: ~/circleci-databases
+
       # - run:
       #     name: Configure timezone
       #     command: sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
       - run:
           name: Configure secrets.yml
           command: mv databases/config/secrets.ci.yml databases/config/secrets.yml
+
       - run:
           name: Configure database.yml
           command: mv databases/config/database.ci.yml databases/config/database.yml
+
       - run:
           name: Configure application.yml
-          command: mv databases/config/application.ci.yml databases/config/application.yml        
+          command: mv databases/config/application.ci.yml databases/config/application.yml     
+
       - run:
           name: apt update
           command: sudo apt update
+
       - run:
           name: Install Node 18
           command: |
             curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
             sudo apt-get install -y nodejs
-            
-      - run:
-          name: Copy Gemfile and Gemfile.lock from databases direcotry to current
-          command: cp databases/Gemfile* .
 
       # Restore bundle cache
       - type: cache-restore
@@ -65,9 +71,11 @@ jobs:
           command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
           environment:
             DOCKERIZE_VERSION: v0.6.1
+
       # - run:
       #     name: install system libraries
       #     command: sudo apt-get update && sudo apt-get -y install postgresql-client
+
       - run:
           name: Force Bundler Version
           command: |
@@ -75,19 +83,23 @@ jobs:
             echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
             gem install bundler
+
       - run:
           name: bundle gems
           command: |
             bundle config set path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
+
       # - run:
       #     name: Yarn Install
       #     command: yarn install --cache-folder ~/.cache/yarn
+
       - run:
           name: Install Code Climate Test Reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
+
       - run:
           name: Wait for MySQL to start
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
@@ -127,16 +139,20 @@ jobs:
                               --out test-results/rspec/rspec.xml \
                               --format progress \
                               -- ${TESTFILES}
+
       - run:
           name: Code Climate Test Coverage
           command: |
             ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
+
       - persist_to_workspace:
           root: coverage
           paths:
             - codeclimate.*.json
+
       - store_test_results:
           path: test-results
+
       - store_artifacts:
           path: test-artifacts
 
@@ -145,19 +161,18 @@ jobs:
       - image: cimg/ruby:3.3.4
     environment:
        CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-    working_directory: ~/circleci-databases
+    working_directory: ~/circleci-databases/databases
 
     steps:
       - attach_workspace:
           at: ~/circleci-databases
-      - run:
-           name: change to databases directory
-           command: cd databases
+
       - run:
           name: Install Code Climate Test Reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
+
       - run:
           command: |
             ./cc-test-reporter sum-coverage --output - codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
