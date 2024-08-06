@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     working_directory: ~/circleci-databases/databases
@@ -8,7 +8,7 @@ jobs:
       RAILS_ENV: test
       RACK_ENV: test
       COVERAGE: true
-      TZ: /usr/share/zoneinfo/America/NewYork
+      TZ: /usr/share/zoneinfo/America/New_York
 
     docker:
       - image: cimg/ruby:3.3.4-browsers
@@ -31,11 +31,7 @@ jobs:
 
     steps:    
       - checkout:
-            path: ~/circleci-databases
-
-      # - run:
-      #     name: Configure timezone
-      #     command: sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+          path: ~/circleci-databases
 
       - run:
           name: Configure secrets.yml
@@ -59,22 +55,18 @@ jobs:
             curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
             sudo apt-get install -y nodejs
 
-      # Restore bundle cache
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
+
       - type: cache-restore
         key: databases-bundle-{{ checksum "Gemfile.lock" }}
-
-      # - type: cache-restore
-      #   key: databases-yarn-{{ checksum "yarn.lock" }}       
 
       - run:
           name: install dockerize
           command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
           environment:
             DOCKERIZE_VERSION: v0.6.1
-
-      # - run:
-      #     name: install system libraries
-      #     command: sudo apt-get update && sudo apt-get -y install postgresql-client
 
       - run:
           name: Force Bundler Version
@@ -90,10 +82,6 @@ jobs:
             bundle config set path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
 
-      # - run:
-      #     name: Yarn Install
-      #     command: yarn install --cache-folder ~/.cache/yarn
-
       - run:
           name: Install Code Climate Test Reporter
           command: |
@@ -104,17 +92,10 @@ jobs:
           name: Wait for MySQL to start
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
 
-      # Store bundle cache
       - type: cache-save
         key: databases-bundle-{{ checksum "Gemfile.lock" }}
         paths:
           - vendor/bundle
-
-      # Store yarn cache
-      # - type: cache-save
-      #   key: databases-yarn-{{ checksum "yarn.lock" }}
-      #   paths:
-      #     - ~/.yarn-cache
 
       - run:
           name: Setup Database
@@ -124,7 +105,7 @@ jobs:
       - run:
           name: Assets Precompile
           command: |
-            bundle exec rake assets:precompile
+            bundle exec rake assets:precompile --trace
   
       - run:
           name: Run tests
