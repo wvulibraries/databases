@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/circleci-databases
+    working_directory: ~/circleci-databases/databases
     parallelism: 4
     shell: /bin/bash --login
     environment:
@@ -31,7 +31,6 @@ jobs:
       # - run:
       #     name: Configure timezone
       #     command: sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
       - run:
           name: Configure secrets.yml
           command: mv databases/config/secrets.ci.yml databases/config/secrets.yml
@@ -49,6 +48,11 @@ jobs:
           command: |
             curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
             sudo apt-get install -y nodejs
+            
+      - run:
+          name: Copy Gemfile and Gemfile.lock from databases direcotry to current
+          command: cp databases/Gemfile* .
+
       # Restore bundle cache
       - type: cache-restore
         key: databases-bundle-{{ checksum "Gemfile.lock" }}
