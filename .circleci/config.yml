@@ -34,7 +34,9 @@ jobs:
 
       - run:
           name: Change to Databases directory
-          command: cd databases
+          command: |
+            cd databases
+            ls -la
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
