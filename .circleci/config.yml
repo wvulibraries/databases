@@ -19,17 +19,12 @@ jobs:
         environment:
           MYSQL_ROOT_HOST: 127.0.0.1
           MYSQL_ROOT_PASSWORD: circleci   
-      - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3    
+      - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3   
         environment:
           - transport.host: localhost
           - network.host: 0.0.0.0
           - http.port: 9200             
-          - discovery.type: single-node   
-      - image: selenium/standalone-chrome
-        name: selenium
-        ports: 
-          - "4444:4444"
-          - "7900:7900"                             
+          - discovery.type: single-node                          
     steps:    
       - checkout:
             path: ~/circleci-databases
@@ -46,9 +41,6 @@ jobs:
           name: Configure application.yml
           command: mv config/application.ci.yml config/application.yml        
       - run:
-          name: Configure capybara.rb
-          command: mv spec/support/capybara.ci.rb spec/support/capybara.rb
-      - run:
           name: apt update
           command: sudo apt update
       - run:
@@ -56,30 +48,12 @@ jobs:
           command: |
             curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
             sudo apt-get install -y nodejs
-      - run:
-          name: Install Capybara Webkit Dependencies
-          command: |
-            sudo apt-get install -y \
-              libqt5webkit5-dev \
-              qtbase5-dev \
-              qtchooser \
-              qt5-qmake \
-              qtbase5-dev-tools
-
-      - run:
-          name: Install GStreamer Dependencies
-          command: |
-            sudo apt-get install -y \
-              gstreamer1.0-plugins-base \
-              gstreamer1.0-tools \
-              gstreamer1.0-x
-
       # Restore bundle cache
       - type: cache-restore
-        key: databases-bundle-{{ checksum "Gemfile.lock" }}
+        key: library-directory-bundle-{{ checksum "Gemfile.lock" }}
 
       # - type: cache-restore
-      #   key: databases-yarn-{{ checksum "yarn.lock" }}       
+      #   key: library-directory-yarn-{{ checksum "yarn.lock" }}       
 
       - run:
           name: install dockerize
@@ -160,6 +134,32 @@ jobs:
 
   upload-coverage:
     docker:
+      - image: cimg/ruby:3.3.4
+    environment:
+       CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
+    working_directory: ~/circleci-databases
+
+    steps:
+      - attach_workspace:
+          at: ~/circleci-databases
+      - run:
+          name: Install Code Climate Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          command: |
+            ./cc-test-reporter sum-coverage --output - codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
+
+workflows:
+  version: 2
+
+  commit:
+    jobs:
+      - build
+      - upload-coverage:
+          requires:
+             - build      
       - image: cimg/ruby:3.3.4
     environment:
        CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
