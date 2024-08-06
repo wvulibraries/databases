@@ -36,10 +36,10 @@ jobs:
           command: mv /databases/config/secrets.ci.yml /databases/config/secrets.yml
       - run:
           name: Configure database.yml
-          command: mv /databases/config/database.ci.yml /databases/config/database.yml
+          command: mv databases/config/database.ci.yml databases/config/database.yml
       - run:
           name: Configure application.yml
-          command: mv /databases/config/application.ci.yml /databases/config/application.yml        
+          command: mv databases/config/application.ci.yml databases/config/application.yml        
       - run:
           name: apt update
           command: sudo apt update
@@ -106,7 +106,7 @@ jobs:
       - run:
           name: Assets Precompile
           command: |
-            cd databases          
+            cd databases
             bundle exec rake assets:precompile
   
       - run:
