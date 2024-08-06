@@ -43,7 +43,7 @@ jobs:
 
       - run:
           name: Configure database.yml
-          command: mv databases/config/database.ci.yml config/database.yml
+          command: mv config/database.ci.yml config/database.yml
 
       - run:
           name: Configure application.yml
