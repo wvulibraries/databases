@@ -19,7 +19,7 @@ jobs:
         environment:
           MYSQL_ROOT_HOST: 127.0.0.1
           MYSQL_ROOT_PASSWORD: circleci   
-      - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3   
+      - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3  
         environment:
           - transport.host: localhost
           - network.host: 0.0.0.0
@@ -134,32 +134,6 @@ jobs:
 
   upload-coverage:
     docker:
-      - image: cimg/ruby:3.3.4
-    environment:
-       CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-    working_directory: ~/circleci-databases
-
-    steps:
-      - attach_workspace:
-          at: ~/circleci-databases
-      - run:
-          name: Install Code Climate Test Reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-      - run:
-          command: |
-            ./cc-test-reporter sum-coverage --output - codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
-
-workflows:
-  version: 2
-
-  commit:
-    jobs:
-      - build
-      - upload-coverage:
-          requires:
-             - build      
       - image: cimg/ruby:3.3.4
     environment:
        CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
