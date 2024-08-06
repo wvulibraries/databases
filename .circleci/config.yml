@@ -63,7 +63,7 @@ jobs:
       - run:
           name: Database Setup
           command: |
-            bundle exec rake db:create db:prepare
+            bundle exec rake db:drop db:create db:prepare
 
       - run:
           name: Parallel RSpec
