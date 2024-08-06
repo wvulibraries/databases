@@ -103,13 +103,11 @@ jobs:
       - run:
           name: Setup Database
           command: |
-            cd databases
             bundle exec rake db:create db:schema:load
 
       - run:
           name: Assets Precompile
           command: |
-            cd databases
             bundle exec rake assets:precompile
   
       - run:
