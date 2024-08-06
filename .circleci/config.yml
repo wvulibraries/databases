@@ -33,7 +33,7 @@ jobs:
       #     command: sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
       - run:
           name: Configure secrets.yml
-          command: mv /databases/config/secrets.ci.yml /databases/config/secrets.yml
+          command: mv databases/config/secrets.ci.yml databases/config/secrets.yml
       - run:
           name: Configure database.yml
           command: mv databases/config/database.ci.yml databases/config/database.yml
