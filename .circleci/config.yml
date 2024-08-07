@@ -11,7 +11,7 @@ jobs:
           RAILS_ENV: test
           CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
           COVERAGE: true  
-          ELASTIC_URL: localhost:9200
+          ELASTIC_URL: 0.0.0.0:9200
           ELASTIC_USERNAME: elastic
           ELASTIC_PASSWORD: password
 
