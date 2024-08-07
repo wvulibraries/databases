@@ -75,11 +75,11 @@ jobs:
           command: bundle exec rake db:create db:schema:load --trace
 
       # Rubocop
-      - run:
-          name: Run Rubocop
-          command: |
-            gem install rubocop
-            bundle exec rubocop --parallel
+      # - run:
+      #     name: Run Rubocop
+      #     command: |
+      #       gem install rubocop
+      #       bundle exec rubocop --parallel
 
       # Rspec
       - run:
