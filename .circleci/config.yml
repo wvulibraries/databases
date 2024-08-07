@@ -9,21 +9,21 @@ jobs:
           RAILS_ENV: test
           CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
           COVERAGE: true
-          ELASTIC_URL: 0.0.0.0:9200
+          DATABASE_PASSWORD: circleci
+          ELASTIC_URL: elasticsearch:9200
           ELASTIC_USERNAME: elastic
-          ELASTIC_PASSWORD: password            
+          ELASTIC_PASSWORD: circleci         
       - image: cimg/mysql:8.0
         environment:
           MYSQL_ROOT_HOST: 127.0.0.1
           MYSQL_ROOT_PASSWORD: circleci   
       - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3  
+        container_name: elasticsearch      
         environment:
-          transport.host: localhost
-          network.host: 0.0.0.0
-          http.port: 9200             
-          discovery.type: single-node 
+          discovery.type: single-node
+          ES_JAVA_OPTS: -Xms512m -Xmx512m -Dlog4j2.formatMsgNoLookups=true
           ELASTIC_USERNAME: elastic
-          ELASTIC_PASSWORD: password
+          ELASTIC_PASSWORD: circleci
           xpack.security.enabled: true           
     steps:
       - checkout
