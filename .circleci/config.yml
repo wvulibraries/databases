@@ -19,6 +19,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: circleci   
       - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3        
         environment:
+          transport.host: 127.0.0.1
           discovery.type: single-node
           ES_JAVA_OPTS: -Xms512m -Xmx512m -Dlog4j2.formatMsgNoLookups=true
           ELASTIC_USERNAME: elastic
