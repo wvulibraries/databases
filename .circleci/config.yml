@@ -61,9 +61,9 @@ jobs:
             - vendor/bundle
 
       - run:
-          name: Database Setup
+          name: Setup Database
           command: |
-            bundle exec rake db:drop db:create db:migrate
+            bundle exec rake db:create db:schema:load
 
       - run:
           name: Parallel RSpec
