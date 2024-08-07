@@ -52,7 +52,6 @@ jobs:
           name: Install dependencies
           command: |
             bundle config set path 'vendor/bundle'
-            bundle check
             bundle install --jobs=4 --retry=3
 
       # - run: sudo apt install -y postgresql-client || true
