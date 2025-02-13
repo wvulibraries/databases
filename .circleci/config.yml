@@ -41,8 +41,8 @@ jobs:
           command: mv databases/config/application.ci.yml databases/config/application.yml         
 
       # Restore bundle cache
-      - restore_cache:
-          key: databases-{{ checksum "Gemfile.lock" }}
+      # - restore_cache:
+      #     key: databases-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: Configure bundler
