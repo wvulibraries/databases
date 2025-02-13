@@ -24,7 +24,7 @@ ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 WORKDIR /home/databases
-ADD ./ /home/databases
+ADD ./databases /home/databases
 RUN bundle install --jobs=4 --retry=3
 RUN yarn install
 

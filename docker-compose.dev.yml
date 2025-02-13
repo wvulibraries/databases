@@ -31,16 +31,17 @@ services:
       dockerfile: Dockerfile
     tty: true
     stdin_open: true
-    container_name: databases_app
+    container_name: databases
     env_file:
       - './env/.env.dev.rails'      
     volumes:
-      - ./:/home/databases
-      - ./scripts:/home/databases/scripts
-      # these directories are saved to the data directory 
-      # they do not need comitted to git. This keeps
-      # the image size down and the data persistent
-      - ./data/node_modules:/home/databases/node_modules
+      # Mount source code for development
+      - ./databases:/home/databases:delegated
+      - ./scripts:/home/databases/scripts      
+      # Exclude dependency directories to prevent overwriting container installations
+      - /home/databases/node_modules
+      - /home/databases/vendor
+      # Mount persistence directories
       - ./data/log:/home/databases/log
       - ./data/coverage:/home/databases/coverage
       - ./data/public/assets:/home/databases/public/assets
