@@ -1,4 +1,3 @@
-
 $flying-wv-w-signature: 'https://patterns.wvu.edu/images/flying-wv-w-signature.png' !default;
 $flying-wv-w-signature-gold-bg: 'https://patterns.wvu.edu/images/flying-wv-w-signature-gold-bg.png' !default;
 $flying-wv-w-signature-white-bg: 'https://patterns.wvu.edu/images/flying-wv-w-signature-white-bg.png' !default;
@@ -16,21 +15,19 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
 
   .wvu-masthead__logo { 
     background: url($flying-wv-w-signature) no-repeat left 30% transparent;
-    // background-size:100% auto;
-    // padding: 0px 0px 20px 54px;
-    @include grid-column(12);
     text-align:center;
     background-position: center 30%; 
     background-size:300px auto; 
     position:relative; 
-    @include breakpoint(tablet){ 
-      @include grid-column(6);
-      background-position: left 30%;
-      text-align:left;
+    @extend .col-12;
+    @include media-breakpoint-up(md) {
+      width: 50%; // equivalent to col-6
+      flex: 0 0 50%;
     }
 
-    @include breakpoint(desktop){
-      @include grid-column(4);
+    @include media-breakpoint-up(lg){
+      width: 33.333333%;  // Replace @extend .col-4
+      flex: 0 0 33.333333%;
     }
   }
 
@@ -48,22 +45,24 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
     text-transform: uppercase;
     color:#fff;
 
-    @include breakpoint(tablet){ 
+    @include media-breakpoint-up(md){ 
       left:3em; 
     }
   }
 }
 
 .wvu-header-list {
-  @include grid-column(12); 
+  @extend .col-12; 
   text-align:right;
 
-  @include breakpoint(tablet){
-    @include grid-column(6);
+  @include media-breakpoint-up(md) {
+    width: 50%; // equivalent to col-6
+    flex: 0 0 50%;
   }
 
-  @include breakpoint(desktop){
-    @include grid-column(8);
+  @include media-breakpoint-up(lg){
+    width: 66.666667%;  // Replace @extend .col-8
+    flex: 0 0 66.666667%;
   }
 
   ul { 
@@ -71,13 +70,14 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
     margin-top:1em;
     list-style:none; 
 
-    @include breakpoint(tablet){
+    @include media-breakpoint-up(md){
       float:right;
     }
   } 
 
   li a { 
-    @include grid-column(6);
+    width: 50%;  // Replace @extend .col-6
+    flex: 0 0 50%;
     padding:.5em; 
     border:1px solid #fff;
     color:#fff;
@@ -88,7 +88,7 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
       color: $wvu-gold;
       border-color: $wvu-gold;
     }
-    @include breakpoint(tablet){ 
+    @include media-breakpoint-up(md){ 
       display:inline-block; 
       width:unset;
       float:left;
@@ -103,16 +103,17 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
     }
   }
   li { 
-    @include breakpoint(tablet){ 
+    @include media-breakpoint-up(md){ 
       display:inline-block; 
       width:unset;
       float:left;
     }
     &:last-child { 
       a { 
-        @include grid-column(12); 
+        width: 100%;  // Replace @extend .col-12
+        flex: 0 0 100%;
         
-        @include breakpoint(tablet){ 
+        @include media-breakpoint-up(md){ 
           width:unset;
         }
       }

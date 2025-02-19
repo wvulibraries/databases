@@ -11,17 +11,18 @@ h2 {
 }
 
 form{
-  @include grid-column(12);
+  @extend .col-12;
   position:relative;
   z-index:55;
 
   #error_explanation { 
-    @include grid-column(12);
+    @extend .col-12;
     @include clearfix;
   }
 
   .field { 
     @include clearfix;
+    margin-top: 1em;
   }
 
   fieldset { 
@@ -39,10 +40,12 @@ form{
     }
   }
   .add-fields { 
-    @include button_maker($action-color, 'solid');
-    @include determine-text-color($action-color);
+    // @include button_maker($action-color, 'solid');
+    @extend .btn;
+    @extend .btn-primary;    
     margin: .5em 0; 
     text-decoration: none !important;
+    @extend .text-white;
     &:before { 
       font-family: "Font Awesome 5 Free"; 
       font-weight: 900; 
@@ -124,10 +127,10 @@ form{
   }
 
   .checkbox-wrapper { 
-    @include grid-column(12);
+    @extend .col-12;
 
       .checkbox { 
-        @include grid-column(12);
+        @extend .col-12;
         background:$input-bg;
         padding:5px; 
         width:100%; 
@@ -171,41 +174,8 @@ form{
   }
 
   input:not([type='submit']){
-    width:100%;
+    @extend %form-input;
     height:60px;
-    padding:1.25em; 
-    border:none;
-    background:$input-bg;
-    font-weight:500;
-    font-size:1em; 
-    letter-spacing: 1px;
-    @include transition(
-      color 0.6s $easeOutExpo, 
-      border 0.6s $easeOutExpo, 
-      background 0.6s $easeOutExpo
-    );
-
-    border: 2px solid darken($input-bg,10%);
-    &:focus, &:hover { 
-      cursor: pointer;
-      border: 2px solid $link-color;
-      background: lighten($input-bg,2%);
-    }
-
-    &::placeholder { 
-      color:darken($input-bg,20%);
-    }
-
-    &.disabled { 
-      border: 2px solid $disabled-color;
-      opacity: 0.4;
-      filter: alpha(opacity=40); /* For IE8 and earlier */
-
-      &:hover, &:focus { 
-        cursor: not-allowed; 
-        border: 2px solid $disabled-color;
-      }
-    }
   }
 
   input[type='file']{
@@ -213,91 +183,41 @@ form{
   }
 
   textarea{
-    width:100%;
+    @extend %form-input;
     max-width:100%;
-    border:none;
-    font-size:1em; 
     line-height:1.5; 
-    font-weight:500;
-    letter-spacing: 1px;
-    background:$input-bg;
-    padding:1.25em;
     margin-top:.5em;
-    @include transition(
-      color 0.6s $easeOutExpo, 
-      border 0.6s $easeOutExpo, 
-      background 0.6s $easeOutExpo
-    );
-    border: 2px solid darken($input-bg,10%);
-
-    &:focus, &:hover { 
-      border: 2px solid $link-color;
-      background: lighten($input-bg,2%);
-    }
-
-    &::placeholder { 
-      color:darken($input-bg,20%);
-    }
   }
 
   .select-style {
-    font-size:1em; 
+    @extend %form-input;
+    position: relative;
     padding: 0;
     margin: 0;
-    border: none;
-    border-radius: 0;
     overflow: hidden;
-    background: #eee;
-    position:relative;
-    font-weight:500;
-    letter-spacing: 1px;
-    border: 2px solid darken($input-bg,10%);
-
-    .field_with_errors { 
-      background: $error;
-    }
-    
-    @include transition(
-      color 0.6s $easeOutExpo, 
-      border 0.6s $easeOutExpo, 
-      background 0.6s $easeOutExpo
-    );
-
-    &:focus, &:hover { 
-      cursor: pointer;
-      border: 2px solid $link-color;
-      background: lighten($input-bg,2%);
-    }
 
     &:before {
       content: "\f078";
-      color:rgba( #000, .3);
-      font-size: 1.2em; 
-      text-align: center;
       font-family: 'Font Awesome 5 Free';
       font-weight: 900;
-      display:block; 
-      position:absolute;
-      width:2em; 
-      right:10px;
-      top:calc(50% - .6em); 
-      z-index:0; 
+      color: rgba(#000, 0.3);
+      font-size: 1.2em;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 0;
     }
+
     select {
-      padding:1em; 
       width: 100%;
-      height:55px;
-      font-size:1em;
+      height: 55px;
+      padding: 1em;
       border: none;
-      box-shadow: none;
-      background-color: transparent;
-      background-image: none;
-      -webkit-appearance: none;
-         -moz-appearance: none;
-              appearance: none;
-      position:relative;
-      z-index:2;
-      color:#000;
+      background: transparent;
+      appearance: none;
+      position: relative;
+      z-index: 2;
       cursor: pointer;
     }
   }
@@ -318,7 +238,7 @@ form{
 }
 
 #error_explanation { 
-  @include grid-column(12);
+  @extend .col-12;
   padding:1em; 
   color:$error; 
   background: rgba($error, .1); 
@@ -326,14 +246,13 @@ form{
   margin-bottom:2em; 
   h3 { color:$error; }
   ul { 
-    @include grid-column(12); 
-    padding:1em;
-    padding-left:2.5em; 
+    @extend .col-12; 
+    padding:1em 1em 1em 2.5em; 
   }
 }
 
 .actions { 
-  @include grid-column(12); 
+  @extend .col-12; 
   padding:1em 0;
   margin-top:1em; 
   position:relative; 
@@ -341,54 +260,60 @@ form{
 }
 
 .full, .row { 
-  @include grid-column(12); 
+  @extend .col-12; 
   margin-bottom:1em;
 }
 
 .two-third {
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(8);
+  @extend .col-12; 
+  @include media-breakpoint-up(md){ 
+    width: 66.666667%;  // col-8 equivalent
+    flex: 0 0 66.666667%;
   }
 }
 
 .one-third { 
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(4);
+  @extend .col-12; 
+  @include media-breakpoint-up(md){ 
+    width: 33.333333%;
+    flex: 0 0 33.333333%;
   }
 }
 
 .third { 
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(4);
+  @extend .col-12; 
+  @include media-breakpoint-up(md) { 
+    width: 33.333333%;
+    flex: 0 0 33.333333%;
   }
 }
 
 .one-fourth { 
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(3);
+  @extend .col-12; 
+  @include media-breakpoint-up(md){ 
+    width: 25%;
+    flex: 0 0 25%;
   }
 }
 
 .two-fourth, .half { 
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(6);
+  @extend .col-12;
+  @include media-breakpoint-up(md) {
+    width: 50%; // equivalent to col-6
+    flex: 0 0 50%;
   }
 }
 
 .three-fourth { 
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(9);
+  @extend .col-12; 
+  @include media-breakpoint-up(md){ 
+    width: 75%;
+    flex: 0 0 75%;
   }
 }
 
 .micro-text { 
-  @include grid-column(12);
+  @extend .col-12;
   padding:1em .5em; 
   letter-spacing:1px; 
   font-weight:400; 
@@ -402,4 +327,34 @@ form{
   max-width:300px; 
   border:$border;
   padding: 1em;
+}
+
+// Form elements
+%form-input {
+  width: 100%;
+  padding: 1.25em;
+  border: 2px solid darken($input-bg, 10%);
+  background: $input-bg;
+  font-weight: 500;
+  font-size: 1em;
+  letter-spacing: 1px;
+  transition: 
+    color 0.3s ease-out,
+    border 0.3s ease-out,
+    background 0.3s ease-out;
+
+  &:focus, &:hover {
+    border: 2px solid $link-color;
+    background: lighten($input-bg, 2%);
+  }
+
+  &::placeholder {
+    color: darken($input-bg, 20%);
+  }
+
+  &.disabled {
+    border: 2px solid $disabled-color;
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 }

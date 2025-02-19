@@ -2,16 +2,13 @@
 //  Interface specific JavaScript for the core application.
 //  Not related to branding and WVU related stuff.  
 // ----------------------------------------------------------------
-// Authors: David J. Davis
+// Author(s): David J. Davis, Tracy A. McCormick
+// Updated: 2025-02-19
 
 //  Rails Dependencies 
 // ----------------------------------------------------------------
+//= require jquery3
 //= require rails-ujs
-//= require activestorage
 //= require turbolinks
-//= require jquery/dist/jquery
-
-//= require public/alerts 
-//= require public/equal_heights
-//= require public/mobile_interface
-
+//= require bootstrap
+//= require_tree .

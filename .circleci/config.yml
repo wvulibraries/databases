@@ -141,7 +141,7 @@ jobs:
 
     steps:
       - attach_workspace:
-          at: ~/circleci-databases
+          at: ~/circleci-databases/databases
       - run:
           name: Install Code Climate Test Reporter
           command: |

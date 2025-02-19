@@ -11,7 +11,7 @@ h2 {
 }
 
 form{
-  @include grid-column(12);
+  @extend .col-12;
   position:relative;
   z-index:55;
 
@@ -29,16 +29,16 @@ form{
       color: $font-color;
     }
   }
-  .add-fields { 
-    @include button_maker($action-color, 'solid');
-    @include determine-text-color($action-color);
-    margin: .5em 0; 
+  .add-fields {
+    @extend .btn;
+    @extend .btn-primary;
+    margin: .5em 0;
     text-decoration: none !important;
-    &:before { 
-      font-family: "Font Awesome 5 Free"; 
-      font-weight: 900; 
-      content: "\f067";
-      padding-right: .5em; 
+    &:before {
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f067"; 
+      padding-right: .5em;
     }
   }
   .remove-fields { 
@@ -115,10 +115,10 @@ form{
   }
 
   .checkbox-wrapper { 
-    @include grid-column(12);
+    @extend .col-12;
 
       .checkbox { 
-        @include grid-column(12);
+        @extend .col-12;
         background:$input-bg;
         padding:5px; 
         width:100%; 
@@ -305,7 +305,7 @@ form{
 }
 
 #error_explanation { 
-  @include grid-column(12);
+  @extend .col-12;
   padding:1em; 
   color:$error; 
   background: rgba($error, .1); 
@@ -313,14 +313,14 @@ form{
   margin-bottom:2em; 
   h3 { color:$error; }
   ul { 
-    @include grid-column(12); 
+    @extend .col-12; 
     padding:1em;
     padding-left:2.5em; 
   }
 }
 
 .actions { 
-  @include grid-column(12); 
+  @extend .col-12; 
   padding:1em 0;
   margin-top:1em; 
   position:relative; 
@@ -328,54 +328,60 @@ form{
 }
 
 .full, .row { 
-  @include grid-column(12); 
+  @extend .col-12; 
   margin-bottom:1em;
 }
 
 .two-third {
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(8);
+  @extend .col-12; 
+  @include media-breakpoint-up(md){ 
+    width: 66.666667%;  // col-8 equivalent
+    flex: 0 0 66.666667%;
   }
 }
 
 .one-third { 
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(4);
+  @extend .col-12; 
+  @include media-breakpoint-up(md){ 
+    width: 33.333333%; // col-4 equivalent
+    flex: 0 0 33.333333%;
   }
 }
 
 .third { 
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(4);
+  @extend .col-12; 
+  @include media-breakpoint-up(md){ 
+    width: 33.333333%;
+    flex: 0 0 33.333333%;
   }
 }
 
 .one-fourth { 
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(3);
+  @extend .col-12; 
+  @include media-breakpoint-up(md){ 
+    width: 25%; // col-3 equivalent
+    flex: 0 0 25%;
   }
 }
 
 .two-fourth, .half { 
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(6);
+  @extend .col-12;
+  @include media-breakpoint-up(md) {
+    width: 50%; // equivalent to col-6
+    flex: 0 0 50%;
   }
 }
 
 .three-fourth { 
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(9);
+  @extend .col-12; 
+  @include media-breakpoint-up(md){ 
+    width: 75%; // col-9 equivalent
+    flex: 0 0 75%;
   }
 }
 
 .micro-text { 
-  @include grid-column(12);
+  @extend .col-12;
   padding:1em .5em; 
   letter-spacing:1px; 
   font-weight:400; 
@@ -389,4 +395,35 @@ form{
   max-width:300px; 
   border:$border;
   padding: 1em;
+}
+
+// Replace button_maker mixins with Bootstrap classes
+input[type="submit"] {
+  @extend .btn;
+  @extend .btn-primary;
+}
+
+.form-button {
+  @extend .btn;
+  @extend .btn-primary;
+}
+
+.cancel-button {
+  @extend .btn;
+  @extend .btn-secondary;
+}
+
+.delete-button {
+  @extend .btn;
+  @extend .btn-danger;
+}
+
+// For smaller buttons
+.small-button {
+  @extend .btn-sm;
+}
+
+// For larger buttons  
+.large-button {
+  @extend .btn-lg;
 }

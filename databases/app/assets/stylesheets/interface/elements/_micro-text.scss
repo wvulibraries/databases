@@ -8,7 +8,7 @@
 }
 
 .micro-text {
-  @include grid-column(12);
+  @extend .col-12;
   @extend .micro-text-styles;
 }
  

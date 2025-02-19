@@ -12,6 +12,8 @@ require "action_mailer/railtie"
 # require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
+require "action_mailbox/engine"
+require "action_text/engine"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -21,7 +23,7 @@ Bundler.require(*Rails.groups)
 module Databases
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 7.1
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -33,6 +35,12 @@ module Databases
 
     # Don't generate system test files.
     config.generators.system_tests = nil
-    config.autoload_paths += %W(#{config.root}/app/services)
+    config.autoload_paths << Rails.root.join("app/services")
+    
+    # Add cache format version
+    config.active_support.cache_format_version = 7.0
+
+    # Precompile additional assets
+    config.assets.precompile += %w( application.js )
   end
 end

@@ -1,21 +1,23 @@
 .filter-results{
-  @include grid-column(12); 
+  @extend .col-12; 
   margin-top:1em;   
   margin-bottom:1em;
 }
 
 .filter-date-select{
-  @include grid-column(12); 
-  @include breakpoint(tablet){ 
-    @include grid-column(4);
+  @extend .col-12; 
+  @include media-breakpoint-up(md){ 
+    width: 33.333333%; // col-4 equivalent
+    flex: 0 0 33.333333%;
   }
 }
 
 .filter-actions, .csv-export { 
-  @include grid-column(12); 
+  @extend .col-12; 
   padding-top: 5px;
-  @include breakpoint(tablet){ 
-    @include grid-column(4);
+  @include media-breakpoint-up(md){ 
+    width: 33.333333%; // col-4 equivalent
+    flex: 0 0 33.333333%;
     padding-top: 30px;
   }
 }

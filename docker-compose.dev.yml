@@ -1,18 +1,44 @@
-version: '3.1'
+version: '3.2'
 
 services:
-
-  elasticsearch:
-    image: elasticsearch:8.14.3
-    container_name: elasticsearch
-    restart: always
+  rails: 
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    container_name: databases
     env_file:
-      - './env/.env.dev.es'    
-    volumes: 
-      - search_data:/usr/share/elasticsearch/data
-    ports: 
-      - "9200:9200"
-   
+      - './env/.env.dev.rails'     
+    command: bash -c "bundle install; sh ./scripts/startup.sh"
+    ports:
+      - "3000:3000" 
+    restart: unless-stopped
+    healthcheck:
+       test: curl --fail -s http://localhost:3000/ || exit 1
+       interval: 30s
+       timeout: 60s
+       retries: 5
+       start_period: 80s
+    volumes:
+      # Mount source code for development
+      - ./databases:/home/databases
+      - ./scripts:/home/databases/scripts      
+      # Exclude dependency directories to prevent overwriting container installations
+      - /home/databases/node_modules
+      - /home/databases/vendor
+      # Mount persistence directories
+      - ./data/log:/home/databases/log
+      - ./data/bundle:/usr/local/bundle # cache bundle install      
+      - ./data/coverage:/home/databases/coverage
+      - ./data/public/assets:/home/databases/public/assets
+      - ./data/public/uploads:/home/databases/public/uploads
+      # don't mount tmp directory 
+      - /home/databases/tmp        
+    links:
+      - db
+      - elasticsearch
+    networks:
+      - databases
+
   db:
     image: mysql:8
     container_name: db
@@ -24,36 +50,22 @@ services:
     volumes:
       - mysql:/var/lib/mysql
       - ./data/mysql-files:/var/lib/mysql-files
-  
-  rails: 
-    build: 
-      context: ./
-      dockerfile: Dockerfile
-    tty: true
-    stdin_open: true
-    container_name: databases
+    networks:
+      - databases
+
+  elasticsearch:
+    image: elasticsearch:8.14.3
+    container_name: elasticsearch
+    restart: always
     env_file:
-      - './env/.env.dev.rails'      
-    volumes:
-      # Mount source code for development
-      - ./databases:/home/databases:delegated
-      - ./scripts:/home/databases/scripts      
-      # Exclude dependency directories to prevent overwriting container installations
-      - /home/databases/node_modules
-      - /home/databases/vendor
-      # Mount persistence directories
-      - ./data/log:/home/databases/log
-      - ./data/coverage:/home/databases/coverage
-      - ./data/public/assets:/home/databases/public/assets
-      - ./data/public/uploads:/home/databases/public/uploads
-      # don't mount tmp directory 
-      - /home/databases/tmp        
-    ports:
-      - "3000:3000" 
-    links:
-      - db
-      - elasticsearch
-  
+      - './env/.env.dev.es'    
+    volumes: 
+      - search_data:/usr/share/elasticsearch/data
+    ports: 
+      - "9200:9200"
+    networks:
+      - databases
+    
   kibana:
     image: kibana:8.1.0
     container_name: kibana
@@ -63,7 +75,15 @@ services:
       - 5601:5601
     links: 
       - elasticsearch
+    networks:
+      - databases
 
 volumes:
   mysql:
   search_data:
+
+networks:
+  databases:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: br-databases

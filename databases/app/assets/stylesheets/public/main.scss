@@ -1,18 +1,10 @@
-// Libraries
-@import "normalize/normalize";
-@import "bourbon";
-@import "neat";
-
-// Sass Functions
-@import "functions/*";
+// Libraries first
+@import "bootstrap";
 
 // Core 
 @import "core/variables";
 
-// Mixins 
-@import "mixins/*"; 
-
-// Style Sheets Start Here 
+// Style Sheets
 @import "core/default";
 @import "core/grid";
 @import "core/font"; 

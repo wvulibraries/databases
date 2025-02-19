@@ -21,22 +21,22 @@ nav {
 
 nav.home-page { 
   ul {
-    @include grid-column(12);
+    @extend .col-12;
   }
 }
 
 nav.inner-page { 
   ul { 
-    @include grid-column(8);
+    @extend .col-8;
   }
   .nav-search { 
-    @include grid-column(4);
+    @extend .col-4;
   }
 }
 
 nav.inner-page, nav.home-page { 
   display:none; 
-  @include breakpoint(laptop){
+  @include media-breakpoint-up(xl){
     display:block;
   }
 }

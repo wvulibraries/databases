@@ -7,13 +7,13 @@ footer.wvu-footer  {
   padding:1em;
 
   text-align: center; 
-  @include breakpoint(tablet){ 
+  @include media-breakpoint-up(md){ 
     text-align: left;
   }
 
   .wvu-container { 
     padding:1em; 
-    @include grid-column(12);
+    @extend .col-12;
 
     p {
       margin-top: 0;
@@ -22,9 +22,10 @@ footer.wvu-footer  {
   }
 
   .wvu-contact, .lib-social-media, .wvu-credits, .wvu-icons { 
-    @include grid-column(12); 
-    @include breakpoint(tablet){ 
-      @include grid-column(6);
+    @extend .col-12;
+    @include media-breakpoint-up(md) {
+      width: 50%; // equivalent to col-6
+      flex: 0 0 50%;
     }
   }
 
@@ -32,7 +33,7 @@ footer.wvu-footer  {
     text-align: center; 
     padding:2em 0;
 
-    @include breakpoint(tablet){ 
+    @include media-breakpoint-up(md){ 
       text-align:right;
     }
 
@@ -83,7 +84,7 @@ footer.wvu-footer  {
       padding-right:.5em; 
     }
 
-    @include breakpoint(tablet){ 
+    @include media-breakpoint-up(md){ 
       text-align: right;
       margin-top: unset;
     }

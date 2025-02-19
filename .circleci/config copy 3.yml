@@ -1,0 +1,113 @@
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/databases
+    docker:
+      - image: cimg/ruby:3.3.4-node
+        environment:
+          RAILS_ENV: test
+          CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
+          COVERAGE: true  
+          ELASTIC_URL: 0.0.0.0:9200
+          ELASTIC_USERNAME: elastic
+          ELASTIC_PASSWORD: password      
+      - image: cimg/mysql:8.0
+        environment:
+          MYSQL_ROOT_HOST: 127.0.0.1
+          MYSQL_ROOT_PASSWORD: circleci  
+      - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3        
+        environment:
+           transport.host: localhost
+           network.host: 0.0.0.0
+           http.port: 9200             
+           discovery.type: single-node   
+           ELASTIC_USERNAME: elastic
+           ELASTIC_PASSWORD: password
+           xpack.security.enabled: true       
+    steps:
+      - checkout
+
+      - run:
+          name: Configure secrets.yml
+          command: mv config/secrets.ci.yml config/secrets.yml
+
+      - run:
+          name: Configure database.yml
+          command: mv config/database.ci.yml config/database.yml
+
+      - run:
+          name: Configure application.yml
+          command: mv config/application.ci.yml config/application.yml         
+
+      # Restore bundle cache
+      - restore_cache:
+          key: databases-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Configure bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+      # Yarn install
+      - run:
+          name: Yarn install
+          command: yarn install
+
+      # Bundle install
+      - run:
+          name: Bundle install
+          command: bundle install
+
+      # Store bundle cache
+      - save_cache:
+          key: databases-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Wait for MySQL to start
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+
+      - run:
+          name: Setup Database
+          command: bundle exec rake db:create db:schema:load --trace
+
+      # Rubocop
+      # - run:
+      #     name: Run Rubocop
+      #     command: |
+      #       gem install rubocop
+      #       bundle exec rubocop --parallel
+
+      # Rspec
+      - run:
+          name: Setup Code Climate Test Reporter
+          command: |
+            mkdir -p tmp/
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
+            chmod +x ./tmp/cc-test-reporter
+
+      - run:
+          name: Run RSpec
+          command: |
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out /tmp/test-results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+          when: always
+
+      - store_test_results:
+          path: /tmp/test-results
+
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+
+      - run:
+          name: Upload coverage results to Code Climate
+          command: |
+            ./tmp/cc-test-reporter format-coverage -t simplecov $CIRCLE_ARTIFACTS/coverage/.resultset.json
+            ./tmp/cc-test-reporter upload-coverage

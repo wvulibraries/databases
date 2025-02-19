@@ -1,24 +1,28 @@
+@import "bootstrap";
+
 $neat-grid: (
   columns: 12,
   gutter: 1em 
 );
 
 .wrapper {
-  width:100%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  clear:left;
-  @include clearfix;
+  clear: left;
+  @extend .container-fluid;
 }
 
 .container {
-  @include grid-container;
-  margin:0 auto;
-  @include clearfix;
-  // @include grid-visual(rgba(cyan, .5), $neat-grid);
+  margin: 0 auto;
+  @extend .container;
 }
 
 main, header, footer, div {
-  @include grid-container;
-  @include clearfix;
+  @extend .row;
+}
+
+// Add column classes as needed:
+.col {
+  @extend .col-md-12;
 }

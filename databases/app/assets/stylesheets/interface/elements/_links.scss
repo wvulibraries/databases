@@ -1,2 +1,18 @@
 // base link colors
-@include link_maker($link-color, $link-color, darken($link-color, 20%), lighten($link-color, 20%));
+a {
+  @extend .link-primary;
+  text-decoration: underline;
+  
+  &:hover {
+    color: darken($link-color, 20%);
+  }
+  
+  &:active {
+    color: lighten($link-color, 20%); 
+  }
+  
+  &:focus {
+    outline: 2px dotted $link-color;
+    outline-offset: 2px;
+  }
+}

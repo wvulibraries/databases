@@ -1,28 +1,28 @@
 .button, .btn {
-  @include button_maker($link-color, 'solid');
-  @include determine-text-color($link-color);
+  @extend .btn;
+  @extend .btn-primary;
 }
 
-.admin-panel { 
-  @include button_maker($link-color, 'solid');
-  @include determine-text-color($link-color);
+.admin-panel {
+  @extend .btn;
+  @extend .btn-primary;
   text-decoration: none;
 }
 
-.signout { 
-  @include button_maker($error, 'solid');
-  color:#fff;
+.signout {
+  @extend .btn;
+  @extend .btn-danger;
   text-decoration: none;
-  &:hover, &:active, &:focus { 
-    color:#fff;
+  &:hover, &:active, &:focus {
+    color: #fff;
   }
 }
 
-.login { 
-  @include button_maker($success, 'solid');
-  @include determine-text-color($success);
+.login {
+  @extend .btn;
+  @extend .btn-success;
   text-decoration: none;
-  &:hover, &:active, &:focus { 
-    color:#000;
+  &:hover, &:active, &:focus {
+    color: #000;
   }
 }

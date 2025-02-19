@@ -7,7 +7,7 @@ $borders: 1px solid $input-border;
 $disabled-color: $input-border; 
 
 .search-bar {
-  @include grid-column(12);
+  @extend .col-12;
   width:100%;
   position:relative;
   z-index:55;
@@ -25,11 +25,11 @@ $disabled-color: $input-border;
     display: inline-block;
     float:left;
 
-    @include transition(
-      color 0.6s $easeOutExpo, 
-      border 0.6s $easeOutExpo, 
-      background 0.6s $easeOutExpo
-    );
+    // Replace custom transition
+    transition: 
+      color 0.3s ease-out,
+      border 0.3s ease-out,
+      background 0.3s ease-out;
 
     border: 2px solid darken($input-bg,10%);
 

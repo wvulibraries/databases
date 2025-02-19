@@ -198,7 +198,7 @@ tbody {
 }
 
 .fix-width { 
-  @include breakpoint(laptop){ 
+  @include media-breakpoint-up(xl){ 
     width:30% !important;
   }
 }

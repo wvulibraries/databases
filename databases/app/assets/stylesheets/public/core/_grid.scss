@@ -1,31 +1,56 @@
-$neat-grid: (
-  columns: 12,
-  gutter: 1em 
-);
-
 .wrapper {
-  width:100%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  clear:left;
-  @include clearfix;
+  clear: left;
+  @extend .container-fluid;
 }
 
 .container {
-  @include grid-container;
-  @include clearfix;
-  // @include grid-visual(rgba(cyan, .5), $neat-grid);
+  margin: 0 auto;
+  @extend .container;
 }
 
 main, header, footer, div {
-  @include grid-container;
-  @include clearfix;
+  @extend .row;
+}
+
+// Add this class for grid-column(3) replacements
+.col-3 {
+  @extend .col-12;
+  @extend .col-md-3;
+}
+
+// Add column classes for all grid-column replacements
+.col-4 {
+  @extend .col-12;
+  @extend .col-md-4;
+}
+
+.col-6 {
+  @extend .col-12;
+  @extend .col-md-6; 
+}
+
+.col-8 {
+  @extend .col-12;
+  @extend .col-md-8;
+}
+
+.col-9 {
+  @extend .col-12;
+  @extend .col-md-9;
+}
+
+.col-10 {
+  @extend .col-12;
+  @extend .col-md-10;
 }
 
 #main, nav { 
-  .container { padding:1em; }
+  .container { padding: 1em; }
 }
 
 .main-content { 
-  margin:1em 2em;
+  margin: 1em 2em;
 }
