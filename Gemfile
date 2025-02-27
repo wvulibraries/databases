@@ -15,10 +15,11 @@ gem 'puma', '~> 5.6'
 gem 'sassc-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
-gem 'turbolinks', '~> 5'
+gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.5'
 
-# gem 'concurrent-ruby', '~> 1.1', '>= 1.1.4'
+gem 'nokogiri', '1.8.0'  # Pin to specific version
+gem 'loofah', '2.19.1'    # Pin to specific version
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -48,8 +49,8 @@ gem 'sanitize'
 # frontend
 gem 'normalize-scss'
 gem "non-stupid-digest-assets" # generates assets for 404/500/etc. 
-gem "bourbon"
-gem "neat"
+gem "bourbon", '~> 6.0.0'
+gem 'neat', '4.0.0'
 gem "recaptcha" # google recaptcha api
 gem 'carrierwave'
 
