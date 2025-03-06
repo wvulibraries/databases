@@ -1,5 +1,21 @@
 .app-header { 
-    .container { padding:1em 2em; }
+    background: asset_url("wise.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-color: #002855;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+
+    .container { 
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 1em 2em;
+    }
+
     h1, .authentication_links { 
       @extend .col-12; 
 
@@ -52,12 +68,4 @@
         }
       }
     }
-
-    background: asset_url("wise.jpg");
-    background-size: cover;
-    background-position: center center;
-    background-color: #002855;
-    height: auto;
-    display: block;
-    overflow: hidden;
 }

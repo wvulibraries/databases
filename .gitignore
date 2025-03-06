@@ -56,3 +56,5 @@
 # Ignore sym-links for easy start and stop of containers:
 .up.sh
 .down.sh
+
+/data

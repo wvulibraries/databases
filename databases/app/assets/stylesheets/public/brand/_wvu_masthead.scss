@@ -6,11 +6,19 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
 
 .wvu-masthead { 
   background-color: $wvu-blue;
-  color:#fff;  
+  color: #fff;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 
   .wvu-masthead__container { 
-    @extend .container;
-    padding:1em;
+    width: 100%;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: 0;
   }
 
   .wvu-masthead__logo { 
