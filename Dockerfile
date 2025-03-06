@@ -18,7 +18,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
 # Install our dependencies and rails
 RUN gem install bundler -v 2.4.22 \
     && gem install nokogiri -v 1.15.6 \
-	&& gem install rails \
+    && gem install zeitwerk -v 2.6.18 \
 	&& mkdir -p /home/databases
 
 ENV TZ=America/New_York
