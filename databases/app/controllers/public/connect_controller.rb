@@ -16,7 +16,7 @@ class Public::ConnectController < ApplicationController
       # save client ip to link tracking for reporting
       save_ip
       # redirect_to URI.encode(url) ? url : URI.encode(url)
-      redirect_to url
+      redirect_to url, allow_other_host: true
     end
   end
 

@@ -9,16 +9,27 @@ h2 {
 .title-list { 
   list-style: none; 
   margin: 2em 0;
-  @extend .col-12;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  gap: 0.5em;
 
   li { 
-    float: left; 
-    margin-bottom: 1.5em;
-    @extend .col-12;
+    margin-bottom: 0.5em;
+    
+    a {
+      padding: 0.5em 1em;
+      color: $wvu-blue;
+      text-decoration: underline;  // Changed from none to underline
+      
+      &:hover {
+        color: $wvu-gold;
+        text-decoration: underline;
+      }
+    }
 
     @include media-breakpoint-up(md) {
-      width: 66.666667%;  // col-8 equivalent
-      flex: 0 0 66.666667%;
+      margin-bottom: 0;
     }
   }
 }
