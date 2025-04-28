@@ -10,7 +10,7 @@ services:
       - './env/.env.dev.rails'     
     command: bash -c "bundle install; sh ./scripts/startup.sh"
     ports:
-      - "3000:3000" 
+      - "3000:3000"
     restart: unless-stopped
     healthcheck:
        test: curl --fail -s http://localhost:3000/ || exit 1
