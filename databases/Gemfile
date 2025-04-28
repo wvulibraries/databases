@@ -31,9 +31,11 @@ gem 'drb'
 gem 'stringio'
 gem 'csv'
 gem 'ostruct'
+gem 'syslog'
 
 # Add this gem
 gem 'logging', '~> 2.3'
+gem 'cgi', '~> 0.4.2'
 
 # Frontend Dependencies
 # =====================================================
@@ -47,7 +49,7 @@ gem 'turbolinks', '~> 5.2.0'
 # loads rails apps faster 
 gem 'bootsnap', '>= 1.4.2', require: false
 
-# Application Specific 
+# Application Specific ok 
 # =====================================================================================
 # cas client
 gem 'rack-cas'

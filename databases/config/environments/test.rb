@@ -62,4 +62,7 @@ Rails.application.configure do
   config.middleware.use RackSessionAccess::Middleware  
 
   config.assets.precompile += %w( application.js application.scss )
+  
+  # Allow any host for tests to fix the "Blocked hosts: directory:3001" error
+  config.hosts.clear
 end
