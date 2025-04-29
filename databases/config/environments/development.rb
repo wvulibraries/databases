@@ -93,5 +93,11 @@ Rails.application.configure do
 # Remove IP restrictions for Admin login to authenticate databases_app using ssodev (default is to only allow local IPs/loopback, etc).
 config.web_console.whiny_requests = false
 
+# Allow ssodev.wvu.edu to redirect back to your application
+config.hosts.clear
+config.hosts << "ssodev.wvu.edu"
+config.hosts << "localhost"
+config.hosts << "127.0.0.1"
+
 end
 
