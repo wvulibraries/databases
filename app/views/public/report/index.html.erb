@@ -23,9 +23,9 @@
   <fieldset> 
     <legend> Database Information </legend>
     <div class="field full"> 
-      <%= f.label :trial_database, 'Database/Journal', class: 'required' %>
+      <%= f.label :database, 'Database/Journal', class: 'required' %>
       <div class="select-style"> 
-        <%= f.select(:trial_database, 
+        <%= f.select(:database, 
                     Database.order(:name).collect {|d| [ d.name, d.id ] }, 
                     { prompt: "Select A Database / Journal", selected: params[:db_id] }) %>
       </div>
