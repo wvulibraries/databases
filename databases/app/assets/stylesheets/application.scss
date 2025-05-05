@@ -13,3 +13,231 @@
  *= require_self
  */
 
+ // Import the variables first
+@import "public/core/variables";
+
+// Update the admin button override
+.button.admin-panel, 
+a.button.admin-panel {
+  color: #fff !important;
+  background-color: #0049AC !important; // Light blue
+  border-color: #0049AC !important;
+  padding: 6px 12px !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  border-radius: 4px !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  width: auto !important;
+  
+  .fa, .fas {
+    color: #fff !important;
+    margin-right: 5px !important;
+  }
+  
+  &:hover, &:focus, &:active {
+    background-color: darken(#0049AC, 5%) !important;
+    border-color: darken(#0049AC, 5%) !important;
+    color: #fff !important;
+  }
+}
+
+// Add similar overrides for signout and login buttons
+.button.signout, 
+a.button.signout {
+  color: #000 !important;
+  background-color: #EAAA00 !important; // WVU gold
+  border-color: #EAAA00 !important;
+  padding: 6px 12px !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  border-radius: 4px !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  width: auto !important;
+  
+  .fa, .fas {
+    color: #000 !important;
+    margin-right: 5px !important;
+  }
+}
+
+.button.login, 
+a.button.login {
+  color: #fff !important; // White text
+  background-color: #0049AC !important; // Blue
+  border-color: #0049AC !important;
+  padding: 6px 12px !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  border-radius: 4px !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  width: auto !important;
+  
+  .fa, .fas {
+    color: #fff !important;
+    margin-right: 5px !important;
+  }
+}
+
+// Fix spacing between elements
+body > .wvu-masthead,
+body > .app-header,
+body > nav {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+
+// Fix navigation gap
+.app-header::after,
+.wvu-masthead::after {
+  display: none !important;
+}
+
+// Fix authentication links display
+.authentication_links {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  
+  a.button, a.btn {
+    display: inline-block !important;
+    margin-right: 5px !important;
+    margin-bottom: 5px !important;
+    width: auto !important;
+    flex: none !important;
+  }
+}
+
+// Fix button text
+a.button.login, a.btn.login {
+  // Make sure the text says "Login" not just "Log"
+  &:not(:empty)::after {
+    content: 'in' !important;
+  }
+}
+
+// Fix masthead layout
+.wvu-masthead__container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+}
+
+// Fixed header list styling that matches original
+.wvu-header-list {
+  @media (min-width: 768px) {
+    text-align: right !important;
+  }
+  
+  ul {
+    @media (min-width: 768px) {
+      float: right !important;
+    }
+  }
+  
+  li {
+    @media (min-width: 768px) {
+      display: inline-block !important;
+      float: left !important;
+    }
+  }
+  
+  li a {
+    // Mobile styles
+    border: 1px solid #fff !important;
+    text-decoration: none !important;
+    
+    @media (min-width: 768px) {
+      display: inline-block !important;
+      width: auto !important;
+      float: left !important;
+      border: none !important;
+      border-bottom: 1px solid #fff !important;
+      margin-left: 10px !important;
+      padding: 0.25em 0.5em !important;
+      
+      &:focus, &:hover, &:active {
+        color: #EAAA00 !important; // Using hex instead of $wvu-gold
+        border-bottom-color: #EAAA00 !important; // Using hex instead of $wvu-gold
+      }
+    }
+  }
+}
+
+// Make sure heading is aligned left
+h1, h2, h3, h4, h5, h6 {
+  text-align: left !important;
+}
+
+// Fix container justification
+.container {
+  text-align: left !important;
+  
+  h1, h2, h3, h4, h5, h6, p, ul, ol {
+    text-align: left !important;
+  }
+}
+
+// Final overrides to ensure all elements display correctly
+
+// Fix container widths
+.container {
+  max-width: 1140px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+// Masthead specific fixes
+.wvu-masthead__logo {
+  float: left !important;
+  text-align: left !important;
+  
+  @media (max-width: 767px) {
+    float: none !important;
+    text-align: center !important;
+  }
+}
+
+.wvu-header-list {
+  float: right !important;
+  text-align: right !important;
+  
+  @media (max-width: 767px) {
+    float: none !important;
+    text-align: center !important;
+  }
+  
+  ul {
+    float: right !important;
+    
+    @media (max-width: 767px) {
+      float: none !important;
+    }
+  }
+}
+
+// Fix button appearance in admin sections 
+.button, .btn, a.button, a.btn {
+  &.admin-panel, &.signout, &.login {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    
+    span {
+      text-shadow: none !important;
+      opacity: 1 !important;
+    }
+  }
+}
+
+// Fix navigation spacing
+nav {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+

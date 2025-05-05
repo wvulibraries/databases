@@ -1,45 +1,46 @@
 $flying-wv-w-signature: 'https://patterns.wvu.edu/images/flying-wv-w-signature.png' !default;
-$flying-wv-w-signature-gold-bg: 'https://patterns.wvu.edu/images/flying-wv-w-signature-gold-bg.png' !default;
-$flying-wv-w-signature-white-bg: 'https://patterns.wvu.edu/images/flying-wv-w-signature-white-bg.png' !default;
-$flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.png' !default;
-
 
 .wvu-masthead { 
-  background-color: $wvu-blue;
+  background-color: #002855; // WVU blue
   color: #fff;
-  width: 100%;
   margin: 0;
   padding: 0;
-
+  width: 100%;
+  
   .wvu-masthead__container { 
     width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
     padding: 1em;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 100%;
-    margin: 0;
+    flex-wrap: wrap;
+    
+    @media (max-width: 767px) {
+      justify-content: center;
+    }
   }
 
   .wvu-masthead__logo { 
     background: url($flying-wv-w-signature) no-repeat left 30% transparent;
-    text-align:center;
-    background-position: center 30%; 
-    background-size:300px auto; 
-    position:relative; 
-    @extend .col-12;
-    @include media-breakpoint-up(md) {
-      width: 50%; // equivalent to col-6
-      flex: 0 0 50%;
+    background-size: 300px auto;
+    text-align: center;
+    background-position: center 30%;
+    width: 100%;
+    position: relative;
+    
+    @media (min-width: 768px) { 
+      width: 50%;
+      background-position: left 30%;
+      text-align: left;
+      float: left;
     }
-
-    @include media-breakpoint-up(lg){
-      width: 33.333333%;  // Replace @extend .col-4
-      flex: 0 0 33.333333%;
+    
+    @media (min-width: 992px) {
+      width: 33.333333%;
     }
   }
 
-  .wvu-masthead__university-name{
+  .wvu-masthead__university-name {
     position: absolute;
     left: -99999em;
   }
@@ -47,84 +48,92 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
   .wvu-masthead__title {
     display: inline-block;
     position: relative;
-    padding-top:50px; 
+    padding-top: 50px;
     font-size: 1.2em;
-    left:-2.4em;
+    left: -2.4em;
     text-transform: uppercase;
-    color:#fff;
-
-    @include media-breakpoint-up(md){ 
-      left:3em; 
+    color: #fff !important;
+    
+    @media (min-width: 768px) { 
+      left: 3em;
     }
   }
 }
 
 .wvu-header-list {
-  @extend .col-12; 
-  text-align:right;
-
-  @include media-breakpoint-up(md) {
-    width: 50%; // equivalent to col-6
-    flex: 0 0 50%;
+  width: 100%;
+  text-align: center;
+  
+  @media (min-width: 768px) {
+    width: 50%;
+    text-align: right;
+    float: right;
   }
-
-  @include media-breakpoint-up(lg){
-    width: 66.666667%;  // Replace @extend .col-8
-    flex: 0 0 66.666667%;
+  
+  @media (min-width: 992px) {
+    width: 66.666667%;
   }
-
+  
   ul { 
-    width:unset;
-    margin-top:1em;
-    list-style:none; 
-
-    @include media-breakpoint-up(md){
-      float:right;
+    width: 100%;
+    margin-top: 1em;
+    padding-left: 0;
+    list-style: none;
+    
+    @media (min-width: 768px) {
+      float: right;
     }
-  } 
-
+  }
+  
+  li {
+    @media (min-width: 768px) {
+      display: inline-block;
+      float: left;
+      margin-left: 10px;
+    }
+  }
+  
   li a { 
-    width: 50%;  // Replace @extend .col-6
-    flex: 0 0 50%;
-    padding:.5em; 
-    border:1px solid #fff;
-    color:#fff;
-    text-align:center;
-    margin-top:.5em;
-    font-size:14px;
+    width: 50%;
+    display: inline-block;
+    float: left;
+    padding: .5em;
+    border: 1px solid #fff;
+    color: #fff !important;
+    text-align: center;
+    margin-top: .5em;
+    font-size: 14px;
+    text-decoration: none;
+    
     &:focus, &:hover, &:active { 
-      color: $wvu-gold;
-      border-color: $wvu-gold;
+      color: #EAAA00 !important; // WVU gold
+      border-color: #EAAA00 !important;
     }
-    @include media-breakpoint-up(md){ 
-      display:inline-block; 
-      width:unset;
-      float:left;
-      border-color:transparent; 
+    
+    @media (min-width: 768px) { 
+      width: auto;
+      display: inline-block;
+      float: left;
+      border: none;
+      border-bottom: 1px solid #fff;
+      
       &:focus, &:hover, &:active { 
-        color: $wvu-gold;
-        border-color:transparent;
+        color: #EAAA00 !important;
+        border-color: transparent;
+        border-bottom-color: #EAAA00;
       }
+      
       &:focus { 
-        border: 2px dotted $wvu-gold; 
+        border: 2px dotted #EAAA00;
       }
     }
   }
-  li { 
-    @include media-breakpoint-up(md){ 
-      display:inline-block; 
-      width:unset;
-      float:left;
-    }
-    &:last-child { 
-      a { 
-        width: 100%;  // Replace @extend .col-12
-        flex: 0 0 100%;
-        
-        @include media-breakpoint-up(md){ 
-          width:unset;
-        }
-      }
+  
+  li:last-child a { 
+    width: 100%;
+    
+    @media (min-width: 768px) { 
+      width: auto;
     }
   }
 }

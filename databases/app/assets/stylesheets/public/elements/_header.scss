@@ -1,71 +1,140 @@
 .app-header { 
-    background: asset_url("wise.jpg");
-    background-size: cover;
-    background-position: center center;
-    background-color: #002855;
+  background: asset_url("wise.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-color: #002855;
+  height: auto;
+  width: 100%;
+  margin: 0;
+  display: block;
+  overflow: hidden;
+
+  .container { 
+    padding: 1em 2em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  h1, .authentication_links { 
     width: 100%;
-    margin: 0;
-    padding: 0;
-    display: block;
-    overflow: hidden;
-
-    .container { 
-      width: 100%;
-      max-width: 100%;
-      margin: 0;
-      padding: 1em 2em;
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 0; 
+    
+    @include media-breakpoint-up(md) { 
+      width: 50%;
+      flex: 0 0 50%;
+      max-width: 50%;
     }
-
-    h1, .authentication_links { 
-      @extend .col-12; 
-
-      @include media-breakpoint-up(md) {
-        width: 50%; // equivalent to col-6
-        flex: 0 0 50%;
-      }
-
-      margin-bottom:0; 
+  }
+  
+  h1 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1em;
+    
+    @include media-breakpoint-up(md) { 
+      width: 50%;
+      flex: 0 0 50%;
+      max-width: 50%;
+      text-align: left;
+      margin-bottom: 0;
     }
     
-    h1 {
-      @extend .col-12; 
-      text-align: center;
-      margin-bottom:1em;
- 
-      @include media-breakpoint-up(md) {
-        width: 50%; // equivalent to col-6
-        flex: 0 0 50%;
+    a {
+      color: #fff !important; // Force white text
+      text-decoration: none;
+      border: none;
+      font-weight: normal;
+      
+      &:hover, &:active { 
+        text-decoration: underline;
+        color: #fff !important;
       }
-
-      a {
-        color:#fff; 
-        text-decoration: none; 
-        border:none;
-        &:hover, &:active { 
-          text-decoration:underline; 
-        } 
-        &:focus { 
-          border: 2px dotted $action-color;
+      
+      &:focus { 
+        border: 2px dotted $action-color;
+        outline: none;
+      }
+    }
+  }
+  
+  .authentication_links { 
+    width: 100%;
+    flex: 0 0 100%;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; // Center on mobile
+    align-items: center;
+    
+    @include media-breakpoint-up(md) { 
+      justify-content: flex-end; // Right align on desktop
+    }
+    
+    a.button, a.btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.5;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      border-radius: 4px;
+      text-decoration: none !important;
+      width: auto;
+      min-width: auto;
+      margin-left: 5px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      
+      &.admin-panel {
+        background-color: #0049AC !important; // Light blue
+        border-color: #0049AC !important;
+        color: #fff !important;
+        
+        .fa, .fas {
+          color: #fff !important;
+          margin-right: 5px;
         }
       }
-    } 
-
-    .authentication_links { 
-      @extend .col-12;
-      text-align: center; 
-
-      @include media-breakpoint-up(md) {
-        width: 50%; // equivalent to col-6
-        flex: 0 0 50%;
+      
+      &.signout {
+        background-color: #EAAA00 !important; // WVU gold
+        border-color: #EAAA00 !important;
+        color: #000 !important;
+        
+        .fa, .fas {
+          color: #000 !important;
+          margin-right: 5px;
+        }
       }
-
-      a { 
-        @extend .col-12;
-        @include media-breakpoint-up(md){ 
-          width: 50%; // equivalent to col-6
-          flex: 0 0 50%; 
-          float:unset;
+      
+      &.login {
+        background-color: #0049AC !important; // Change to blue to match original
+        border-color: #0049AC !important;
+        color: #fff !important; // White text on blue
+        width: auto !important; // Only as wide as content
+        max-width: none !important;
+        display: inline-block !important;
+        padding: 6px 12px !important;
+        
+        .fa, .fas {
+          color: #fff !important; // White icon
+          margin-right: 5px !important;
+        }
+        
+        &:hover, &:active, &:focus {
+          background-color: darken(#0049AC, 5%) !important;
+          color: #fff !important;
         }
       }
     }
+  }
 }

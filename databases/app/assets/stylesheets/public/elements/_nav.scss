@@ -1,5 +1,9 @@
-nav { 
-  background:$nav-bg;
+nav {
+  background: $nav-bg;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top: 0 !important;
+  
   ul { 
     list-style:none; 
     margin:0; 
@@ -39,4 +43,12 @@ nav.inner-page, nav.home-page {
   @include media-breakpoint-up(xl){
     display:block;
   }
+}
+
+// Adjust display properties to ensure no gap
+.wvu-masthead + nav,
+.app-header + nav {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top: 0 !important;
 }

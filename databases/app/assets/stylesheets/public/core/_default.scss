@@ -67,4 +67,17 @@ body {
 // xl: 1200px
 // xxl: 1400px
 
+// Add these styles to remove space between sections
+.app-header {
+  margin-bottom: 0 !important; // Remove bottom margin
+}
+
+.wvu-masthead {
+  margin-bottom: 0 !important; // Remove bottom margin
+}
+
+nav {
+  margin-top: 0 !important; // Remove top margin
+}
+
 

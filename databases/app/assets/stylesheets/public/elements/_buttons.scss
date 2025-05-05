@@ -5,24 +5,59 @@
 
 .admin-panel {
   @extend .btn;
-  @extend .btn-primary;
-  text-decoration: none;
+  background-color: #0049AC !important; // Light blue
+  border-color: #0049AC !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  
+  .fa, .fas {
+    color: #fff !important;
+    margin-right: 5px !important;
+  }
+  
+  &:hover, &:focus, &:active {
+    background-color: darken(#0049AC, 5%) !important;
+    border-color: darken(#0049AC, 5%) !important;
+    color: #fff !important;
+  }
 }
 
 .signout {
   @extend .btn;
-  @extend .btn-danger;
-  text-decoration: none;
-  &:hover, &:active, &:focus {
-    color: #fff;
+  background-color: #EAAA00 !important; // WVU gold
+  border-color: #EAAA00 !important;
+  color: #000 !important; // Black text on gold
+  text-decoration: none !important;
+  
+  .fa, .fas {
+    color: #000 !important;
+    margin-right: 5px !important;
+  }
+  
+  &:hover, &:focus, &:active {
+    background-color: darken(#EAAA00, 5%) !important;
+    border-color: darken(#EAAA00, 5%) !important;
+    color: #000 !important;
   }
 }
 
 .login {
   @extend .btn;
-  @extend .btn-success;
-  text-decoration: none;
-  &:hover, &:active, &:focus {
-    color: #000;
+  background-color: #0049AC !important; // Change to blue
+  border-color: #0049AC !important;
+  color: #fff !important; // White text
+  text-decoration: none !important;
+  width: auto !important;
+  display: inline-block !important;
+  
+  .fa, .fas {
+    color: #fff !important;
+    margin-right: 5px !important;
+  }
+  
+  &:hover, &:focus, &:active {
+    background-color: darken(#0049AC, 5%) !important;
+    border-color: darken(#0049AC, 5%) !important;
+    color: #fff !important;
   }
 }

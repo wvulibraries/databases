@@ -1,0 +1,24 @@
+// Fix admin login section styling
+section.open_access {
+  /* Styles for the admin login section */
+  
+  .authentication_links {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    
+    a.button, a.btn {
+      display: inline-block !important;
+      width: auto !important;
+      margin-right: 10px !important;
+      max-width: 150px !important;
+      flex: 0 0 auto !important;
+      
+      &:last-child {
+        margin-right: 0 !important;
+      }
+    }
+  }
+}
