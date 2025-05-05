@@ -47,6 +47,8 @@ development:
   ELASTICSEARCH_URL: 'http://elasticsearch:9200'
   ssl: 'false'
   google_analytics_key: ~ #nullifies for dev
+  CAPTCHA_SITE: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'  # Google's test key
+  CAPTCHA_SECRET: '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'  # Google's test key
 test:
   ssl: 'false'
   google_analytics_key: ~ #nullifies for test
