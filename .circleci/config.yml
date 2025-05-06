@@ -27,15 +27,7 @@ jobs:
           - discovery.type: single-node                          
     steps:    
       - checkout:
-          path: ~/circleci-databases/databases
-
-      # Optional: debug to confirm file locations
-      - run:
-          name: "Debug: Check Gemfile.lock"
-          command: |
-            echo "Looking for Gemfile.lock..."
-            find . -name Gemfile.lock
-            ls -lah
+          path: ~/circleci-databases
 
       - run:
           name: Configure secrets.yml
@@ -46,6 +38,7 @@ jobs:
       - run:
           name: Configure application.yml
           command: mv config/application.ci.yml config/application.yml        
+
       - run:
           name: apt update
           command: sudo apt update
@@ -55,18 +48,12 @@ jobs:
             curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
             sudo apt-get install -y nodejs
 
-      # Restore bundle cache
-      - restore_cache:
-          keys:
-            - databases-bundle-
-            - databases-bundle-{{ checksum "Gemfile.lock" }}
+      - type: cache-restore
+        key: databases-bundle-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: install dockerize
-          command: |
-            wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-            sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-            rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
           environment:
             DOCKERIZE_VERSION: v0.6.1
 
@@ -92,19 +79,20 @@ jobs:
           name: Wait for MySQL to start
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
 
-      # Save bundle cache
-      - save_cache:
-          key: databases-bundle-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
+      - type: cache-save
+        key: databases-bundle-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
 
       - run:
           name: Setup Database
-          command: bundle exec rake db:create db:schema:load
+          command: |
+            bundle exec rake db:create db:schema:load
 
       - run:
           name: Assets Precompile
-          command: bundle exec rake assets:precompile
+          command: |
+            bundle exec rake assets:precompile
   
       - run:
           name: Run tests
@@ -121,7 +109,8 @@ jobs:
 
       - run:
           name: Code Climate Test Coverage
-          command: ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
+          command: |
+            ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
 
       - persist_to_workspace:
           root: coverage
@@ -139,10 +128,11 @@ jobs:
       - image: cimg/ruby:3.3.4
     environment:
       CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-    working_directory: ~/circleci-databases
+    working_directory: ~/circleci-databases/databases
+
     steps:
       - attach_workspace:
-          at: ~/circleci-databases
+          at: ~/circleci-databases/databases
       - run:
           name: Install Code Climate Test Reporter
           command: |
@@ -154,6 +144,7 @@ jobs:
 
 workflows:
   version: 2
+
   commit:
     jobs:
       - build
