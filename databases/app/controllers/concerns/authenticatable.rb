@@ -10,7 +10,7 @@ module Authenticatable
   def login
     if authenticated?
       redirect_to root_path, success: I18n.t('auth.success')
-    els 
+    else 
       render(plain: 'Unauthorized!', status: :unauthorized)
     end
   end

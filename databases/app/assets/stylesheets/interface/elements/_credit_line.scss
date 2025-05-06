@@ -1,28 +1,47 @@
-$blue: #002855;
-$gold: #EAAA00;
+// $blue: #002855;
+// $gold: #EAAA00;
 
 .library_credit_line {
-  width:100%;
-  float:left;
+  width: 100%;
+  float: left;
   background: darken($blue, 10%);
   padding: 10px;
-  //border-top: $border;
-  font-size:10px;
-  height:35px;
-  // margin-top:35px;
+  font-size: 10px;
+  height: 35px;
+  box-sizing: border-box; // Include padding in width calculation
+  
+  // Ensure container behaves properly
+  .container {
+    width: 100%;
+    margin: 0 auto;
+    
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
 
   .builtBy {
     color: $gray-text;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
-    width:16%;
-    min-width:250px;
-    float:right;
-    text-align:right;
+    width: 16%;
+    min-width: 250px;
+    float: right;
+    text-align: right;
+    padding-right: 15px; // Add right padding
   }
 
   .built, .by { font-weight: 300; }
   .wvu { color: $gold; }
-  .libs { color: #fff; margin-left:-4px; }
+  .libs { color: #fff; margin-left: -4px; }
+  
+  // Clear floats
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }
