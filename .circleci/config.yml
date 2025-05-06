@@ -13,6 +13,7 @@ jobs:
       - image: cimg/ruby:3.4.3-browsers
         environment:
           RAILS_ENV: test
+          ELASTICSEARCH_URL: http://localhost:9200
           CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
           COVERAGE: true  
       - image: cimg/mysql:8.0
@@ -21,14 +22,21 @@ jobs:
           MYSQL_ROOT_PASSWORD: circleci   
       - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3    
         environment:
-          - transport.host: localhost
-          - network.host: 0.0.0.0
-          - http.port: 9200             
-          - discovery.type: single-node                          
+          discovery.type: single-node
+          xpack.security.enabled: false
+          ES_JAVA_OPTS: "-Xms512m -Xmx512m"                       
     steps:    
       - checkout:
           path: ~/circleci-databases
-
+      - run:
+          name: Wait for Elasticsearch
+          command: |
+            timeout 300 bash -c '
+            until curl -s http://localhost:9200/
+            do
+              echo "Waiting for Elasticsearch..."
+              sleep 2
+            done'          
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
