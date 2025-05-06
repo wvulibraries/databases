@@ -1,11 +1,14 @@
 require 'rack/cas'
 require 'rack-cas/session_store/active_record'
 
-# Only use Rack::CAS middleware if not in test/ci environment
-if !Rails.env.test? && !ENV['CI']
-  cas_url = Rails.application.config_for(:application)["cas_url"] rescue nil
-  
-  if cas_url.present?
+# Skip CAS in test/CI environments
+if Rails.env.test? || ENV['CI']
+  # Don't use Rack::CAS in test environments
+  Rails.logger.info "Skipping Rack::CAS in test/CI environment"
+else
+  begin
+    cas_url = Rails.application.config_for(:application)["cas_url"]
+    
     Rails.application.config.middleware.use Rack::CAS,
       server_url: cas_url,
       session_store: RackCAS::ActiveRecordStore,
@@ -15,7 +18,7 @@ if !Rails.env.test? && !ENV['CI']
         path.start_with?('/favicon.ico') ||
         path.start_with?('/packs')
       }
-  else
-    Rails.logger.warn "CAS URL not configured. Skipping Rack::CAS middleware."
+  rescue => e
+    Rails.logger.error "Failed to configure Rack::CAS: #{e.message}"
   end
 end
