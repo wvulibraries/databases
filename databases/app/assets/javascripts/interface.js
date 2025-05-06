@@ -12,7 +12,8 @@
 
 // Yarn Dependencies
 // ----------------------------------------------------------------
-//= require jquery/dist/jquery
+//= require jquery
+//= require jquery_ujs
 //= require multiselect/js/jquery.multi-select
 //= require hiraku/js/hiraku
 
