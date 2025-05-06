@@ -36,6 +36,9 @@ module Databases
     # Don't generate system test files.
     config.generators.system_tests = nil
     config.autoload_paths << Rails.root.join("app/services")
+
+    # Add this line to silence the deprecation warning in CI
+    config.active_support.deprecation = :silence if ENV['CI']
     
     # Add cache format version
     config.active_support.cache_format_version = 7.0
