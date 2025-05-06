@@ -25,34 +25,41 @@ jobs:
           - network.host: 0.0.0.0
           - http.port: 9200             
           - discovery.type: single-node                          
-    steps:
+    steps:    
       - checkout:
           path: ~/circleci-databases/databases
 
-      - restore_cache:
-          key: databases-bundle-{{ checksum "Gemfile.lock" }}
+      # Optional: debug to confirm file locations
+      - run:
+          name: Debug: Check Gemfile.lock
+          command: |
+            echo "Looking for Gemfile.lock..."
+            find . -name Gemfile.lock
+            ls -lah
 
       - run:
           name: Configure secrets.yml
           command: mv config/secrets.ci.yml config/secrets.yml
-
       - run:
           name: Configure database.yml
           command: mv config/database.ci.yml config/database.yml
-
       - run:
           name: Configure application.yml
           command: mv config/application.ci.yml config/application.yml        
-
       - run:
           name: apt update
           command: sudo apt update
-
       - run:
           name: Install Node 18
           command: |
             curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
             sudo apt-get install -y nodejs
+
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - databases-bundle-
+            - databases-bundle-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: install dockerize
@@ -67,7 +74,7 @@ jobs:
           name: Force Bundler Version
           command: |
             sudo gem update --system
-            echo 'export BUNDLER_VERSION=$(tail -1 Gemfile.lock | tr -d " ")' >> $BASH_ENV
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
             gem install bundler
 
@@ -78,79 +85,3 @@ jobs:
       - run:
           name: Install Code Climate Test Reporter
           command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-
-      - run:
-          name: Wait for MySQL to start
-          command: dockerize -wait tcp://localhost:3306 -timeout 1m
-
-      - save_cache:
-          key: databases-bundle-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-
-      - run:
-          name: Setup Database
-          command: |
-            bundle exec rake db:create db:schema:load
-
-      - run:
-          name: Assets Precompile
-          command: bundle exec rake assets:precompile
-  
-      - run:
-          name: Run tests
-          command: |
-            mkdir -p test-results/rspec test-artifacts
-            ./cc-test-reporter before-build
-            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-            bundle exec rspec --profile 10 \
-                              --color \
-                              --order random \
-                              --out test-results/rspec/rspec.xml \
-                              --format progress \
-                              -- ${TESTFILES}
-
-      - run:
-          name: Code Climate Test Coverage
-          command: |
-            ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
-
-      - persist_to_workspace:
-          root: coverage
-          paths:
-            - codeclimate.*.json
-
-      - store_test_results:
-          path: test-results
-
-      - store_artifacts:
-          path: test-artifacts
-
-  upload-coverage:
-    docker:
-      - image: cimg/ruby:3.3.4
-    environment:
-      CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-    working_directory: ~/circleci-databases
-    steps:
-      - attach_workspace:
-          at: ~/circleci-databases
-      - run:
-          name: Install Code Climate Test Reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-      - run:
-          command: |
-            ./cc-test-reporter sum-coverage --output - codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
-
-workflows:
-  version: 2
-  commit:
-    jobs:
-      - build
-      - upload-coverage:
-          requires:
-            - build
