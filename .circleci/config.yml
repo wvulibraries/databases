@@ -31,7 +31,7 @@ jobs:
 
       # Optional: debug to confirm file locations
       - run:
-          name: Debug: Check Gemfile.lock
+          name: "Debug: Check Gemfile.lock"
           command: |
             echo "Looking for Gemfile.lock..."
             find . -name Gemfile.lock
