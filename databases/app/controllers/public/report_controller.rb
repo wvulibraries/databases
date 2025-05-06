@@ -1,6 +1,8 @@
 # Public::FeedbackController 
 class Public::ReportController < ApplicationController
-  # Rendering an index form for the feedback
+  include RecaptchaHandler
+  
+  # Rendering an index form for the report
   # @author David J. Davis
   def index
     @report = Report.new
@@ -8,11 +10,11 @@ class Public::ReportController < ApplicationController
     render :index
   end
 
-  # Handles the posts from the feedback form.
+  # Handles the posts from the report form.
   # @author David J. Davis
   def error_report
     @report = Report.new(trusted_params)
-    if verify_recaptcha(model: @report) && @report.valid?
+    if verify_recaptcha_or_skip(model: @report) && @report.valid?
       ReportMailer.email_message(@report).deliver_now
       redirect_to root_path, success: 'Thank you for submitting feedback about a trial database.'
     else
@@ -22,7 +24,7 @@ class Public::ReportController < ApplicationController
 
   private
 
-  # trusted params that will be allowed for the feedback
+  # trusted params that will be allowed for the report
   # @author David J. Davis
   def trusted_params
     params.require(:report).permit(:name, :email, :error_report, :database, :screenshot)

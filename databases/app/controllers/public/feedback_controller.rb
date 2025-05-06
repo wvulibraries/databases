@@ -1,5 +1,7 @@
 # Public::FeedbackController 
 class Public::FeedbackController < ApplicationController
+  include RecaptchaHandler
+  
   # Rendering an index form for the feedback
   # @author David J. Davis
   def index
@@ -12,7 +14,7 @@ class Public::FeedbackController < ApplicationController
   # @author David J. Davis
   def email_submission
     @feedback = Feedback.new(trusted_params)
-    if verify_recaptcha(model: @feedback) && @feedback.valid?
+    if verify_recaptcha_or_skip(model: @feedback) && @feedback.valid?
       FeedbackMailer.email_message(@feedback).deliver_now
       redirect_to root_path, success: 'Thank you for submitting feedback about a trial database.'
     else
