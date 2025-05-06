@@ -1,5 +1,4 @@
-version: 2.1
-
+version: 2
 jobs:
   build:
     working_directory: ~/circleci-databases/databases
@@ -9,36 +8,44 @@ jobs:
       RAILS_ENV: test
       RACK_ENV: test
       COVERAGE: true
-      TZ: /usr/share/zoneinfo/America/New_York
+      TZ: /usr/share/zoneinfo/America/NewYork
     docker:
       - image: cimg/ruby:3.3.4-browsers
         environment:
+          RAILS_ENV: test
           CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
+          COVERAGE: true  
       - image: cimg/mysql:8.0
         environment:
           MYSQL_ROOT_HOST: 127.0.0.1
-          MYSQL_ROOT_PASSWORD: circleci
-      - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+          MYSQL_ROOT_PASSWORD: circleci   
+      - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3    
         environment:
-          discovery.type: single-node
-          network.host: 0.0.0.0
-          http.port: 9200
-          xpack.security.enabled: false
-          bootstrap.memory_lock: true
-        command: [ "bin/elasticsearch", "-Ediscovery.type=single-node", "-Enetwork.host=0.0.0.0", "-Expack.security.enabled=false" ]
+          - transport.host: localhost
+          - network.host: 0.0.0.0
+          - http.port: 9200             
+          - discovery.type: single-node                          
     steps:
       - checkout:
           path: ~/circleci-databases/databases
 
-      - run:
-          name: Move secrets/configs
-          command: |
-            mv databases/config/secrets.ci.yml databases/config/secrets.yml
-            mv databases/config/database.ci.yml databases/config/database.yml
-            mv databases/config/application.ci.yml databases/config/application.yml
+      - restore_cache:
+          key: databases-bundle-{{ checksum "Gemfile.lock" }}
 
       - run:
-          name: Update apt
+          name: Configure secrets.yml
+          command: mv config/secrets.ci.yml config/secrets.yml
+
+      - run:
+          name: Configure database.yml
+          command: mv config/database.ci.yml config/database.yml
+
+      - run:
+          name: Configure application.yml
+          command: mv config/application.ci.yml config/application.yml        
+
+      - run:
+          name: apt update
           command: sudo apt update
 
       - run:
@@ -47,19 +54,17 @@ jobs:
             curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
             sudo apt-get install -y nodejs
 
-      - restore_cache:
-          keys:
-            - bundle-v1-{{ checksum "Gemfile.lock" }}
-
       - run:
-          name: Install Dockerize
+          name: install dockerize
           command: |
-            wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz
-            sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz
-            rm dockerize-linux-amd64-v0.6.1.tar.gz
+            wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.6.1
 
       - run:
-          name: Set Bundler Version
+          name: Force Bundler Version
           command: |
             sudo gem update --system
             echo 'export BUNDLER_VERSION=$(tail -1 Gemfile.lock | tr -d " ")' >> $BASH_ENV
@@ -67,35 +72,35 @@ jobs:
             gem install bundler
 
       - run:
-          name: Install Gems
+          name: bundle gems
           command: bundle install --path vendor/bundle
 
       - run:
-          name: Install Code Climate Reporter
+          name: Install Code Climate Test Reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
 
       - run:
-          name: Wait for MySQL & Elasticsearch
-          command: |
-            dockerize -wait tcp://localhost:3306 -wait tcp://localhost:9200 -timeout 1m
+          name: Wait for MySQL to start
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
 
       - save_cache:
-          key: bundle-v1-{{ checksum "Gemfile.lock" }}
+          key: databases-bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
       - run:
-          name: Setup DB
-          command: bundle exec rake db:create db:schema:load
+          name: Setup Database
+          command: |
+            bundle exec rake db:create db:schema:load
 
       - run:
           name: Assets Precompile
           command: bundle exec rake assets:precompile
-
+  
       - run:
-          name: Run Specs
+          name: Run tests
           command: |
             mkdir -p test-results/rspec test-artifacts
             ./cc-test-reporter before-build
@@ -108,7 +113,7 @@ jobs:
                               -- ${TESTFILES}
 
       - run:
-          name: Report Coverage
+          name: Code Climate Test Coverage
           command: |
             ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
 
@@ -129,12 +134,11 @@ jobs:
     environment:
       CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
     working_directory: ~/circleci-databases
-
     steps:
       - attach_workspace:
           at: ~/circleci-databases
       - run:
-          name: Install Code Climate Reporter
+          name: Install Code Climate Test Reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
