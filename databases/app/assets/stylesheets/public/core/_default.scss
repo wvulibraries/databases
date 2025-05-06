@@ -17,14 +17,14 @@ html,body {
   margin:0;
   padding:0;
  
-  @include media-breakpoint-up(md) { 
-    // tablet styles
+  @include breakpoint(tablet){ 
+    padding:0; 
   } 
 }
 
 body { 
   margin-bottom:54px; 
-  @include media-breakpoint-up(xl){
+  @include breakpoint(laptop){
     margin-bottom: unset; 
   }
 }
@@ -58,26 +58,6 @@ body {
 
 .pull-right {
   float: right !important;
-}
-
-// Common Bootstrap breakpoints:
-// sm: 576px
-// md: 768px  (tablet)
-// lg: 992px
-// xl: 1200px
-// xxl: 1400px
-
-// Add these styles to remove space between sections
-.app-header {
-  margin-bottom: 0 !important; // Remove bottom margin
-}
-
-.wvu-masthead {
-  margin-bottom: 0 !important; // Remove bottom margin
-}
-
-nav {
-  margin-top: 0 !important; // Remove top margin
 }
 
 

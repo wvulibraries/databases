@@ -25,7 +25,7 @@
   }
 
   &:hover,&:active,&:focus {
-    @if type == 'ghost' {
+    @if $type == 'ghost' { // Added the $ before 'type'
       background-color: transparent;
       border-color: #fff;
       border: 2px solid #fff;

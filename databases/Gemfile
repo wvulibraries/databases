@@ -41,8 +41,8 @@ gem 'cgi', '~> 0.4.2'
 # =====================================================
 gem "sassc-rails", "~> 2.1"
 gem "sprockets-rails"
-# gem 'bourbon', '~> 6.0'
-# gem 'neat', '~> 2.1'
+# gem 'bourbon', '~> 7.2'
+# gem 'neat', '~> 4.0'  # Neat is Bourbon's grid framework
 gem 'bootstrap', '~> 5.3.0'
 gem 'turbolinks', '~> 5.2.0'
 

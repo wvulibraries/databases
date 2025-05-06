@@ -1,32 +1,33 @@
 .four-col { 
-  @extend .col-12;
+  @include grid-column(12);
 
-  @include media-breakpoint-up(md) {
-    width: 50%; // col-6 equivalent
-    flex: 0 0 50%;
+  @include breakpoint(tablet) {
+    @include grid-column(6);
   }
 
-  @include media-breakpoint-up(xl) {
-    width: 25%; // col-3 equivalent
-    flex: 0 0 25%;
+  @include breakpoint(laptop) {
+    @include grid-column(3);
   }
 }
 
-.database-show {
+.database-show { 
+
+
   h3, p, .container { 
-    margin-bottom: 1em; 
+    margin-bottom:1em; 
   }
 
   h3 { 
-    padding-bottom: .5em;
+    padding-bottom:.5em;
     border-bottom: 1px solid #eee;
   }
 
   .datestamp { 
     @extend .micro-text;
-    text-align: left;
+    text-align:left;
     display: inline; 
-    width: unset; 
-    padding: 0;
+    width:unset; 
+    padding:0;
   }
+
 }

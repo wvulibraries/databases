@@ -1,38 +1,93 @@
+// Alert styles
 .alert {
   position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  background-color: $default;
+  @include determine-text-color($default);
+
+  &.alert-success {
+    background-color: $success;
+    border-color: darken($success, 10%);
+    color: #fff;
+  }
+  
+  &.alert-info {
+    background-color: $notice;
+    border-color: darken($notice, 10%);
+    color: #fff;
+  }
+  
+  &.alert-warning {
+    background-color: $warning;
+    border-color: darken($warning, 10%);
+    color: #fff;
+  }
+  
+  &.alert-danger {
+    background-color: $error;
+    border-color: darken($error, 10%);
+    color: #000;
+  }
+  
+  // Close button
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.75rem 1.25rem;
+    color: inherit;
+    
+    &:hover, &:focus {
+      color: inherit;
+      text-decoration: none;
+      opacity: 0.75;
+    }
+  }
+}
+
+// Flash messages
+.flash {
   @extend .alert;
-  @extend .alert-primary;
-}
-
-.alert.notice {
-  @extend .alert-info;
-}
-
-.alert.warning {
-  @extend .alert-warning;
-}
-
-.alert.success {
-  @extend .alert-success;
-}
-
-.alert.error {
-  @extend .alert-danger;
+  
+  &.notice {
+    background-color: $notice;
+    border-color: darken($notice, 10%);
+    color: #fff;
+  }
+  
+  &.success {
+    background-color: $success;
+    border-color: darken($success, 10%);
+    color: #fff;
+  }
+  
+  &.warning {
+    background-color: $warning;
+    border-color: darken($warning, 10%);
+    color: #fff;
+  }
+  
+  &.error {
+    background-color: $error;
+    border-color: darken($error, 10%);
+    color: #000;
+  }
 }
 
 .exit-alert {
   position: absolute;
-  width: 2em;
-  right: 0;
-  font-size: 1.5em;
+  width:2em; 
+  right:0;
+  font-size:1.5em;
   top: 50%;
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
   text-shadow: none;
   &:hover, &:focus {
-    cursor: pointer;
+    cursor:pointer;
   }
 }
 
-.alert .content {
-  @extend .col-12;
-}
+.alert .content { @include grid-column(12);}

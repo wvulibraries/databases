@@ -8,7 +8,7 @@ $fieldset:#666;
 $borders: 1px solid $input-border; 
 
 .search-filter { 
-  @extend .col-12;
+  @include grid-column(12);
   margin-bottom:2em;
 
   .warning { 
@@ -16,7 +16,7 @@ $borders: 1px solid $input-border;
   }
 
   label, .heading { 
-    @extend .col-12;
+    @include grid-column(12);
     margin-bottom:10px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -37,7 +37,7 @@ $borders: 1px solid $input-border;
   }
 
   input:not([type='submit']){
-    @extend .col-12;
+    @include grid-column(12);
     height:60px;
     padding:1.25em; 
     border:none;

@@ -11,18 +11,17 @@ h2 {
 }
 
 form{
-  @extend .col-12;
+  @include grid-column(12);
   position:relative;
   z-index:55;
 
   #error_explanation { 
-    @extend .col-12;
+    @include grid-column(12);
     @include clearfix;
   }
 
   .field { 
     @include clearfix;
-    margin-top: 1em;
   }
 
   fieldset { 
@@ -40,12 +39,10 @@ form{
     }
   }
   .add-fields { 
-    // @include button_maker($action-color, 'solid');
-    @extend .btn;
-    @extend .btn-primary;    
+    @include button_maker($action-color, 'solid');
+    @include determine-text-color($action-color);
     margin: .5em 0; 
     text-decoration: none !important;
-    @extend .text-white;
     &:before { 
       font-family: "Font Awesome 5 Free"; 
       font-weight: 900; 
@@ -127,10 +124,10 @@ form{
   }
 
   .checkbox-wrapper { 
-    @extend .col-12;
+    @include grid-column(12);
 
       .checkbox { 
-        @extend .col-12;
+        @include grid-column(12);
         background:$input-bg;
         padding:5px; 
         width:100%; 
@@ -174,8 +171,41 @@ form{
   }
 
   input:not([type='submit']){
-    @extend %form-input;
+    width:100%;
     height:60px;
+    padding:1.25em; 
+    border:none;
+    background:$input-bg;
+    font-weight:500;
+    font-size:1em; 
+    letter-spacing: 1px;
+    @include transition(
+      color 0.6s $easeOutExpo, // This will work now that we've defined the variable
+      border 0.6s $easeOutExpo, 
+      background 0.6s $easeOutExpo
+    );
+
+    border: 2px solid darken($input-bg,10%);
+    &:focus, &:hover { 
+      cursor: pointer;
+      border: 2px solid $link-color;
+      background: lighten($input-bg,2%);
+    }
+
+    &::placeholder { 
+      color:darken($input-bg,20%);
+    }
+
+    &.disabled { 
+      border: 2px solid $disabled-color;
+      opacity: 0.4;
+      filter: alpha(opacity=40); /* For IE8 and earlier */
+
+      &:hover, &:focus { 
+        cursor: not-allowed; 
+        border: 2px solid $disabled-color;
+      }
+    }
   }
 
   input[type='file']{
@@ -183,41 +213,91 @@ form{
   }
 
   textarea{
-    @extend %form-input;
+    width:100%;
     max-width:100%;
+    border:none;
+    font-size:1em; 
     line-height:1.5; 
+    font-weight:500;
+    letter-spacing: 1px;
+    background:$input-bg;
+    padding:1.25em;
     margin-top:.5em;
+    @include transition(
+      color 0.6s $easeOutExpo, 
+      border 0.6s $easeOutExpo, 
+      background 0.6s $easeOutExpo
+    );
+    border: 2px solid darken($input-bg,10%);
+
+    &:focus, &:hover { 
+      border: 2px solid $link-color;
+      background: lighten($input-bg,2%);
+    }
+
+    &::placeholder { 
+      color:darken($input-bg,20%);
+    }
   }
 
   .select-style {
-    @extend %form-input;
-    position: relative;
+    font-size:1em; 
     padding: 0;
     margin: 0;
+    border: none;
+    border-radius: 0;
     overflow: hidden;
+    background: #eee;
+    position:relative;
+    font-weight:500;
+    letter-spacing: 1px;
+    border: 2px solid darken($input-bg,10%);
+
+    .field_with_errors { 
+      background: $error;
+    }
+    
+    @include transition(
+      color 0.6s $easeOutExpo, 
+      border 0.6s $easeOutExpo, 
+      background 0.6s $easeOutExpo
+    );
+
+    &:focus, &:hover { 
+      cursor: pointer;
+      border: 2px solid $link-color;
+      background: lighten($input-bg,2%);
+    }
 
     &:before {
       content: "\f078";
+      color:rgba( #000, .3);
+      font-size: 1.2em; 
+      text-align: center;
       font-family: 'Font Awesome 5 Free';
       font-weight: 900;
-      color: rgba(#000, 0.3);
-      font-size: 1.2em;
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 0;
+      display:block; 
+      position:absolute;
+      width:2em; 
+      right:10px;
+      top:calc(50% - .6em); 
+      z-index:0; 
     }
-
     select {
+      padding:1em; 
       width: 100%;
-      height: 55px;
-      padding: 1em;
+      height:55px;
+      font-size:1em;
       border: none;
-      background: transparent;
-      appearance: none;
-      position: relative;
-      z-index: 2;
+      box-shadow: none;
+      background-color: transparent;
+      background-image: none;
+      -webkit-appearance: none;
+         -moz-appearance: none;
+              appearance: none;
+      position:relative;
+      z-index:2;
+      color:#000;
       cursor: pointer;
     }
   }
@@ -238,7 +318,7 @@ form{
 }
 
 #error_explanation { 
-  @extend .col-12;
+  @include grid-column(12);
   padding:1em; 
   color:$error; 
   background: rgba($error, .1); 
@@ -246,13 +326,14 @@ form{
   margin-bottom:2em; 
   h3 { color:$error; }
   ul { 
-    @extend .col-12; 
-    padding:1em 1em 1em 2.5em; 
+    @include grid-column(12); 
+    padding:1em;
+    padding-left:2.5em; 
   }
 }
 
 .actions { 
-  @extend .col-12; 
+  @include grid-column(12); 
   padding:1em 0;
   margin-top:1em; 
   position:relative; 
@@ -260,60 +341,54 @@ form{
 }
 
 .full, .row { 
-  @extend .col-12; 
+  @include grid-column(12); 
   margin-bottom:1em;
 }
 
 .two-third {
-  @extend .col-12; 
-  @include media-breakpoint-up(md){ 
-    width: 66.666667%;  // col-8 equivalent
-    flex: 0 0 66.666667%;
+  @include grid-column(12); 
+  @include breakpoint(tablet){ 
+    @include grid-column(8);
   }
 }
 
 .one-third { 
-  @extend .col-12; 
-  @include media-breakpoint-up(md){ 
-    width: 33.333333%;
-    flex: 0 0 33.333333%;
+  @include grid-column(12); 
+  @include breakpoint(tablet){ 
+    @include grid-column(4);
   }
 }
 
 .third { 
-  @extend .col-12; 
-  @include media-breakpoint-up(md) { 
-    width: 33.333333%;
-    flex: 0 0 33.333333%;
+  @include grid-column(12); 
+  @include breakpoint(tablet){ 
+    @include grid-column(4);
   }
 }
 
 .one-fourth { 
-  @extend .col-12; 
-  @include media-breakpoint-up(md){ 
-    width: 25%;
-    flex: 0 0 25%;
+  @include grid-column(12); 
+  @include breakpoint(tablet){ 
+    @include grid-column(3);
   }
 }
 
 .two-fourth, .half { 
-  @extend .col-12;
-  @include media-breakpoint-up(md) {
-    width: 50%; // equivalent to col-6
-    flex: 0 0 50%;
+  @include grid-column(12); 
+  @include breakpoint(tablet){ 
+    @include grid-column(6);
   }
 }
 
 .three-fourth { 
-  @extend .col-12; 
-  @include media-breakpoint-up(md){ 
-    width: 75%;
-    flex: 0 0 75%;
+  @include grid-column(12); 
+  @include breakpoint(tablet){ 
+    @include grid-column(9);
   }
 }
 
 .micro-text { 
-  @extend .col-12;
+  @include grid-column(12);
   padding:1em .5em; 
   letter-spacing:1px; 
   font-weight:400; 
@@ -327,34 +402,4 @@ form{
   max-width:300px; 
   border:$border;
   padding: 1em;
-}
-
-// Form elements
-%form-input {
-  width: 100%;
-  padding: 1.25em;
-  border: 2px solid darken($input-bg, 10%);
-  background: $input-bg;
-  font-weight: 500;
-  font-size: 1em;
-  letter-spacing: 1px;
-  transition: 
-    color 0.3s ease-out,
-    border 0.3s ease-out,
-    background 0.3s ease-out;
-
-  &:focus, &:hover {
-    border: 2px solid $link-color;
-    background: lighten($input-bg, 2%);
-  }
-
-  &::placeholder {
-    color: darken($input-bg, 20%);
-  }
-
-  &.disabled {
-    border: 2px solid $disabled-color;
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
 }

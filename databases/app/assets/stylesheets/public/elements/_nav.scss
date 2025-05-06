@@ -1,20 +1,17 @@
-nav {
+// Base navigation styles
+nav { 
   background: $nav-bg;
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  border-top: 0 !important;
-  
   ul { 
-    list-style:none; 
-    margin:0; 
-    padding:10px;
+    list-style: none; 
+    margin: 0; 
+    padding: 10px;
     
     li { 
-      font-size:1.05em;  
-      display:inline-block; 
-      padding:0 10px;
+      font-size: 1.05em;  
+      display: inline-block; 
+      padding: 0 10px;
       a { 
-        text-decoration:none; 
+        text-decoration: none; 
         span { 
           color: $wvu-gold;
         }
@@ -23,32 +20,111 @@ nav {
   }
 }
 
+// Home page navigation
 nav.home-page { 
+  background: $nav-bg !important; // Force background color
+  min-height: 40px !important;
+  padding: 10px 0 !important;
+  margin-bottom: 1em !important;
+  
+  // Only hide on mobile if needed
+  @media (max-width: 767px) {
+    display: none;
+  }
+  
+  // Always show on laptop and larger
+  @include breakpoint(laptop) {
+    display: block;
+  }
+  
   ul {
-    @extend .col-12;
+    width: 100% !important;
+    float: left !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+    
+    &:after {
+      clear: both;
+      content: "";
+      display: table;
+    }
   }
 }
 
+// Inner page navigation - same approach as home page
 nav.inner-page { 
+  background: $nav-bg !important;
+  min-height: 40px !important;
+  padding: 10px 0 !important;
+  margin-bottom: 1em !important;
+  
+  // Only hide on mobile if needed
+  @media (max-width: 767px) {
+    display: none;
+  }
+  
+  // Always show on laptop and larger
+  @include breakpoint(laptop) {
+    display: block;
+  }
+  
   ul { 
-    @extend .col-8;
+    width: 66.667% !important;
+    float: left !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+    
+    &:after {
+      clear: both;
+      content: "";
+      display: table;
+    }
   }
+  
   .nav-search { 
-    @extend .col-4;
+    width: 33.333% !important;
+    float: left !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    box-sizing: border-box;
+    
+    &:after {
+      clear: both;
+      content: "";
+      display: table;
+    }
   }
 }
 
-nav.inner-page, nav.home-page { 
-  display:none; 
-  @include media-breakpoint-up(xl){
-    display:block;
+// For mobile, center the navigation if it's visible
+@media (max-width: 767px) {
+  nav.inner-page, nav.home-page {
+    ul {
+      text-align: center;
+      width: 100%;
+    }
+    
+    .nav-search {
+      width: 100%;
+      margin-top: 10px;
+    }
   }
 }
 
-// Adjust display properties to ensure no gap
-.wvu-masthead + nav,
-.app-header + nav {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  border-top: 0 !important;
+// Add this to your _nav.scss file
+nav.home-page .container,
+nav.inner-page .container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0;
+  
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }

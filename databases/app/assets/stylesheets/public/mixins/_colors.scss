@@ -1,0 +1,21 @@
+// Color utility mixins to replace Bourbon functionality
+
+// Determine if a color is light or dark and return appropriate text color
+@mixin determine-text-color($color) {
+  $color-brightness: ((red($color) * 299) + (green($color) * 587) + (blue($color) * 114)) / 1000;
+  
+  @if $color-brightness >= 128 {
+    color: #000000; // Dark text for light backgrounds
+  } @else {
+    color: #ffffff; // Light text for dark backgrounds
+  }
+}
+
+// Helper functions for color manipulation
+@function tint($color, $percentage) {
+  @return mix(#ffffff, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+  @return mix(#000000, $color, $percentage);
+}

@@ -1,7 +1,7 @@
 .menu-button { 
-  @extend .btn;
-  @extend .btn-outline-primary;
-  &:hover, &:active, &:focus { 
+  @include button_maker($action-color, 'ghost');
+  color: $action-color;
+  &:hover,&:active,&:focus { 
     background-color: transparent; 
     border-color: #fff; 
     color: #fff;
@@ -9,109 +9,70 @@
 }
 
 .github-button { 
-  @extend .btn;
-  @extend .btn-outline-primary;
+  @include button_maker($action-color, 'ghost');
+  color: $action-color;
   text-decoration: none;
-  text-align: center;
-  margin: 1em 0;
-  @extend .col-12;
 
-  @include media-breakpoint-up(md) {
-    width: 33.333333%;
-    flex: 0 0 33.333333%;
+  @include grid-column(12);
+  text-align: center;
+  margin:1em 0;
+
+  @include breakpoint(tablet){
+    @include grid-column(4);
   }
 }
 
 .bug-button { 
-  @extend .btn;
-  @extend .btn-outline-danger;
+  @include button_maker($error, 'ghost');
+  color: $error;
 }
 
-.feature-button {
-  @extend .btn;
-  @extend .btn-outline-warning;
+.feature-button  {
+  @include button_maker($warning, 'ghost');
+  color: $warning;
 }
 
-.add-button {
-  @extend .btn;
-  @extend .btn-success;
+.show-button {
+  @include button_maker($success, 'solid');
+  color:#fff;
 }
 
-.remove-button {
-  @extend .btn;
-  @extend .btn-danger;
+.edit-button {
+  @include button_maker($warning, 'solid');
+  color:#fff;
+}
+
+.delete-button {
+  @include button_maker($error, 'solid');
+  color:#fff;
+}
+
+.submit-button{
+  @include button_maker($success, 'solid');
+  text-decoration: underline;
+  @include determine-text-color($success);
+  &:hover,&:active, &:visited { 
+    @include determine-text-color($success);
+  }
+}
+
+input[type="submit"], input[type="reset"]{
+  position:relative; 
+  height:44px; 
+  top:-1px; 
+  @extend .submit-button;
 }
 
 .cancel-button {
-  @extend .btn;
-  @extend .btn-secondary;
+  @include button_maker(darken($default,20%), 'solid');
+  @include determine-text-color(darken($default,20%));
+  &:hover,&:active, &:visited { 
+    @include determine-text-color(darken($default,20%));
+  }
 }
 
-// Base button styles
-.button, .btn {
-  @extend .btn;
-  @extend .btn-primary;
-}
-
-// Action buttons
-.action-button {
-  @extend .btn;
-  @extend .btn-primary;
-}
-
-// Submit buttons
-input[type="submit"] {
-  @extend .btn;
-  @extend .btn-primary;
-}
-
-// Secondary buttons
-.secondary-button {
-  @extend .btn;
-  @extend .btn-secondary;
-}
-
-// Success buttons
-.success-button {
-  @extend .btn;
-  @extend .btn-success;
-}
-
-// Warning buttons 
-.warning-button {
-  @extend .btn;
-  @extend .btn-warning;
-}
-
-// Danger buttons
-.danger-button, .delete-button {
-  @extend .btn;
-  @extend .btn-danger;
-}
-
-// Button size modifiers
-.small-button {
-  @extend .btn-sm;
-}
-
-.large-button {
-  @extend .btn-lg;
-}
-
-// Button states
-.disabled-button {
-  @extend .btn;
-  @extend .disabled;
-  opacity: 0.65;
-  pointer-events: none;
-}
-
-// Button sizes
-.btn-small {
-  @extend .btn-sm;
-}
-
-.btn-large {
-  @extend .btn-lg;
+.new-button {
+  @include button_maker($action-color, 'solid');
+  @include determine-text-color($action-color);
 }
 

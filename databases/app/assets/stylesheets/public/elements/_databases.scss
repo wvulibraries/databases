@@ -1,59 +1,56 @@
 h2 {  
-  width: 100%; 
+  @include grid-column(12);
+  width:100%; 
   color: $wvu-blue; 
-  border-bottom: 2px dotted rgba($wvu-blue, .3); 
-  margin: 0;
-  @extend .col-12;
+  border-bottom:2px dotted rgba($wvu-blue, .3); 
+  margin:0; 
 }
 
 .title-list { 
-  list-style: none; 
-  margin: 2em 0;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0;
-  gap: 0.5em;
-
+  @include grid-column(12);
+  list-style:none; 
+  margin:2em 0;
   li { 
-    margin-bottom: 0.5em;
-    
-    a {
-      padding: 0.5em 1em;
-      color: $wvu-blue;
-      text-decoration: underline;  // Changed from none to underline
-      
-      &:hover {
-        color: $wvu-gold;
-        text-decoration: underline;
+    float:left; 
+    margin-bottom:1.5em;
+    a { 
+      font-size:1.25em; 
+      padding:.25em;
+      margin-right:1em; 
+      text-decoration:none; 
+      padding-bottom:.5em; 
+      border:2px dotted transparent;
+      border-style: dotted dotted solid dotted; 
+      border-color: transparent transparent $link-color transparent;
+      &:focus { 
+        border:2px dotted $action-color;
       }
-    }
-
-    @include media-breakpoint-up(md) {
-      margin-bottom: 0;
-    }
+    } 
   }
 }
 
 .database-results { 
-  @extend .col-12;
-  margin: 0 0 2em;
-  
+  @include grid-column(12);
+  margin:0 0 2em;
   &:last-child { 
-    margin: 0; 
+    margin:0; 
   }
 
   p { 
-    font-size: 0.8em; 
-    letter-spacing: 1px; 
-    margin-top: 0.5em; 
-    max-width: 75em;
+    font-size:.8em; 
+    letter-spacing:1px; 
+    margin-top: .5em; 
+    max-width:75em;
   }
 }
 
 .subject-group { 
-  @extend .col-12;
+  width: 100%;
   padding: 1em;
-
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+  
   h3 { 
     width: 100%; 
     font-weight: bold; 
@@ -61,116 +58,112 @@ h2 {
     margin-bottom: 2px;
     border-bottom: 1px solid $light-gray;
   }
-
+  
   ul {
-    @extend .col-12;
+    width: 100%;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 
-  @include media-breakpoint-up(md) {
-    width: 50%;
-    flex: 0 0 50%;
+  @include breakpoint(tablet){ 
+    width: 50%; // Instead of @include grid-column(6)
+  }
+
+  @include breakpoint(laptop){ 
+    width: 33.333%; // Instead of @include grid-column(4)
   }
 }
 
 $curated-bg: lighten($wvu-gold, 50%); 
 $curated-dark: $wvu-blue;
 .curated { 
-  @extend .col-12;
-  margin-top: 1em;
-  padding: 1em; 
+  @include grid-column(12);
+  margin-top:1em;
+  padding:1em; 
   background: $curated-bg; 
-  border-radius: 0.5em;
-  
+  border-radius:.5em; 
   h3 { 
     color: $curated-dark; 
   }
 }
 
 .databases { 
-  @extend .col-12;
-  padding: 1em;
-
-  @include media-breakpoint-up(md) {
-    width: 66.666667%; // col-8 equivalent
-    flex: 0 0 66.666667%;
-  }
+  @include grid-column(12);
+  padding:1em; 
 }
 
 .left { 
-  @extend .col-12;
+  width: 100%;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
   
-  @include media-breakpoint-up(md) { 
-    width: 66.666667%;
-    flex: 0 0 66.666667%;
+  @include breakpoint(tablet){ 
+    width: 66.667%; // Instead of @include grid-column(8)
   }
 }
 
 .right { 
-  @extend .col-12;
+  width: 100%;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
 
-  @include media-breakpoint-up(md) { 
-    width: 33.333333%;
-    flex: 0 0 33.333333%;
+  @include breakpoint(tablet){ 
+    width: 33.333%; // Instead of @include grid-column(4)
   }
 }
 
-%database-type {
-  @extend .col-12;
-  width: 100%;
+.trial, .popular, .new_database, .open_access { 
+  @include grid-column(12); 
+  width:100%; 
   border: 2px dotted $wvu-gold;
-  padding: 1em;
-  margin-bottom: 2em;
+  padding:1em;
+  margin-bottom: 2em; 
 
   .database-results { 
-    width: 100%;
+    width:100%;
   }
 
-  h2 { 
-    margin-bottom: 1em; 
-  }
+  h2 { margin-bottom:1em; }
 
   h3 { 
-    font-size: 1.2em;
-    margin-bottom: 1em;
+    font-size:1.2em;
+    margin-bottom:1em;
+    &:before {  
+  font-family: 'Font Awesome 5 Free';
+      content: "\f005";
+      font-size: 1em;
+    }
   }
+  p { font-size:.8em; }
+}
 
-  p { 
-    font-size: 0.8em; 
+.open_access { 
+  h3 { 
+    font-size:1.2em;
+    margin-bottom:1em;
+    &:before {  
+      font-family: unset; 
+      content: '';
+      background: asset-data-url("noun_unlock.png") no-repeat center center;
+      background-image: asset-data-url("noun_unlock.svg");
+      background-size: contain;
+      width: 20px; 
+      height: 20px;
+      margin-right: -5px;
+      display: inline-block;
+      position: relative;
+      top: 4px;
+    }
   }
 }
 
-.trial, .popular, .new_database { 
-  @extend %database-type;
-  
-  h3:before {
-    font-family: 'Font Awesome 5 Free';
-    content: "\f005";
-    font-size: 1em;
-  }
-}
-
-.open_access {
-  @extend %database-type;
-  
-  h3:before {
-    font-family: unset;
-    content: '';
-    background: asset-data-url("noun_unlock.svg");
-    background-size: contain;
-    width: 20px;
-    height: 20px;
-    margin-right: -5px;
-    display: inline-block;
-    position: relative;
-    top: 4px;
-  }
-}
-
-.popular {
-  display: none;
-  
-  @include media-breakpoint-up(md) {
-    display: block;  
+.popular { 
+  display:none; 
+  @include breakpoint(tablet){
+    display:block;
   }
 }
 
@@ -203,39 +196,42 @@ h3.open-title {
 }
 
 .subject-headers { 
-  @extend .col-12;
-  position:relative; 
-  border-bottom:2px dotted rgba($wvu-blue, .3); 
+  width: 100%;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative; 
+  border-bottom: 2px dotted rgba($wvu-blue, .3); 
 
   h2 { 
-    border-bottom:none; 
-    @extend .col-12;
-    margin-bottom:1em; 
+    border-bottom: none; 
+    width: 100%;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 1em; 
 
-    @include media-breakpoint-up(md){ 
-      width: 66.666667%;
-      flex: 0 0 66.666667%;
-      margin-bottom:0;
+    @include breakpoint(tablet){ 
+      width: 66.667%; // Instead of @include grid-column(8)
+      margin-bottom: 0;
     }
   }
 
   .guide { 
-    @extend .col-12;
-    text-align:right; 
+    width: 100%;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: right; 
     
     .btn {
       text-align: center; 
-      margin-bottom:1em;
+      margin-bottom: 1em;
     }
     
-    @include media-breakpoint-up(md){ 
-      width: 33.333333%;
-      flex: 0 0 33.333333%;
-      
-      .btn { 
-        margin-top: -1em;
-        margin-bottom:0;
-      }
+    @include breakpoint(tablet){ 
+      width: 33.333%; // Instead of @include grid-column(4)
+      .btn { margin-top: -1em; margin-bottom: 0; }
     }
   }
 }
@@ -244,9 +240,25 @@ h2.search-results {
   margin-bottom:1em;
 }
 
-// Bootstrap column width reference:
-// col-12 = 100%
-// col-8 = 66.666667%
-// col-6 = 50%
-// col-4 = 33.333333%
-// col-3 = 25%
+.database-box {
+  margin-bottom: 1rem;
+  width: 100%;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+  
+  @include breakpoint(tablet) {
+    width: 33.333%; // Instead of @include make-col(4)
+  }
+}
+
+.database-list-item {
+  width: 100%;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+  
+  @include breakpoint(tablet) {
+    width: 50%; // Instead of @include make-col(6)
+  }
+}

@@ -1,34 +1,30 @@
 .help {
-  background: $light-gray;
+  background:$light-gray;
   border-top: 3px solid darken($light-gray, 10%);
   font-size: 14px; 
-  display: none; 
+  display:none; 
   
-  @include media-breakpoint-up(xl) {
-    display: block; 
+  @include breakpoint(laptop){
+    display:block; 
   }
   
   .container { 
-    @extend .col-12;
-    padding: 2em; 
+    @include grid-column(12);
+    padding:2em 2em; 
   }
 
   h2, p { 
-    width: 100%;
-    margin: 0 0 1em;
+    width:100%;
+    margin:0 0 1em;
   }
 
   .help-box { 
-    @extend .col-12;
-    
-    @include media-breakpoint-up(md) {
-      width: 50%;
-      flex: 0 0 50%;
+    @include grid-column(12);
+    @include breakpoint(tablet){ 
+      @include grid-column(6);
     }
-
-    @include media-breakpoint-up(xl) {
-      width: 25%;  // col-3 equivalent
-      flex: 0 0 25%;
+    @include breakpoint(laptop){
+      @include grid-column(3); 
     }
   }
 }

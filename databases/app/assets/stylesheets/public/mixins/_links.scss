@@ -1,0 +1,19 @@
+// Link maker mixin to replace the original functionality
+@mixin link_maker($normal-color, $visited-color, $hover-color, $active-color) {
+  a {
+    color: $normal-color;
+    
+    &:visited {
+      color: $visited-color;
+    }
+    
+    &:hover,
+    &:focus {
+      color: $hover-color;
+    }
+    
+    &:active {
+      color: $active-color;
+    }
+  }
+}

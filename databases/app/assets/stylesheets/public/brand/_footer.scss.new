@@ -1,0 +1,46 @@
+// Footer styles
+footer {
+  background-color: #EDEAE3;
+  padding: 2em 0;
+  margin-top: 2em;
+  
+  .container {
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    
+    @media (max-width: 767px) {
+      flex-direction: column;
+    }
+  }
+  
+  .footer-col {
+    flex: 1;
+    padding: 0 15px;
+    
+    @media (max-width: 767px) {
+      margin-bottom: 1rem;
+    }
+  }
+  
+  h2 {
+    font-size: 1.2rem;
+    margin-top: 0;
+  }
+  
+  a {
+    color: $wvu-blue;
+    text-decoration: none;
+    
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
+}

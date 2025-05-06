@@ -1,46 +1,49 @@
 $flying-wv-w-signature: 'https://patterns.wvu.edu/images/flying-wv-w-signature.png' !default;
+$flying-wv-w-signature-gold-bg: 'https://patterns.wvu.edu/images/flying-wv-w-signature-gold-bg.png' !default;
+$flying-wv-w-signature-white-bg: 'https://patterns.wvu.edu/images/flying-wv-w-signature-white-bg.png' !default;
+$flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.png' !default;
 
+// WVU Masthead styling
 .wvu-masthead { 
-  background-color: #002855; // WVU blue
-  color: #fff;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  
+  background-color: $wvu-blue;
+  color: #fff;  
+
   .wvu-masthead__container { 
-    width: 100%;
     max-width: 1140px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
     padding: 1em;
-    display: flex;
-    flex-wrap: wrap;
     
-    @media (max-width: 767px) {
-      justify-content: center;
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
     }
   }
 
   .wvu-masthead__logo { 
     background: url($flying-wv-w-signature) no-repeat left 30% transparent;
-    background-size: 300px auto;
-    text-align: center;
-    background-position: center 30%;
     width: 100%;
-    position: relative;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    background-position: center 30%; 
+    background-size: 300px auto; 
+    position: relative; 
     
-    @media (min-width: 768px) { 
+    @include breakpoint(tablet){ 
       width: 50%;
       background-position: left 30%;
       text-align: left;
-      float: left;
     }
-    
-    @media (min-width: 992px) {
-      width: 33.333333%;
+
+    @include breakpoint(desktop){
+      width: 33.333%;
     }
   }
 
-  .wvu-masthead__university-name {
+  .wvu-masthead__university-name{
     position: absolute;
     left: -99999em;
   }
@@ -48,91 +51,101 @@ $flying-wv-w-signature: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
   .wvu-masthead__title {
     display: inline-block;
     position: relative;
-    padding-top: 50px;
+    padding-top: 50px; 
     font-size: 1.2em;
     left: -2.4em;
     text-transform: uppercase;
-    color: #fff !important;
-    
-    @media (min-width: 768px) { 
-      left: 3em;
+    color: #fff;
+
+    @include breakpoint(tablet){ 
+      left: 3em; 
     }
   }
 }
 
+// Header list styling - this is the key part for the 2-column layout
 .wvu-header-list {
   width: 100%;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
   text-align: center;
-  
-  @media (min-width: 768px) {
+
+  @include breakpoint(tablet){
     width: 50%;
     text-align: right;
-    float: right;
   }
-  
-  @media (min-width: 992px) {
-    width: 66.666667%;
+
+  @include breakpoint(desktop){
+    width: 66.667%;
   }
-  
+
   ul { 
-    width: 100%;
+    width: auto;
     margin-top: 1em;
-    padding-left: 0;
-    list-style: none;
-    
-    @media (min-width: 768px) {
+    list-style: none; 
+    padding: 0;
+
+    @include breakpoint(tablet){
       float: right;
     }
-  }
-  
-  li {
-    @media (min-width: 768px) {
-      display: inline-block;
+  } 
+
+  li { 
+    display: block; // Default to block for mobile
+    
+    @include breakpoint(tablet){ 
+      display: inline-block; 
+      width: auto;
       float: left;
       margin-left: 10px;
     }
   }
   
   li a { 
-    width: 50%;
-    display: inline-block;
+    // 2-column layout for mobile - the key fix
+    width: 45%; // Almost half width for 2 columns
     float: left;
-    padding: .5em;
+    padding: 0.5em; 
+    margin: 0.25em;
     border: 1px solid #fff;
-    color: #fff !important;
+    color: #fff;
     text-align: center;
-    margin-top: .5em;
     font-size: 14px;
-    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
     
     &:focus, &:hover, &:active { 
-      color: #EAAA00 !important; // WVU gold
-      border-color: #EAAA00 !important;
+      color: $wvu-gold;
+      border-color: $wvu-gold;
     }
     
-    @media (min-width: 768px) { 
+    @include breakpoint(tablet){ 
+      display: inline-block; 
       width: auto;
-      display: inline-block;
-      float: left;
+      float: none;
       border: none;
       border-bottom: 1px solid #fff;
+      margin: 0;
+      padding: 0 0 2px 0;
       
       &:focus, &:hover, &:active { 
-        color: #EAAA00 !important;
+        color: $wvu-gold;
         border-color: transparent;
-        border-bottom-color: #EAAA00;
+        border-bottom-color: $wvu-gold;
       }
       
       &:focus { 
-        border: 2px dotted #EAAA00;
+        border: 2px dotted $wvu-gold; 
       }
     }
   }
-  
+
+  // Special styling for the last child link
   li:last-child a { 
-    width: 100%;
+    width: 92%; // Almost full width
     
-    @media (min-width: 768px) { 
+    @include breakpoint(tablet){ 
       width: auto;
     }
   }

@@ -1,44 +1,67 @@
 /* Footer */
-footer.wvu-footer  {
-  background-color: $wvu-blue;
-  width:100%;
-  color:#fff;
-  font-size:12px;
-  padding:1em;
+footer.wvu-footer {
+  background-color: $wvu-blue !important; // Force blue background
+  color: #fff !important; // Force white text
+  width: 100%;
+  font-size: 12px;
+  padding: 1em;
+  display: block; // Ensure block display
+  position: relative; // Use relative positioning
+  clear: both;
+  min-height: 80px; // Ensure minimum height
+  overflow: hidden; // Contain floated children
 
   text-align: center; 
-  @include media-breakpoint-up(md){ 
+  @include breakpoint(tablet){ 
     text-align: left;
   }
 
   .wvu-container { 
-    padding:1em; 
-    @extend .col-12;
+    padding: 1em; 
+    width: 100%;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: $wvu-blue !important; // Ensure container also has background
+
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
 
     p {
       margin-top: 0;
       margin-bottom: 0;
+      color: #fff !important; // Ensure text is white
     }
   }
 
   .wvu-contact, .lib-social-media, .wvu-credits, .wvu-icons { 
-    @extend .col-12;
-    @include media-breakpoint-up(md) {
-      width: 50%; // equivalent to col-6
-      flex: 0 0 50%;
+    width: 100%;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: $wvu-blue !important; // Ensure these elements have background too
+    
+    @include breakpoint(tablet){ 
+      width: 50%;
     }
   }
 
   .lib-social-media { 
     text-align: center; 
-    padding:2em 0;
+    padding: 2em 0;
 
-    @include media-breakpoint-up(md){ 
-      text-align:right;
+    @include breakpoint(tablet){ 
+      text-align: right;
     }
 
     ul { 
       list-style: none; 
+      margin: 0;
+      padding: 0;
+      
       li {
         width: 40px;
         padding: 3px;
@@ -55,48 +78,68 @@ footer.wvu-footer  {
   .wvu-credits { 
     ul { 
       list-style: none; 
+      margin: 0;
+      padding: 0;
 
       li { 
-        display:inline; 
-        padding-right:.5em; 
+        display: inline; 
+        padding-right: 0.5em; 
         &:before { 
           content: '|';
-          padding-right: .5em;
+          padding-right: 0.5em;
         }
 
         &:first-child { 
           &:before { 
             content: ' ';
-            padding-right:.5em;
+            padding-right: 0.5em;
           }
         }
       }
+    }
+    
+    p {
+      color: #fff !important;
     }
   }
 
   .wvu-links { 
     list-style: none; 
     text-align: center;
-    margin-top:10px; 
+    margin-top: 10px;
+    padding: 0;
 
     li { 
-      display:inline; 
-      padding-right:.5em; 
+      display: inline; 
+      padding-right: 0.5em; 
     }
 
-    @include media-breakpoint-up(md){ 
+    @include breakpoint(tablet){ 
       text-align: right;
       margin-top: unset;
     }
   }
   
   .footerTitle {
-    color: #EAAA00;
+    color: $wvu-gold !important; // Use gold variable
     font-size: 1.25em;
     letter-spacing: 1px;
   }
 
+  // Fix the conflicting link styles - this was causing issues!
   a {
-    color: #EAAA00;
+    color: $wvu-gold !important; // Use gold for links
+    text-decoration: underline;
+    
+    &:hover,
+    &:focus {
+      color: #fff !important; // White on hover/focus
+    }
   }
+}
+
+// Add an override to ensure the footer background extends fully
+body footer.wvu-footer,
+html footer.wvu-footer {
+  background-color: $wvu-blue !important;
 }

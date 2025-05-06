@@ -1,0 +1,41 @@
+// Ensure flexbox layout isn't hiding elements
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// Ensure all main sections are properly displayed
+.wvu-masthead,
+.app-header, 
+nav.home-page,
+nav.inner-page,
+main,
+footer {
+  width: 100%;
+}
+
+// Remove any display:block that might override the nav display:none
+nav.home-page,
+nav.inner-page {
+  // No display property here
+}
+
+main {
+  flex: 1;
+  padding-top: 1em; // Add padding to the top of main content
+}
+
+// Add spacing below header elements
+.app-header {
+  margin-bottom: 0; // Reset margin
+}
+
+// Keep container behavior
+.container {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

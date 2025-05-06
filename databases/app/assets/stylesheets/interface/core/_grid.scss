@@ -1,28 +1,82 @@
-@import "bootstrap";
-
 $neat-grid: (
   columns: 12,
   gutter: 1em 
 );
 
 .wrapper {
-  width: 100%;
+  width:100%;
   margin-left: auto;
   margin-right: auto;
-  clear: left;
-  @extend .container-fluid;
+  clear:left;
+  @include clearfix;
 }
 
 .container {
-  margin: 0 auto;
-  @extend .container;
+  @include grid-container;
+  margin:0 auto;
+  @include clearfix;
+  // @include grid-visual(rgba(cyan, .5), $neat-grid);
 }
 
 main, header, footer, div {
-  @extend .row;
+  @include grid-container;
+  @include clearfix;
 }
 
-// Add column classes as needed:
-.col {
-  @extend .col-md-12;
+// Grid system based on Bootstrap - with Neat compatibility mixins
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+// For Neat compatibility
+.grid-container {
+  @include grid-container;
+}
+
+// Column classes
+.col-1 { @include grid-column(1); }
+.col-2 { @include grid-column(2); }
+.col-3 { @include grid-column(3); }
+.col-4 { @include grid-column(4); }
+.col-5 { @include grid-column(5); }
+.col-6 { @include grid-column(6); }
+.col-7 { @include grid-column(7); }
+.col-8 { @include grid-column(8); }
+.col-9 { @include grid-column(9); }
+.col-10 { @include grid-column(10); }
+.col-11 { @include grid-column(11); }
+.col-12 { @include grid-column(12); }
+
+// Media query based columns
+@media (min-width: 768px) {
+  .col-md-1 { @include grid-column(1); }
+  .col-md-2 { @include grid-column(2); }
+  .col-md-3 { @include grid-column(3); }
+  .col-md-4 { @include grid-column(4); }
+  .col-md-5 { @include grid-column(5); }
+  .col-md-6 { @include grid-column(6); }
+  .col-md-7 { @include grid-column(7); }
+  .col-md-8 { @include grid-column(8); }
+  .col-md-9 { @include grid-column(9); }
+  .col-md-10 { @include grid-column(10); }
+  .col-md-11 { @include grid-column(11); }
+  .col-md-12 { @include grid-column(12); }
+}
+
+@media (min-width: 992px) {
+  .col-lg-1 { @include grid-column(1); }
+  .col-lg-2 { @include grid-column(2); }
+  .col-lg-3 { @include grid-column(3); }
+  .col-lg-4 { @include grid-column(4); }
+  .col-lg-5 { @include grid-column(5); }
+  .col-lg-6 { @include grid-column(6); }
+  .col-lg-7 { @include grid-column(7); }
+  .col-lg-8 { @include grid-column(8); }
+  .col-lg-9 { @include grid-column(9); }
+  .col-lg-10 { @include grid-column(10); }
+  .col-lg-11 { @include grid-column(11); }
+  .col-lg-12 { @include grid-column(12); }
 }

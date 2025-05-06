@@ -1,14 +1,32 @@
-// Libraries first
+// Libraries
 @import "bootstrap";
+
+// Import normalize
+@import "../normalize/normalize";
 
 // Core 
 @import "core/variables";
 
-// Style Sheets
+// Mixins
+@import "mixins/_breakpoints";
+@import "mixins/_colors";
+@import "mixins/_alerts";
+@import "mixins/_transform";
+@import "mixins/_buttons";
+@import "mixins/_grid";
+@import "mixins/_links";
+@import "mixins/_transitions";
+
+// Style Sheets Start Here 
 @import "core/default";
 @import "core/grid";
 @import "core/font"; 
+@import "elements/_nav"; // Make sure this is explicitly imported if needed
 @import "elements/*";
 
 // Custom brand items
 @import "brand/*";
+
+// Database Styles - Include these from the interface directory
+@import "../interface/databases/database_boxes";
+@import "../interface/databases/search_filter";

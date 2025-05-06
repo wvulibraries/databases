@@ -1,63 +1,28 @@
 .button, .btn {
-  @extend .btn;
-  @extend .btn-primary;
+  @include button_maker($link-color, 'solid');
+  @include determine-text-color($link-color);
 }
 
-.admin-panel {
-  @extend .btn;
-  background-color: #0049AC !important; // Light blue
-  border-color: #0049AC !important;
-  color: #fff !important;
-  text-decoration: none !important;
-  
-  .fa, .fas {
-    color: #fff !important;
-    margin-right: 5px !important;
-  }
-  
-  &:hover, &:focus, &:active {
-    background-color: darken(#0049AC, 5%) !important;
-    border-color: darken(#0049AC, 5%) !important;
-    color: #fff !important;
+.admin-panel { 
+  @include button_maker($link-color, 'solid');
+  @include determine-text-color($link-color);
+  text-decoration: none;
+}
+
+.signout { 
+  @include button_maker($error, 'solid');
+  color:#fff;
+  text-decoration: none;
+  &:hover, &:active, &:focus { 
+    color:#fff;
   }
 }
 
-.signout {
-  @extend .btn;
-  background-color: #EAAA00 !important; // WVU gold
-  border-color: #EAAA00 !important;
-  color: #000 !important; // Black text on gold
-  text-decoration: none !important;
-  
-  .fa, .fas {
-    color: #000 !important;
-    margin-right: 5px !important;
-  }
-  
-  &:hover, &:focus, &:active {
-    background-color: darken(#EAAA00, 5%) !important;
-    border-color: darken(#EAAA00, 5%) !important;
-    color: #000 !important;
-  }
-}
-
-.login {
-  @extend .btn;
-  background-color: #0049AC !important; // Change to blue
-  border-color: #0049AC !important;
-  color: #fff !important; // White text
-  text-decoration: none !important;
-  width: auto !important;
-  display: inline-block !important;
-  
-  .fa, .fas {
-    color: #fff !important;
-    margin-right: 5px !important;
-  }
-  
-  &:hover, &:focus, &:active {
-    background-color: darken(#0049AC, 5%) !important;
-    border-color: darken(#0049AC, 5%) !important;
-    color: #fff !important;
+.login { 
+  @include button_maker($success, 'solid');
+  @include determine-text-color($success);
+  text-decoration: none;
+  &:hover, &:active, &:focus { 
+    color:#000;
   }
 }

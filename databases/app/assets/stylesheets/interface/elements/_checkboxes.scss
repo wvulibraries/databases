@@ -66,21 +66,17 @@ input[type=checkbox] {
 }
 
 .checkbox-list {
-  @extend .col-12;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
+  @include grid-column(12);
+  list-style:none;
+  margin:0;
+  padding:0;
   .check-label {
-    padding: 10px;
+    padding:10px;
   }
-
   > li {
-    @extend .col-12;
-    
-    @include media-breakpoint-up(md) {
-      width: 25%; // col-3 equivalent
-      flex: 0 0 25%;
+    @include grid-column(12);
+    @include breakpoint(tablet){
+      @include grid-column(3);
     }
   }
 }

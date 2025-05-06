@@ -1,0 +1,69 @@
+// Grid mixins to replace Neat's functionality
+@mixin grid-container {
+  width: 100%;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin grid-column($size, $columns: 12) {
+  width: percentage($size / $columns);
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@mixin grid-push($size, $columns: 12) {
+  margin-left: percentage($size / $columns);
+}
+
+@mixin grid-shift($size, $columns: 12) {
+  margin-left: percentage($size / $columns);
+}
+
+@mixin grid-media($media-query) {
+  @media screen and ($media-query) {
+    @content;
+  }
+}
+
+@mixin grid-collapse($query) {
+  @warn "The grid-collapse mixin is deprecated. Please update your code to use padding instead.";
+  
+  #{$query} {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@mixin grid-visual {
+  background-color: rgba(#0093ff, 0.05);
+  
+  > [class*="col-"] {
+    background-color: rgba(#0093ff, 0.1);
+    border: 1px solid rgba(#0093ff, 0.2);
+  }
+}
+
+// Bootstrap compatible mixins
+@mixin make-row() {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+@mixin make-col($size, $columns: 12) {
+  flex: 0 0 percentage($size / $columns);
+  max-width: percentage($size / $columns);
+  padding-right: 15px;
+  padding-left: 15px;
+}

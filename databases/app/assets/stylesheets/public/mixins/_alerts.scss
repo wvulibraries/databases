@@ -1,0 +1,34 @@
+// Alert mixin using variables from _variables.scss
+
+@mixin alert($type: 'default') {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  
+  @if $type == 'default' {
+    background-color: $default;
+    border-color: darken($default, 10%);
+    @include determine-text-color($default);
+  } @else if $type == 'primary' {
+    background-color: $primary;
+    border-color: darken($primary, 10%);
+    @include determine-text-color($primary);
+  } @else if $type == 'success' {
+    background-color: $success;
+    border-color: darken($success, 10%);
+    @include determine-text-color($success);
+  } @else if $type == 'info' {
+    background-color: $notice;
+    border-color: darken($notice, 10%);
+    @include determine-text-color($notice);
+  } @else if $type == 'warning' {
+    background-color: $warning;
+    border-color: darken($warning, 10%);
+    @include determine-text-color($warning);
+  } @else if $type == 'danger' {
+    background-color: $error;
+    border-color: darken($error, 10%);
+    @include determine-text-color($error);
+  }
+}
