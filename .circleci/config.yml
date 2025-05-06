@@ -66,8 +66,12 @@ jobs:
             gem install bundler
 
       - run:
+          name: Configure bundle path
+          command: bundle config set path 'vendor/bundle'
+      
+      - run:
           name: bundle gems
-          command: bundle install --path vendor/bundle
+          command: bundle install
 
       - run:
           name: Install Code Climate Test Reporter
