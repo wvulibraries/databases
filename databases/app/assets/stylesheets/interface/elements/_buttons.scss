@@ -76,3 +76,25 @@ input[type="submit"], input[type="reset"]{
   @include determine-text-color($action-color);
 }
 
+.github-actions {
+  @include grid-container;
+  margin: 2em 0;
+  
+  .github-button {
+    margin-right: 1em; // Add spacing between buttons
+    display: inline-block; // Display inline for proper spacing
+    
+    // For mobile (stack vertically)
+    @media screen and (max-width: 768px) {
+      display: block;
+      margin: 1em 0;
+      width: 100%;
+    }
+  }
+  
+  // Target the last button to remove right margin
+  .github-button:last-child {
+    margin-right: 0;
+  }
+}
+

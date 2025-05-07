@@ -1,9 +1,28 @@
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; // Prevent horizontal scrolling
+}
+
 main { 
   @include grid-column(12);
-  margin-bottom:1em; 
+  margin-bottom: 1em;
+  width: 100%;
+  display: block;
+  clear: both;
+  
+  // Remove padding from main itself - this was causing extra space
+  padding: 0;
 
   .content-zone { 
-    @include grid-column(12); 
+    @include grid-column(12);
+    max-width: 1140px;
+    margin: 0 auto;
+    
+    // Standardize padding to match original
+    padding-left: 30px;
+    padding-right: 30px;
 
     @include breakpoint(desktop){ 
       @include grid-column(10); 
@@ -20,4 +39,12 @@ main {
       @include grid-push(2);
     }
   }
+}
+
+footer {
+  clear: both;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: block;
 }

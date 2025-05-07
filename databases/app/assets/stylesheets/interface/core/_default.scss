@@ -11,6 +11,20 @@ html {
   box-sizing: inherit;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  color: $base-font-color;
+  background-color: $base-background-color;
+}
+
 html,body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
   font-weight: 300;
@@ -50,6 +64,13 @@ html,body {
 
 .pull-right {
   float: right !important;
+}
+
+// Remove any potential margin on the admin layout
+.admin-layout {
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 

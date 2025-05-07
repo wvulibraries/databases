@@ -1,19 +1,37 @@
 header.admin-header {
-  background: darken($link-color, 40%);
-  padding: 2em 1em;
-  margin-bottom: 1.5em; 
-  width: 100%; // Ensure full width
-  box-sizing: border-box; // Include padding in width calculation
+  background-color: darken($link-color, 40%); // Direct background color
+  padding: 2em 0;  // Keep vertical padding
+  margin: 0 0 1.5em 0;
+  box-sizing: border-box;
+  
+  /* Force truly full-width */
+  width: 100vw; /* Viewport width */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  max-width: none; // Override any max-width
+  
+  // Container for centered content
+  .container {
+    @include grid-container;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 30px; // Increase side padding from 15px to 30px
+    
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
   
   .titles { 
-    width: 66.667%; // Replace grid-column(8)
     float: left;
-    padding-left: 15px;
-    padding-right: 15px;
-    color: #fff; 
+    width: 70%; // Closer to original width
+    color: #fff;
+    padding-left: 30px; // Add left padding to title
     
     span {
-      display: inline-block; 
+      display: inline-block;
       float: left;
       &:nth-child(1){ 
         font-weight: 900;
@@ -35,17 +53,9 @@ header.admin-header {
   }
 
   .menu_buttons { 
-    width: 33.333%; // Replace grid-column(4)
-    float: left;
-    padding-left: 15px;
-    padding-right: 15px;
-    text-align: right;  
-  }
-  
-  // Clear floats
-  &::after {
-    content: "";
-    display: table;
-    clear: both;
+    float: right;
+    width: 30%;
+    text-align: right;
+    padding-right: 30px; // Add right padding to menu
   }
 }

@@ -1,0 +1,26 @@
+// Create this file if needed
+
+.github-actions {
+  display: flex;
+  flex-wrap: nowrap; // Prevent wrapping to maintain single row
+  gap: 1em; // Modern spacing using gap property
+  margin: 2em 0;
+  justify-content: space-between; // Evenly distribute buttons
+  
+  .github-button {
+    flex: 0 0 auto; // Don't grow or shrink
+    width: 32%; // Set explicit width for 3 buttons with spacing
+    min-width: 0; // Remove min-width to prevent overflow
+    text-align: center;
+  }
+  
+  // For smaller screens - only switch to column layout on very small screens
+  @media (max-width: 600px) {
+    flex-direction: column;
+    
+    .github-button {
+      width: 100%;
+      margin-bottom: 1em;
+    }
+  }
+}
