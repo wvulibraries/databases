@@ -34,10 +34,10 @@ my_user = {
 User.create(my_user)
 
 my_user = {
-  first_name: 'Travis',
-  last_name: 'Williamson',
-  cas_username: 'twilli23',  
-  cas_email: 'twilli23@mail.wvu.edu'
+  first_name: 'Jesse',
+  last_name: 'Griffis',
+  cas_username: 'jagriffis',  
+  cas_email: 'jagriffis@mail.wvu.edu'
 }
 
 User.create(my_user)

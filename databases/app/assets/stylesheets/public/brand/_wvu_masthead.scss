@@ -124,19 +124,20 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
       display: inline-block; 
       width: auto;
       float: none;
-      border: none;
-      border-bottom: 1px solid #fff;
+      border: none; // Remove all borders
       margin: 0;
       padding: 0 0 2px 0;
+      text-decoration: none; // Explicitly remove text decoration
+      border-bottom: 1px solid #fff; // Add ONLY bottom border
       
-      &:focus, &:hover, &:active { 
+      &:hover, &:active { 
         color: $wvu-gold;
-        border-color: transparent;
-        border-bottom-color: $wvu-gold;
+        border-bottom-color: $wvu-gold; // Only change bottom border color
       }
       
       &:focus { 
-        border: 2px dotted $wvu-gold; 
+        outline: 2px dotted $wvu-gold; // Use outline instead of border for focus
+        border-bottom: none; // Remove bottom border on focus
       }
     }
   }

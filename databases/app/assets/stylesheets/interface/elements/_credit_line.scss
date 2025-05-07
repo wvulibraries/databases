@@ -16,22 +16,17 @@
     max-width: 1140px;
     margin: 0 auto;
     padding: 0 30px; // Increase side padding from 15px to 30px
-    
-    &::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
   }
 
   .builtBy {
-    float: right;
+    @include grid-column(3);
+    @include grid-push(9); // Push to right side
     color: $gray-text;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
     text-align: right;
-    padding-right: 15px; // Add right padding
+    padding-right: 30px; // Add explicit right padding to match container padding
   }
 
   .built, .by { font-weight: 300; }

@@ -16,17 +16,10 @@ header.admin-header {
     max-width: 1140px;
     margin: 0 auto;
     padding: 0 30px; // Increase side padding from 15px to 30px
-    
-    &::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
   }
   
   .titles { 
-    float: left;
-    width: 70%; // Closer to original width
+    @include grid-column(8.4); // 70% is approximately 8.4/12
     color: #fff;
     padding-left: 30px; // Add left padding to title
     
@@ -53,8 +46,7 @@ header.admin-header {
   }
 
   .menu_buttons { 
-    float: right;
-    width: 30%;
+    @include grid-column(3.6); // 30% is approximately 3.6/12
     text-align: right;
     padding-right: 30px; // Add right padding to menu
   }

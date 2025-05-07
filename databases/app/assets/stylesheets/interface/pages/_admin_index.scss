@@ -1,26 +1,58 @@
 // Create this file if needed
 
 .github-actions {
-  display: flex;
-  flex-wrap: nowrap; // Prevent wrapping to maintain single row
-  gap: 1em; // Modern spacing using gap property
+  @include grid-container;
   margin: 2em 0;
-  justify-content: space-between; // Evenly distribute buttons
+  position: relative; // Create positioning context
+  padding: 0.5em 0; // Add some vertical padding
   
+  // Use a narrower column width to allow for more spacing
   .github-button {
-    flex: 0 0 auto; // Don't grow or shrink
-    width: 32%; // Set explicit width for 3 buttons with spacing
-    min-width: 0; // Remove min-width to prevent overflow
+    @include grid-column(3.6); // Even narrower to allow for more spacing
     text-align: center;
+    margin-right: 0.6em; // Significant spacing between buttons
+    white-space: nowrap; // Prevent text wrapping within buttons
+    display: flex; // Use flexbox for internal alignment
+    align-items: center; // Center vertically
+    justify-content: center; // Center horizontally
+    
+    // Adjust vertical positioning
+    margin-top: 0.2em; // Fine-tune vertical position
+    margin-bottom: 0.2em;
+    line-height: 1.2; // Normalize line height for better vertical alignment
+    
+    // Reset some button default styles that might affect alignment
+    padding: 0.6em 1em; // Standardize padding
+    
+    // Gradual responsive adjustments
+    @media (max-width: 900px) {
+      @include grid-column(3.5); // Slightly narrower
+      font-size: 0.95em; // Slightly smaller text
+    }
+    
+    @media (max-width: 800px) {
+      @include grid-column(3.4); // Even narrower
+      font-size: 0.9em; // Smaller text
+    }
+    
+    @media (max-width: 700px) {
+      white-space: normal; // Allow text to wrap at this breakpoint
+      min-height: 60px; // Ensure consistent height
+    }
+    
+    // For smaller screens - switch to full width
+    @media (max-width: 600px) {
+      @include grid-column(12); // Full width on small screens
+      margin-bottom: 1em;
+      margin-right: 0;
+      min-height: 0; // Reset min-height
+      white-space: normal; // Allow text wrapping
+      font-size: 1em; // Reset font size
+    }
   }
   
-  // For smaller screens - only switch to column layout on very small screens
-  @media (max-width: 600px) {
-    flex-direction: column;
-    
-    .github-button {
-      width: 100%;
-      margin-bottom: 1em;
-    }
+  // Remove right margin from last button
+  .github-button:last-child {
+    margin-right: 0;
   }
 }
