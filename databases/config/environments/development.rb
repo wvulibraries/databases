@@ -98,6 +98,7 @@ config.hosts.clear
 config.hosts << "ssodev.wvu.edu"
 config.hosts << "localhost"
 config.hosts << "127.0.0.1"
+config.hosts << ".lib.wvu.edu"
 
 # Check these settings:
 config.assets.debug = true  # This should be true in development
