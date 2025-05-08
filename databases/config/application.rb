@@ -46,6 +46,6 @@ module Databases
     # Precompile additional assets
     config.assets.precompile += %w( application.js )
 
-    config.hosts << ".lib.wvu.edu"
+    config.hosts << "databasesdev.lib.wvu.edu"
   end
 end
