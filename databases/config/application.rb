@@ -22,31 +22,30 @@ Bundler.require(*Rails.groups)
 
 module Databases
   class Application < Rails::Application
-    # Time Zone
-    config.time_zone = 'Eastern Time (US & Canada)'
-    config.active_record.default_timezone = :local
-
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 7.1
 
-    # CAS
-    # config.rack_cas.server_url = 'https://ssodev.wvu.edu/cas/' unless Rails.env.production?
-    # config.rack_cas.server_url = 'https://sso.wvu.edu/cas/' if Rails.env.production?
-
-    # presenters
-    # config.autoload_paths += %W(#{config.root}/presenters)
-    
-    # force ssl
-    # config.force_ssl = true if Rails.env.production?
-    
-    # session store
-    config.session_store :active_record_store, expire_after: nil, secure: true if Rails.env.production?
-    config.session_store :active_record_store, key: 'cas', expire_after: 12.hours, secure: true if Rails.env.production?
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    config.autoload_paths << Rails.root.join("app/services")
 
-    config.hosts << ".lib.wvu.edu"
+    # Add this line to silence the deprecation warning in CI
+    config.active_support.deprecation = :silence if ENV['CI']
+    
+    # Add cache format version
+    config.active_support.cache_format_version = 7.0
+
+    # Precompile additional assets
+    config.assets.precompile += %w( application.js )
+
+    config.hosts << "databasesdev.lib.wvu.edu"
   end
 end
