@@ -79,9 +79,14 @@ Rails.application.configure do
     port: 25,
     enable_starttls_auto: true
   }
+  
+  # Remove IP restrictions for Admin login to authenticate databases_app using ssodev (default is to only allow local IPs/loopback, etc).
+  config.web_console.whiny_requests = false
 
-# Remove IP restrictions for Admin login to authenticate databases_app using ssodev (default is to only allow local IPs/loopback, etc).
-config.web_console.whiny_requests = false
-
+  # Allow ssodev.wvu.edu to redirect back to your application
+  # Replace config.hosts (Rails 6+) with Rails 5.2 compatible configuration
+  config.action_dispatch.tld_length = 2
+  # Or alternatively, disable host checking entirely in development (less secure)
+  # config.action_dispatch.hosts_response_app = proc { [200, {}, ['OK']] } 
 end
 
