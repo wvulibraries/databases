@@ -1,7 +1,7 @@
 # Databases 
 [![CircleCI](https://circleci.com/gh/wvulibraries/databases.svg?style=svg)](https://circleci.com/gh/wvulibraries/databases)
-[![Maintainability](https://api.codeclimate.com/v1/badges/dc9fb3109c8a8ff1301c/maintainability)](https://codeclimate.com/github/wvulibraries/databases/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/dc9fb3109c8a8ff1301c/test_coverage)](https://codeclimate.com/github/wvulibraries/databases/test_coverage)
+[![Maintainability](https://qlty.sh/gh/wvulibraries/projects/databases/maintainability.svg)](https://qlty.sh/gh/wvulibraries/projects/hydra_acda_portal_public)
+[![Code Coverage](https://qlty.sh/gh/wvulibraries/projects/databases/coverage.svg)](https://qlty.sh/gh/wvulibraries/projects/hydra_acda_portal_public)
 
 # DOCUMENTATION
 - This project uses YARD for its documentation.  It will allow you a quick glimpse at documentation on all logic associated with the project.
