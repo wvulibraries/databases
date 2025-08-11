@@ -4,8 +4,8 @@
   box-sizing: border-box;
   display: block;
   float: left;
-  padding-left: 2px;
-  padding-right: 2px;
+  padding-left: 0;
+  padding-right: 0;
   width: percentage($columns / $total-columns);
   
   // Clear floats
@@ -20,8 +20,8 @@
 @mixin make-col($size, $columns: 12) {
   width: percentage($size / $columns);
   float: left;
-  padding-left: 2px;
-  padding-right: 2px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 // For pushing columns (offsets)
