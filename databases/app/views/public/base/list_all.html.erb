@@ -1,19 +1,21 @@
-# <%# Utility Bar %>
-# <div class="utility"> 
-#   <div class="breadcrumbs"> 
-#     <ul> 
-#       <li> <a href="/"> Home </a> </li>
-#       <li> <a href="/AtoZ/<%=@character%>" class="current"> By Title: All </a> </li>
-#     </ul>
-#   </div>
+<%# Utility Bar - Removed %>
+<%#
+<div class="utility"> 
+  <div class="breadcrumbs"> 
+    <ul> 
+      <li> <a href="/"> Home </a> </li>
+      <li> <a href="/AtoZ/<%=@character%>" class="current"> By Title: All </a> </li>
+    </ul>
+  </div>
 
-#   <div class="results"> 
-#     <strong>
-#       <%= @count %> 
-#     </strong>
-#     Results
-#   </div>
-# </div>
+  <div class="results"> 
+    <strong>
+      <%= @count %> 
+    </strong>
+    Results
+  </div>
+</div>
+%>
 
 <%# Databases by Title  %>
 <%= render 'public/partials/title_list'  %>
