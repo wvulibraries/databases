@@ -67,8 +67,8 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
 .wvu-header-list {
   width: 100%;
   float: left;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 2px;
+  padding-right: 2px;
   text-align: center;
 
   @include breakpoint(tablet){
