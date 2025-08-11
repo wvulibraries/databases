@@ -10,8 +10,8 @@ $neat-grid: (
   margin-left: auto;
   margin-right: auto;
   clear: left;
-  padding-right: 2px;
-  padding-left: 2px;
+  padding-right: 0;
+  padding-left: 0;
   margin-right: auto;
   margin-left: auto;
 }
@@ -19,8 +19,8 @@ $neat-grid: (
 .container {
   max-width: 1140px;
   width: 100%;
-  padding-right: 2px;
-  padding-left: 2px;
+  padding-right: 0;
+  padding-left: 0;
   margin-right: auto;
   margin-left: auto;
 }
@@ -29,16 +29,16 @@ $neat-grid: (
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -2px;
-  margin-left: -2px;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 // Utility class for columns
 .col {
   position: relative;
   width: 100%;
-  padding-right: 2px;
-  padding-left: 2px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 // At different breakpoints
