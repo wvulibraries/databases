@@ -1,4 +1,25 @@
-// Grid mixins that work with Bootstrap
+// Grid mixins that work with Boot// Similar mixin for make-col
+@mixin make-col($size, $columns: 12) {
+  width: percentage($size / $columns);
+  float: left;
+  padding-left: 8px;
+  padding-right: 8px;
+}/ Complete grid-column replacement that mimics Neat's behavior
+@mixin grid-column($columns, $total-columns: 12) {
+  box-sizing: border-box;
+  display: block;
+  float: left;
+  padding-left: 8px;
+  padding-right: 8px;
+  width: percentage($columns / $total-columns);
+  
+  // Clear floats
+  &:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+}at work with Bootstrap
 // Complete grid-column replacement that mimics Neat's behavior
 @mixin grid-column($columns, $total-columns: 12) {
   box-sizing: border-box;
