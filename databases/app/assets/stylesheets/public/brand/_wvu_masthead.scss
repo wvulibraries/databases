@@ -9,10 +9,10 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
   color: #fff;  
 
   .wvu-masthead__container { 
-    max-width: 1140px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 1em 1em 1em 0;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
     
     &::after {
       content: "";
@@ -26,7 +26,7 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
     width: 100%;
     float: left;
     padding-left: 0;
-    padding-right: 15px;
+    padding-right: 0;
     text-align: center;
     background-position: center 30%; 
     background-size: 300px auto; 

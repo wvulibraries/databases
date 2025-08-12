@@ -66,10 +66,36 @@ body, html, .wrapper, .container, main, .main-content {
   padding-right: 0 !important;
 }
 
+// Nuclear option: remove ALL horizontal spacing from ALL elements
+* {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
 // Force all grid elements to have no padding
 [class*="grid-column"], [class*="col-"] {
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+
+// Target Bootstrap container classes specifically
+.container-sm, .container-md, .container-lg, .container-xl, .container-xxl, .container-fluid {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+// Force masthead to full width
+.wvu-masthead, .wvu-masthead__container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
 }
 
 
