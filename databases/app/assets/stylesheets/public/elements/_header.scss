@@ -26,18 +26,18 @@
       padding-right: 8px;
       text-align: center;
       margin-bottom: 0;
-      font-size: 3em; // Just slightly bigger than before (was 2.5em)
-      font-weight: bold;
+      font-size: 2.8em; // Reduced from 3em 
+      font-weight: normal; // Changed from bold to normal
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
  
       @include breakpoint(tablet){ 
         width: 50%;
         text-align: center;
-        font-size: 3.2em; // Slightly bigger on tablet
+        font-size: 3em; // Reduced from 3.2em
       }
       
       @include breakpoint(desktop){ 
-        font-size: 3.5em; // Moderately bigger on desktop
+        font-size: 3.2em; // Reduced from 3.5em
       }
 
       a {
