@@ -1,9 +1,9 @@
 .app-header { 
     .container { 
-      padding: 1.5em 0.5em; // Increased vertical padding for more height
+      padding: 1em 0.5em; // Reduced vertical padding slightly
       display: flex;
-      align-items: center; // Center content vertically
-      min-height: 150px; // Ensure minimum height
+      align-items: center;
+      min-height: 80px; // Reduced minimum height
     }
     
     h1, .authentication_links { 
@@ -24,20 +24,20 @@
       float: left;
       padding-left: 8px;
       padding-right: 8px;
-      text-align: center;
+      text-align: left; // Changed from center to left
       margin-bottom: 0;
-      font-size: 2.8em; // Reduced from 3em 
-      font-weight: normal; // Changed from bold to normal
+      font-size: 2.8em;
+      font-weight: normal;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
  
       @include breakpoint(tablet){ 
         width: 50%;
-        text-align: center;
-        font-size: 3em; // Reduced from 3.2em
+        text-align: left; // Changed from center to left
+        font-size: 3em;
       }
       
       @include breakpoint(desktop){ 
-        font-size: 3.2em; // Reduced from 3.5em
+        font-size: 3.2em;
       }
 
       a {
@@ -81,10 +81,10 @@
     background-size: cover;
     background-position: center center;
     background-color: #002855;
-    min-height: 140px; // Reduced from 200px to something more reasonable
+    min-height: 110px; // Reduced from 140px to make it smaller vertically
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; // Changed from center to flex-start for left alignment
     overflow: hidden;
     clear: both;
     position: relative;
