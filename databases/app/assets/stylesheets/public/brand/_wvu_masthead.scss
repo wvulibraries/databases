@@ -6,10 +6,7 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
 // WVU Masthead styling
 .wvu-masthead { 
   background-color: $wvu-blue;
-  color: #fff;
-  display: flex;
-  align-items: center; // Center content vertically
-  min-height: 120px; // Ensure enough height for vertical centering  
+  color: #fff;  
 
   .wvu-masthead__container { 
     max-width: 95%;
@@ -73,9 +70,6 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
   padding-left: 0;
   padding-right: 0;
   text-align: center;
-  display: flex;
-  align-items: center; // Center navigation vertically
-  min-height: 80px; // Ensure height for centering
 
   @include breakpoint(tablet){
     width: 50%;
@@ -88,16 +82,12 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
 
   ul { 
     width: auto;
-    margin: 0; // Remove top margin for better vertical centering
+    margin-top: 1em;
     list-style: none; 
     padding: 0;
-    display: flex;
-    align-items: center; // Center list items vertically
-    justify-content: center; // Center on mobile
-    flex-wrap: wrap; // Allow wrapping on smaller screens
 
     @include breakpoint(tablet){
-      justify-content: flex-end; // Right align on tablet+
+      float: right;
     }
   } 
 

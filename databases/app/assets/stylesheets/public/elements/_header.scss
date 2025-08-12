@@ -26,18 +26,18 @@
       padding-right: 8px;
       text-align: center;
       margin-bottom: 0;
-      font-size: 4em; // Significantly increased font size
-      font-weight: bold; // Make it bolder
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); // Add text shadow for better visibility
+      font-size: 3em; // Just slightly bigger than before (was 2.5em)
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
  
       @include breakpoint(tablet){ 
         width: 50%;
-        text-align: center; // Keep centered even on tablet
-        font-size: 4.5em; // Even bigger on larger screens
+        text-align: center;
+        font-size: 3.2em; // Slightly bigger on tablet
       }
       
       @include breakpoint(desktop){ 
-        font-size: 5em; // Biggest on desktop
+        font-size: 3.5em; // Moderately bigger on desktop
       }
 
       a {
@@ -81,10 +81,10 @@
     background-size: cover;
     background-position: center center;
     background-color: #002855;
-    min-height: 200px; // Increased height significantly
+    min-height: 140px; // Reduced from 200px to something more reasonable
     display: flex;
-    align-items: center; // Center content vertically
-    justify-content: center; // Center content horizontally
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
     clear: both;
     position: relative;
