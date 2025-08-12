@@ -1,13 +1,13 @@
 .app-header { 
     .container { 
-      padding: 1em; // Reduced padding to match original height
+      padding: 0.5em; // More conservative reduction
     }
     
     h1, .authentication_links { 
       width: 100%;
       float: left;
-      padding-left: 15px;
-      padding-right: 15px;
+      padding-left: 8px;
+      padding-right: 8px;
 
       @include breakpoint(tablet){ 
         width: 50%;
@@ -19,8 +19,8 @@
     h1 {
       width: 100%;
       float: left;
-      padding-left: 15px;
-      padding-right: 15px;
+      padding-left: 8px;
+      padding-right: 8px;
       text-align: center;
       margin-bottom:0.5em; // Reduced margin
       font-size: 2.5em; // Increased font size to match original
@@ -47,8 +47,8 @@
     .authentication_links { 
       width: 100%;
       float: left;
-      padding-left: 15px;
-      padding-right: 15px;
+      padding-left: 8px;
+      padding-right: 8px;
       text-align: center; 
 
       @include breakpoint(tablet){ 
@@ -59,8 +59,8 @@
       a { 
         width: 50%;
         float: left;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 8px;
+        padding-right: 8px;
         @include breakpoint(tablet){ 
           width:unset; 
           float:unset;
