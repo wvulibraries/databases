@@ -255,6 +255,53 @@ class Database < ApplicationRecord
     end
   end
 
+
+  # New version of libguides_export that includes new field-mappings in export.   
+  # Generates a CSV to populate libguides a-to-z listing.
+  # @author Praneeth Byna
+  # @return csv object
+  def self.libguides_export_v2
+    headers = [
+    "DATABASE NAME",
+    "PUBLIC DATABASE DISPLAY",
+    "DATABASE LANDING PAGE",
+    "DATABASE URL",
+    "USE PROXY?",
+    "FRIENDLY URL",
+    "DATABASE LANDING PAGE FRIENDLY URL",
+    "ALTERNATE NAMES",
+    "KEYWORDS & MISSPELLINGS",
+    "DATABASE DESCRIPTION",
+    "VENDOR",
+    "TYPES",
+    "ASSOCIATED SUBJECTS",
+    "BEST BETS",
+    "ATTRIBUTES",
+    "FLAGS",
+    "THUMBNAIL URL",
+    "THUMBNAIL ALT TEXT",
+    "MORE INFO",
+    "LIBRARIAN REVIEW",
+    "INTERNAL NOTE",
+    "ACCESS MODES",
+    "OWNER",
+    "RESOURCE ICONS",
+    "PERMITTED USES"
+    ]
+    CSV.generate(headers: true) do |csv|
+      csv << headers
+      # get everything else
+      all.find_each do |database|
+        database.url = database.connect_url
+        csv << database.csv_hash_v2.values
+      end
+    end
+  end
+
+
+
+
+
   # Generates a CSV to export link tracking data.
   # @author Tracy A. McCormick
   # @return csv object
@@ -306,6 +353,45 @@ class Database < ApplicationRecord
       content_id: self.libguides_id
     }
   end
+
+
+  # New hash to use in lib_guides csv
+  # Creates a hash to use in the lib_guides CSV.
+  # LibGuides requries the use of these fields 
+  # @author Praneeth Byna
+  # @return [Hash] Custom for LibGuides.
+  def csv_hash_v2
+    {
+      "DATABASE NAME" => self.name,
+      "PUBLIC DATABASE DISPLAY" => production? ? "show" : "hide",
+      "DATABASE LANDING PAGE" => 'Inactive',
+      "DATABASE URL" => self.url,
+      "USE PROXY?" => (self.access == 'Campus and Off Campus (Proxy)') ? "Yes" : "No",
+      "FRIENDLY URL" => nil,
+      "DATABASE LANDING PAGE FRIENDLY URL" => nil,
+      "ALTERNATE NAMES" => nil,
+      "KEYWORDS & MISSPELLINGS" => nil,
+      "DATABASE DESCRIPTION" => self.description,
+      "VENDOR" => self.vendor_name,
+      "TYPES" => self.resources.pluck(:name).join(';'),
+      "ASSOCIATED SUBJECTS" => self.subjects.pluck(:name).join(';'),
+      "BEST BETS" => self.curated.pluck(:name).join(';'),
+      "ATTRIBUTES" => [ (new_database ? "New" : nil), (trial_database ? "Trial" : nil)].compact.join("; "), # Pull in from "Trial Information", leave blank if no, but fill out info if yes (under Trial Database dropdown),  Under Database Types and Access > New Databases, if Yes, put in New.  If No, leave blank.
+      "FLAGS" => nil,
+      "THUMBNAIL URL" => nil,
+      "THUMBNAIL ALT TEXT" => nil,
+      "MORE INFO" => nil,
+      "LIBRARIAN REVIEW" => nil,
+      "INTERNAL NOTE" => nil,
+      "ACCESS MODES" => production? ? "Public" : "",
+      "OWNER" => nil,
+      "RESOURCE ICONS": nil,
+      "PERMITTED USES" => alumni ? "Alumni" : (open_access ? "Open Access" : "")
+ 
+    }
+  end
+
+
 
   # Creates a hash to use in the link_tracking CSV.
   # name tracking_count

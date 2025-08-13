@@ -40,7 +40,7 @@ class Admin::DatabasesController < AdminController
           :access_type
         )
                                .order('name ASC')
-        send_data @databases.libguides_export, filename: "libguides-#{Date.today}.csv"
+        send_data @databases.libguides_export_v2, filename: "lib_guides-#{Date.today}.csv"
       end
     end
   end
