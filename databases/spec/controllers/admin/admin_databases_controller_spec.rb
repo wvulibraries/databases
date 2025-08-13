@@ -22,7 +22,7 @@ describe Admin::DatabasesController, type: :controller do
     end
 
     it 'creates a properly formed csv file' do
-      expect(response.body).to include("vendor,name,url,enable_proxy,description,more_info,enable_new,enable_trial,types,keywords,target,slug,best_bets,subjects,desc_pos,lib_note,enable_popular,enable_hidden,internal_note,owner,resource_icons,thumbnail,content_id")
+      expect(response.body).to include("DATABASE NAME,PUBLIC DATABASE DISPLAY,DATABASE LANDING PAGE,DATABASE URL,USE PROXY?,FRIENDLY URL,DATABASE LANDING PAGE FRIENDLY URL,ALTERNATE NAMES,KEYWORDS & MISSPELLINGS,DATABASE DESCRIPTION,VENDOR,TYPES,ASSOCIATED SUBJECTS,BEST BETS,ATTRIBUTES,FLAGS,THUMBNAIL URL,THUMBNAIL ALT TEXT,MORE INFO,LIBRARIAN REVIEW,INTERNAL NOTE,ACCESS MODES,OWNER,RESOURCE ICONS,PERMITTED USES")
     end
   end
 
