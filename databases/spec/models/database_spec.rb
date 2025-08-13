@@ -306,7 +306,8 @@ RSpec.describe Database, type: :model do
       attributes = %w{id libguides_id name status years_of_coverage vendor_name url access full_text_db new_database trial_database access_plain_text help help_url description url_uuid popular trial_database trial_expiration_date title_search resources_column subject_column created_at updated_at}
       # run an expecatation for each attribute
       attributes.each do |attr|
-        expect(csv_string).to include database[attr].to_s
+        expected = database[attr].to_s.gsub('"', '""') # CSV escaping for quotes
+        expect(csv_string).to include(expected)
       end
     end
   end
