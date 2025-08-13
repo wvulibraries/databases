@@ -57,6 +57,11 @@ RSpec.describe Statistics::Base do
     end    
   end
 
+  
+  # Changed test to freeze time with `travel_to` so created_at values are consistent.
+  # This ensures the start/end date range is fixed and avoids failures caused by
+  # real-time clock differences during the test.
+
   context '.perform_query' do
     it 'should return objects' do
       now = Time.zone.parse('2025-01-15 12:00:00')
