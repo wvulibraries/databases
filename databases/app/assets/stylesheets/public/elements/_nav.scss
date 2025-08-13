@@ -40,7 +40,7 @@ nav.home-page {
   ul {
     width: 100% !important;
     float: left !important;
-    padding-left: 15px !important;
+    padding-left: 0 !important; // Remove padding to allow negative margin to work
     padding-right: 15px !important;
     margin: 0 !important;
     margin-left: -30px; // Shift navigation items left by 30px
@@ -74,7 +74,7 @@ nav.inner-page {
   ul {
     width: 66.667% !important;
     float: left !important;
-    padding-left: 15px !important;
+    padding-left: 0 !important; // Remove padding to allow negative margin to work
     padding-right: 15px !important;
     margin: 0 !important;
     margin-left: -30px; // Shift navigation items left by 30px
