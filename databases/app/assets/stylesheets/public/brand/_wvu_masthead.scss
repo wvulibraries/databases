@@ -82,7 +82,8 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
 
   ul { 
     width: auto;
-    margin-top: calc(1em + 3px); // Added 3px to the existing 1em margin
+    margin-top: calc(1em + 5px); // Added 2px more (was 3px, now 5px total)
+    margin-right: -2px; // Shift right by 2px
     list-style: none; 
     padding: 0;
 
