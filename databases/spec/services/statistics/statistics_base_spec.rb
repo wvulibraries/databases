@@ -1,6 +1,8 @@
 require 'rails_helper'
+require 'active_support/testing/time_helpers'
 
 RSpec.describe Statistics::Base do
+  include ActiveSupport::Testing::TimeHelpers
   let(:linktracking) { FactoryBot.create :link_tracking_rspec  }
 
   context '.init' do
@@ -57,18 +59,20 @@ RSpec.describe Statistics::Base do
 
   context '.perform_query' do
     it 'should return objects' do
-      db1 = FactoryBot.create :link_tracking_rspec
-      db2 = FactoryBot.create :link_tracking_rspec
-      params_hash = { 
-        start_date: Time.now.to_s, 
-        end_date: 1.year.from_now.to_s  
-      }
-      base = described_class.new(params_hash)
-      result = base.perform_query
+      now = Time.zone.parse('2025-01-15 12:00:00')
+      travel_to now do
+        # define the window first
+        start_s = (now - 1.day).iso8601
+        end_s   = (now + 1.day).iso8601
 
-      # change to array so we can properly count number
-      # of returned objects
-      expect(result.to_a.count).to eq(2)
+        # create rows inside the window
+        FactoryBot.create(:link_tracking_rspec, created_at: now - 1.hour)
+        FactoryBot.create(:link_tracking_rspec, created_at: now)
+
+        base   = described_class.new(start_date: start_s, end_date: end_s)
+        result = base.perform_query
+        expect(result.to_a.count).to eq(2)
+      end
     end
 
     it 'should pass an exception' do
