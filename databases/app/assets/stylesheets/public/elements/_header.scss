@@ -26,18 +26,18 @@
       padding-right: 8px;
       text-align: left; // Changed from center to left
       margin-bottom: 0;
-      font-size: 2.8em;
+      font-size: 2.6em; // Reduced from 2.8em
       font-weight: normal;
       text-shadow: none; // Remove the black outline/shadow
  
       @include breakpoint(tablet){ 
         width: 50%;
         text-align: left; // Changed from center to left
-        font-size: 3em;
+        font-size: 2.8em; // Reduced from 3em
       }
       
       @include breakpoint(desktop){ 
-        font-size: 3.2em;
+        font-size: 3em; // Reduced from 3.2em
       }
 
       a {
