@@ -10,6 +10,7 @@ h2 {
   @include grid-column(12);
   list-style:none; 
   margin:2em 0;
+  margin-left: 5px; // Shift left by 5px
   li { 
     float:left; 
     margin-bottom:1.5em;
@@ -32,8 +33,10 @@ h2 {
 .database-results { 
   @include grid-column(12);
   margin:0 0 2em;
+  margin-left: 5px; // Shift left by 5px
   &:last-child { 
     margin:0; 
+    margin-left: 5px; // Keep the 5px shift even for last child
   }
 
   p { 
