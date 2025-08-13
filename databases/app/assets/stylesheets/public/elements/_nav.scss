@@ -43,7 +43,7 @@ nav.home-page {
     padding-left: 15px !important;
     padding-right: 15px !important;
     margin: 0 !important;
-    margin-left: -15px; // Shift navigation items left by 15px
+    margin-left: -30px; // Shift navigation items left by 30px
     box-sizing: border-box;
     
     &:after {
@@ -77,7 +77,7 @@ nav.inner-page {
     padding-left: 15px !important;
     padding-right: 15px !important;
     margin: 0 !important;
-    margin-left: -15px; // Shift navigation items left by 15px
+    margin-left: -30px; // Shift navigation items left by 30px
     box-sizing: border-box;    &:after {
       clear: both;
       content: "";
