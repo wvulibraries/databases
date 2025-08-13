@@ -26,6 +26,7 @@ nav.home-page {
   min-height: 40px !important;
   padding: 10px 0 !important;
   margin-bottom: 1em !important;
+  margin-left: -30px; // Shift entire navigation left by 30px
   
   // Only hide on mobile if needed
   @media (max-width: 767px) {
@@ -60,6 +61,7 @@ nav.inner-page {
   min-height: 40px !important;
   padding: 10px 0 !important;
   margin-bottom: 1em !important;
+  margin-left: -30px; // Shift entire navigation left by 30px
   
   // Only hide on mobile if needed
   @media (max-width: 767px) {
