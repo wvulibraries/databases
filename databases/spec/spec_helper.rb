@@ -1,5 +1,31 @@
+# --- SimpleCov must load first ---
 require 'simplecov'
+require 'simplecov-lcov'
 require 'simplecov-console'
+
+SimpleCov::Formatter::LcovFormatter.config do |c|
+  c.report_with_single_file = true
+  c.output_directory = 'coverage'
+  c.lcov_file_name = 'lcov.info'
+end
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::LcovFormatter,   # writes coverage/lcov.info
+  SimpleCov::Formatter::Console          # prints summary to CI logs
+])
+
+SimpleCov.start do
+  add_filter %r{^/spec/}
+  add_filter %r{^/bin/}
+  add_filter %r{^/config/}
+  add_filter 'app/controllers/public/connect_controller.rb'
+  add_filter 'app/controllers/concerns/authenticatable.rb'
+  add_filter 'app/helpers/authentication_helper.rb'
+end
+
+
+
+
 require "rack_session_access/capybara"
 require 'capybara/rspec'
 
@@ -22,12 +48,3 @@ RSpec.configure do |config|
   config.order = :random
 end
 
-SimpleCov.formatter = SimpleCov.formatter = SimpleCov::Formatter::Console
-SimpleCov.start do
-  add_filter %r{^/spec/}
-  add_filter %r{^/bin/}
-  add_filter %r{^/config/}
-  add_filter 'app/controllers/public/connect_controller.rb'
-  add_filter 'app/controllers/concerns/authenticatable.rb'
-  add_filter 'app/helpers/authentication_helper.rb'
-end
