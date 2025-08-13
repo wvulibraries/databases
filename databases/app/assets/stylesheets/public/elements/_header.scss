@@ -27,18 +27,18 @@
       text-align: left; // Changed from center to left
       margin-bottom: 0;
       margin-left: 24px; // Shift text right by 24px total (14px + 10px)
-      font-size: 2.1em; // Reduced by 0.5em from 2.6em
+      font-size: 2.6em; // Back to previous size
       font-weight: normal;
       text-shadow: none; // Remove the black outline/shadow
  
       @include breakpoint(tablet){ 
         width: 50%;
         text-align: left; // Changed from center to left
-        font-size: 2.3em; // Reduced by 0.5em from 2.8em
+        font-size: 2.8em; // Back to previous size
       }
       
       @include breakpoint(desktop){ 
-        font-size: 2.5em; // Reduced by 0.5em from 3em
+        font-size: 3em; // Back to previous size
       }
 
       a {
