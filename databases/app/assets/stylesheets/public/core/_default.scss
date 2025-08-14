@@ -64,6 +64,8 @@ margin-bottom: 0 !important;
   float: right !important;
 }
 
+// ...existing code...
+
 // Force remove any bottom spacing from all elements
 html, body, footer, .footer, main, .main, .container, .wrapper {
   margin-bottom: 0 !important;
@@ -72,10 +74,27 @@ html, body, footer, .footer, main, .main, .container, .wrapper {
 
 // Ensure the page height is exactly 100% with no overflow
 html {
-  height: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  min-height: 100%;
-  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+// Make sure the main content area takes up available space
+main, .main-content {
+  flex: 1;
+}
+
+// Force footer to stick to bottom with no gaps
+footer, .footer {
+  margin-top: auto;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
