@@ -1,6 +1,8 @@
 // Commonly used in all projects should be a core element added to every css page top
 html {
   box-sizing: border-box;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 *, *:before, *:after {
   margin: 0;
@@ -23,9 +25,11 @@ html,body {
 }
 
 body { 
-  margin-bottom:0px; 
+margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
   @include breakpoint(laptop){
-    margin-bottom: unset; 
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
 }
 
