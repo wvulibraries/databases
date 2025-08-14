@@ -23,7 +23,7 @@ html,body {
 }
 
 body { 
-  margin-bottom:54px; 
+  margin-bottom:0px; 
   @include breakpoint(laptop){
     margin-bottom: unset; 
   }
