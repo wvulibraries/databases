@@ -2,7 +2,7 @@ nav.home-page,
 nav.inner-page {
   background: $nav-bg !important;
   min-height: 70px !important;
-  padding: 25px 0 25px 0 !important;
+  padding: 25px 0 !important;
   margin-bottom: 1em !important;
 
   @media (max-width: 767px) {
@@ -15,11 +15,11 @@ nav.inner-page {
 
   ul {
     list-style: none;
-    margin: 0 auto !important;
     padding: 0 !important;
-    max-width: 1140px; 
+    margin: 0 !important;
+    max-width: none;
     position: relative;
-    left: 0 !important;
+    left: -150px;
     box-sizing: border-box;
 
     &:after {
