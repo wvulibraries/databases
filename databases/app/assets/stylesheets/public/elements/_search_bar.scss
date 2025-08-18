@@ -82,16 +82,19 @@ nav {
 .databases-atoz .search-bar {
   margin: 0 !important; // Remove extra margin that's making it taller
   padding: 0 !important; // Remove extra padding
+  max-width: 1200px; // Make container much wider (was 600px)
+  width: 80%; // Take up 80% of available width
   
   input[type='search'] {
     height: 40px;
     padding: 0 0 0 1em;
     font-size: 12px;
     box-sizing: border-box;
+    flex: 1; // Takes up all remaining space
   }
   
   .search-button {
     height: 40px;
-    width: 40px; // Make button even shorter
+    width: 30px; // Make button much smaller to give more room to search bar
   }
 }
