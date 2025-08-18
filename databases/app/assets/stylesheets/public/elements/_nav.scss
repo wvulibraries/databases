@@ -1,18 +1,21 @@
 // Base navigation styles
-nav { 
+nav {
   background: $nav-bg;
-  ul { 
-    list-style: none; 
-    margin: 0; 
+
+  ul {
+    list-style: none;
+    margin: 0;
     padding: 10px;
-    
-    li { 
-      font-size: 1.05em;  
-      display: inline-block; 
+
+    li {
+      font-size: 1.05em;
+      display: inline-block;
       padding: 0 10px;
-      a { 
-        text-decoration: none; 
-        span { 
+
+      a {
+        text-decoration: none;
+
+        span {
           color: $wvu-gold;
         }
       }
@@ -21,32 +24,34 @@ nav {
 }
 
 // Home page navigation
-nav.home-page { 
+nav.home-page {
   background: $nav-bg !important; // Force background color
   min-height: 40px !important;
   padding: 10px 0 !important;
   margin-bottom: 1em !important;
-  margin-left: 0px; 
-  
+  margin-left: 0px;
+
   // Only hide on mobile if needed
   @media (max-width: 767px) {
     display: none;
   }
-  
+
   // Always show on laptop and large
   @include breakpoint(laptop) {
     display: block;
   }
-  
+
   ul {
     width: 100% !important;
     float: left !important;
     padding-left: 0 !important; // Remove padding to allow negative margin to work
     padding-right: 15px !important;
     margin: 0 !important;
-    margin-left: -100px; 
+    position: relative;
+    left: -100px;
+    margin-left: 0;
     box-sizing: border-box;
-    
+
     &:after {
       clear: both;
       content: "";
@@ -56,44 +61,48 @@ nav.home-page {
 }
 
 // Inner page navigation - same approach as home page
-nav.inner-page { 
+nav.inner-page {
   background: $nav-bg !important;
   min-height: 40px !important;
   padding: 10px 0 !important;
   margin-bottom: 1em !important;
-  margin-left: -0px; 
-  
+  margin-left: -0px;
+
   // Only hide on mobile if needed
   @media (max-width: 767px) {
     display: none;
   }
-  
+
   // Always show on laptop and larger
   @include breakpoint(laptop) {
     display: block;
   }
-  
+
   ul {
     width: 66.667% !important;
     float: left !important;
     padding-left: 0 !important; // Remove padding to allow negative margin to work
     padding-right: 15px !important;
     margin: 0 !important;
-    margin-left: -100px;
-    box-sizing: border-box;    &:after {
+    position: relative;
+    left: -100px;
+    margin-left: 0;
+    box-sizing: border-box;
+
+    &:after {
       clear: both;
       content: "";
       display: table;
     }
   }
-  
-  .nav-search { 
+
+  .nav-search {
     width: 33.333% !important;
     float: left !important;
     padding-left: 15px !important;
     padding-right: 15px !important;
     box-sizing: border-box;
-    
+
     &:after {
       clear: both;
       content: "";
@@ -104,12 +113,14 @@ nav.inner-page {
 
 // For mobile, center the navigation if it's visible
 @media (max-width: 767px) {
-  nav.inner-page, nav.home-page {
+
+  nav.inner-page,
+  nav.home-page {
     ul {
       text-align: center;
       width: 100%;
     }
-    
+
     .nav-search {
       width: 100%;
       margin-top: 10px;
@@ -123,7 +134,7 @@ nav.inner-page .container {
   max-width: 1140px;
   margin: 0 auto;
   padding: 0;
-  
+
   &:after {
     content: "";
     display: table;
