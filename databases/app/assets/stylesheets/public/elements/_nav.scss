@@ -41,74 +41,21 @@ nav.home-page {
     display: block;
   }
 
- ul {
-  width: 100% !important;
-  float: left !important;
-  padding-left: 0 !important;
-  padding-right: 15px !important;
-  margin: 0 !important;
-  position: relative;
-  left: -50px; // Smaller shift for smaller screens
-  margin-left: 0;
-  box-sizing: border-box;
-
-  // Larger shift for desktop screens
-  @include breakpoint(desktop) {
-    left: -150px;
-  }
-
-  &:after {
-    clear: both;
-    content: "";
-    display: table;
-  }
-}
-
-// Inner page navigation - same approach as home page
-nav.inner-page {
-  background: $nav-bg !important;
-  min-height: 40px !important;
-  padding: 10px 0 !important;
-  margin-bottom: 1em !important;
-  margin-left: -0px;
-
-  // Only hide on mobile if needed
-  @media (max-width: 767px) {
-    display: none;
-  }
-
-  // Always show on laptop and larger
-  @include breakpoint(laptop) {
-    display: block;
-  }
-ul {
-  width: 66.667% !important;
-  float: left !important;
-  padding-left: 0 !important;
-  padding-right: 15px !important;
-  margin: 0 !important;
-  position: relative;
-  left: -50px; // Smaller shift for smaller screens
-  margin-left: 0;
-  box-sizing: border-box;
-
-  // Larger shift for desktop screens
-  @include breakpoint(desktop) {
-    left: -150px;
-  }
-
-  &:after {
-    clear: both;
-    content: "";
-    display: table;
-  }
-
-  .nav-search {
-    width: 33.333% !important;
+  ul {
+    width: 100% !important;
     float: left !important;
-    padding-left: 15px !important;
+    padding-left: 0 !important;
     padding-right: 15px !important;
+    margin: 0 !important;
+    position: relative;
+    left: -50px; // Smaller shift for smaller screens
+    margin-left: 0;
     box-sizing: border-box;
+
+    // Larger shift for desktop screens
+    @include breakpoint(desktop) {
+      left: -150px;
+    }
 
     &:after {
       clear: both;
@@ -116,35 +63,76 @@ ul {
       display: table;
     }
   }
-}
 
-// For mobile, center the navigation if it's visible
-@media (max-width: 767px) {
+  // Inner page navigation - same approach as home page
+  nav.inner-page {
+    background: $nav-bg !important;
+    min-height: 40px !important;
+    padding: 10px 0 !important;
+    margin-bottom: 1em !important;
+    margin-left: -0px;
 
-  nav.inner-page,
-  nav.home-page {
+    // Only hide on mobile if needed
+    @media (max-width: 767px) {
+      display: none;
+    }
+
+    // Always show on laptop and larger
+    @include breakpoint(laptop) {
+      display: block;
+    }
+
     ul {
-      text-align: center;
-      width: 100%;
+      width: 66.667% !important;
+      float: left !important;
+      padding-left: 0 !important;
+      padding-right: 15px !important;
+      margin: 0 !important;
+      position: relative;
+      left: -50px; // Smaller shift for smaller screens
+      margin-left: 0;
+      box-sizing: border-box;
+
+      // Larger shift for desktop screens
+      @include breakpoint(desktop) {
+        left: -150px;
+      }
+
+      &:after {
+        clear: both;
+        content: "";
+        display: table;
+      }
+
+      .nav-search {
+        width: 33.333% !important;
+        float: left !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        box-sizing: border-box;
+
+        &:after {
+          clear: both;
+          content: "";
+          display: table;
+        }
+      }
     }
 
-    .nav-search {
-      width: 100%;
-      margin-top: 10px;
-    }
-  }
-}
+    // For mobile, center the navigation if it's visible
+    @media (max-width: 767px) {
 
-// Add this to your _nav.scss file
-nav.home-page .container,
-nav.inner-page .container {
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 0;
+      nav.inner-page,
+      nav.home-page {
+        ul {
+          text-align: center;
+          width: 100%;
+        }
 
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-}
+        .nav-search {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+
+    
