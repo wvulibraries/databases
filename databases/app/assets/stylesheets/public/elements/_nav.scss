@@ -26,7 +26,7 @@ nav.home-page {
   min-height: 40px !important;
   padding: 10px 0 !important;
   margin-bottom: 1em !important;
-  margin-left: 90px; 
+  margin-left: 0px; 
   
   // Only hide on mobile if needed
   @media (max-width: 767px) {
@@ -44,7 +44,7 @@ nav.home-page {
     padding-left: 0 !important; // Remove padding to allow negative margin to work
     padding-right: 15px !important;
     margin: 0 !important;
-    margin-left: -60px; // Shift navigation items left by 30px
+    margin-left: -100px; 
     box-sizing: border-box;
     
     &:after {
@@ -61,7 +61,7 @@ nav.inner-page {
   min-height: 40px !important;
   padding: 10px 0 !important;
   margin-bottom: 1em !important;
-  margin-left: -0px;; // Shift entire navigation left by 50px (another 5px)
+  margin-left: -0px; 
   
   // Only hide on mobile if needed
   @media (max-width: 767px) {
@@ -79,7 +79,7 @@ nav.inner-page {
     padding-left: 0 !important; // Remove padding to allow negative margin to work
     padding-right: 15px !important;
     margin: 0 !important;
-    margin-left: -60px; // Shift navigation items left by 30px
+    margin-left: -100px;
     box-sizing: border-box;    &:after {
       clear: both;
       content: "";
