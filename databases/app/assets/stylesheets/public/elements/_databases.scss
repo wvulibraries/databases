@@ -49,11 +49,11 @@ h2 {
 
 .subject-group { 
   width: 100%;
-  padding: 1em;
+  padding: 0.5em;
   float: left;
-  margin-left: 5px; // Shift left by 5px
-  padding-left: 15px;
-  padding-right: 15px;
+  margin-left: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
   box-sizing: border-box;
   
   h3 { 
@@ -72,11 +72,11 @@ h2 {
   }
 
   @include breakpoint(tablet){ 
-    width: 33.333%; // Instead of @include grid-column(6)
+    width: 32%; // Instead of @include grid-column(6)
   }
 
   @include breakpoint(laptop){ 
-    width: 33.333%; // Instead of @include grid-column(4)
+    width: 32%; // Instead of @include grid-column(4)
   }
 }
 
