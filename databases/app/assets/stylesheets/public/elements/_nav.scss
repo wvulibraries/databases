@@ -41,22 +41,26 @@ nav.home-page {
     display: block;
   }
 
-  ul {
-    width: 100% !important;
-    float: left !important;
-    padding-left: 0 !important; // Remove padding to allow negative margin to work
-    padding-right: 15px !important;
-    margin: 0 !important;
-    position: relative;
-    left: -150px;
-    margin-left: 0;
-    box-sizing: border-box;
+ ul {
+  width: 100% !important;
+  float: left !important;
+  padding-left: 0 !important;
+  padding-right: 15px !important;
+  margin: 0 !important;
+  position: relative;
+  left: -50px; // Smaller shift for smaller screens
+  margin-left: 0;
+  box-sizing: border-box;
 
-    &:after {
-      clear: both;
-      content: "";
-      display: table;
-    }
+  // Larger shift for desktop screens
+  @include breakpoint(desktop) {
+    left: -150px;
+  }
+
+  &:after {
+    clear: both;
+    content: "";
+    display: table;
   }
 }
 
@@ -77,23 +81,26 @@ nav.inner-page {
   @include breakpoint(laptop) {
     display: block;
   }
+ul {
+  width: 66.667% !important;
+  float: left !important;
+  padding-left: 0 !important;
+  padding-right: 15px !important;
+  margin: 0 !important;
+  position: relative;
+  left: -50px; // Smaller shift for smaller screens
+  margin-left: 0;
+  box-sizing: border-box;
 
-  ul {
-    width: 66.667% !important;
-    float: left !important;
-    padding-left: 0 !important; // Remove padding to allow negative margin to work
-    padding-right: 15px !important;
-    margin: 0 !important;
-    position: relative;
+  // Larger shift for desktop screens
+  @include breakpoint(desktop) {
     left: -150px;
-    margin-left: 0;
-    box-sizing: border-box;
+  }
 
-    &:after {
-      clear: both;
-      content: "";
-      display: table;
-    }
+  &:after {
+    clear: both;
+    content: "";
+    display: table;
   }
 
   .nav-search {
