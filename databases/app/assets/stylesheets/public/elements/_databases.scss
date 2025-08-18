@@ -54,6 +54,7 @@ h2 {
   margin-left: 5px; // Shift left by 5px
   padding-left: 15px;
   padding-right: 15px;
+  box-sizing: border-box;
   
   h3 { 
     width: 100%; 
@@ -71,11 +72,25 @@ h2 {
   }
 
   @include breakpoint(tablet){ 
-    width: 50%; // Instead of @include grid-column(6)
+    width: 33.333%; // Instead of @include grid-column(6)
   }
 
   @include breakpoint(laptop){ 
     width: 33.333%; // Instead of @include grid-column(4)
+  }
+}
+
+.subject-group:nth-child(3n+1) {
+  clear: left;
+}
+
+.subject-groups-container {
+  width: 100%;
+  
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
   }
 }
 
