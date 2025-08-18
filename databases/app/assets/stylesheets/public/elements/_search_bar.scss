@@ -80,6 +80,9 @@ nav {
 // Override for AtoZ pages to match home page height
 .databases-index .search-bar,
 .databases-atoz .search-bar {
+  margin: 0 !important; // Remove extra margin that's making it taller
+  padding: 0 !important; // Remove extra padding
+  
   input[type='search'] {
     height: 40px;
     padding: 0 0 0 1em;
@@ -89,6 +92,6 @@ nav {
   
   .search-button {
     height: 40px;
-    width: 70px; // Make button shorter (was probably 90px)
+    width: 40px; // Make button even shorter
   }
 }
