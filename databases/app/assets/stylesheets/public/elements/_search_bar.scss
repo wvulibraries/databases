@@ -77,31 +77,24 @@ nav {
   }
 }
 
-// Override ONLY for AtoZ pages - less aggressive
-body[class*="databases"] .search-bar,
-.databases-a-to-z .search-bar,
-.database-titles .search-bar {
+// Override ONLY for specific AtoZ pages - exclude test environment
+.databases-index:not(.test-env) .search-bar,
+.databases-atoz:not(.test-env) .search-bar {
   margin: 0;
   padding: 0;
-  max-width: 2000px; // Remove !important
-  width: 95%; // Remove !important
+  max-width: 2000px;
+  width: 95%;
   
   input[type='search'] {
-    height: 40px !important;
-    padding: 0 0 0 1em !important;
-    font-size: 12px !important;
-    box-sizing: border-box !important;
-    flex: 1; // Remove !important
+    height: 40px;
+    padding: 0 0 0 1em;
+    font-size: 12px;
+    box-sizing: border-box;
+    flex: 1;
   }
   
   .search-button {
-    height: 40px !important;
-    width: 30px !important;
+    height: 40px;
+    width: 30px;
   }
-}
-
-// Exclude main page from override
-.home-page .search-bar {
-  max-width: 1000px;
-  width: 100%;
 }
