@@ -1,28 +1,27 @@
-<% if false %>
-<div class="utility"> 
-  <div class="breadcrumbs"> 
-    <ul> 
-      <li> <a href="/"> Home </a> </li>
-      <li> <a href="/AtoZ/<%=@character%>" class="current"> By Title: <%= @character %> </a> </li>
+<div class="utility">
+  <div class="breadcrumbs">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li>
+        <a href="/AtoZ/<%= @character %>" class="current">
+          By Title: <%= @character %>
+        </a>
+      </li>
     </ul>
   </div>
 
-  <div class="results"> 
-    <strong>
-      <%= @databases.count %> 
-    </strong>
-    Results
+  <div class="results">
+    <strong><%= @databases.size %></strong> Results
   </div>
 </div>
-<% end %>
 
-<%# Databases by Title  %>
-<%= render 'public/partials/title_list'  %>
+<%# Databases by Title %>
+<%= render 'public/partials/title_list' %>
 
 <%# Database List %>
 <% @databases.each do |db| %>
-  <div class="database-results"> 
+  <div class="database-results">
     <%= DatabaseDecorator.new(db).display_title %>
-    <p> <%= raw db.description %> </p>
+    <p><%= sanitize(db.description, tags: %w[b i em strong a br p ul ol li], attributes: %w[href title]) %></p>
   </div>
 <% end %>
