@@ -13,7 +13,7 @@ $disabled-color: $input-border;
   z-index: 55;
   margin: 2em 0;
   display: flex; // Add flexbox for better alignment
-  max-width: 600px; // Constrain the width so it doesn't get super wide
+  max-width: 800px; // Constrain the width so it doesn't get super wide
 
   input[type='search'] {
     flex: 1; // Takes up remaining space
