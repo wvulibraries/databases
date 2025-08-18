@@ -48,3 +48,12 @@ nav.inner-page {
     box-sizing: border-box;
   }
 }
+
+// Keep navigation height consistent on AtoZ pages
+.databases-index nav,
+.databases-atoz nav,
+body[class*="databases"] nav {
+ min-height: 70px !important;
+padding: 25px 0 !important;
+}
+
