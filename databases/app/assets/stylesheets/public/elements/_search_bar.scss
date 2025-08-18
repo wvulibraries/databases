@@ -77,24 +77,31 @@ nav {
   }
 }
 
-// Override for AtoZ pages to match home page height
-.databases-index .search-bar,
-.databases-atoz .search-bar {
-  margin: 0 !important; // Remove extra margin that's making it taller
-  padding: 0 !important; // Remove extra padding
-  max-width: 1200px; // Make container much wider (was 600px)
-  width: 80%; // Take up 80% of available width
+// Override ONLY for AtoZ pages - more specific selectors
+body[class*="databases"] .search-bar,
+.databases-a-to-z .search-bar,
+.database-titles .search-bar {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 2000px !important; // Much wider for 2x length
+  width: 95% !important; // Take up almost all width
   
   input[type='search'] {
-    height: 40px;
-    padding: 0 0 0 1em;
-    font-size: 12px;
-    box-sizing: border-box;
-    flex: 1; // Takes up all remaining space
+    height: 40px !important;
+    padding: 0 0 0 1em !important;
+    font-size: 12px !important;
+    box-sizing: border-box !important;
+    flex: 1 !important;
   }
   
   .search-button {
-    height: 40px;
-    width: 30px; // Make button much smaller to give more room to search bar
+    height: 40px !important;
+    width: 30px !important;
   }
+}
+
+// Exclude main page from override
+.home-page .search-bar {
+  max-width: 1000px !important; // Keep main page normal
+  width: 100% !important;
 }
