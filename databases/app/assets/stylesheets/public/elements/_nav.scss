@@ -1,8 +1,8 @@
 nav.home-page,
 nav.inner-page {
   background: $nav-bg !important;
-  min-height: 40px !important;
-  padding: 10px 0 !important;
+  min-height: 60px !important;
+  padding: 15px 0 !important;
   margin-bottom: 1em !important;
 
   @media (max-width: 767px) {
@@ -16,7 +16,7 @@ nav.inner-page {
   ul {
     list-style: none;
     margin: 0 auto !important;
-    padding: 0 0 0 30px !important;
+    padding: 0 0 0 60px !important;
     max-width: 1140px; 
     position: relative;
     left: 0 !important;
@@ -31,7 +31,7 @@ nav.inner-page {
     li {
       font-size: 1.05em;
       display: inline-block;
-      padding: 0 10px;
+      padding: 0 15px;
 
       a {
         text-decoration: none;
