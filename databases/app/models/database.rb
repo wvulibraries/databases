@@ -383,10 +383,10 @@ class Database < ApplicationRecord
       "MORE INFO" => nil,
       "LIBRARIAN REVIEW" => nil,
       "INTERNAL NOTE" => nil,
-      "ACCESS MODES" => production? ? "Public" : "",
+      "ACCESS MODES" => nil,
       "OWNER" => nil,
       "RESOURCE ICONS": nil,
-      "PERMITTED USES" => alumni ? "Alumni" : (open_access ? "Open Access" : "")
+      "PERMITTED USES" => alumni ? "Alumni: Yes" : (open_access ? "Open Access: Yes" : "")
  
     }
   end
