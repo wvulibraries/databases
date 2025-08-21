@@ -29,6 +29,7 @@
 p{
   font-weight: 300;
   color: #000;
+  line-height: 1.6;
 }
   .help-box { 
     @include grid-column(12);
