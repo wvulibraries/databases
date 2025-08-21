@@ -3,7 +3,8 @@
   border-top: 3px solid darken($light-gray, 10%);
   font-size: 14px; 
   display:block; 
-  margin-left: 5px; // Shift left by 5px
+  font-family: HelveticaNeue-Light, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  margin-left: 5px;
   
   @include breakpoint(laptop){
     display:block; 
@@ -18,6 +19,11 @@
     width:100%;
     margin:0 0 1em;
   }
+
+  h2 {
+  font-size: 1.5em; 
+  font-weight: bold; 
+}
 
   .help-box { 
     @include grid-column(12);
