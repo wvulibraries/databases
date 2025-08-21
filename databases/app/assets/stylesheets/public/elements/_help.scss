@@ -14,7 +14,6 @@
   
   .container { 
     @include grid-column(12);
-    padding: 2em 2em; 
   }
 
   h2, p { 
@@ -29,6 +28,7 @@
 
 p{
   font-weight: 300;
+  color: #000;
 }
   .help-box { 
     @include grid-column(12);
