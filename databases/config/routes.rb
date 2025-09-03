@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # FRONTEND
   # ------------------------------------------------------------------
   root to: 'public/base#index'
@@ -44,6 +45,14 @@ Rails.application.routes.draw do
   get '/logout',
       to: 'application#logout',
       as: 'logout'
+
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      get 'databases/search', to: 'databases#search'
+    end
+  end
+
 
   # ADMIN
   # ------------------------------------------------------------------
