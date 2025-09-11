@@ -16,6 +16,7 @@
   .container { 
     @include grid-column(12);
      background: $light-gray;
+       padding-left: 20px;
   }
 
   h2, p { 
