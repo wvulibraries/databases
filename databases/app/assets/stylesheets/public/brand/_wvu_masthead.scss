@@ -63,7 +63,7 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
   }
 }
 
-// Header list styling - this is the key part for the 2-column layout
+// Header list styling
 .wvu-header-list {
   width: 100%;
   float: left;
@@ -82,8 +82,8 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
 
   ul { 
     width: auto;
-    margin-top: calc(1em + 5px); // Added 2px more (was 3px, now 5px total)
-    margin-right: -2px; // Shift right by 2px
+    margin-top: calc(1em + 5px);
+    margin-right: -2px;
     list-style: none; 
     padding: 0;
 
@@ -93,19 +93,18 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
   } 
 
   li { 
-    display: block; // Default to block for mobile
+    display: block;
     
     @include breakpoint(tablet){ 
       display: inline-block; 
       width: auto;
       float: left;
-      margin-left: 30px; // Increased spacing between navigation items
+      margin-left: 30px;
     }
   }
   
   li a { 
-    // 2-column layout for mobile - the key fix
-    width: 45%; // Almost half width for 2 columns
+    width: 45%;
     float: left;
     padding: 0.5em; 
     margin: 0.25em;
@@ -125,71 +124,68 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
       display: inline-block; 
       width: auto;
       float: none;
-      border: none; // Remove all borders
+      border: none;
       margin: 0;
       padding: 0 0 2px 0;
-      text-decoration: none; // Explicitly remove text decoration
-      border-bottom: 1px solid #fff; // Add ONLY bottom border
+      text-decoration: none;
+      border-bottom: 1px solid #fff;
       
       &:hover, &:active { 
         color: $wvu-gold;
-        border-bottom-color: $wvu-gold; // Only change bottom border color
+        border-bottom-color: $wvu-gold;
       }
       
       &:focus { 
-        outline: 2px dotted $wvu-gold; // Use outline instead of border for focus
-        border-bottom: none; // Remove bottom border on focus
+        outline: 2px dotted $wvu-gold;
+        border-bottom: none;
       }
     }
   }
 
-  // Special styling for the last child link
   li:last-child a { 
-    width: 92%; // Almost full width
+    width: 92%;
     
     @include breakpoint(tablet){ 
       width: auto;
     }
   }
-}
 
-// Button styling for the three main buttons
-.wvu-header-list {
+  // Button styling for the three main buttons
   li:nth-child(1) a { // Ask a Librarian - Yellow
     background: transparent;
-    color: #FFD700 !important; // Yellow text
-    border: 3px solid #FFD700; // Thick yellow border
+    color: #FFD700 !important;
+    border: 3px solid #FFD700;
     font-weight: bold;
     
     &:hover, &:focus, &:active {
-      background: #FFD700; // Yellow background on hover
-      color: #000 !important; // Black text on hover
+      background: #FFD700;
+      color: #000 !important;
       border-color: #FFD700;
     }
   }
   
   li:nth-child(2) a { // Research Guides - Light Blue
     background: transparent;
-    color: #87CEEB !important; // Light blue text
-    border: 3px solid #87CEEB; // Thick light blue border
+    color: #87CEEB !important;
+    border: 3px solid #87CEEB;
     font-weight: bold;
     
     &:hover, &:focus, &:active {
-      background: #87CEEB; // Light blue background on hover
-      color: #000 !important; // Black text on hover
+      background: #87CEEB;
+      color: #000 !important;
       border-color: #87CEEB;
     }
   }
   
   li:nth-child(3) a { // Study Rooms - Orange
     background: transparent;
-    color: #FF8C00 !important; // Orange text
-    border: 3px solid #FF8C00; // Thick orange border
+    color: #FF8C00 !important;
+    border: 3px solid #FF8C00;
     font-weight: bold;
     
     &:hover, &:focus, &:active {
-      background: #FF8C00; // Orange background on hover
-      color: #000 !important; // Black text on hover
+      background: #FF8C00;
+      color: #000 !important;
       border-color: #FF8C00;
     }
   }
