@@ -16,8 +16,9 @@
   .container {
     @include grid-column(12);
     background: $light-gray;
-    padding-left: 20px;
-    padding-top: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 25px;
     width: 100%;
     max-width: none;
     margin: 0;
