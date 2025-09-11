@@ -1,46 +1,53 @@
 .help {
-  background:$light-gray;
+  background: $light-gray;
   border-top: 3px solid darken($light-gray, 10%);
-  font-size: 14px; 
-  display:block; 
+  font-size: 14px;
+  display: block;
   font-family: HelveticaNeue-Light, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   padding-bottom: 20px;
   padding-left: 0px;
   margin: 0;
   width: 100%;
-  
-  @include breakpoint(laptop){
-    display:block; 
-  }
-  
-  .container { 
-    @include grid-column(12);
-     background: $light-gray;
-       padding-left: 20px;
+
+  @include breakpoint(laptop) {
+    display: block;
   }
 
-  h2, p { 
-    width:100%;
-    margin:0 0 1em;
+  .container {
+    @include grid-column(12);
+    background: $light-gray;
+    padding-left: 20px;
+    padding-top: 15px;
+    width: 100% max-width: none;
+    margin: 0;
+  }
+
+  h2,
+  p {
+    width: 100%;
+    margin: 0 0 1em;
   }
 
   h2 {
-  font-size: 2em; 
-  font-weight: 100;
-}
+    font-size: 2em;
+    font-weight: 100;
+  }
 
-p{
-  font-weight: 300;
-  color: #000;
-  line-height: 1.6;
-}
-  .help-box { 
+  p {
+    font-weight: 300;
+    color: #000;
+    line-height: 1.6;
+  }
+
+  .help-box {
     @include grid-column(12);
-    @include breakpoint(tablet){ 
+
+    @include breakpoint(tablet) {
       @include grid-column(6);
     }
-    @include breakpoint(laptop){
-      @include grid-column(3); 
+
+    @include breakpoint(laptop) {
+      @include grid-column(3);
     }
   }
 }
