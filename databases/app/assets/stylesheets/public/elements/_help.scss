@@ -5,7 +5,9 @@
   display:block; 
   font-family: HelveticaNeue-Light, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   padding-bottom: 20px;
-  padding-left: 30px;
+  padding-left: 0px;
+  margin: 0;
+  width: 100%;
   
   @include breakpoint(laptop){
     display:block; 
@@ -13,7 +15,6 @@
   
   .container { 
     @include grid-column(12);
-    background: $light-gray
   }
 
   h2, p { 
