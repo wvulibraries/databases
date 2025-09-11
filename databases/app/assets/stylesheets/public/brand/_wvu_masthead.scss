@@ -150,7 +150,7 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
     }
   }
 
-  // Button styling for the three main buttons
+  /* Button styling for the three main buttons - COMMENTED OUT
   li:nth-child(1) a { // Ask a Librarian - Yellow
     background: transparent;
     color: #FFD700 !important;
@@ -189,4 +189,5 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
       border-color: #FF8C00;
     }
   }
+  */
 }
