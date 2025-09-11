@@ -15,6 +15,7 @@
   
   .container { 
     @include grid-column(12);
+     background: $light-gray;
   }
 
   h2, p { 
