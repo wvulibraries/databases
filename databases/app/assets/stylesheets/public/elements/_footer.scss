@@ -22,188 +22,154 @@ footer.wvu-footer {
     float: left;
     padding-left: 15px;
     padding-right: 15px;
-  }
+    background-color: $wvu-blue !important; // Ensure container also has background
 
-  .wvu-contact { 
-    width: 100%;
-    float: left;
-    @include breakpoint(tablet){ 
-      width: 50%; 
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
     }
 
-    p { 
-      line-height: 1.5; 
-      margin: 0 0 1em;
-      color: #fff !important; // Force white text
+    p {
+      margin-top: 0;
+      margin-bottom: 0;
+      color: #fff !important; // Ensure text is white
+    }
+  }
+
+  .wvu-contact, .lib-social-media, .wvu-credits, .wvu-icons { 
+    width: 100%;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: $wvu-blue !important; // Ensure these elements have background too
+    
+    @include breakpoint(tablet){ 
+      width: 50%;
     }
   }
 
   .lib-social-media { 
-    width: 100%;
-    float: left; 
+    text-align: center; 
+    padding: 2em 0;
 
-    @include breakpoint(tablet){
-      width: 50%; 
+    @include breakpoint(tablet){ 
+      text-align: right;
     }
 
-    .wvu-social-media-icons__container {
-      @include breakpoint(tablet){
-        padding-left: 2.5em; 
-        text-align: right;
-      }
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-
-      li { 
-        display: inline-block;
-        padding-right: 1em;
-
-        a { 
-          img {
-            opacity: 0.8;
-            &:hover{
-              opacity: 1.0;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .wvu-credits {
-    width: 100%;
-    float: left;
-    margin-top: 1em;
-    line-height: 1.5;
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 1em;
-
-      li { 
-        display: inline; 
-        padding-right: 0.5em;
-
-        a {
-          color: #fff !important; // Make all credits links white
-          text-decoration: underline !important;
-          
-          &:hover,
-          &:focus {
-            color: #fff !important; // Stay white on hover
-          }
-        }
-      }
-
-      @include breakpoint(tablet){ 
-        text-align: right;
-      }
-    }
-
-    p {
-      font-size: 0.9em;
-      color: #fff !important; // Force white text
-      margin: 0;
-
-      .wvu-credits__last-edited {
-        color: #fff !important; // Force white text
-      }
-    }
-  }
-
-  .wvu-icons {
-    width: 100%;
-    float: left;
-    margin-top: 1em;
-
-    .wvu-links { 
+    ul { 
       list-style: none; 
-      padding: 0; 
-      margin: 0 0 1em; 
+      margin: 0;
+      padding: 0;
+      
+      li {
+        width: 40px;
+        padding: 3px;
+        display: inline-block;
+      }
+
+      li img {
+        width: 30px;
+        height: auto;
+      }
+    }
+  }
+
+  .wvu-credits { 
+    ul { 
+      list-style: none; 
+      margin: 0;
+      padding: 0;
 
       li { 
         display: inline; 
-        padding-right: 0.5em;
+        padding-right: 0.5em; 
+        &:before { 
+          content: '|';
+          padding-right: 0.5em;
+        }
 
-        a {
-          color: #fff !important; // Make all footer links white
-          text-decoration: underline !important;
-          
-          &:hover,
-          &:focus {
-            color: #fff !important; // Stay white on hover
+        &:first-child { 
+          &:before { 
+            content: ' ';
+            padding-right: 0.5em;
           }
         }
       }
+    }
+    
+    p {
+      color: #fff !important;
+    }
+  }
 
-      @include breakpoint(tablet){ 
-        text-align: right;
-        margin-top: unset;
-      }
+  .wvu-links { 
+    list-style: none; 
+    text-align: center;
+    margin-top: 10px;
+    padding: 0;
+
+    li { 
+      display: inline; 
+      padding-right: 0.5em; 
+    }
+
+    @include breakpoint(tablet){ 
+      text-align: right;
+      margin-top: unset;
     }
   }
   
   .wvu-masthead__title {
-    color: #fff !important; // Make "Libraries" text white
-    text-decoration: underline !important; // Add underline
-  }
-
+  color: #fff !important; // Make "Libraries" text white
+  text-decoration: underline !important; // Add underline
+}
   .footerTitle {
-    color: #fff !important; // Make title white
-    font-size: 1.25em;
-    letter-spacing: 1px;
-    
-    a {
-      color: #fff !important; // Make link white
-      text-decoration: underline !important; // Add underline
-      
-      &:hover,
-      &:focus {
-        color: #fff !important; // Stay white on hover
-        text-decoration: underline !important; // Keep underline
-      }
-      
-      strong {
-        color: #fff !important; // Make "Libraries" white too
-      }
-    }
-  }
-
-  // Make phone number link white
-  a[href^="tel:"] {
-    color: #fff !important; // Make phone link white
-    text-decoration: underline !important;
-    
-    &:hover,
-    &:focus {
-      color: #fff !important; // Stay white on hover
-    }
-  }
-
-  // Make email link white
-  a[href^="mailto:"] {
-    color: #fff !important; // Make email link white
-    text-decoration: underline !important;
-    
-    &:hover,
-    &:focus {
-      color: #fff !important; // Stay white on hover
-    }
-  }
-
-  // Make all footer links white
+  color: $wvu-gold !important; // Use gold variable
+  font-size: 1.25em;
+  letter-spacing: 1px;
+  
   a {
-    color: #fff !important; // Make all links white
-    text-decoration: underline !important;
+    color: #fff !important; // Make link white
+    text-decoration: underline !important; // Add underline
     
     &:hover,
     &:focus {
       color: #fff !important; // Stay white on hover
+      text-decoration: underline !important; // Keep underline
+    }
+    
+    strong {
+      color: #fff !important; // Make "Libraries" white too
     }
   }
+}
+
+// Make phone number link white
+a[href^="tel:"] {
+  color: #fff !important; // Make phone link white
+  text-decoration: underline !important;
+  
+  &:hover,
+  &:focus {
+    color: #fff !important; // Stay white on hover
+  }
+}
+
+  // Fix the conflicting link styles - this was causing issues!
+  a {
+    color: $wvu-gold !important; // Use gold for links
+    text-decoration: underline;
+    
+    &:hover,
+    &:focus {
+      color: #fff !important; // White on hover/focus
+    }
+  }
+}
+
+// Add an override to ensure the footer background extends fully
+body footer.wvu-footer,
+html footer.wvu-footer {
+  background-color: $wvu-blue !important;
 }
