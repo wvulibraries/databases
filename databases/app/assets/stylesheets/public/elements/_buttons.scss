@@ -8,12 +8,17 @@
   @include determine-text-color($link-color);
   text-decoration: none;
 
-  &:active {
+  &:active,
+  &:focus,
+  &:hover {
     transform: none !important;
-    padding: inherit !important;
+    padding: 0.5em 1em !important; // Set fixed padding
     font-size: inherit !important;
     width: auto !important;
     height: auto !important;
+    box-sizing: border-box !important;
+    display: inline-block !important;
+    line-height: normal !important;
   }
 }
 
