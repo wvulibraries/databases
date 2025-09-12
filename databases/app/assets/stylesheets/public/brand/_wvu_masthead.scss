@@ -82,7 +82,7 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
 
   ul {
     width: auto;
-    margin-top: calc(1em + 5px); // Added 2px more (was 3px, now 5px total)
+    margin-top: 1.5em; // Added 2px more (was 3px, now 5px total)
     margin-right: -2px; // Shift right by 2px
     list-style: none;
     padding: 0;
@@ -103,14 +103,13 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
     }
   }
 
-  li a {
-    // 2-column layout for mobile - the key fix
-    width: 45%; // Almost half width for 2 columns
-    float: left;
-    padding: 0.5em;
-    margin: 0.25em;
-    border: 1px solid #fff;
-    color: #fff;
+  li a:not(.admin-panel) {
+  width: 45%;
+  float: left;
+  padding: 0.5em;
+  margin: 0.25em;
+  border: 1px solid #fff;
+  color: #fff;
     text-align: center;
     font-size: 14px;
     display: inline-block;
@@ -222,4 +221,33 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
   }
 }
 
-
+.authentication_links .admin-panel,
+.app-header .admin-panel,
+.wvu-header-list .admin-panel,
+.wvu-masthead .admin-panel,
+a.admin-panel,
+.button.admin-panel {
+  width: auto !important;
+  float: none !important;
+  margin: 0 !important;
+  padding: 0.5em 1em !important;
+  border: none !important;
+  background: #0066cc !important;
+  color: white !important;
+  display: inline-block !important;
+  position: relative !important;
+  
+  &:active,
+  &:hover,
+  &:focus {
+    width: auto !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0.5em 1em !important;
+    border: none !important;
+    background: #004499 !important;
+    color: white !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
+}
