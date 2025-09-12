@@ -13,22 +13,39 @@
 }
 
 .login {
-  // Existing styles
+  // Base visual styles
+  display: inline-block;
   padding: 0.5em 1em;
   font-size: 1rem;
-  border: 2px solid transparent;
+  font-weight: 600;
+  border: 2px solid #28a745; // Adjust as needed
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
   box-sizing: border-box;
+  border-radius: 4px;
+  line-height: 1.2;
 
+  // Disable any visual transitions
+  transition: none !important;
+
+  // Prevent layout shift on hover/focus/active
   &:hover,
-  &:active,
-  &:focus {
-    padding: 0.5em 1em;           // prevent padding shift
-    font-size: 1rem;              // prevent font resize
-    border: 2px solid transparent; // consistent border
-    transform: none;              // disable scaling effects
-    outline: none;                // remove default focus outline
+  &:focus,
+  &:active {
+    background-color: #218838; // Slight color change is OK
+    color: white;
+    padding: 0.5em 1em;
+    font-size: 1rem;
+    border: 2px solid #218838;
+    outline: none;
+    box-sizing: border-box;
+    transform: none !important;
+    margin: 0;
+    line-height: 1.2;
   }
 }
+
 
 
 
