@@ -12,14 +12,26 @@
   }
 }
 
-.login { 
+.login {
   @include button_maker($success, 'solid');
   @include determine-text-color($success);
   text-decoration: none;
-  &:hover, &:active, &:focus { 
-    color:#000;
+  padding: 0.5em 1em;  // Explicit
+  font-size: 1rem;
+  border: 2px solid darken($success, 10%);
+  display: inline-block;
+  transition: background-color 0.2s ease; // Optional but controlled
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: #000;
+    padding: 0.5em 1em; // Repeat to prevent shrink
+    font-size: 1rem; // Repeat
+    border: 2px solid darken($success, 15%); // Match if needed
   }
 }
+
 
 
 .authentication_links .button.admin-panel,
