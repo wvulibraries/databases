@@ -7,6 +7,14 @@
   @include button_maker($link-color, 'solid');
   @include determine-text-color($link-color);
   text-decoration: none;
+
+  &:active {
+    transform: none !important;
+    padding: inherit !important;
+    font-size: inherit !important;
+    width: auto !important;
+    height: auto !important;
+  }
 }
 
 .signout { 
