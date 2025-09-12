@@ -1,33 +1,6 @@
-
-
-
 .button:not(.admin-panel), .btn:not(.admin-panel) {
   @include button_maker($link-color, 'solid');
   @include determine-text-color($link-color);
-}
-
-// Admin panel gets its own styling without the mixins
-.admin-panel {
-  background-color: #0066cc !important;
-  color: white !important;
-  padding: 0.5em 1em !important;
-  border: none !important;
-  border-radius: 4px !important;
-  text-decoration: none !important;
-  display: inline-block !important;
-  cursor: pointer !important;
-  
-  &:active,
-  &:hover,
-  &:focus {
-    background-color: #004499 !important;
-    color: white !important;
-    padding: 0.5em 1em !important;
-    transform: none !important;
-    width: auto !important;
-    float: none !important;
-    margin: 0 !important;
-  }
 }
 
 .signout { 
@@ -45,5 +18,47 @@
   text-decoration: none;
   &:hover, &:active, &:focus { 
     color:#000;
+  }
+}
+
+
+.authentication_links .button.admin-panel,
+.button.admin-panel,
+a.button.admin-panel {
+  background-color: #0066cc !important;
+  color: white !important;
+  padding: 0.5em 1em !important;
+  border: none !important;
+  border-radius: 4px !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: auto !important;
+  max-width: none !important;
+  float: none !important;
+  margin: 0 !important;
+  transform: none !important;
+  -webkit-transform: none !important;
+  transition: none !important;
+  -webkit-transition: none !important;
+  
+  &:active,
+  &:hover,
+  &:focus {
+    background-color: #004499 !important;
+    color: white !important;
+    padding: 0.5em 1em !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: auto !important;
+    max-width: none !important;
+    float: none !important;
+    margin: 0 !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
   }
 }
