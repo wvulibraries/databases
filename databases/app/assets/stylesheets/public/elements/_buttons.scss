@@ -13,24 +13,23 @@
 }
 
 .login {
-  @include button_maker($success, 'solid');
-  @include determine-text-color($success);
-  text-decoration: none;
-  padding: 0.5em 1em;  // Explicit
+  // Existing styles
+  padding: 0.5em 1em;
   font-size: 1rem;
-  border: 2px solid darken($success, 10%);
-  display: inline-block;
-  transition: background-color 0.2s ease; // Optional but controlled
+  border: 2px solid transparent;
+  box-sizing: border-box;
 
   &:hover,
   &:active,
   &:focus {
-    color: #000;
-    padding: 0.5em 1em; // Repeat to prevent shrink
-    font-size: 1rem; // Repeat
-    border: 2px solid darken($success, 15%); // Match if needed
+    padding: 0.5em 1em;           // prevent padding shift
+    font-size: 1rem;              // prevent font resize
+    border: 2px solid transparent; // consistent border
+    transform: none;              // disable scaling effects
+    outline: none;                // remove default focus outline
   }
 }
+
 
 
 
