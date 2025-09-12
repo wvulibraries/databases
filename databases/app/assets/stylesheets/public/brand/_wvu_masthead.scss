@@ -152,3 +152,49 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
     }
   }
 }
+
+// Custom button styling for the three main buttons
+li:nth-child(1) a { // Ask a Librarian - Yellow
+  background: transparent !important;
+  color: #FFD700 !important;
+  border: 3px solid #FFD700 !important;
+  font-weight: bold !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  
+  &:hover, &:focus, &:active {
+    background: #FFD700 !important;
+    color: #000 !important;
+    border-color: #FFD700 !important;
+  }
+}
+
+li:nth-child(2) a { // Research Guides - Light Blue
+  background: transparent !important;
+  color: #87CEEB !important;
+  border: 3px solid #87CEEB !important;
+  font-weight: bold !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  
+  &:hover, &:focus, &:active {
+    background: #87CEEB !important;
+    color: #000 !important;
+    border-color: #87CEEB !important;
+  }
+}
+
+li:nth-child(3) a { // Study Rooms - Orange
+  background: transparent !important;
+  color: #FF8C00 !important;
+  border: 3px solid #FF8C00 !important;
+  font-weight: bold !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  
+  &:hover, &:focus, &:active {
+    background: #FF8C00 !important;
+    color: #000 !important;
+    border-color: #FF8C00 !important;
+  }
+}
