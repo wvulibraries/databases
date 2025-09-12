@@ -120,11 +120,41 @@ footer.wvu-footer {
     }
   }
   
+  .wvu-masthead__title {
+  color: #fff !important; // Make "Libraries" text white
+  text-decoration: underline !important; // Add underline
+}
   .footerTitle {
-    color: $wvu-gold !important; // Use gold variable
-    font-size: 1.25em;
-    letter-spacing: 1px;
+  color: $wvu-gold !important; // Use gold variable
+  font-size: 1.25em;
+  letter-spacing: 1px;
+  
+  a {
+    color: #fff !important; // Make link white
+    text-decoration: underline !important; // Add underline
+    
+    &:hover,
+    &:focus {
+      color: #fff !important; // Stay white on hover
+      text-decoration: underline !important; // Keep underline
+    }
+    
+    strong {
+      color: #fff !important; // Make "Libraries" white too
+    }
   }
+}
+
+// Make phone number link white
+a[href^="tel:"] {
+  color: #fff !important; // Make phone link white
+  text-decoration: underline !important;
+  
+  &:hover,
+  &:focus {
+    color: #fff !important; // Stay white on hover
+  }
+}
 
   // Fix the conflicting link styles - this was causing issues!
   a {
