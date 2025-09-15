@@ -1,6 +1,8 @@
 // Commonly used in all projects should be a core element added to every css page top
 html {
   box-sizing: border-box;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 *, *:before, *:after {
   margin: 0;
@@ -23,9 +25,11 @@ html,body {
 }
 
 body { 
-  margin-bottom:54px; 
+margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
   @include breakpoint(laptop){
-    margin-bottom: unset; 
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
 }
 
@@ -60,4 +64,37 @@ body {
   float: right !important;
 }
 
+// ...existing code...
 
+// Force remove any bottom spacing from all elements
+html, body, footer, .footer, main, .main, .container, .wrapper {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+// Ensure the page height is exactly 100% with no overflow
+html {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+// Make sure the main content area takes up available space
+main, .main-content {
+  flex: 1;
+}
+
+// Force footer to stick to bottom with no gaps
+footer, .footer {
+  margin-top: auto;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}

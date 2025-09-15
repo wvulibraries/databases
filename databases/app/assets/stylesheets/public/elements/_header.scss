@@ -1,13 +1,16 @@
 .app-header { 
     .container { 
-      padding: 1em; // Reduced padding to match original height
+      padding: 1em 0.5em; // Reduced vertical padding slightly
+      display: flex;
+      align-items: center;
+      min-height: 80px; // Reduced minimum height
     }
     
     h1, .authentication_links { 
       width: 100%;
       float: left;
-      padding-left: 15px;
-      padding-right: 15px;
+      padding-left: 8px;
+      padding-right: 8px;
 
       @include breakpoint(tablet){ 
         width: 50%;
@@ -19,16 +22,23 @@
     h1 {
       width: 100%;
       float: left;
-      padding-left: 15px;
-      padding-right: 15px;
-      text-align: center;
-      margin-bottom:0.5em; // Reduced margin
-      font-size: 2.5em; // Increased font size to match original
+      padding-left: 8px;
+      padding-right: 8px;
+      text-align: left; // Changed from center to left
+      margin-bottom: 0;
+      margin-left: 24px; // Shift text right by 24px total (14px + 10px)
+      font-size: 2.6em; // Back to previous size
+      font-weight: normal;
+      text-shadow: none; // Remove the black outline/shadow
  
       @include breakpoint(tablet){ 
         width: 50%;
-        text-align: unset; 
-        margin-bottom:0; 
+        text-align: left; // Changed from center to left
+        font-size: 2.8em; // Back to previous size
+      }
+      
+      @include breakpoint(desktop){ 
+        font-size: 3em; // Back to previous size
       }
 
       a {
@@ -47,8 +57,8 @@
     .authentication_links { 
       width: 100%;
       float: left;
-      padding-left: 15px;
-      padding-right: 15px;
+      padding-left: 8px;
+      padding-right: 8px;
       text-align: center; 
 
       @include breakpoint(tablet){ 
@@ -59,8 +69,8 @@
       a { 
         width: 50%;
         float: left;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 8px;
+        padding-right: 8px;
         @include breakpoint(tablet){ 
           width:unset; 
           float:unset;
@@ -72,8 +82,10 @@
     background-size: cover;
     background-position: center center;
     background-color: #002855;
-    min-height: 100px; // Reduced height to match original
-    display: block;
+    min-height: 100px; // Reduced from 110px by just a tiny bit
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; // Changed from center to flex-start for left alignment
     overflow: hidden;
     clear: both;
     position: relative;

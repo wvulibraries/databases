@@ -1,12 +1,6 @@
-.button, .btn {
+.button:not(.admin-panel):not(.login), .btn:not(.admin-panel):not(.login) {
   @include button_maker($link-color, 'solid');
   @include determine-text-color($link-color);
-}
-
-.admin-panel { 
-  @include button_maker($link-color, 'solid');
-  @include determine-text-color($link-color);
-  text-decoration: none;
 }
 
 .signout { 
@@ -18,11 +12,86 @@
   }
 }
 
-.login { 
-  @include button_maker($success, 'solid');
-  @include determine-text-color($success);
-  text-decoration: none;
-  &:hover, &:active, &:focus { 
-    color:#000;
+
+.login {
+  // Base visual styles
+  display: inline-block !important;
+  padding: 0.5em 1em !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  border: 2px solid #004499 !important;
+  background-color: #004499 !important;
+  color: white !important;
+  text-decoration: none !important;
+  box-sizing: border-box !important;
+  border-radius: 4px !important;
+  line-height: 1.2 !important;
+  width: auto !important;
+  float: none !important;
+  margin: 0 !important;
+
+  // Disable any visual transitions
+  transition: none !important;
+
+  // Prevent layout shift on hover/focus/active
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #004499 !important;
+    color: white !important;
+    padding: 0.5em 1em !important;
+    font-size: 1rem !important;
+    border: 2px solid #004499 !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+    width: auto !important;
+    float: none !important;
+  }
+}
+
+
+
+
+.authentication_links .button.admin-panel,
+.button.admin-panel,
+a.button.admin-panel {
+  background-color: #0066cc !important;
+  color: white !important;
+  padding: 0.5em 1em !important;
+  border: none !important;
+  border-radius: 4px !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: auto !important;
+  max-width: none !important;
+  float: none !important;
+  margin: 0 !important;
+  transform: none !important;
+  -webkit-transform: none !important;
+  transition: none !important;
+  -webkit-transition: none !important;
+  
+  &:active,
+  &:hover,
+  &:focus {
+    background-color: #004499 !important;
+    color: white !important;
+    padding: 0.5em 1em !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: auto !important;
+    max-width: none !important;
+    float: none !important;
+    margin: 0 !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    transition: none !important;
+    -webkit-transition: none !important;
   }
 }

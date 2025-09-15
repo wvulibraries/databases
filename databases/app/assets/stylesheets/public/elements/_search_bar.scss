@@ -8,45 +8,44 @@ $disabled-color: $input-border;
 
 .search-bar {
   @include grid-column(12);
-  width:100%;
-  position:relative;
-  z-index:55;
-  margin:2em 0;
+  width: 100%;
+  position: relative;
+  z-index: 55;
+  margin: 2em 0;
+  display: flex; // Add flexbox for better alignment
+  max-width: 2000px; // Constrain the width so it doesn't get super wide
 
-  input[type='search']{
-    width:80%;
-    height:60px;
-    padding:1.25em; 
-    border:none;
-    background:$input-bg;
-    font-weight:500;
-    font-size:1em; 
+  input[type='search'] {
+    flex: 1; // Takes up remaining space
+    height: 60px;
+    padding: 1.25em; 
+    border: none;
+    background: $input-bg;
+    font-weight: 500;
+    font-size: 1em; 
     letter-spacing: 1px;
-    display: inline-block;
-    float:left;
-
+    border: 2px solid darken($input-bg, 10%);
+    
     @include transition(
       color 0.6s $easeOutExpo, 
       border 0.6s $easeOutExpo, 
       background 0.6s $easeOutExpo
     );
 
-    border: 2px solid darken($input-bg,10%);
-
     &:focus, &:hover { 
       cursor: pointer;
       border: 2px solid $link-color;
-      background: lighten($input-bg,2%);
+      background: lighten($input-bg, 2%);
     }
 
     &::placeholder { 
-      color:darken($input-bg,20%);
+      color: darken($input-bg, 20%);
     }
 
     &.disabled { 
       border: 2px solid $disabled-color;
       opacity: 0.4;
-      filter: alpha(opacity=40); /* For IE8 and earlier */
+      filter: alpha(opacity=40);
 
       &:hover, &:focus { 
         cursor: not-allowed; 
@@ -56,10 +55,8 @@ $disabled-color: $input-border;
   }
 
   .search-button {
-    width:20%;
-    height:60px;
-    display: inline-block;
-    float:left;
+    width: 90px; // Fixed width instead of percentage
+    height: 60px;
     border-radius: 0;
   }
 }
@@ -77,5 +74,27 @@ nav {
     .search-button { 
       height:40px; 
     }
+  }
+}
+
+// Override ONLY for specific AtoZ pages - exclude test environment
+.databases-index:not(.test-env) .search-bar,
+.databases-atoz:not(.test-env) .search-bar {
+  margin: 0;
+  padding: 0;
+  max-width: 2000px;
+  width: 95%;
+  
+  input[type='search'] {
+    height: 40px;
+    padding: 0 0 0 1em;
+    font-size: 12px;
+    box-sizing: border-box;
+    flex: 1;
+  }
+  
+  .search-button {
+    height: 40px;
+    width: 30px;
   }
 }

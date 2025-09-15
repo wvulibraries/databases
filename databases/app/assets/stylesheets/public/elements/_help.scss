@@ -1,30 +1,56 @@
 .help {
-  background:$light-gray;
+  background: $light-gray;
   border-top: 3px solid darken($light-gray, 10%);
-  font-size: 14px; 
-  display:none; 
-  
-  @include breakpoint(laptop){
-    display:block; 
-  }
-  
-  .container { 
-    @include grid-column(12);
-    padding:2em 2em; 
+  font-size: 14px;
+  display: block;
+  font-family: HelveticaNeue-Light, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  padding-bottom: 30px;
+  padding-left: 0px;
+  margin: 0;
+  width: 100%;
+
+  @include breakpoint(laptop) {
+    display: block;
   }
 
-  h2, p { 
-    width:100%;
-    margin:0 0 1em;
+  .container {
+    @include grid-column(12);
+    background: $light-gray;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px !important;
+    padding-top: 30px;
+    width: 100%;
+    max-width: none;
+    margin: 0;
   }
 
-  .help-box { 
+  h2,
+  p {
+    width: 100%;
+    margin: 0 0 1em;
+  }
+
+  h2 {
+    font-size: 2em;
+    font-weight: 100;
+  }
+
+  p {
+    font-weight: 300;
+    color: #000;
+    line-height: 1.7;
+  }
+
+  .help-box {
     @include grid-column(12);
-    @include breakpoint(tablet){ 
+
+    @include breakpoint(tablet) {
       @include grid-column(6);
     }
-    @include breakpoint(laptop){
-      @include grid-column(3); 
+
+    @include breakpoint(laptop) {
+      @include grid-column(3);
     }
   }
 }

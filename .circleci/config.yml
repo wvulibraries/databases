@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     working_directory: ~/circleci-databases/databases
-    parallelism: 4
+    parallelism: 1
     shell: /bin/bash --login
     environment:
       RAILS_ENV: test
@@ -14,20 +14,20 @@ jobs:
         environment:
           RAILS_ENV: test
           ELASTICSEARCH_URL: http://localhost:9200
-          CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-          COVERAGE: true  
+          COVERAGE: true
       - image: cimg/mysql:8.0
         environment:
           MYSQL_ROOT_HOST: 127.0.0.1
-          MYSQL_ROOT_PASSWORD: circleci   
-      - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3    
+          MYSQL_ROOT_PASSWORD: circleci
+      - image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
         environment:
           discovery.type: single-node
           xpack.security.enabled: false
-          ES_JAVA_OPTS: "-Xms512m -Xmx512m"                       
-    steps:    
+          ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    steps:
       - checkout:
           path: ~/circleci-databases
+
       - run:
           name: Wait for Elasticsearch
           command: |
@@ -36,16 +36,11 @@ jobs:
             do
               echo "Waiting for Elasticsearch..."
               sleep 2
-            done'          
-      - run:
-          name: Configure secrets.yml
-          command: mv config/secrets.ci.yml config/secrets.yml
-      - run:
-          name: Configure database.yml
-          command: mv config/database.ci.yml config/database.yml
-      - run:
-          name: Configure application.yml
-          command: mv config/application.ci.yml config/application.yml        
+            done'
+
+      - run: mv config/secrets.ci.yml config/secrets.yml
+      - run: mv config/database.ci.yml config/database.yml
+      - run: mv config/application.ci.yml config/application.yml
 
       - run:
           name: apt update
@@ -55,7 +50,6 @@ jobs:
           command: |
             curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
             sudo apt-get install -y nodejs
-
       - run:
           name: Install Node.js Dependencies
           command: npm install
@@ -65,7 +59,10 @@ jobs:
 
       - run:
           name: install dockerize
-          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          command: |
+            wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
           environment:
             DOCKERIZE_VERSION: v0.6.1
 
@@ -73,23 +70,12 @@ jobs:
           name: Force Bundler Version
           command: |
             sudo gem update --system
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            echo 'export BUNDLER_VERSION=$(tail -1 Gemfile.lock | tr -d " ")' >> $BASH_ENV
             source $BASH_ENV
             gem install bundler
 
-      - run:
-          name: Configure bundle path
-          command: bundle config set path 'vendor/bundle'
-      
-      - run:
-          name: bundle gems
-          command: bundle install
-
-      - run:
-          name: Install Code Climate Test Reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
+      - run: bundle config set path 'vendor/bundle'
+      - run: bundle install --jobs=4 --retry=3
 
       - run:
           name: Wait for MySQL to start
@@ -102,36 +88,29 @@ jobs:
 
       - run:
           name: Setup Database
-          command: |
-            bundle exec rake db:create db:schema:load
+          command: bundle exec rake db:create db:schema:load
 
       - run:
           name: Assets Precompile
-          command: |
-            bundle exec rake assets:precompile
-  
+          command: bundle exec rake assets:precompile
+
       - run:
-          name: Run tests
+          name: Run tests with coverage
           command: |
-            mkdir -p test-results/rspec test-artifacts
-            ./cc-test-reporter before-build
-            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+            mkdir -p test-results/rspec test-artifacts coverage
             bundle exec rspec --profile 10 \
                               --color \
                               --order random \
                               --out test-results/rspec/rspec.xml \
-                              --format progress \
-                              -- ${TESTFILES}
+                              --format progress
 
       - run:
-          name: Code Climate Test Coverage
-          command: |
-            ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
+          name: Install Qlty CLI
+          command: curl https://qlty.sh | sh
 
-      - persist_to_workspace:
-          root: coverage
-          paths:
-            - codeclimate.*.json
+      - run:
+          name: Upload coverage to Qlty
+          command: qlty coverage publish coverage/lcov.info
 
       - store_test_results:
           path: test-results
@@ -139,31 +118,8 @@ jobs:
       - store_artifacts:
           path: test-artifacts
 
-  upload-coverage:
-    docker:
-      - image: cimg/ruby:3.3.4
-    environment:
-      CC_TEST_REPORTER_ID: 28c11d4cad0e4d8aa4796ce66a8e080700ef62945e2b4aeb62b1f6a12b458c6d
-    working_directory: ~/circleci-databases/databases
-
-    steps:
-      - attach_workspace:
-          at: ~/circleci-databases/databases
-      - run:
-          name: Install Code Climate Test Reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-      - run:
-          command: |
-            ./cc-test-reporter sum-coverage --output - codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
-
 workflows:
   version: 2
-
   commit:
     jobs:
       - build
-      - upload-coverage:
-          requires:
-            - build

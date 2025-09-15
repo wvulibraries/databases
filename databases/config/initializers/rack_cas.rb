@@ -1,28 +1,25 @@
 require 'rack/cas'
 require 'rack-cas/session_store/active_record'
 
-# Skip CAS in test/CI environments
 if Rails.env.test? || ENV['CI']
-  # Don't use Rack::CAS in test environments
   Rails.logger.info "Skipping Rack::CAS in test/CI environment"
-  
-  # Add a simple middleware to handle login/logout in test environment
-  Rails.application.config.middleware.use Rack::Static, urls: ["/login", "/logout"], header_rules: [[:all, {'Cache-Control' => 'no-cache'}]]
+  Rails.application.config.middleware.use Rack::Static,
+    urls: ["/login", "/logout"],
+    header_rules: [[:all, {'Cache-Control' => 'no-cache'}]]
 else
   begin
     cas_url = Rails.application.config_for(:application)["cas_url"]
-    
+
+    # NOTE: rack-cas 0.16.1 supports `exclude_path` (Regexp or object responding to `===`)
+    # We use a single Regex that matches /api, /oauth, assets, cable, packs, favicon.
+    exclude_re = %r{\A/(api|oauth|assets|cable|packs|favicon\.ico)(/|$)}i
+    Rails.logger.info "[Rack::CAS] exclude_path regex: #{exclude_re.inspect}"
+
     Rails.application.config.middleware.use Rack::CAS,
       server_url: cas_url,
       session_store: RackCAS::ActiveRecordStore,
-      exclude_path: ->(path) { 
-        path.start_with?('/assets') || 
-        path.start_with?('/cable') || 
-        path.start_with?('/favicon.ico') ||
-        path.start_with?('/packs')
-      }
-    
-    # Ensure the login path is properly handled
+      exclude_path: exclude_re
+
     Rails.logger.info "Configured Rack::CAS with server URL: #{cas_url}"
   rescue => e
     Rails.logger.error "Failed to configure Rack::CAS: #{e.message}"

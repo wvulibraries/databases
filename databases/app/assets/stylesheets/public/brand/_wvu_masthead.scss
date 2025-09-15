@@ -4,16 +4,16 @@ $flying-wv-w-signature-white-bg: 'https://patterns.wvu.edu/images/flying-wv-w-si
 $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.png' !default;
 
 // WVU Masthead styling
-.wvu-masthead { 
+.wvu-masthead {
   background-color: $wvu-blue;
-  color: #fff;  
+  color: #fff;
 
-  .wvu-masthead__container { 
-    max-width: 1140px;
+  .wvu-masthead__container {
+    max-width: 95%;
     margin-left: auto;
     margin-right: auto;
-    padding: 1em;
-    
+    padding: 1em 0.5em 1em 0;
+
     &::after {
       content: "";
       display: table;
@@ -21,29 +21,29 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
     }
   }
 
-  .wvu-masthead__logo { 
+  .wvu-masthead__logo {
     background: url($flying-wv-w-signature) no-repeat left 30% transparent;
     width: 100%;
     float: left;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 0;
+    padding-right: 8px;
     text-align: center;
-    background-position: center 30%; 
-    background-size: 300px auto; 
-    position: relative; 
-    
-    @include breakpoint(tablet){ 
+    background-position: center 30%;
+    background-size: 300px auto;
+    position: relative;
+
+    @include breakpoint(tablet) {
       width: 50%;
       background-position: left 30%;
       text-align: left;
     }
 
-    @include breakpoint(desktop){
+    @include breakpoint(desktop) {
       width: 33.333%;
     }
   }
 
-  .wvu-masthead__university-name{
+  .wvu-masthead__university-name {
     position: absolute;
     left: -99999em;
   }
@@ -51,14 +51,14 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
   .wvu-masthead__title {
     display: inline-block;
     position: relative;
-    padding-top: 50px; 
+    padding-top: 50px;
     font-size: 1.2em;
     left: -2.4em;
     text-transform: uppercase;
     color: #fff;
 
-    @include breakpoint(tablet){ 
-      left: 3em; 
+    @include breakpoint(tablet) {
+      left: 3em;
     }
   }
 }
@@ -67,61 +67,63 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
 .wvu-header-list {
   width: 100%;
   float: left;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 0;
+  padding-right: 0;
   text-align: center;
 
-  @include breakpoint(tablet){
+  @include breakpoint(tablet) {
     width: 50%;
     text-align: right;
   }
 
-  @include breakpoint(desktop){
+  @include breakpoint(desktop) {
     width: 66.667%;
   }
 
-  ul { 
+  ul {
     width: auto;
-    margin-top: 1em;
-    list-style: none; 
+    margin-top: 1.5em; // Added 2px more (was 3px, now 5px total)
+    margin-right: -2px; // Shift right by 2px
+    list-style: none;
     padding: 0;
 
-    @include breakpoint(tablet){
+    @include breakpoint(tablet) {
       float: right;
     }
-  } 
+  }
 
-  li { 
+  li {
     display: block; // Default to block for mobile
-    
-    @include breakpoint(tablet){ 
-      display: inline-block; 
+
+    @include breakpoint(tablet) {
+      display: inline-block;
       width: auto;
       float: left;
-      margin-left: 10px;
+      margin-left: 5px; // Increased spacing between navigation items
     }
   }
-  
-  li a { 
-    // 2-column layout for mobile - the key fix
-    width: 45%; // Almost half width for 2 columns
-    float: left;
-    padding: 0.5em; 
-    margin: 0.25em;
-    border: 1px solid #fff;
-    color: #fff;
+
+  li a:not(.admin-panel) {
+  width: 45%;
+  float: left;
+  padding: 0.5em;
+  margin: 0.25em;
+  border: 1px solid #fff;
+  color: #fff;
     text-align: center;
     font-size: 14px;
     display: inline-block;
     box-sizing: border-box;
-    
-    &:focus, &:hover, &:active { 
+
+    &:focus,
+    &:hover,
+    &:active {
       color: $wvu-gold;
       border-color: $wvu-gold;
     }
-    
-    @include breakpoint(tablet){ 
-      display: inline-block; 
+
+    @include breakpoint(tablet) {
+      display: inline-block;
       width: auto;
       float: none;
       border: none; // Remove all borders
@@ -129,13 +131,14 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
       padding: 0 0 2px 0;
       text-decoration: none; // Explicitly remove text decoration
       border-bottom: 1px solid #fff; // Add ONLY bottom border
-      
-      &:hover, &:active { 
+
+      &:hover,
+      &:active {
         color: $wvu-gold;
         border-bottom-color: $wvu-gold; // Only change bottom border color
       }
-      
-      &:focus { 
+
+      &:focus {
         outline: 2px dotted $wvu-gold; // Use outline instead of border for focus
         border-bottom: none; // Remove bottom border on focus
       }
@@ -143,11 +146,108 @@ $flying-wv-w-sub-brand: 'https://patterns.wvu.edu/images/flying-wv-w-signature.p
   }
 
   // Special styling for the last child link
-  li:last-child a { 
+  li:last-child a {
     width: 92%; // Almost full width
-    
-    @include breakpoint(tablet){ 
+
+    @include breakpoint(tablet) {
       width: auto;
     }
+  }
+}
+
+// Custom button styling ONLY for the three main navigation buttons
+.wvu-header-list {
+  li:nth-child(1) a {
+    // Ask a Librarian - Yellow
+    background: transparent !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    color: #e9aa01 !important;
+    border: 2px solid #e9aa01 !important;
+    font-weight: bold !important;
+    padding: 11px 15px !important;
+    border-radius: 4px !important;
+    letter-spacing: 1px !important;
+    font-size: 15px !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: #e9aa01 !important;
+      color: #000 !important;
+      border-color: #e9aa01 !important;
+    }
+  }
+
+  li:nth-child(2) a {
+    // Research Guides - Light Blue
+    background: transparent !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    color: #9bd2dc !important;
+    border: 2px solid #9bd2dc !important;
+    font-weight: bold !important;
+    padding: 11px 15px !important;
+    border-radius: 4px !important;
+    letter-spacing: 1px !important;
+    font-size: 15px !important; 
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: #9bd2dc !important;
+      color: #000 !important;
+      border-color: #9bd2dc !important;
+    }
+  }
+
+  li:nth-child(3) a {
+    // Study Rooms - Orange
+    background: transparent !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    color: #ed8b00 !important;
+    border: 2px solid #ed8b00 !important;
+    font-weight: bold !important;
+    padding: 11px 15px !important;
+    border-radius: 4px !important;
+    letter-spacing: 1px !important;
+    font-size: 15px !important; 
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: #ed8b00 !important;
+      color: #000 !important;
+      border-color: #ed8b00 !important;
+    }
+  }
+}
+
+.authentication_links .admin-panel,
+.app-header .admin-panel,
+.wvu-header-list .admin-panel,
+.wvu-masthead .admin-panel,
+a.admin-panel,
+.button.admin-panel {
+  width: auto !important;
+  float: none !important;
+  margin: 0 !important;
+  padding: 0.5em 1em !important;
+  border: none !important;
+  background: #0066cc !important;
+  color: white !important;
+  display: inline-block !important;
+  position: relative !important;
+  
+  &:active,
+  &:hover,
+  &:focus {
+    width: auto !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0.5em 1em !important;
+    border: none !important;
+    background: #004499 !important;
+    color: white !important;
+    transform: none !important;
+    -webkit-transform: none !important;
   }
 }
