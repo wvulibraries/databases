@@ -5,7 +5,7 @@ class Public::BaseController < ApplicationController
   # Sets the subjects, letters, trial databases, and public databases.
   # @author David J. Davis
   def index 
-    @subjects = Subject.all.order('name ASC').group_by{|d| d.name[0]}
+    @subjects = Subject.joins(:databases).distinct.order('name ASC').group_by { |d| d.name[0] }
     @letters = Database.letters
     @trials = Database.trials.prod.includes(:landing_page)
     @popular = Database.pop_list.prod.includes(:landing_page)
@@ -39,7 +39,7 @@ class Public::BaseController < ApplicationController
   # Shows all of the subjects in the system that have an associated database 
   # @author David J. Davis
   def subject
-    @subjects = Subject.all.order('name ASC').group_by{|d| d.name[0]}
+    @subjects = Subject.joins(:databases).distinct.order('name ASC').group_by { |d| d.name[0] }
     @letters = Database.letters
     render :subject
   end
