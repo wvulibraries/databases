@@ -1,4 +1,4 @@
-.button:not(.admin-panel), .btn:not(.admin-panel) {
+.button:not(.admin-panel):not(.login), .btn:not(.admin-panel):not(.login) {
   @include button_maker($link-color, 'solid');
   @include determine-text-color($link-color);
 }
@@ -12,19 +12,23 @@
   }
 }
 
+
 .login {
   // Base visual styles
-  display: inline-block;
-  padding: 0.5em 1em;
-  font-size: 1rem;
-  font-weight: 600;
-  border: 2px solid #28a745; // Adjust as needed
-  background-color: #28a745;
-  color: white;
-  text-decoration: none;
-  box-sizing: border-box;
-  border-radius: 4px;
-  line-height: 1.2;
+  display: inline-block !important;
+  padding: 0.5em 1em !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  border: 2px solid #28a745 !important;
+  background-color: #28a745 !important;
+  color: white !important;
+  text-decoration: none !important;
+  box-sizing: border-box !important;
+  border-radius: 4px !important;
+  line-height: 1.2 !important;
+  width: auto !important;
+  float: none !important;
+  margin: 0 !important;
 
   // Disable any visual transitions
   transition: none !important;
@@ -33,19 +37,20 @@
   &:hover,
   &:focus,
   &:active {
-    background-color: #218838; // Slight color change is OK
-    color: white;
-    padding: 0.5em 1em;
-    font-size: 1rem;
-    border: 2px solid #218838;
-    outline: none;
-    box-sizing: border-box;
+    background-color: #218838 !important;
+    color: white !important;
+    padding: 0.5em 1em !important;
+    font-size: 1rem !important;
+    border: 2px solid #218838 !important;
+    outline: none !important;
+    box-sizing: border-box !important;
     transform: none !important;
-    margin: 0;
-    line-height: 1.2;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+    width: auto !important;
+    float: none !important;
   }
 }
-
 
 
 
