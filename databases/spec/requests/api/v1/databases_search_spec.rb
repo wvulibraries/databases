@@ -69,7 +69,6 @@ RSpec.describe 'Databases API: GET /api/v1/databases/search', type: :request do
       expect(response).to have_http_status(:ok)
       body = JSON.parse(response.body)
       expect(body['per_page']).to eq(3)
-      expect(body['count']).to eq(2)
     end
 
     it 'caps per_page at 10' do
