@@ -36,6 +36,11 @@ services:
     tty: true
     stdin_open: true
     container_name: databases_app
+    depends_on:
+      db:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
     restart: always
     env_file:
       - './env/.env.prod.rails'       # env file for rails
