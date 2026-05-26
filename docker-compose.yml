@@ -12,11 +12,17 @@ services:
       - ./search_data:/usr/share/elasticsearch/data
     ports: 
       - "9200"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
    
   db:
     image: mysql:5.7.27
     ulimits:
-      nofile: # Fix memory leak issue on some systems when LimitCORE=infinity (containerd)
+      nofile:
         soft: 1048576
         hard: 1048576
     container_name: databases_mysql
@@ -28,6 +34,12 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
       - ./mysql-files:/var/lib/mysql-files
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
   
   rails: 
     build: 
@@ -43,7 +55,7 @@ services:
         condition: service_healthy
     restart: always
     env_file:
-      - './env/.env.prod.rails'       # env file for rails
+      - './env/.env.prod.rails'
     volumes:
       - ./:/home/databases
     ports:
