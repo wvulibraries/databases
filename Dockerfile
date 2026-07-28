@@ -45,8 +45,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Use JEMALLOC instead
 # JEMalloc is a faster garbage collection for Ruby.
 # -------------------------------------------------------------------------------------------------
-RUN apt-get install -y libjemalloc2 libjemalloc-dev
-ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+RUN apt-get install -y libjemalloc2 libjemalloc-dev \
+    && JEMALLOC_PATH=$(find /usr -name 'libjemalloc.so.2' 2>/dev/null | head -1) \
+    && echo "export LD_PRELOAD=$$JEMALLOC_PATH" >> /etc/environment
 
 # ADD ./scripts/startup.sh /usr/bin/
 # RUN chmod -v +x /usr/bin/startup.sh
