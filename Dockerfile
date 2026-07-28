@@ -1,10 +1,9 @@
-FROM ruby:3.4.3
+FROM ruby:3.4.5
 
 # Install dependencies
 # -------------------------------------------------------------------------------------------------
 RUN apt-get update \
-    && apt-get install -y xvfb cron git qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5webkit5-dev \
-                          gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x xclip
+    && apt-get install -y xvfb cron git gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x xclip
 
 # Set the working directory
 # -------------------------------------------------------------------------------------------------

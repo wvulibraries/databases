@@ -477,7 +477,7 @@ DEPENDENCIES
   logger (~> 1.5.3)
   logging (~> 2.3)
   mutex_m
-  mysql2 (>= 0.4.4, < 0.6.0)
+  mysql2 (~> 0.5.6)
   non-stupid-digest-assets
   normalize-scss
   ostruct
@@ -513,7 +513,7 @@ DEPENDENCIES
   whenever
 
 RUBY VERSION
-   ruby 3.4.3p32
+   ruby 3.4.5p51
 
 BUNDLED WITH
    2.6.7
