@@ -10,7 +10,7 @@ jobs:
       COVERAGE: true
       TZ: /usr/share/zoneinfo/America/NewYork
     docker:
-      - image: cimg/ruby:3.4.5-browsers
+      - image: cimg/ruby:3.4.10-browsers
         environment:
           RAILS_ENV: test
           ELASTICSEARCH_URL: http://localhost:9200
