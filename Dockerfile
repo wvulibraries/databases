@@ -31,8 +31,8 @@ RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs
 
 # yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg > /dev/null \
+    && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list \
     && apt-get update \
     && apt-get install -y yarn
 		
@@ -47,7 +47,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # JEMalloc is a faster garbage collection for Ruby.
 # -------------------------------------------------------------------------------------------------
 RUN apt-get install -y libjemalloc2 libjemalloc-dev
-ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so
+ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
 # ADD ./scripts/startup.sh /usr/bin/
 # RUN chmod -v +x /usr/bin/startup.sh

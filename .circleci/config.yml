@@ -15,7 +15,7 @@ jobs:
           RAILS_ENV: test
           ELASTICSEARCH_URL: http://localhost:9200
           COVERAGE: true
-      - image: cimg/mysql:8.0
+      - image: cimg/mysql:8.4.10
         environment:
           MYSQL_ROOT_HOST: 127.0.0.1
           MYSQL_ROOT_PASSWORD: circleci
