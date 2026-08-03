@@ -10,6 +10,6 @@ class Subject < ApplicationRecord
   validates :url, url: { allow_blank: true }
 
   # associations
-  has_many :database_subjects, dependent: :nullify
+  has_many :database_subjects, dependent: :destroy
   has_many :databases, through: :database_subjects
 end
