@@ -102,8 +102,9 @@ jobs:
             COVERAGE=1 bundle exec rspec --profile 10 \
                               --color \
                               --order random \
-                              --out test-results/rspec/rspec.xml \
-                              --format progress
+                              --format progress \
+                              --format RspecJunitFormatter \
+                              --out test-results/rspec/rspec.xml
 
       - run:
           name: Install Qlty CLI
