@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_25_220231) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_25_220231) do
   create_table "access_plain_text", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "name", size: :medium
     t.datetime "created_at", precision: nil, null: false
