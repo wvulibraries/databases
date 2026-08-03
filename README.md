@@ -35,9 +35,15 @@ rake search_index:database                              # Re-index databases
 ## RSPEC
 We are using Rspec and Shoulda matchers in the backend for testing our models.
 
-`RAILS_ENV=test bundle exec rspec` will run the full test
+`RAILS_ENV=test bundle exec rspec` will run the full test suite (465 examples, 97.38% coverage)
+`COVERAGE=1 RAILS_ENV=test bundle exec rspec` will run tests with coverage reporting (SimpleCov)
 `RAILS_ENV=test bundle exec rspec {directory_path}` will run a specific subset of tests
 `RAILS_ENV=test bundle exec rspec {directory_path}/{test_name}` will run a single test.
+
+### Coverage
+- Current: 97.38% (856/879 lines)
+- SimpleCov conditional loading prevents bootsnap conflicts in local development
+- CircleCI automatically runs with `COVERAGE=1` enabled
 
 ## Application Setup
 Databases code updates steps:

@@ -98,7 +98,7 @@ jobs:
           name: Run tests with coverage
           command: |
             mkdir -p test-results/rspec test-artifacts coverage
-            bundle exec rspec --profile 10 \
+            COVERAGE=1 bundle exec rspec --profile 10 \
                               --color \
                               --order random \
                               --out test-results/rspec/rspec.xml \

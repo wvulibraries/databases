@@ -8,6 +8,54 @@
 
 require 'factory_bot_rails'
 
+# --- Subjects (for testing subject associations and deletion) ---
+# These names come from production import data and test fixtures.
+# We create enough records so IDs reach into the 100+ range (prod has subjects up to ~131).
+SUBJECT_NAMES = [
+  # Core academic disciplines
+  "Biology", "Chemistry", "Physics", "Mathematics", "Computer Science",
+  "Engineering", "Psychology", "Education", "Business", "Marketing",
+  "Economics", "Political Science", "Sociology", "Philosophy", "History",
+  "English Literature", "Art History", "Music", "Theater", "Linguistics",
+  # Sciences & health
+  "Geosciences", "Animal Science", "Health Sciences", "Medicine",
+  "Biomedical Engineering", "Sports Medicine", "Nutrition",
+  "Plant and Soil Science", "Wildlife and Fisheries", "Forestry and Natural Resources",
+  "Agriculture and Agricultural Economics", "Civil & Environmental Engineering",
+  "Mechanical & Aerospace Engineering",
+  # Humanities & social sciences
+  "Art", "Science", "Criminology", "Criminal Justice",
+  "Public Administration", "Social Work", "Communication",
+  "Environmental Studies", "Gender Studies", "International Relations",
+  # Library / research subjects
+  "Literature", "Religion", "Ethics", "Statistics",
+  "Materials Science", "Earth Science", "Oceanography",
+  "Microbiology", "Ecology", "Genetics",
+  # Test subjects (from test fixtures)
+  "Test Subject", "Another Test Subject", "SomethingCool"
+].uniq
+
+SUBJECT_NAMES.each do |name|
+  Subject.find_or_create_by!(name: name) do |s|
+    s.url = "https://libraries.wvu.edu/subjects/#{name.parameterize}"
+  end
+end
+
+puts "Seeded #{Subject.count} subjects."
+
+# --- Link some databases to subjects for realistic test data ---
+Database.all.each do |db|
+  # Assign 1-4 random subjects to each database
+  chosen = Subject.order("RAND()").limit(rand(1..4))
+  chosen.each_with_index do |subject, idx|
+    DatabaseSubject.find_or_create_by!(database: db, subject: subject) do |ds|
+      ds.sort = idx
+    end
+  end
+end
+
+puts "Seeded #{DatabaseSubject.count} database-subject associations."
+
 # create some buildings
 10.times do
   # Set all generated databases to production status

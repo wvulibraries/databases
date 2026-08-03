@@ -13,6 +13,29 @@ RSpec.describe Subject, type: :model do
     it { should have_many(:databases) }
   end
 
+  context 'dependent destroy' do
+      let(:subject) { FactoryBot.create :subject }
+      let!(:database1) { FactoryBot.create :database_basic }
+      let!(:database2) { FactoryBot.create :database_basic }
+
+      before do
+        subject.databases << database1
+        subject.databases << database2
+      end
+
+      it 'removes associations when subject is destroyed' do
+        expect(DatabaseSubject.where(subject_id: subject.id).count).to eq(2)
+        subject.destroy
+        expect(DatabaseSubject.where(subject_id: subject.id).count).to eq(0)
+      end
+
+      it 'does not delete the associated databases' do
+        subject.destroy
+        expect(Database.find_by(id: database1.id)).to be_present
+        expect(Database.find_by(id: database2.id)).to be_present
+      end
+    end
+
   context 'subject website or url' do
     it 'expects invalid url' do
       subject.url = 'something'

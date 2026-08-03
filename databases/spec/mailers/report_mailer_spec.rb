@@ -24,6 +24,19 @@ RSpec.describe ReportMailer, type: :mailer do
       expect(mail.body.encoded).to have_content('Something Dark Side.')
       expect(mail.body.encoded).to have_content(database.name)
     end
+
+    it 'does not raise an error when database exists' do
+      expect { mail }.not_to raise_error
+    end
+
+    context 'with all report fields populated' do
+      it 'includes all report details in email body' do
+        mail = ReportMailer.email_message(report)
+        expect(mail.body.encoded).to have_content(report.name)
+        expect(mail.body.encoded).to have_content(report.email)
+        expect(mail.body.encoded).to have_content(report.error_report)
+      end
+    end
   end
 
 end

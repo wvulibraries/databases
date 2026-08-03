@@ -1,26 +1,30 @@
-# --- SimpleCov must load first ---
-require 'simplecov'
-require 'simplecov-lcov'
-require 'simplecov-console'
+# --- SimpleCov (coverage reporting) — only load when COVERAGE env var is set ---
+# This prevents bootsnap conflicts during local development runs.
+# Use: COVERAGE=1 bundle exec rspec
+if ENV["COVERAGE"]
+  require 'simplecov'
+  require 'simplecov-lcov'
+  require 'simplecov-console'
 
-SimpleCov::Formatter::LcovFormatter.config do |c|
-  c.report_with_single_file = true
-  c.output_directory = 'coverage'
-  c.lcov_file_name = 'lcov.info'
-end
+  SimpleCov::Formatter::LcovFormatter.config do |c|
+    c.report_with_single_file = true
+    c.output_directory = 'coverage'
+    c.lcov_file_name = 'lcov.info'
+  end
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-  SimpleCov::Formatter::LcovFormatter,   # writes coverage/lcov.info
-  SimpleCov::Formatter::Console          # prints summary to CI logs
-])
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+    SimpleCov::Formatter::LcovFormatter,   # writes coverage/lcov.info
+    SimpleCov::Formatter::Console          # prints summary to CI logs
+  ])
 
-SimpleCov.start do
-  add_filter %r{^/spec/}
-  add_filter %r{^/bin/}
-  add_filter %r{^/config/}
-  add_filter 'app/controllers/public/connect_controller.rb'
-  add_filter 'app/controllers/concerns/authenticatable.rb'
-  add_filter 'app/helpers/authentication_helper.rb'
+  SimpleCov.start do
+    add_filter %r{^/spec/}
+    add_filter %r{^/bin/}
+    add_filter %r{^/config/}
+    add_filter 'app/controllers/public/connect_controller.rb'
+    add_filter 'app/controllers/concerns/authenticatable.rb'
+    add_filter 'app/helpers/authentication_helper.rb'
+  end
 end
 
 

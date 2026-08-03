@@ -399,4 +399,97 @@ RSpec.describe Database, type: :model do
       expect(csv_hash[:vendor]).to be(database.vendor_name)
     end
   end
+
+  context '.csv_hash_v2' do
+    it 'returns a hash' do
+      expect(database.csv_hash_v2).to be_a(Hash)
+    end
+
+    it 'includes database name' do
+      csv_hash = database.csv_hash_v2
+      expect(csv_hash['DATABASE NAME']).to eq(database.name)
+    end
+
+    it 'includes database url' do
+      csv_hash = database.csv_hash_v2
+      expect(csv_hash['DATABASE URL']).to eq(database.url)
+    end
+
+    it 'includes vendor name' do
+      csv_hash = database.csv_hash_v2
+      expect(csv_hash['VENDOR']).to eq(database.vendor_name)
+    end
+
+    context 'when database is in production status' do
+      before { database.update(status: :production) }
+
+      it 'shows database in public display' do
+        csv_hash = database.csv_hash_v2
+        expect(csv_hash['PUBLIC DATABASE DISPLAY']).to eq('show')
+      end
+    end
+
+    context 'when database is not in production status' do
+      before { database.update(status: :development) }
+
+      it 'hides database from public display' do
+        csv_hash = database.csv_hash_v2
+        expect(csv_hash['PUBLIC DATABASE DISPLAY']).to eq('hide')
+      end
+    end
+
+    context 'when access requires proxy' do
+      before { database.update(access: 'Campus and Off Campus (Proxy)') }
+
+      it 'indicates proxy is needed' do
+        csv_hash = database.csv_hash_v2
+        expect(csv_hash['USE PROXY?']).to eq('Yes')
+      end
+    end
+
+    context 'when access does not require proxy' do
+      before { database.update(access: 'Campus Only Access (No Proxy)') }
+
+      it 'indicates proxy is not needed' do
+        csv_hash = database.csv_hash_v2
+        expect(csv_hash['USE PROXY?']).to eq('No')
+      end
+    end
+
+    context 'when alumni access is enabled' do
+      before { database.update(alumni: true) }
+
+      it 'shows alumni in permitted uses' do
+        csv_hash = database.csv_hash_v2
+        expect(csv_hash['PERMITTED USES']).to eq('Alumni: Yes')
+      end
+    end
+
+    context 'when open access is enabled without alumni' do
+      before { database.update(open_access: true, alumni: false) }
+
+      it 'shows open access in permitted uses' do
+        csv_hash = database.csv_hash_v2
+        expect(csv_hash['PERMITTED USES']).to eq('Open Access: Yes')
+      end
+    end
+
+    context 'when alumni takes precedence over open access' do
+      before { database.update(alumni: true, open_access: true) }
+
+      it 'shows alumni (alumni takes precedence)' do
+        csv_hash = database.csv_hash_v2
+        expect(csv_hash['PERMITTED USES']).to eq('Alumni: Yes')
+      end
+    end
+
+    context 'when neither alumni nor open access is enabled' do
+      before { database.update(alumni: false, open_access: false) }
+
+      it 'has empty permitted uses' do
+        csv_hash = database.csv_hash_v2
+        expect(csv_hash['PERMITTED USES']).to eq('')
+      end
+    end
+  end
 end
