@@ -46,9 +46,9 @@ jobs:
           name: apt update
           command: sudo apt update
       - run:
-          name: Install Node 18
+          name: Install Node 20 LTS
           command: |
-            curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+            curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
             sudo apt-get install -y nodejs
       - run:
           name: Install Node.js Dependencies
