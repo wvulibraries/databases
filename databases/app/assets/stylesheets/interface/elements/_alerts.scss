@@ -1,0 +1,30 @@
+// Alert Styling
+.alert {
+  width: 100%;
+  display: block;
+  margin: 0;
+  margin-bottom: 1rem;
+  border-radius: 0; // Full width edge to edge
+  
+  .content {
+    padding: 0.75rem 1.25rem;
+  }
+  
+  .exit-alert {
+    position: absolute;
+    right: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.25rem;
+    
+    span {
+      color: inherit;
+      opacity: 0.7;
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
