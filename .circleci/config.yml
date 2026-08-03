@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     working_directory: ~/circleci-databases/databases
@@ -54,8 +54,9 @@ jobs:
           name: Install Node.js Dependencies
           command: npm install
 
-      - type: cache-restore
-        key: databases-bundle-{{ checksum "Gemfile.lock" }}
+      - restore_cache:
+          keys:
+            - databases-bundle-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: install dockerize
@@ -81,10 +82,10 @@ jobs:
           name: Wait for MySQL to start
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
 
-      - type: cache-save
-        key: databases-bundle-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
+      - save_cache:
+          key: databases-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
 
       - run:
           name: Setup Database
@@ -119,7 +120,6 @@ jobs:
           path: test-artifacts
 
 workflows:
-  version: 2
   commit:
     jobs:
       - build
