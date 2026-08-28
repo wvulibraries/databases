@@ -82,7 +82,7 @@ h2 {
   }
 }
 
-.subject-group:nth-child(3n+1) {
+.subject-group:nth-of-type(3n+1) {
   clear: left;
 }
 
