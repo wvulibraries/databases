@@ -13,18 +13,21 @@ nav.inner-page {
     display: block;
   }
 
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    max-width: 1140px; 
+    max-width: 1140px;
     box-sizing: border-box;
-
-    &:after {
-      clear: both;
-      content: "";
-      display: table;
-    }
+    display: flex;
+    align-items: center;
 
     li {
       font-size: 1.05em;
@@ -42,7 +45,9 @@ nav.inner-page {
   }
 
   .nav-search {
-    float: right !important;
+    float: none !important;
+    display: flex;
+    align-items: center;
     padding-left: 15px !important;
     padding-right: 15px !important;
     box-sizing: border-box;
@@ -53,7 +58,6 @@ nav.inner-page {
 .databases-index nav,
 .databases-atoz nav,
 body[class*="databases"] nav {
- min-height: 70px !important;
-padding: 25px 0 !important;
+  min-height: 70px !important;
+  padding: 25px 0 !important;
 }
-
