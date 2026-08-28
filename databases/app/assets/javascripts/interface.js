@@ -6,14 +6,10 @@
 
 //  Rails Dependencies 
 // ----------------------------------------------------------------
-//= require rails-ujs
 //= require activestorage
-//= require turbolinks
 
 // Yarn Dependencies
 // ----------------------------------------------------------------
-//= require jquery
-//= require jquery_ujs
 //= require multiselect/js/jquery.multi-select
 //= require hiraku/js/hiraku
 
