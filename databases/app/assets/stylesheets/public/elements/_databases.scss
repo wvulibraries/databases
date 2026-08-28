@@ -16,6 +16,7 @@ h2 {
     float:left; 
     margin-bottom:1.5em;
     a { 
+      display: inline-block; // Ensures the full padded/bordered box is a reliable click target
       font-size:1.25em; 
       padding:.25em;
       margin-right:1em; 
