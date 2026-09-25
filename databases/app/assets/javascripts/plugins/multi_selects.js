@@ -1,8 +1,13 @@
-$( document ).on('turbolinks:load', function() {
-  $('#database_subject_ids').multiSelect(); // subjects
-  $('#database_curated_ids').multiSelect(); // curated
-  $('#database_resource_ids').multiSelect(); // rss
-});
+// Use turbo:render instead of turbo:load - fires AFTER DOM is fully stable in Turbo 7
+deferredRender = function() {
+  setTimeout(function() {
+    $('#database_subject_ids').multiSelect(); // subjects
+    $('#database_curated_ids').multiSelect(); // curated
+    $('#database_resource_ids').multiSelect(); // rss
+  }, 50);
+};
+
+$( document ).on('turbo:render', deferredRender);
 
 // Subject Form Select All
 $(document).on('click', '#subject_select_all', function(event) {

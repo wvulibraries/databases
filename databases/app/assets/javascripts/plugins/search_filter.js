@@ -1,4 +1,4 @@
-$( document ).on('turbolinks:load', function() {
+$( document ).on('turbo:load', function() {
   if($('#search_filter').length){
     $('#search_filter').keyup(function(e) { 
       var searchTerm = $(this).val().toLowerCase(); 

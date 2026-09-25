@@ -38,7 +38,7 @@ var equalheight = function(container){
     }
   });
 
-  $(document).on("turbolinks:load", function() {
+  $(document).on("turbo:load", function() {
     setTimeout(function(){ 
       $(window).trigger('resize');
     }, 3000);
