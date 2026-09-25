@@ -6,6 +6,8 @@
 
 //  Rails Dependencies 
 // ----------------------------------------------------------------
+//= require jquery3
+//= require rails-ujs
 //= require activestorage
 
 // Yarn Dependencies
