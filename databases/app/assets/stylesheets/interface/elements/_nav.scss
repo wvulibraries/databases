@@ -73,11 +73,14 @@ nav {
   }
 }
 
-// Content Shield while menu is open
+// Content Shield while menu is open — Hiraku creates this div immediately after the nav element.
+// Using position: fixed ensures it covers the full viewport regardless of ancestor containers.
+// aria-hidden=false on the side (nav) means menu is OPEN.
 .js-hiraku-offcanvas-body [aria-hidden=false] + .js-hiraku-offcanvas, .js-hiraku-offcanvas-body [aria-hidden=false] + .js-hiraku-offcanvas {
   display: block;
-  position: absolute;
+  position: fixed;
   top: 0;
+  left: 0;
   z-index: 100001;
   width: 100vw;
   height: 100vh;
