@@ -1,9 +1,7 @@
-// Hide nav by default - Hiraku JS adds display/position classes on initialization.
-// If Hiraku fails, nav stays hidden (never visible). Hiraku CSS overrides this when it initializes.
-#offCanvas,
-.offcanvas-left {
-  display: none;
-}
+// DO NOT add display:none here — Hiraku controls visibility via transform/position classes,
+// not via display property. Without any initial hiding, the nav is briefly visible then immediately
+// hidden by Hiraku's CSS rule (.js-hiraku-offcanvas-body .js-hiraku-offcanvas-body-right) 
+// which sets transform: translateX(70%) on body — sliding it off-screen.
 
 nav { 
   padding:1em;
