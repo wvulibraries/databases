@@ -73,17 +73,14 @@ nav {
   }
 }
 
-// Content Shield while menu is open — Hiraku creates this div immediately after the nav element.
-// Using position: fixed ensures it covers the full viewport regardless of ancestor containers.
-// aria-hidden=false on the side (nav) means menu is OPEN.
-.js-hiraku-offcanvas-body [aria-hidden=false] + .js-hiraku-offcanvas, .js-hiraku-offcanvas-body [aria-hidden=false] + .js-hiraku-offcanvas {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100001;
-  width: 100vw;
-  height: 100vh;
-  background: rgba($dark-gray, 0.7);
-  opacity: 0.7;
+// Menu overlay - handled by JavaScript (off_canvas.js)
+// The overlay is created dynamically and positioned to compensate for body transform.
+// CSS rules here are minimal since dimensions are set via JS calc() properties.
+.menu-overlay {
+  // Position and dimensions managed by JavaScript:
+  // top: -300px (compensate for body translateX(-300px))
+  // left: -150px (partial compensation)
+  // width: calc(100vw + 450px) (full coverage)
+  // height: calc(100vh + 600px) (full coverage)
+  display: none;
 }
