@@ -495,10 +495,12 @@ class Database < ApplicationRecord
   # Boosting Name and Vendorname in the search results.
   # @author David J. Davis
   def self.search(query, num = 1000)
+    query_string = query.present? ? "(#{query}) AND (published:true)" : "published:true"
+
     __elasticsearch__.search(
       "query": {
         "query_string": {
-          "query": "(#{query}) AND (published:true)", 
+          "query": query_string, 
           "fields": [
             'name^10',
             'vendor_name^1',
