@@ -9,7 +9,7 @@ class DatabaseCurated < ApplicationRecord
   belongs_to :subject
 
   # sorting
-  enum sort: { 'High' => 3,
+  enum :sort, { 'High' => 3,
                'Medium' => 2,
                'Low' => 1,
                'Default' => 0 }

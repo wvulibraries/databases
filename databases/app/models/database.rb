@@ -50,10 +50,10 @@ class Database < ApplicationRecord
 
   # ENUMS
   # -----------------------------------------------------
-  enum status: { undefined: 0, production: 1, development: 2, hidden: 3 }
+  enum :status, { undefined: 0, production: 1, development: 2, hidden: 3 }
   validates :status, presence: true
 
-  enum access: { 'Campus Only Access (No Proxy)' => 1, 
+  enum :access, { 'Campus Only Access (No Proxy)' => 1, 
                  'Campus and Off Campus (Proxy)' => 2  }
 
   # ASSOCIATIONS
