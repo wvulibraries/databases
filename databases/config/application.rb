@@ -39,10 +39,10 @@ module Databases
 
     # Add this line to silence the deprecation warning in CI
     config.active_support.deprecation = :silence if ENV['CI']
-    
-    # Add cache format version
-    config.active_support.cache_format_version = 7.0
 
+    # Opt in to Rails 8.1 behavior: to_time preserves the full timezone
+    config.active_support.to_time_preserves_timezone = :zone
+    
     # Precompile additional assets
     config.assets.precompile += %w( application.js )
 
