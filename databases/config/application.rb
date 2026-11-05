@@ -21,7 +21,7 @@ Bundler.require(*Rails.groups)
 module Databases
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.2
+    config.load_defaults 8.0
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -37,9 +37,6 @@ module Databases
 
     # Add this line to silence the deprecation warning in CI
     config.active_support.deprecation = :silence if ENV['CI']
-
-    # Opt in to Rails 8.1 behavior: to_time preserves the full timezone
-    config.active_support.to_time_preserves_timezone = :zone
     
     # Precompile additional assets
     config.assets.precompile += %w( application.js )
